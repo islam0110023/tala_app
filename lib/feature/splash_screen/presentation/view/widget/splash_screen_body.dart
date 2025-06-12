@@ -1,10 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:tala_app/core/utils/routes.dart';
 import 'package:tala_app/feature/splash_screen/presentation/view/widget/custom_layout_splash_ipad.dart';
 import 'package:tala_app/feature/splash_screen/presentation/view/widget/custom_layout_splash_mobile.dart';
 
-class SplashScreenBody extends StatelessWidget {
+class SplashScreenBody extends StatefulWidget {
   const SplashScreenBody({super.key});
+
+  @override
+  State<SplashScreenBody> createState() => _SplashScreenBodyState();
+}
+
+class _SplashScreenBodyState extends State<SplashScreenBody> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    navigateToOnboarding();
+  }
+
+  void navigateToOnboarding() {
+    Future.delayed(const Duration(seconds: 2), () {
+      GoRouter.of(context).pushReplacement(AppRoutes.onBoardingScreen);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,5 +53,3 @@ class SplashScreenBody extends StatelessWidget {
     );
   }
 }
-
-
