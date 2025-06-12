@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:tala_app/core/utils/app_dimensions.dart';
+import 'package:tala_app/core/utils/styling.dart';
 
 class CustomAlreadySignIn extends StatelessWidget {
   const CustomAlreadySignIn({
@@ -15,27 +16,14 @@ class CustomAlreadySignIn extends StatelessWidget {
       children: [
         Text(
           'Already have an account ?',
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 16.sp,
-            fontFamily: 'Lato',
-            fontWeight: FontWeight.w400,
-          ),
+          style: Styling.textStyle16
         ),
-        SizedBox(width: 16.w),
+        SizedBox(width: AppDimensions.w16),
         GestureDetector(
           onTap: onTap,
           child: Text(
             'Sign in',
-            style: TextStyle(
-              color: const Color(0xFFDB0165),
-              fontSize: 16.sp,
-              fontFamily: 'Lato',
-              fontWeight: FontWeight.w700,
-              decoration: TextDecoration.underline,
-              decorationColor: const Color(0xFFDB0165),
-
-            ),
+            style: Styling.textStyleB16,
           ),
         ),
       ],

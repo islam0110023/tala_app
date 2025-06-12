@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tala_app/core/utils/app_color.dart';
+import 'package:tala_app/core/utils/constants.dart';
 import 'package:tala_app/core/utils/routes.dart';
 import 'package:tala_app/feature/splash_screen/presentation/view/widget/custom_layout_splash_ipad.dart';
 import 'package:tala_app/feature/splash_screen/presentation/view/widget/custom_layout_splash_mobile.dart';
@@ -20,7 +22,7 @@ class _SplashScreenBodyState extends State<SplashScreenBody> {
   }
 
   void navigateToOnboarding() {
-    Future.delayed(const Duration(seconds: 2), () {
+    Future.delayed(const Duration(seconds: AppConstant.kDurationSplash), () {
       GoRouter.of(context).pushReplacement(AppRoutes.onBoardingScreen);
     });
   }
@@ -29,14 +31,14 @@ class _SplashScreenBodyState extends State<SplashScreenBody> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Container(color: const Color(0x478B00B7)),
+        Container(color: AppColor.kPurple ),
         Container(
-          decoration: const BoxDecoration(
+          decoration:  BoxDecoration(
             gradient: LinearGradient(
-              colors: [Color(0x4D8B00B7), Color(0xffff4f9d), Color(0xffDB0165)],
+              colors: [AppColor.kLightPurple, AppColor.kLightPink, AppColor.kPrimaryPink],
               begin: Alignment.topRight,
               end: Alignment.bottomLeft,
-              stops: [0, .38, .87],
+              stops: const[0, .38, .87],
             ),
           ),
         ),

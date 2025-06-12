@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:tala_app/core/utils/app_dimensions.dart';
 import 'package:tala_app/core/utils/asset_image.dart';
 
 class CustomLayoutSplashMobile extends StatelessWidget {
@@ -7,9 +8,8 @@ class CustomLayoutSplashMobile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final heightF = 2.5.h;
     return Center(
-      heightFactor: heightF,
+      heightFactor: AppDimensions.w2_5,
       child: Stack(
         clipBehavior: Clip.none,
 
