@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:tala_app/core/utils/routes.dart';
 
 void main() {
   runApp(const TalaApp());
@@ -7,10 +9,17 @@ void main() {
 class TalaApp extends StatelessWidget {
   const TalaApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-   return MaterialApp();
+    return ScreenUtilInit(
+      designSize:const Size(393, 852),
+      ensureScreenSize: true,
+      minTextAdapt: true,
+      splitScreenMode: true,
+      child: MaterialApp.router(
+        routerConfig: AppRoutes.route,
+        debugShowCheckedModeBanner: false,
+      ),
+    );
   }
 }
-
