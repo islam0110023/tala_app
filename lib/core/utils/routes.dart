@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:tala_app/feature/onboarding/presentation/view/onboarding_screen.dart';
 import 'package:tala_app/feature/splash_screen/presentation/view/splash_screen.dart';
 
 class AppRoutes {
@@ -13,7 +14,7 @@ class AppRoutes {
       ),
       GoRoute(
         path: onBoardingScreen,
-        builder: (context, state) => const SplashScreen(),
+        builder: (context, state) => const OnboardingScreen(),
       ),
     ],
   );
