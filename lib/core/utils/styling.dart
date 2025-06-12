@@ -31,6 +31,25 @@ abstract class Styling{
     decoration: TextDecoration.underline,
     decorationColor: AppColor.kPrimaryPink,
   );
-
+  static final textStyleB12=TextStyle(
+    color: AppColor.kMediumPurple,
+    fontSize: 12.sp,
+    fontFamily: AppConstant.kFontFamily,
+    fontWeight: FontWeight.w400,
+    decoration: TextDecoration.underline,
+    decorationColor: AppColor.kMediumPurple,
+  );
+  static final textStyle15=TextStyle(
+    color: AppColor.kGray,
+    fontSize: 15.sp,
+    fontFamily: AppConstant.kFontFamily,
+    fontWeight: FontWeight.w600,
+  );
+  static final textStyle13=TextStyle(
+    color: AppColor.kBlack.withAlpha(128),
+    fontSize: 13.sp,
+    fontFamily: AppConstant.kFontFamily,
+    fontWeight: FontWeight.w500,
+  );
 
 }

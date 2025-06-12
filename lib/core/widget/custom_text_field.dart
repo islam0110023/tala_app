@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:tala_app/core/utils/app_color.dart';
+import 'package:tala_app/core/utils/app_dimensions.dart';
+import 'package:tala_app/core/utils/styling.dart';
 
 class CustomTextField extends StatelessWidget {
   const CustomTextField({
@@ -11,32 +14,42 @@ class CustomTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 343,
-      height: 58,
-      decoration: ShapeDecoration(
-        color: const Color(0xFFFFE9F3),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-        shadows: const [
+      decoration: const BoxDecoration(
+        boxShadow: [
           BoxShadow(
-            color: Color(0x285B0E6D),
+            color: AppColor.kBlack25,
             blurRadius: 14,
             offset: Offset(5, 5),
             spreadRadius: 0,
           ),
         ],
       ),
-      child: TextField(
+      child: TextFormField(
         obscureText: password_flag,
         decoration: InputDecoration(
           hintText: hint,
-          hintStyle: TextStyle(
-            color: Colors.black.withAlpha(128),
-            fontSize: 13,
-            fontFamily: 'Lato',
-            fontWeight: FontWeight.w500,
+          fillColor: AppColor.kTextFieldColor,
+          filled: true,
+          hintStyle: Styling.textStyle13,
+          contentPadding: EdgeInsets.symmetric(
+            horizontal: AppDimensions.r16,
+            vertical: AppDimensions.r20,
           ),
-          contentPadding: const EdgeInsets.symmetric(horizontal: 16),
-          border: InputBorder.none,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(AppDimensions.r15),
+            borderSide: BorderSide.none
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(AppDimensions.r15),
+            borderSide: BorderSide(
+              color: AppColor.kPrimaryPink,
+              width: AppDimensions.w2_2,
+            ),
+          ),
+          disabledBorder: OutlineInputBorder(
+            borderSide: BorderSide.none,
+            borderRadius: BorderRadius.circular(AppDimensions.r15),
+          ),
         ),
       ),
     );

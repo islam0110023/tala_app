@@ -4,7 +4,7 @@ import 'package:tala_app/core/utils/app_dimensions.dart';
 import 'package:tala_app/core/utils/asset_image.dart';
 import 'package:tala_app/core/utils/routes.dart';
 import 'package:tala_app/core/widget/custom_already_sign_in.dart';
-import 'package:tala_app/feature/onboarding/presentation/view/widget/custom_button.dart';
+import 'package:tala_app/feature/onboarding/presentation/view/widget/custom_button_onboarding.dart';
 import 'package:tala_app/feature/onboarding/presentation/view/widget/description_sizedbox_widget.dart';
 
 class OnboardingScreenBody extends StatelessWidget {
@@ -22,7 +22,7 @@ class OnboardingScreenBody extends StatelessWidget {
           SizedBox(height: AppDimensions.h70),
           const DescriptionSizeBoxWidget(),
           SizedBox(height: AppDimensions.h31),
-          const CustomButton(),
+          const CustomButtonOnboarding(),
           SizedBox(height: AppDimensions.h31),
           CustomAlreadySignIn(
             onTap: () {

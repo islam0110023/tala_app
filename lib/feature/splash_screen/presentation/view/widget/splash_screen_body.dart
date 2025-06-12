@@ -33,12 +33,12 @@ class _SplashScreenBodyState extends State<SplashScreenBody> {
       children: [
         Container(color: AppColor.kPurple ),
         Container(
-          decoration:  BoxDecoration(
+          decoration:  const BoxDecoration(
             gradient: LinearGradient(
               colors: [AppColor.kLightPurple, AppColor.kLightPink, AppColor.kPrimaryPink],
               begin: Alignment.topRight,
               end: Alignment.bottomLeft,
-              stops: const[0, .38, .87],
+              stops: [0, .38, .87],
             ),
           ),
         ),

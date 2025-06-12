@@ -6,8 +6,14 @@ abstract class AppColor{
   static const kLightPurple= Color(0x4D8B00B7);
   static const kLightPink= Color(0xffff4f9d);
   static const kBlack25= Color(0x3F000000);
-  static const kBlack= Color(0xfF000000);
-  static const kWhite= Color(0xfFffffff);
+  static final kBlack= Colors.black;
+  static final kWhite= Colors.white;
+  static const kMediumPurple=  Color(0xFFB147C7);
+  static const kLightGray=  Color(0xad808080);
+  static const kGray=  Color(0xff808080);
+  static const kLilac= Color(0xFF7F538D);
+  static const kTextFieldColor= Color(0xFFFFE9F3);
+  static const kTitleColor= Color(0xFF692A7E);
 
 
 }
