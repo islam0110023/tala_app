@@ -3,8 +3,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomAlreadySignIn extends StatelessWidget {
   const CustomAlreadySignIn({
-    super.key,
+    super.key, required this.onTap,
   });
+  final VoidCallback onTap;
+
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +24,7 @@ class CustomAlreadySignIn extends StatelessWidget {
         ),
         SizedBox(width: 16.w),
         GestureDetector(
-          onTap: () {},
+          onTap: onTap,
           child: Text(
             'Sign in',
             style: TextStyle(
@@ -31,6 +33,8 @@ class CustomAlreadySignIn extends StatelessWidget {
               fontFamily: 'Lato',
               fontWeight: FontWeight.w700,
               decoration: TextDecoration.underline,
+              decorationColor: const Color(0xFFDB0165),
+
             ),
           ),
         ),
