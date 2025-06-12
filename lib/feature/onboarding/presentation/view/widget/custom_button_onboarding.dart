@@ -25,6 +25,7 @@ class CustomButtonOnboarding extends StatelessWidget {
       child: ElevatedButton(
         onPressed: () {},
         style: ElevatedButton.styleFrom(
+          fixedSize:const Size(double.infinity, double.nan),
           backgroundColor: AppColor.kPrimaryPink,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(AppDimensions.r30),

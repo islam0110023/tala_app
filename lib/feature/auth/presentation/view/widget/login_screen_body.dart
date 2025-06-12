@@ -22,7 +22,7 @@ class LoginScreenBody extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: AppDimensions.r25),
           child: Column(
             children: [
-              SizedBox(height: AppDimensions.h106),
+              SizedBox(height: AppDimensions.h70),
               const CustomTitle(
                 title: 'Ready To Make Unforgettable\nMemories Again?',
               ),

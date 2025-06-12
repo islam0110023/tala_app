@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tala_app/core/utils/app_dimensions.dart';
 import 'package:tala_app/core/utils/asset_image.dart';
@@ -17,9 +18,9 @@ class OnboardingScreenBody extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SizedBox(height: AppDimensions.h70),
-          Image.asset(AppImage.kOnboardingLogo, fit: BoxFit.contain),
-          SizedBox(height: AppDimensions.h70),
+         // SizedBox(height: AppDimensions.h70),
+          Image.asset(AppImage.kOnboardingLogo, fit: BoxFit.contain,width: double.infinity,height: 389.h,),
+          SizedBox(height: AppDimensions.h31),
           const DescriptionSizeBoxWidget(),
           SizedBox(height: AppDimensions.h31),
           const CustomButtonOnboarding(),
