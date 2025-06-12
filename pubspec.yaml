@@ -39,6 +39,7 @@ dependencies:
   pretty_dio_logger: ^1.4.0
   cached_network_image: ^3.4.1
   flutter_screenutil: ^5.9.3
+  flutter_svg: ^2.1.0
 
 dev_dependencies:
   flutter_test:
