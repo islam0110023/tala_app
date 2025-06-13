@@ -23,6 +23,7 @@ class CustomButton extends StatelessWidget {
             begin: Alignment(0.00, 0.50),
             end: Alignment(1.00, 0.50),
             colors: [AppColor.kPrimaryPink, AppColor.kLilac ],
+
           ),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(AppDimensions.r30),

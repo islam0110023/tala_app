@@ -7,10 +7,11 @@ class CustomTextField extends StatelessWidget {
   const CustomTextField({
     super.key,
     required this.hint,
-    this.password_flag = false,
+    this.password_flag = false,  this.textInputType=TextInputType.text,
   });
   final String hint;
   final bool password_flag;
+  final TextInputType textInputType;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -26,6 +27,8 @@ class CustomTextField extends StatelessWidget {
       ),
       child: TextFormField(
         obscureText: password_flag,
+        enableSuggestions: true,
+        keyboardType:textInputType,
         decoration: InputDecoration(
           hintText: hint,
           fillColor: AppColor.kTextFieldColor,

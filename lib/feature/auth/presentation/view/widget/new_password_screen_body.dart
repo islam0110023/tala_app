@@ -14,32 +14,42 @@ class NewPasswordScreenBody extends StatelessWidget {
       onTap: () {
         FocusScope.of(context).unfocus();
       },
-      child: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: AppDimensions.r25),
-          child: Column(
-            children: [
-              SizedBox(height: AppDimensions.h70),
-              const CustomTitle(
-                title: 'New Password',
+      child: Column(
+        children: [
+          Expanded(
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: AppDimensions.r25),
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    SizedBox(height: AppDimensions.h70),
+                    const CustomTitle(title: 'New Password'),
+                    SizedBox(height: AppDimensions.h7),
+                    Text(
+                      'Your new password must be different from\npreviously used passwords',
+                      textAlign: TextAlign.center,
+                      style: Styling.textStyleGray16,
+                    ),
+                    SizedBox(height: AppDimensions.h33),
+                    const CustomTextField(
+                      hint: 'Password',
+                      password_flag: true,
+                    ),
+                    SizedBox(height: AppDimensions.h18),
+                    const CustomTextField(
+                      hint: 'Confirm Password',
+                      password_flag: true,
+                    ),
+                    SizedBox(height: AppDimensions.h51),
+                    CustomButton(onTap: () {}, name: 'Create New Password'),
+                  ],
+                ),
               ),
-              SizedBox(height: AppDimensions.h7),
-              Text(
-                  'Your new password must be different from\npreviously used passwords',
-                  textAlign: TextAlign.center,
-                  style:Styling.textStyleGray16
-              ),
-              SizedBox(height: AppDimensions.h33,),
-              const CustomTextField(hint: 'Password',password_flag: true,),
-              SizedBox(height: AppDimensions.h18),
-              const CustomTextField(hint: 'Confirm Password', password_flag: true),
-              SizedBox(height: AppDimensions.h51),
-              CustomButton(onTap: () {}, name: 'Create New Password'),
-            ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }
 }
-

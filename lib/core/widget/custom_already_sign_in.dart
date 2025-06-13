@@ -4,9 +4,12 @@ import 'package:tala_app/core/utils/styling.dart';
 
 class CustomAlreadySignIn extends StatelessWidget {
   const CustomAlreadySignIn({
-    super.key, required this.onTap,
+    super.key, required this.onTap, required this.name1, required this.name2,
   });
   final VoidCallback onTap;
+  final String name1;
+  final String name2;
+
 
 
   @override
@@ -15,14 +18,14 @@ class CustomAlreadySignIn extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          'Already have an account ?',
+          name1,
           style: Styling.textStyle16
         ),
         SizedBox(width: AppDimensions.w16),
         GestureDetector(
           onTap: onTap,
           child: Text(
-            'Sign in',
+            name2,
             style: Styling.textStyleB16,
           ),
         ),

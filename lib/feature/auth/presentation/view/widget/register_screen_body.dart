@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tala_app/core/utils/app_dimensions.dart';
 import 'package:tala_app/core/widget/custom_already_sign_in.dart';
 import 'package:tala_app/core/widget/custom_button.dart';
@@ -35,7 +36,12 @@ class RegisterScreenBody extends StatelessWidget {
               SizedBox(height: AppDimensions.h23),
               const CustomAlternativeSignIn(),
               SizedBox(height: AppDimensions.h20),
-              CustomAlreadySignIn(onTap: () {}),
+              CustomAlreadySignIn(
+                name1: 'Already have an account ?',
+                  name2:'Sign in' ,
+                  onTap: () {
+                  GoRouter.of(context).pop();
+                  }),
             ],
           ),
         ),

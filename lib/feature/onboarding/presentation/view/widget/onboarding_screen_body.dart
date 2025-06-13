@@ -26,6 +26,8 @@ class OnboardingScreenBody extends StatelessWidget {
           const CustomButtonOnboarding(),
           SizedBox(height: AppDimensions.h31),
           CustomAlreadySignIn(
+            name1: 'Already have an account ?',
+            name2: 'Sign in',
             onTap: () {
               GoRouter.of(context).push(AppRoutes.loginScreen);
             },

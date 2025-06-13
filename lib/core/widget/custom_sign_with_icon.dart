@@ -9,14 +9,15 @@ class CustomSignWithIcon extends StatelessWidget {
   final String img;
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
       onTap: onTap,
+      splashColor: AppColor.kBlack25,
+      borderRadius: BorderRadius.circular(AppDimensions.r30),
       child: Container(
         width: AppDimensions.r40,
         height: AppDimensions.r40,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: Colors.white,
           border: Border.all(
             color: AppColor.kLightGray,
             width: AppDimensions.w0_6,
