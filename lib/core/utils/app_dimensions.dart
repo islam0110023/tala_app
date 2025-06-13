@@ -50,6 +50,10 @@ class AppDimensions {
   static final h28 = 28.h;
   static final w327 = 327.w;
   static final w343 = 343.w;
+  static final r11 = 11.r;
+  static final w54 = 54.w;
+  static final w45 = 45.w;
+
 
 
 

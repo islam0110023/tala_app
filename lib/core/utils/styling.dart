@@ -63,5 +63,12 @@ abstract class Styling{
     fontFamily: AppConstant.kFontFamily,
     fontWeight: FontWeight.w600,
   );
+  static final textStyle36=TextStyle(
+    color: AppColor.kWhite,
+    fontSize: 36.sp,
+    fontFamily: AppConstant.kFontFamily,
+    fontWeight: FontWeight.w700,
+    letterSpacing: -0.30,
+  );
 
 }

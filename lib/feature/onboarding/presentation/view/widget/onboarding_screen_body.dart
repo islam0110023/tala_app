@@ -18,12 +18,21 @@ class OnboardingScreenBody extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-         // SizedBox(height: AppDimensions.h70),
-          Image.asset(AppImage.kOnboardingLogo, fit: BoxFit.contain,width: double.infinity,height: 389.h,),
+          // SizedBox(height: AppDimensions.h70),
+          Image.asset(
+            AppImage.kOnboardingLogo,
+            fit: BoxFit.contain,
+            width: double.infinity,
+            height: 389.h,
+          ),
           SizedBox(height: AppDimensions.h31),
           const DescriptionSizeBoxWidget(),
           SizedBox(height: AppDimensions.h31),
-          const CustomButtonOnboarding(),
+          CustomButtonOnboarding(
+            onPressed: () {
+              GoRouter.of(context).push(AppRoutes.onBoardingSlideScreen);
+            },
+          ),
           SizedBox(height: AppDimensions.h31),
           CustomAlreadySignIn(
             name1: 'Already have an account ?',

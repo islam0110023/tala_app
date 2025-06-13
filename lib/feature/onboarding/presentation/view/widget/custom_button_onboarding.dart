@@ -5,8 +5,9 @@ import 'package:tala_app/core/utils/styling.dart';
 
 class CustomButtonOnboarding extends StatelessWidget {
   const CustomButtonOnboarding({
-    super.key,
+    super.key, required this.onPressed,
   });
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +24,7 @@ class CustomButtonOnboarding extends StatelessWidget {
         borderRadius: BorderRadius.circular(AppDimensions.r30),
       ),
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: onPressed,
         style: ElevatedButton.styleFrom(
           fixedSize:const Size(double.infinity, double.nan),
           backgroundColor: AppColor.kPrimaryPink,
