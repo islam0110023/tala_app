@@ -51,5 +51,17 @@ abstract class Styling{
     fontFamily: AppConstant.kFontFamily,
     fontWeight: FontWeight.w500,
   );
+  static final textStyleBlack12=TextStyle(
+    color: AppColor.kBlack,
+    fontSize: 12.sp,
+    fontFamily: AppConstant.kFontFamily,
+    fontWeight: FontWeight.w400,
+  );
+  static final textStyleGray16=TextStyle(
+    color: AppColor.kGray,
+    fontSize: 16.sp,
+    fontFamily: AppConstant.kFontFamily,
+    fontWeight: FontWeight.w600,
+  );
 
 }

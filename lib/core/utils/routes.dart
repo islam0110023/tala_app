@@ -1,7 +1,9 @@
 import 'package:go_router/go_router.dart';
 import 'package:tala_app/feature/auth/presentation/view/login_screen.dart';
+import 'package:tala_app/feature/auth/presentation/view/new_password_screen.dart';
 import 'package:tala_app/feature/auth/presentation/view/register_screen.dart';
 import 'package:tala_app/feature/onboarding/presentation/view/onboarding_screen.dart';
+import 'package:tala_app/feature/profile/presentation/profile_set_info_screen.dart';
 import 'package:tala_app/feature/splash_screen/presentation/view/splash_screen.dart';
 
 class AppRoutes {
@@ -9,12 +11,13 @@ class AppRoutes {
   static const onBoardingScreen = '/onboarding';
   static const loginScreen = '/login';
   static const registerScreen = '/register';
+  static const profileSetInfoScreen = '/profile';
 
   static final route = GoRouter(
     routes: [
       GoRoute(
         path: splashScreen,
-        builder: (context, state) => const SplashScreen(),
+        builder: (context, state) => const ProfileSetInfoScreen(),
       ),
       GoRoute(
         path: onBoardingScreen,
