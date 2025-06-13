@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:tala_app/core/utils/app_dimensions.dart';
 import 'package:tala_app/core/utils/styling.dart';
-import 'package:tala_app/core/widget/custom_already_sign_in.dart';
 import 'package:tala_app/core/widget/custom_button.dart';
 import 'package:tala_app/core/widget/custom_text_field.dart';
 import 'package:tala_app/core/widget/custom_title.dart';
-import 'package:tala_app/feature/auth/presentation/view/widget/custom_sign_with_auth.dart';
-import 'package:tala_app/feature/auth/presentation/view/widget/custome_alternative_sign_in.dart';
 
 class NewPasswordScreenBody extends StatelessWidget {
   const NewPasswordScreenBody({super.key});
@@ -37,7 +34,7 @@ class NewPasswordScreenBody extends StatelessWidget {
               SizedBox(height: AppDimensions.h18),
               const CustomTextField(hint: 'Confirm Password', password_flag: true),
               SizedBox(height: AppDimensions.h51),
-              CustomButton(onTap: () {}, name: 'Creat New Password'),
+              CustomButton(onTap: () {}, name: 'Create New Password'),
             ],
           ),
         ),

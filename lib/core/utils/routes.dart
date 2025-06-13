@@ -12,12 +12,13 @@ class AppRoutes {
   static const loginScreen = '/login';
   static const registerScreen = '/register';
   static const profileSetInfoScreen = '/profile';
+  static const newPasswordScreen = '/new_password';
 
   static final route = GoRouter(
     routes: [
       GoRoute(
         path: splashScreen,
-        builder: (context, state) => const ProfileSetInfoScreen(),
+        builder: (context, state) => const SplashScreen(),
       ),
       GoRoute(
         path: onBoardingScreen,
@@ -30,6 +31,14 @@ class AppRoutes {
       GoRoute(
         path: registerScreen,
         builder: (context, state) => const RegisterScreen(),
+      ),
+      GoRoute(
+        path: profileSetInfoScreen,
+        builder: (context, state) => const ProfileSetInfoScreen(),
+      ),
+      GoRoute(
+        path: newPasswordScreen,
+        builder: (context, state) => const NewPasswordScreen(),
       ),
     ],
   );
