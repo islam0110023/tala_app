@@ -7,11 +7,13 @@ class CustomTextField extends StatelessWidget {
   const CustomTextField({
     super.key,
     required this.hint,
-    this.password_flag = false,  this.textInputType=TextInputType.text,
+    this.password_flag = false,  this.textInputType=TextInputType.text, this.suffixIcon,
   });
   final String hint;
   final bool password_flag;
   final TextInputType textInputType;
+  final Widget? suffixIcon;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -30,6 +32,7 @@ class CustomTextField extends StatelessWidget {
         enableSuggestions: true,
         keyboardType:textInputType,
         decoration: InputDecoration(
+          suffixIcon: suffixIcon,
           hintText: hint,
           fillColor: AppColor.kTextFieldColor,
           filled: true,

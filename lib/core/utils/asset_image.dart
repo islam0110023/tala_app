@@ -5,4 +5,5 @@ class AppImage{
   static const kOnboardingLogo='assets/images/onboarding_logo.png';
   static const kAppleIcon='assets/images/apple_icon.svg';
   static const kGoogleIcon='assets/images/google_icon.svg';
+  static const kPersonPicture='assets/images/profile_picture.svg';
 }
