@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:tala_app/core/utils/app_dimensions.dart';
 import 'package:tala_app/core/utils/routes.dart';
 import 'package:tala_app/core/widget/custom_already_sign_in.dart';
+import 'package:tala_app/core/widget/custom_arrow_back.dart';
 import 'package:tala_app/core/widget/custom_button.dart';
 import 'package:tala_app/core/widget/custom_text_field.dart';
 import 'package:tala_app/core/widget/custom_title.dart';
@@ -24,7 +25,11 @@ class LoginScreenBody extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: AppDimensions.r25),
           child: Column(
             children: [
-              SizedBox(height: AppDimensions.h70),
+              SizedBox(height: AppDimensions.h47),
+              CustomArrowBack(onTap: () {
+                GoRouter.of(context).pop();
+              }),
+              SizedBox(height: AppDimensions.h33),
               const CustomTitle(
                 title: 'Ready To Make Unforgettable\nMemories Again?',
               ),

@@ -7,12 +7,20 @@ class CustomTextField extends StatelessWidget {
   const CustomTextField({
     super.key,
     required this.hint,
-    this.password_flag = false,  this.textInputType=TextInputType.text, this.suffixIcon,
+    this.password_flag = false,
+    this.textInputType = TextInputType.text,
+    this.suffixIcon,
+    this.onTap,
+    this.controller,
+    this.readOnly = false,
   });
   final String hint;
   final bool password_flag;
   final TextInputType textInputType;
   final Widget? suffixIcon;
+  final VoidCallback? onTap;
+  final TextEditingController? controller;
+  final bool readOnly;
 
   @override
   Widget build(BuildContext context) {
@@ -28,9 +36,12 @@ class CustomTextField extends StatelessWidget {
         ],
       ),
       child: TextFormField(
+        readOnly: readOnly,
+        controller: controller,
         obscureText: password_flag,
         enableSuggestions: true,
-        keyboardType:textInputType,
+        onTap: onTap,
+        keyboardType: textInputType,
         decoration: InputDecoration(
           suffixIcon: suffixIcon,
           hintText: hint,
@@ -43,7 +54,7 @@ class CustomTextField extends StatelessWidget {
           ),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(AppDimensions.r15),
-            borderSide: BorderSide.none
+            borderSide: BorderSide.none,
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(AppDimensions.r15),

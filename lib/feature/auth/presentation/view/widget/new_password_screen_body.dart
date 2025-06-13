@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tala_app/core/utils/app_dimensions.dart';
 import 'package:tala_app/core/utils/styling.dart';
+import 'package:tala_app/core/widget/custom_arrow_back.dart';
 import 'package:tala_app/core/widget/custom_button.dart';
-import 'package:tala_app/core/widget/custom_text_field.dart';
 import 'package:tala_app/core/widget/custom_title.dart';
+import 'package:tala_app/feature/auth/presentation/view/widget/custom_fields_new_password.dart';
 
 class NewPasswordScreenBody extends StatelessWidget {
   const NewPasswordScreenBody({super.key});
@@ -23,8 +25,13 @@ class NewPasswordScreenBody extends StatelessWidget {
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    SizedBox(height: AppDimensions.h70),
-                    const CustomTitle(title: 'New Password'),
+                    SizedBox(height: AppDimensions.h47),
+                    CustomArrowBack(
+                      onTap: () {
+                        GoRouter.of(context).pop();
+                      },
+                    ),
+                    const CustomTitle(title: 'New Password', textFont: 28),
                     SizedBox(height: AppDimensions.h7),
                     Text(
                       'Your new password must be different from\npreviously used passwords',
@@ -32,15 +39,7 @@ class NewPasswordScreenBody extends StatelessWidget {
                       style: Styling.textStyleGray16,
                     ),
                     SizedBox(height: AppDimensions.h33),
-                    const CustomTextField(
-                      hint: 'Password',
-                      password_flag: true,
-                    ),
-                    SizedBox(height: AppDimensions.h18),
-                    const CustomTextField(
-                      hint: 'Confirm Password',
-                      password_flag: true,
-                    ),
+                    const CustomFieldsNewPassword(),
                     SizedBox(height: AppDimensions.h51),
                     CustomButton(onTap: () {}, name: 'Create New Password'),
                   ],

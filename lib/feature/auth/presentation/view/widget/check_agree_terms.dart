@@ -4,7 +4,7 @@ import 'package:tala_app/core/utils/app_dimensions.dart';
 import 'package:tala_app/core/utils/styling.dart';
 
 class CheckAgreeTerms extends StatelessWidget {
-   CheckAgreeTerms({
+   const CheckAgreeTerms({
     super.key,
   });
   final bool isChecked=false;

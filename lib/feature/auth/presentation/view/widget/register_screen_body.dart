@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tala_app/core/utils/app_dimensions.dart';
+import 'package:tala_app/core/utils/routes.dart';
 import 'package:tala_app/core/widget/custom_already_sign_in.dart';
+import 'package:tala_app/core/widget/custom_arrow_back.dart';
 import 'package:tala_app/core/widget/custom_button.dart';
 import 'package:tala_app/core/widget/custom_title.dart';
 import 'package:tala_app/feature/auth/presentation/view/widget/check_agree_terms.dart';
@@ -23,14 +25,21 @@ class RegisterScreenBody extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: AppDimensions.r25),
           child: Column(
             children: [
-              SizedBox(height: AppDimensions.h70),
-              const CustomTitle(
-                title: 'Creat Your Account',
-              ),
-              const CustomFieldsRegister(),
-              CheckAgreeTerms(),
               SizedBox(height: AppDimensions.h47),
-              CustomButton(onTap: () {}, name: 'Sign up'),
+
+              CustomArrowBack(
+                onTap: () {
+                  GoRouter.of(context).pop();
+                },
+              ),
+              SizedBox(height: AppDimensions.h28),
+              const CustomTitle(title: 'Creat Your Account'),
+              const CustomFieldsRegister(),
+              const CheckAgreeTerms(),
+              SizedBox(height: AppDimensions.h41),
+              CustomButton(onTap: () {
+                GoRouter.of(context).push(AppRoutes.profileSetInfoScreen);
+              }, name: 'Sign up'),
               SizedBox(height: AppDimensions.h41),
               const CustomSignWithAuth(),
               SizedBox(height: AppDimensions.h23),
@@ -38,10 +47,11 @@ class RegisterScreenBody extends StatelessWidget {
               SizedBox(height: AppDimensions.h20),
               CustomAlreadySignIn(
                 name1: 'Already have an account ?',
-                  name2:'Sign in' ,
-                  onTap: () {
+                name2: 'Sign in',
+                onTap: () {
                   GoRouter.of(context).pop();
-                  }),
+                },
+              ),
             ],
           ),
         ),
@@ -49,4 +59,3 @@ class RegisterScreenBody extends StatelessWidget {
     );
   }
 }
-

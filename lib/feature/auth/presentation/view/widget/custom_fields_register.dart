@@ -9,7 +9,7 @@ class CustomFieldsRegister extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(height: AppDimensions.h58),
+        SizedBox(height: AppDimensions.h51),
         const CustomTextField(hint: 'Your Name'),
         SizedBox(height: AppDimensions.h5),
         const CustomTextField(hint: 'Last Name'),
