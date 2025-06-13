@@ -1,10 +1,6 @@
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:tala_app/core/utils/app_color.dart';
 import 'package:tala_app/core/utils/app_dimensions.dart';
-import 'package:tala_app/core/utils/styling.dart';
 import 'package:tala_app/core/widget/custom_dropdown.dart';
 import 'package:tala_app/core/widget/custom_text_field.dart';
 
@@ -58,7 +54,7 @@ class _CustomFieldsSetProfileState extends State<CustomFieldsSetProfile> {
             });
           },
           hint: 'Date',
-          suffixIcon: Icon(CupertinoIcons.calendar),
+          suffixIcon: const Icon(CupertinoIcons.calendar),
           textInputType: TextInputType.datetime,
         ),
         SizedBox(height: AppDimensions.h14),
