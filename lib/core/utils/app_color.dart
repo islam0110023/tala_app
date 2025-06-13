@@ -15,6 +15,7 @@ abstract class AppColor{
   static const kTextFieldColor= Color(0xFFFFE9F3);
   static const kTitleColor= Color(0xFF692A7E);
   static const kDotIndicator= Color(0xffFFA7CE);
+  static const kTagsColor= Color(0xff84508C);
 
 
 }

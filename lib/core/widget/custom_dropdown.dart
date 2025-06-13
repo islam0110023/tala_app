@@ -42,18 +42,21 @@ class _CustomDropdownState extends State<CustomDropdown> {
               selectedGender = value;
             });
           },
-          iconStyleData: const IconStyleData(
-            icon: Icon(CupertinoIcons.chevron_down),
+          isDense: true,
+
+          iconStyleData: IconStyleData(
+            icon: Icon(CupertinoIcons.chevron_down, size: AppDimensions.r24),
           ),
 
           value: selectedGender,
           hint: Text('Gender', style: Styling.textStyle13),
           decoration: InputDecoration(
+            isDense: true,
             fillColor: AppColor.kTextFieldColor,
             filled: true,
             contentPadding: EdgeInsets.symmetric(
               horizontal: AppDimensions.r16,
-              vertical: AppDimensions.r20,
+              vertical: AppDimensions.r25,
             ),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(AppDimensions.r15),

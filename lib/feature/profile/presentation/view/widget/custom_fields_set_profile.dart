@@ -34,7 +34,7 @@ class _CustomFieldsSetProfileState extends State<CustomFieldsSetProfile> {
       children: [
         const CustomTextField(
           hint: 'Name',
-          suffixIcon: Icon(CupertinoIcons.person_crop_circle),
+          suffixIcon: CupertinoIcons.person_crop_circle,
         ),
         SizedBox(height: AppDimensions.h14),
         CustomDropdown(options: genderOptions),
@@ -54,13 +54,13 @@ class _CustomFieldsSetProfileState extends State<CustomFieldsSetProfile> {
             });
           },
           hint: 'Date',
-          suffixIcon: const Icon(CupertinoIcons.calendar),
+          suffixIcon:  CupertinoIcons.calendar,
           textInputType: TextInputType.datetime,
         ),
         SizedBox(height: AppDimensions.h14),
         const CustomTextField(
           hint: 'Location',
-          suffixIcon: Icon(CupertinoIcons.location_solid),
+          suffixIcon: CupertinoIcons.location_solid,
         ),
       ],
     );

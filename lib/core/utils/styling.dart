@@ -70,5 +70,12 @@ abstract class Styling{
     fontWeight: FontWeight.w700,
     letterSpacing: -0.30,
   );
+  static final textStyle50=TextStyle(
+    color: AppColor.kBlack,
+    fontSize: 50.sp,
+    fontFamily: AppConstant.kFontFamilyInter,
+    fontWeight: FontWeight.w900,
+    letterSpacing: -0.30.h,
+  );
 
 }

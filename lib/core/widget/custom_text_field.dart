@@ -17,7 +17,7 @@ class CustomTextField extends StatelessWidget {
   final String hint;
   final bool password_flag;
   final TextInputType textInputType;
-  final Widget? suffixIcon;
+  final IconData? suffixIcon;
   final VoidCallback? onTap;
   final TextEditingController? controller;
   final bool readOnly;
@@ -43,8 +43,12 @@ class CustomTextField extends StatelessWidget {
         onTap: onTap,
         keyboardType: textInputType,
         decoration: InputDecoration(
-          suffixIcon: suffixIcon,
+          suffixIcon: Padding(
+            padding:  EdgeInsets.symmetric(horizontal: AppDimensions.r15),
+            child: Icon(suffixIcon,size: AppDimensions.r24,),
+          ),
           hintText: hint,
+          
           fillColor: AppColor.kTextFieldColor,
           filled: true,
           hintStyle: Styling.textStyle13,

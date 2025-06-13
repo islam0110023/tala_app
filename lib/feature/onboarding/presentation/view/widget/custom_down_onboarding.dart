@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:tala_app/core/utils/app_color.dart';
 import 'package:tala_app/core/utils/app_dimensions.dart';
+import 'package:tala_app/core/utils/routes.dart';
 
 class CustomDownOnboarding extends StatelessWidget {
   const CustomDownOnboarding({
@@ -52,7 +54,10 @@ class CustomDownOnboarding extends StatelessWidget {
                   duration: const Duration(milliseconds: 500),
                   curve: Curves.easeInOut,
                 );
-              } else {}
+              } else {
+                GoRouter.of(context).go(AppRoutes.onBoardingTagsScreen);
+
+              }
             },
             splashColor: AppColor.kLightPink,
             child: Container(

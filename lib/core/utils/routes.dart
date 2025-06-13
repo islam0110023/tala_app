@@ -4,6 +4,7 @@ import 'package:tala_app/feature/auth/presentation/view/new_password_screen.dart
 import 'package:tala_app/feature/auth/presentation/view/register_screen.dart';
 import 'package:tala_app/feature/onboarding/presentation/view/onboarding_screen.dart';
 import 'package:tala_app/feature/onboarding/presentation/view/onboarding_slide_screen.dart';
+import 'package:tala_app/feature/onboarding/presentation/view/onboarding_tags_screen.dart';
 import 'package:tala_app/feature/profile/presentation/profile_set_info_screen.dart';
 import 'package:tala_app/feature/splash_screen/presentation/view/splash_screen.dart';
 
@@ -15,6 +16,8 @@ class AppRoutes {
   static const profileSetInfoScreen = '/profile';
   static const newPasswordScreen = '/new_password';
   static const onBoardingSlideScreen = '/onboarding_slide';
+  static const onBoardingTagsScreen = '/onboarding_tags';
+
 
 
   static final route = GoRouter(
@@ -47,6 +50,11 @@ class AppRoutes {
         path: onBoardingSlideScreen,
         builder: (context, state) => const OnboardingSlideScreen(),
       ),
+      GoRoute(
+        path: onBoardingTagsScreen,
+        builder: (context, state) => const OnboardingTagsScreen(),
+      ),
+
     ],
   );
 }
