@@ -85,7 +85,7 @@ abstract class Styling{
   );
   static final textStyle16700 = TextStyle(
     color: AppColor.kWhite,
-    fontSize: 16,
+    fontSize: 16.sp,
     fontFamily: AppConstant.kFontFamily,
     fontWeight: FontWeight.w700,
   );

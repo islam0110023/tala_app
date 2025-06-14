@@ -1,20 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:tala_app/core/utils/app_color.dart';
 import 'package:tala_app/core/utils/app_dimensions.dart';
-import 'package:tala_app/core/utils/routes.dart';
 
 class CustomDownOnboarding extends StatelessWidget {
   const CustomDownOnboarding({
     super.key,
     required this.pageController,
-    required this.index,
+    required this.index, required this.onTap,
   });
 
   final PageController pageController;
   final int index;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +27,7 @@ class CustomDownOnboarding extends StatelessWidget {
           SizedBox(width: AppDimensions.w20),
           SmoothPageIndicator(
             controller: pageController,
-            count: 3,
+            count: 2,
             effect: CustomizableEffect(
               activeDotDecoration: DotDecoration(
                 color: AppColor.kLightPink,
@@ -48,17 +47,7 @@ class CustomDownOnboarding extends StatelessWidget {
 
           const Spacer(),
           InkWell(
-            onTap: () {
-              if (index < 1) {
-                pageController.nextPage(
-                  duration: const Duration(milliseconds: 500),
-                  curve: Curves.easeInOut,
-                );
-              } else {
-                GoRouter.of(context).go(AppRoutes.onBoardingTagsScreen);
-
-              }
-            },
+            onTap: onTap,
             splashColor: AppColor.kLightPink,
             child: Container(
               width: AppDimensions.w54,

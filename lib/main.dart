@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:tala_app/core/utils/app_color.dart';
+import 'package:tala_app/core/utils/constants.dart';
 import 'package:tala_app/core/utils/routes.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
   runApp(const TalaApp());
 }
 
@@ -19,6 +23,12 @@ class TalaApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       child: MaterialApp.router(
+        builder: (context, child) {
+          AppConstant.precacheAppImages(context);
+
+          return child!;
+        },
+        theme: ThemeData(scaffoldBackgroundColor: AppColor.kWhite1),
         routerConfig: AppRoutes.route,
         debugShowCheckedModeBanner: false,
       ),

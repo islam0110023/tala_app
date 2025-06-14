@@ -26,7 +26,7 @@ class AppRoutes {
     routes: [
       GoRoute(
         path: splashScreen,
-        builder: (context, state) => const ProfileMusicPreferencesScreen(),
+        builder: (context, state) => const SplashScreen(),
       ),
       GoRoute(
         path: onBoardingScreen,

@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:tala_app/core/utils/app_color.dart';
 import 'package:tala_app/core/utils/app_dimensions.dart';
 import 'package:tala_app/core/utils/asset_image.dart';
+import 'package:tala_app/core/utils/routes.dart';
 import 'package:tala_app/core/widget/custom_arrow_back.dart';
 import 'package:tala_app/core/widget/custom_button.dart';
 import 'package:tala_app/core/widget/custom_title.dart';
@@ -54,7 +55,14 @@ class ProfileSetInfoScreenBody extends StatelessWidget {
               SizedBox(height: AppDimensions.h23),
               const CustomFieldsSetProfile(),
               SizedBox(height: AppDimensions.h42),
-              CustomButton(onTap: () {}, name: 'Complete Profile'),
+              CustomButton(
+                onTap: () {
+                  GoRouter.of(
+                    context,
+                  ).push(AppRoutes.profileMusicPreferencesScreen);
+                },
+                name: 'Complete Profile',
+              ),
             ],
           ),
         ),

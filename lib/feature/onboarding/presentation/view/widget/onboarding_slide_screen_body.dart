@@ -5,6 +5,7 @@ import 'package:tala_app/core/model/onboarding_model.dart';
 import 'package:tala_app/core/utils/app_color.dart';
 import 'package:tala_app/core/utils/app_dimensions.dart';
 import 'package:tala_app/core/utils/asset_image.dart';
+import 'package:tala_app/core/utils/routes.dart';
 import 'package:tala_app/core/utils/styling.dart';
 import 'package:tala_app/core/widget/custom_arrow_back.dart';
 import 'package:tala_app/feature/onboarding/presentation/view/widget/custom_down_onboarding.dart';
@@ -32,6 +33,12 @@ class _OnboardingSlideScreenBodyState extends State<OnboardingSlideScreenBody> {
 
   int index = 0;
   @override
+  void initState() {
+    super.initState();
+
+
+  }
+  @override
   void dispose() {
     // TODO: implement dispose
     super.dispose();
@@ -46,10 +53,7 @@ class _OnboardingSlideScreenBodyState extends State<OnboardingSlideScreenBody> {
           physics: const NeverScrollableScrollPhysics(),
 
           controller: pageController,
-          itemCount: 3,
-          onPageChanged: (i) {
-            setState(() => index = i);
-          },
+          itemCount: 2,
           itemBuilder: (context, i) {
             return Container(
               width: double.infinity,
@@ -68,12 +72,19 @@ class _OnboardingSlideScreenBodyState extends State<OnboardingSlideScreenBody> {
                     CustomArrowBack(
                       onTap: () {
                         if (index == 1) {
-                          setState(() {
-                            pageController.previousPage(
-                              duration: const Duration(milliseconds: 500),
-                              curve: Curves.linear,
-                            );
-                          });
+                          {
+                            pageController
+                                .previousPage(
+                                  duration: const Duration(milliseconds: 500),
+                                  curve: Curves.linear,
+                                )
+                                .then((value) {
+                                  index--;
+                                  setState(() {
+
+                                  });
+                                });
+                          }
                         } else {
                           GoRouter.of(context).pop();
                         }
@@ -94,7 +105,26 @@ class _OnboardingSlideScreenBodyState extends State<OnboardingSlideScreenBody> {
             );
           },
         ),
-        CustomDownOnboarding(pageController: pageController, index: index),
+        CustomDownOnboarding(
+          pageController: pageController,
+          index: index,
+          onTap: () {
+            if (index < 1) {
+              pageController
+                  .nextPage(
+                    duration: const Duration(milliseconds: 500),
+                    curve: Curves.easeInOut,
+                  )
+                  .then((value) {
+                    setState(() {
+                      index++;
+                    });
+                  });
+            } else {
+              GoRouter.of(context).go(AppRoutes.onBoardingTagsScreen);
+            }
+          },
+        ),
       ],
     );
   }

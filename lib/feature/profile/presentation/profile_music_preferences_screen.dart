@@ -8,7 +8,6 @@ class ProfileMusicPreferencesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      backgroundColor: AppColor.kWhite1,
       body: ProfileMusicPreferencesBody(),
     );
   }

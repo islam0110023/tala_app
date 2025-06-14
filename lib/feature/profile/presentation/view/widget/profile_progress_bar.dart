@@ -17,7 +17,7 @@ class ProfileProgressBar extends StatelessWidget {
           },
           arrowColor: AppColor.kWhite,
         ),
-        SizedBox(width: AppDimensions.w69),
+        const Spacer(),
         SizedBox(
           width: AppDimensions.w168,
           child: LinearProgressIndicator(
@@ -30,6 +30,7 @@ class ProfileProgressBar extends StatelessWidget {
         ),
         SizedBox(width: AppDimensions.w10),
         Text('$done/4', style: Styling.textStyle10),
+        const Spacer()
       ],
     );
   }

@@ -9,4 +9,5 @@ class AppImage{
   static const kOnboarding2='assets/images/on boarding 12 (2).png';
   static const kOnboarding1='assets/images/on boarding 13.png';
 
+
 }
