@@ -6,9 +6,5 @@ class GenreModel {
 
   final String name;
   bool isSelected;
-  final Color selectedColor = AppColor.kPrimaryPink;
-  final Color notSelectedColor = AppColor.kSugarWhite;
-  final Color selectedTextColor = AppColor.kWhite1;
-  final Color notSelectedTextColor = AppColor.kLightPink;
   final String? imgUrl;
 }

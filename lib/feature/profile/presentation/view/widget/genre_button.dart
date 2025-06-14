@@ -20,12 +20,12 @@ class _GenreButtonState extends State<GenreButton> {
       borderRadius: BorderRadius.circular(AppDimensions.r18),
       onTap: () {
         widget.genre.isSelected = !widget.genre.isSelected;
-        setState(() {
-
-        });
+        setState(() {});
       },
       child: Card(
-        color: widget.genre.isSelected ? AppColor.kPrimaryPink : AppColor.kSugarWhite,
+        color: widget.genre.isSelected
+            ? AppColor.kPrimaryPink
+            : AppColor.kSugarWhite,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadiusGeometry.circular(AppDimensions.r18),
         ),
@@ -38,20 +38,25 @@ class _GenreButtonState extends State<GenreButton> {
                 widget.genre.name,
                 textAlign: TextAlign.center,
                 style: Styling.textStyleB20.copyWith(
-                  color: widget.genre.isSelected ? AppColor.kWhite1 : AppColor.kLightPink,
+                  color: widget.genre.isSelected
+                      ? AppColor.kWhite1
+                      : AppColor.kLightPink,
                 ),
               ),
-              if (widget.genre.imgUrl != null)
-                ...[
-                  SizedBox(height: AppDimensions.h10),
-                  SvgPicture.asset(
-                    widget.genre.imgUrl!,
-                    width: AppDimensions.w40,
-                    height: AppDimensions.h30,
-                    color: widget.genre.isSelected ? AppColor.kWhite1 : AppColor.kLightPink,
+              if (widget.genre.imgUrl != null) ...[
+                SizedBox(height: AppDimensions.h10),
+                SvgPicture.asset(
+                  widget.genre.imgUrl!,
+                  width: AppDimensions.w40,
+                  height: AppDimensions.h30,
+                  colorFilter: ColorFilter.mode(
+                    widget.genre.isSelected
+                        ? AppColor.kWhite1
+                        : AppColor.kPrimaryPink,
+                    BlendMode.srcIn,
                   ),
-                ],
-
+                ),
+              ],
             ],
           ),
         ),
