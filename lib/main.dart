@@ -16,9 +16,11 @@ class TalaApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize: MediaQuery.of(context).size.width < 600
+      designSize: MediaQuery.of(context).size.height < 700
+          ? const Size(393, 852 * 1.15)
+          : MediaQuery.of(context).size.width < 600
           ? const Size(393, 852)
-          : const Size(393 * 1.2, 852 * 1.1),
+          : const Size(393 * 1.2, 852 * 1.2),
       ensureScreenSize: true,
       minTextAdapt: true,
       splitScreenMode: true,
