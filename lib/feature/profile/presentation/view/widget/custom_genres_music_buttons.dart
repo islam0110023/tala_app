@@ -1,37 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:tala_app/core/model/genre_model.dart';
 import 'package:tala_app/core/utils/app_dimensions.dart';
 import 'package:tala_app/feature/profile/presentation/view/widget/genre_button.dart';
 
 class CustomGenresMusicButtons extends StatelessWidget {
-  const CustomGenresMusicButtons({
-    super.key,
-    required this.genres,
-  });
+  const CustomGenresMusicButtons({super.key, required this.genres});
 
-  final List<String> genres;
+  final List<GenreModel> genres;
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        for (int i = 0; i < genres.length; i += 2)
-          Padding(
-            padding: EdgeInsets.only(bottom: AppDimensions.h16),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                GenreButton(genres[i]),
-                if (i + 1 < genres.length)
-                  Padding(
-                    padding: EdgeInsets.only(
-                      left: AppDimensions.w16,
-                    ),
-                    child: GenreButton(genres[i + 1]),
-                  ),
-              ],
-            ),
-          ),
-      ],
+    return Expanded(
+      child: GridView.builder(
+        padding: EdgeInsets.zero,
+        physics: const BouncingScrollPhysics(),
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          crossAxisSpacing: AppDimensions.w10,
+          mainAxisSpacing: AppDimensions.h10,
+          childAspectRatio: 150/110,
+        ),
+        itemCount: genres.length,
+        itemBuilder: (context, index) {
+          return GenreButton(genre: genres[index]);
+        },
+      ),
     );
   }
 }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tala_app/core/utils/app_color.dart';
 import 'package:tala_app/core/utils/app_dimensions.dart';
+import 'package:tala_app/core/utils/constants.dart';
 import 'package:tala_app/core/utils/routes.dart';
 import 'package:tala_app/core/utils/styling.dart';
 
@@ -15,16 +16,6 @@ class CustomAnimateContainer extends StatefulWidget {
 
 class _CustomAnimateContainerState extends State<CustomAnimateContainer>
     with SingleTickerProviderStateMixin {
-  final List<String> words = [
-    'Redefining',
-    'Social',
-    'Connection',
-    'And',
-    'Concert',
-    'Experiences',
-    'into',
-  ];
-
   int currentIndex = 0;
   Timer? _timer;
 
@@ -50,7 +41,7 @@ class _CustomAnimateContainerState extends State<CustomAnimateContainer>
 
   void _startTimer() {
     _timer = Timer.periodic(const Duration(milliseconds: 800), (timer) {
-      if (currentIndex < words.length - 1) {
+      if (currentIndex < AppConstant.kWords.length - 1) {
         setState(() {
           currentIndex++;
         });
@@ -71,7 +62,7 @@ class _CustomAnimateContainerState extends State<CustomAnimateContainer>
 
   @override
   Widget build(BuildContext context) {
-    final String currentWord = words[currentIndex];
+    final String currentWord = AppConstant.kWords[currentIndex];
 
     return Center(
       child: ScaleTransition(
