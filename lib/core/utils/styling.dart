@@ -77,5 +77,11 @@ abstract class Styling{
     fontWeight: FontWeight.w900,
     letterSpacing: -0.30.h,
   );
+  static final textStyle16700 = TextStyle(
+    color: AppColor.kWhite,
+    fontSize: 16,
+    fontFamily: AppConstant.kFontFamily,
+    fontWeight: FontWeight.w700,
+  );
 
 }

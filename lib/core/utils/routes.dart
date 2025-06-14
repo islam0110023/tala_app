@@ -5,6 +5,7 @@ import 'package:tala_app/feature/auth/presentation/view/register_screen.dart';
 import 'package:tala_app/feature/onboarding/presentation/view/onboarding_screen.dart';
 import 'package:tala_app/feature/onboarding/presentation/view/onboarding_slide_screen.dart';
 import 'package:tala_app/feature/onboarding/presentation/view/onboarding_tags_screen.dart';
+import 'package:tala_app/feature/profile/presentation/profile_music_preferences_screen.dart';
 import 'package:tala_app/feature/profile/presentation/profile_set_info_screen.dart';
 import 'package:tala_app/feature/splash_screen/presentation/view/splash_screen.dart';
 
@@ -17,6 +18,7 @@ class AppRoutes {
   static const newPasswordScreen = '/new_password';
   static const onBoardingSlideScreen = '/onboarding_slide';
   static const onBoardingTagsScreen = '/onboarding_tags';
+  static const profileMusicPreferencesScreen = '/profile_music_preferences_screen';
 
 
 
@@ -24,7 +26,7 @@ class AppRoutes {
     routes: [
       GoRoute(
         path: splashScreen,
-        builder: (context, state) => const SplashScreen(),
+        builder: (context, state) => const ProfileMusicPreferencesScreen(),
       ),
       GoRoute(
         path: onBoardingScreen,
@@ -53,6 +55,10 @@ class AppRoutes {
       GoRoute(
         path: onBoardingTagsScreen,
         builder: (context, state) => const OnboardingTagsScreen(),
+      ),
+      GoRoute(
+        path: profileMusicPreferencesScreen,
+        builder: (context, state) => const ProfileMusicPreferencesScreen(),
       ),
 
     ],

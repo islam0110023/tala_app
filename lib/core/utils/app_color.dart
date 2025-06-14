@@ -16,6 +16,6 @@ abstract class AppColor{
   static const kTitleColor= Color(0xFF692A7E);
   static const kDotIndicator= Color(0xffFFA7CE);
   static const kTagsColor= Color(0xff84508C);
-
+  static const kPurpleColor = Color(0xCC8B00B7);
 
 }

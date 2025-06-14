@@ -45,8 +45,10 @@ class AppDimensions {
   static final h14= 14.h;
   static final h38 = 38.h;
   static final h48 = 48.h;
+  static final w150 = 150.w;
   static final w180 = 180.w;
   static final h176 = 176.h;
+  static final h110 = 110.h;
   static final h28 = 28.h;
   static final w327 = 327.w;
   static final w343 = 343.w;
@@ -54,6 +56,18 @@ class AppDimensions {
   static final w54 = 54.w;
   static final w45 = 45.w;
   static final r5 = 5.r;
+  static final h9 = 9.h;
+  static final h53 = 53.h;
+  static final w25 = 25.w;
+  static final h52 = 52.h;
+  static final h12 = 12.h;
+  static final h2 = 2.h;
+  static final h32 = 32.h;
+  static final w69 = 69.w;
+  static final w10 = 10.w;
+  static final w168 = 168.w;
+  static final w555 = 555.w;
+  static final h555 = 555.h;
 
 
 
