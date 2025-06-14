@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tala_app/core/model/genre_model.dart';
+import 'package:tala_app/core/utils/asset_image.dart';
 
 abstract class AppConstant{
   static const kFontFamily='Lato';
@@ -14,6 +15,16 @@ abstract class AppConstant{
     GenreModel(name: 'Country'),
     GenreModel(name: 'Indie'),
     GenreModel(name: 'Rock'),
+  ];
+  static final List<GenreModel> kGenresPassion = [
+    GenreModel(name: 'Gaming', imgUrl: AppImage.kPassionGaming),
+    GenreModel(name: 'Dance', imgUrl: AppImage.kPassionDance),
+    GenreModel(name: 'Arts', imgUrl: AppImage.kPassionArts),
+    GenreModel(name: 'Nature', imgUrl: AppImage.kPassionNature),
+    GenreModel(name: 'Photography', imgUrl: AppImage.kPassionPhotography),
+    GenreModel(name: 'Concerts', imgUrl: AppImage.kPassionConcert),
+    GenreModel(name: 'Travel', imgUrl: AppImage.kPassionTravel),
+    GenreModel(name: 'Music', imgUrl: AppImage.kPassionMusic),
   ];
 
   static const List<String> kWords = [

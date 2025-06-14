@@ -70,6 +70,7 @@ class AppDimensions {
   static final h555 = 555.h;
   static final r18 = 18.r;
   static final h800 = 800.h;
+  static final h30 = 30.h;
   static final h_250 = -250.0.h;
 
 

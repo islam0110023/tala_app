@@ -8,6 +8,13 @@ class AppImage{
   static const kPersonPicture='assets/images/profile_picture.svg';
   static const kOnboarding2='assets/images/on boarding 12 (2).png';
   static const kOnboarding1='assets/images/on boarding 13.png';
-
+  static const kPassionGaming = 'assets/images/gaming_icon.svg';
+  static const kPassionTravel = 'assets/images/travel_icon.svg';
+  static const kPassionDance = 'assets/images/dance_icon.svg';
+  static const kPassionArts = 'assets/images/arts_icon.svg';
+  static const kPassionNature = 'assets/images/nature_icon.svg';
+  static const kPassionConcert = 'assets/images/concert_icon.svg';
+  static const kPassionMusic = 'assets/images/music_icon.svg';
+  static const kPassionPhotography = 'assets/images/photography_icon.svg';
 
 }

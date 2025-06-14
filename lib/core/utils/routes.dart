@@ -6,6 +6,7 @@ import 'package:tala_app/feature/onboarding/presentation/view/onboarding_screen.
 import 'package:tala_app/feature/onboarding/presentation/view/onboarding_slide_screen.dart';
 import 'package:tala_app/feature/onboarding/presentation/view/onboarding_tags_screen.dart';
 import 'package:tala_app/feature/profile/presentation/profile_music_preferences_screen.dart';
+import 'package:tala_app/feature/profile/presentation/profile_select_passions_screen.dart';
 import 'package:tala_app/feature/profile/presentation/profile_set_info_screen.dart';
 import 'package:tala_app/feature/splash_screen/presentation/view/splash_screen.dart';
 
@@ -19,6 +20,7 @@ class AppRoutes {
   static const onBoardingSlideScreen = '/onboarding_slide';
   static const onBoardingTagsScreen = '/onboarding_tags';
   static const profileMusicPreferencesScreen = '/profile_music_preferences_screen';
+  static const profileSelectPassionsScreen = '/profile_select_passion_screen';
 
 
 
@@ -59,6 +61,10 @@ class AppRoutes {
       GoRoute(
         path: profileMusicPreferencesScreen,
         builder: (context, state) => const ProfileMusicPreferencesScreen(),
+      ),
+      GoRoute(
+        path: profileSelectPassionsScreen,
+        builder: (context, state) => const ProfileSelectPassionsScreen(),
       ),
 
     ],
