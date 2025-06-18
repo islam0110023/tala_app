@@ -5,9 +5,11 @@ import 'package:tala_app/feature/auth/presentation/view/register_screen.dart';
 import 'package:tala_app/feature/onboarding/presentation/view/onboarding_screen.dart';
 import 'package:tala_app/feature/onboarding/presentation/view/onboarding_slide_screen.dart';
 import 'package:tala_app/feature/onboarding/presentation/view/onboarding_tags_screen.dart';
-import 'package:tala_app/feature/profile/presentation/profile_music_preferences_screen.dart';
-import 'package:tala_app/feature/profile/presentation/profile_select_passions_screen.dart';
-import 'package:tala_app/feature/profile/presentation/profile_set_info_screen.dart';
+import 'package:tala_app/feature/profile/presentation/view/profile_like_1_screen.dart';
+import 'package:tala_app/feature/profile/presentation/view/profile_like_2_screen.dart';
+import 'package:tala_app/feature/profile/presentation/view/profile_music_preferences_screen.dart';
+import 'package:tala_app/feature/profile/presentation/view/profile_select_passions_screen.dart';
+import 'package:tala_app/feature/profile/presentation/view/profile_set_info_screen.dart';
 import 'package:tala_app/feature/splash_screen/presentation/view/splash_screen.dart';
 
 class AppRoutes {
@@ -21,6 +23,8 @@ class AppRoutes {
   static const onBoardingTagsScreen = '/onboarding_tags';
   static const profileMusicPreferencesScreen = '/profile_music_preferences_screen';
   static const profileSelectPassionsScreen = '/profile_select_passion_screen';
+  static const profileLike1Screen = '/profile_like_1_screen';
+  static const profileLike2Screen = '/profile_like_2_screen';
 
 
 
@@ -66,6 +70,15 @@ class AppRoutes {
         path: profileSelectPassionsScreen,
         builder: (context, state) => const ProfileSelectPassionsScreen(),
       ),
+      GoRoute(
+        path: profileLike1Screen,
+        builder: (context, state) => const ProfileLike1Screen(),
+      ),
+      GoRoute(
+        path: profileLike2Screen,
+        builder: (context, state) => const ProfileLike2Screen(),
+      ),
+
 
     ],
   );
