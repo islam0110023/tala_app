@@ -12,7 +12,7 @@ abstract class Styling{
     fontWeight: FontWeight.w800,
   );
   static final textStyle10= TextStyle(
-    color: Colors.white,
+    color: AppColor.kWhite1,
     fontSize: 10.sp,
     fontFamily: AppConstant.kFontFamily,
     fontWeight: FontWeight.w800,

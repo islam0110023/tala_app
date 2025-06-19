@@ -5,8 +5,13 @@ import 'package:tala_app/core/utils/styling.dart';
 import 'package:tala_app/core/widget/custom_arrow_back.dart';
 
 class ProfileProgressBar extends StatelessWidget {
-  const ProfileProgressBar({super.key, required this.done});
+  const ProfileProgressBar({
+    super.key,
+    required this.done,
+    this.isLight = false,
+  });
   final int done;
+  final bool isLight;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -15,7 +20,7 @@ class ProfileProgressBar extends StatelessWidget {
           onTap: () {
             Navigator.pop(context);
           },
-          arrowColor: AppColor.kWhite,
+          arrowColor: isLight ? AppColor.kPrimaryPink : AppColor.kWhite,
         ),
         const Spacer(),
         SizedBox(
@@ -23,14 +28,21 @@ class ProfileProgressBar extends StatelessWidget {
           child: LinearProgressIndicator(
             value: done / 4,
             minHeight: AppDimensions.h5,
-            backgroundColor: AppColor.kWhite1,
+            backgroundColor: isLight
+                ? AppColor.kColorProgress
+                : AppColor.kWhite1,
             color: AppColor.kPrimaryPink,
             borderRadius: BorderRadius.circular(AppDimensions.r2),
           ),
         ),
         SizedBox(width: AppDimensions.w10),
-        Text('$done/4', style: Styling.textStyle10),
-        const Spacer()
+        Text(
+          '$done/4',
+          style: Styling.textStyle10.copyWith(
+            color: isLight ? AppColor.kPrimaryPink : AppColor.kWhite1,
+          ),
+        ),
+        const Spacer(),
       ],
     );
   }

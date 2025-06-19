@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 abstract class AppColor{
   static const kPrimaryPink= Color(0xffDB0165);
   static const kPurple= Color(0x478B00B7);
+  static const kDarkPurple= Color(0xbf8b00b7);
   static const kLightPurple= Color(0x4D8B00B7);
   static const kLightPink= Color(0xffff4f9d);
   static const kBlack25= Color(0x3F000000);
@@ -20,5 +21,6 @@ abstract class AppColor{
   static const kTagsColor= Color(0xff84508C);
   static const kPurpleColor = Color(0xCC8B00B7);
   static const kSugarWhite = Color(0xFFEFEFEF);
+  static const kColorProgress = Color(0xFFA9A9A9);
 
 }

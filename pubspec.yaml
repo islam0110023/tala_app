@@ -43,6 +43,7 @@ dependencies:
   flutter_animate: ^4.5.2
   dropdown_button2: ^2.3.9
   smooth_page_indicator: ^1.2.1
+  gradient_borders: ^1.0.1
 
 dev_dependencies:
   flutter_test:
