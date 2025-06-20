@@ -16,5 +16,11 @@ class AppImage{
   static const kPassionConcert = 'assets/images/concert_icon.svg';
   static const kPassionMusic = 'assets/images/music_icon.svg';
   static const kPassionPhotography = 'assets/images/photography_icon.svg';
+  static const kMashbakIcon = 'assets/images/mashbak_icon.svg';
+  static const kImageTalaOnboarding1 = 'assets/images/Rectangle 615.png';
+  static const kImageTalaOnboarding2 = 'assets/images/Rectangle 616.png';
+  static const kImageTalaOnboarding3 = 'assets/images/Rectangle 617.png';
+  static const kImageTalaOnboarding4 = 'assets/images/Rectangle 694.png';
+
 
 }

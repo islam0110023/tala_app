@@ -83,6 +83,13 @@ abstract class Styling{
     fontWeight: FontWeight.w900,
     letterSpacing: -0.30.h,
   );
+  static final textStyle45=TextStyle(
+    color: AppColor.kBlack,
+    fontSize: 45.sp,
+    fontFamily: AppConstant.kFontFamilyInter,
+    fontWeight: FontWeight.w900,
+    letterSpacing: -0.30.h,
+  );
   static final textStyle16700 = TextStyle(
     color: AppColor.kWhite,
     fontSize: 16.sp,
@@ -92,6 +99,12 @@ abstract class Styling{
   static final textStyle18 = TextStyle(
     color: AppColor.kWhite,
     fontSize: 18.sp,
+    fontFamily: AppConstant.kFontFamily,
+    fontWeight: FontWeight.w700,
+  );
+  static final textStyleP20 = TextStyle(
+    color:  AppColor.kColorOnboarding,
+    fontSize: 20.sp,
     fontFamily: AppConstant.kFontFamily,
     fontWeight: FontWeight.w700,
   );
