@@ -1,3 +1,4 @@
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 
 class OnboardingTalaScreenBody extends StatelessWidget {
@@ -5,6 +6,11 @@ class OnboardingTalaScreenBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Column();
+    return Stack(
+      clipBehavior: Clip.hardEdge,
+      children: [
+
+      ],
+    );
   }
 }
