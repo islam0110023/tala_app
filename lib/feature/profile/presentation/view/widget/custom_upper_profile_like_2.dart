@@ -25,7 +25,7 @@ class CustomUpperProfileLike2 extends StatelessWidget {
           textAlign: TextAlign.center,
           style: Styling.textStyleGray16,
         ),
-        SizedBox(height: AppDimensions.h32),
+        SizedBox(height: AppDimensions.h23),
       ],
     );
   }
