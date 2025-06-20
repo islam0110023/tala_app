@@ -5,6 +5,7 @@ import 'package:tala_app/feature/auth/presentation/view/register_screen.dart';
 import 'package:tala_app/feature/onboarding/presentation/view/onboarding_screen.dart';
 import 'package:tala_app/feature/onboarding/presentation/view/onboarding_slide_screen.dart';
 import 'package:tala_app/feature/onboarding/presentation/view/onboarding_tags_screen.dart';
+import 'package:tala_app/feature/onboarding/presentation/view/onboarding_tala_screen.dart';
 import 'package:tala_app/feature/profile/presentation/view/profile_like_1_screen.dart';
 import 'package:tala_app/feature/profile/presentation/view/profile_like_2_screen.dart';
 import 'package:tala_app/feature/profile/presentation/view/profile_music_preferences_screen.dart';
@@ -25,6 +26,8 @@ class AppRoutes {
   static const profileSelectPassionsScreen = '/profile_select_passion_screen';
   static const profileLike1Screen = '/profile_like_1_screen';
   static const profileLike2Screen = '/profile_like_2_screen';
+  static const onBoardingTalaScreen = '/onboarding_tala_screen';
+
 
 
 
@@ -78,6 +81,11 @@ class AppRoutes {
         path: profileLike2Screen,
         builder: (context, state) => const ProfileLike2Screen(),
       ),
+      GoRoute(
+        path: onBoardingTalaScreen,
+        builder: (context, state) => const OnboardingTalaScreen(),
+      ),
+
 
 
     ],
