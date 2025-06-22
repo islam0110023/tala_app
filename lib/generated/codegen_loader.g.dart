@@ -15,7 +15,7 @@ class CodegenLoader extends AssetLoader{
   }
 
   static const Map<String,dynamic> _de = {
-  "embraceFuture": "Willkommen in der Zukunft von Spaß und Romantik,",
+  "embraceFuture": "Willkommen in der Zukunft von Spaß und Romantik, \n",
   "revolutionizePlanning": "Revolutioniere deine Veranstaltungsplanung!",
   "startExperience": "Starte dein einzigartiges Erlebnis!",
   "alreadyHaveAccount": "Hast du schon ein Konto?",

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -7,6 +8,7 @@ import 'package:tala_app/core/utils/routes.dart';
 import 'package:tala_app/core/widget/custom_already_sign_in.dart';
 import 'package:tala_app/feature/onboarding/presentation/view/widget/custom_button_onboarding.dart';
 import 'package:tala_app/feature/onboarding/presentation/view/widget/description_sizedbox_widget.dart';
+import 'package:tala_app/generated/locale_keys.g.dart';
 
 class OnboardingScreenBody extends StatelessWidget {
   const OnboardingScreenBody({super.key});
@@ -35,8 +37,8 @@ class OnboardingScreenBody extends StatelessWidget {
           ),
           SizedBox(height: AppDimensions.h31),
           CustomAlreadySignIn(
-            name1: 'Already have an account ?',
-            name2: 'Sign in',
+            name1: LocaleKeys.alreadyHaveAccount.tr(),
+            name2: LocaleKeys.signIn.tr(),
             onTap: () {
               GoRouter.of(context).push(AppRoutes.loginScreen);
             },

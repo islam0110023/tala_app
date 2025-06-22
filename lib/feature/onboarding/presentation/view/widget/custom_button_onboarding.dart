@@ -1,7 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:tala_app/core/utils/app_color.dart';
 import 'package:tala_app/core/utils/app_dimensions.dart';
 import 'package:tala_app/core/utils/styling.dart';
+import 'package:tala_app/generated/locale_keys.g.dart';
 
 class CustomButtonOnboarding extends StatelessWidget {
   const CustomButtonOnboarding({
@@ -37,7 +39,7 @@ class CustomButtonOnboarding extends StatelessWidget {
           ),
         ),
         child: Text(
-          'Start Your Unique Experience!',
+          LocaleKeys.startExperience.tr() ,
           style: Styling.textStyleB20
         ),
       ),

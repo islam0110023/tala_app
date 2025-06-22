@@ -1,7 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:tala_app/core/utils/app_color.dart';
 import 'package:tala_app/core/utils/app_dimensions.dart';
 import 'package:tala_app/core/utils/styling.dart';
+import 'package:tala_app/generated/locale_keys.g.dart';
 
 class DescriptionSizeBoxWidget extends StatelessWidget {
   const DescriptionSizeBoxWidget({super.key});
@@ -14,11 +16,11 @@ class DescriptionSizeBoxWidget extends StatelessWidget {
         TextSpan(
           children: [
             TextSpan(
-              text: 'Embrace the future of fun and romance,\n',
+              text: LocaleKeys.embraceFuture.tr(),
               style: Styling.textStyle20,
             ),
             TextSpan(
-              text: 'Revolutionize your event planning!',
+              text: LocaleKeys.revolutionizePlanning.tr(),
               style: Styling.textStyle20.copyWith(
                 color: AppColor.kPrimaryPink,
               ),
