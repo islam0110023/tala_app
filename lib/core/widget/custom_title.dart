@@ -9,15 +9,12 @@ class CustomTitle extends StatelessWidget {
   final double textFont;
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      //width: AppDimensions.w327,
-      child: Text(
-        title,
-        textAlign: TextAlign.center,
-        style: Styling.textStyle20.copyWith(
-          color: AppColor.kTitleColor,
-          fontSize: textFont.sp,
-        ),
+    return Text(
+      title,
+      textAlign: TextAlign.center,
+      style: Styling.textStyle20.copyWith(
+        color: AppColor.kTitleColor,
+        fontSize: textFont.sp,
       ),
     );
   }

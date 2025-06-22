@@ -14,6 +14,8 @@ class CustomButtonOnboarding extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: AppDimensions.w328,
+        height: AppDimensions.h61,
       decoration: BoxDecoration(
         boxShadow: const [
           BoxShadow(
@@ -38,9 +40,13 @@ class CustomButtonOnboarding extends StatelessWidget {
             horizontal: AppDimensions.r30,
           ),
         ),
-        child: Text(
-          LocaleKeys.startExperience.tr() ,
-          style: Styling.textStyleB20
+        child: FittedBox(
+          fit: BoxFit.scaleDown,
+          child: Text(
+            LocaleKeys.startExperience.tr() ,
+            style: Styling.textStyleB20,
+            textAlign: TextAlign.center,
+          ),
         ),
       ),
     );

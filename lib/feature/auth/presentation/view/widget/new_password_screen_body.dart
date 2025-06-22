@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tala_app/core/utils/app_dimensions.dart';
@@ -6,6 +7,7 @@ import 'package:tala_app/core/widget/custom_arrow_back.dart';
 import 'package:tala_app/core/widget/custom_button.dart';
 import 'package:tala_app/core/widget/custom_title.dart';
 import 'package:tala_app/feature/auth/presentation/view/widget/custom_fields_new_password.dart';
+import 'package:tala_app/generated/locale_keys.g.dart';
 
 class NewPasswordScreenBody extends StatelessWidget {
   const NewPasswordScreenBody({super.key});
@@ -31,17 +33,17 @@ class NewPasswordScreenBody extends StatelessWidget {
                         GoRouter.of(context).pop();
                       },
                     ),
-                    const CustomTitle(title: 'New Password', textFont: 28),
+                    CustomTitle(title: LocaleKeys.newPassword.tr(), textFont: 28),
                     SizedBox(height: AppDimensions.h7),
                     Text(
-                      'Your new password must be different from\npreviously used passwords',
+                      LocaleKeys.passwordRequirement.tr(),
                       textAlign: TextAlign.center,
                       style: Styling.textStyleGray16,
                     ),
                     SizedBox(height: AppDimensions.h33),
                     const CustomFieldsNewPassword(),
                     SizedBox(height: AppDimensions.h51),
-                    CustomButton(onTap: () {}, name: 'Create New Password'),
+                    CustomButton(onTap: () {}, name: LocaleKeys.createNewPassword.tr()),
                   ],
                 ),
               ),

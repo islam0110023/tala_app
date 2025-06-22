@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -9,6 +10,7 @@ import 'package:tala_app/core/utils/routes.dart';
 import 'package:tala_app/core/utils/styling.dart';
 import 'package:tala_app/core/widget/custom_arrow_back.dart';
 import 'package:tala_app/feature/onboarding/presentation/view/widget/custom_down_onboarding.dart';
+import 'package:tala_app/generated/locale_keys.g.dart';
 
 class OnboardingSlideScreenBody extends StatefulWidget {
   const OnboardingSlideScreenBody({super.key});
@@ -19,14 +21,14 @@ class OnboardingSlideScreenBody extends StatefulWidget {
 }
 
 class _OnboardingSlideScreenBodyState extends State<OnboardingSlideScreenBody> {
-  final List<OnboardingModel> onboardingList = const [
+  final List<OnboardingModel> onboardingList = [
     OnboardingModel(
       image: AppImage.kOnboarding1,
-      text: 'Redefining social\nconnections',
+      text: LocaleKeys.redefiningSocial.tr(),
     ),
     OnboardingModel(
       image: AppImage.kOnboarding2,
-      text: '& concert\nexperiences into',
+      text: LocaleKeys.concertExperiences.tr(),
     ),
   ];
   PageController pageController = PageController();
@@ -92,10 +94,17 @@ class _OnboardingSlideScreenBodyState extends State<OnboardingSlideScreenBody> {
                       arrowColor: AppColor.kWhite,
                     ),
                     const Spacer(),
-                    Text(
-                      onboardingList[i].text,
-                      textAlign: TextAlign.center,
-                      style: Styling.textStyle36,
+                    SizedBox(
+                      width: AppDimensions.w299,
+                      height: AppDimensions.h86,
+                      child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Text(
+                          onboardingList[i].text,
+                          textAlign: TextAlign.center,
+                          style: Styling.textStyle36,
+                        ),
+                      ),
                     ),
                     //SizedBox(height: AppDimensions.h28),
                     SizedBox(height: AppDimensions.h106),

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -10,6 +11,7 @@ import 'package:tala_app/core/widget/custom_arrow_back.dart';
 import 'package:tala_app/core/widget/custom_button.dart';
 import 'package:tala_app/core/widget/custom_title.dart';
 import 'package:tala_app/feature/profile/presentation/view/widget/custom_fields_set_profile.dart';
+import 'package:tala_app/generated/locale_keys.g.dart';
 
 class ProfileSetInfoScreenBody extends StatelessWidget {
   const ProfileSetInfoScreenBody({super.key});
@@ -32,8 +34,8 @@ class ProfileSetInfoScreenBody extends StatelessWidget {
                 },
               ),
               SizedBox(height: AppDimensions.h18),
-              const CustomTitle(
-                title: 'Share Piece of Your World',
+              CustomTitle(
+                title: LocaleKeys.shareYourWorld.tr(),
                 textFont: 28,
               ),
               SizedBox(height: AppDimensions.h36),
@@ -61,7 +63,7 @@ class ProfileSetInfoScreenBody extends StatelessWidget {
                     context,
                   ).push(AppRoutes.profileMusicPreferencesScreen);
                 },
-                name: 'Complete Profile',
+                name: LocaleKeys.completeProfile.tr(),
               ),
             ],
           ),

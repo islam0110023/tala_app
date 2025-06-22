@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tala_app/core/utils/app_dimensions.dart';
@@ -10,6 +11,7 @@ import 'package:tala_app/feature/auth/presentation/view/widget/check_agree_terms
 import 'package:tala_app/feature/auth/presentation/view/widget/custom_fields_register.dart';
 import 'package:tala_app/feature/auth/presentation/view/widget/custom_sign_with_auth.dart';
 import 'package:tala_app/feature/auth/presentation/view/widget/custome_alternative_sign_in.dart';
+import 'package:tala_app/generated/locale_keys.g.dart';
 
 class RegisterScreenBody extends StatelessWidget {
   const RegisterScreenBody({super.key});
@@ -33,21 +35,21 @@ class RegisterScreenBody extends StatelessWidget {
                 },
               ),
               SizedBox(height: AppDimensions.h28),
-              const CustomTitle(title: 'Creat Your Account'),
+              CustomTitle(title:LocaleKeys.createAccount.tr()),
               const CustomFieldsRegister(),
               const CheckAgreeTerms(),
               SizedBox(height: AppDimensions.h41),
               CustomButton(onTap: () {
                 GoRouter.of(context).push(AppRoutes.profileSetInfoScreen);
-              }, name: 'Sign up'),
+              }, name: LocaleKeys.signUp.tr()),
               SizedBox(height: AppDimensions.h41),
               const CustomSignWithAuth(),
               SizedBox(height: AppDimensions.h23),
               const CustomAlternativeSignIn(),
               SizedBox(height: AppDimensions.h20),
               CustomAlreadySignIn(
-                name1: 'Already have an account ?',
-                name2: 'Sign in',
+                name1:LocaleKeys.alreadyHaveAccount.tr(),
+                name2:LocaleKeys.signIn.tr(),
                 onTap: () {
                   GoRouter.of(context).pop();
                 },

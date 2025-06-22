@@ -1,16 +1,18 @@
 {
-  "@@locale": "en",
-  "embraceFuture": "Embrace the future of fun and romance,",
+  "embraceFuture": "Embrace the future of fun and romance,\n",
   "revolutionizePlanning": "Revolutionize your event planning!",
   "startExperience": "Start Your Unique Experience!",
   "alreadyHaveAccount": "Already have an account ?",
   "signIn": "Sign in",
-  "redefiningConnections": "Redefining social connections\n& concert experiences into",
+  "redefiningSocial": "Redefining social\nconnections",
+  "concertExperiences": "& concert\n experiences into",
   "redefining": "Redefining",
   "social": "Social",
   "connection": "Connection",
   "and": "And",
-  "concertExperiences": "Concert\nExperiences\ninto",
+  "concert": "Concert",
+  "experiences": "Experiences",
+  "into": "into",
   "readyToMakeMemories": "Ready To Make Unforgettable Memories Again?",
   "emailOrPhone": "Email or Phone number",
   "password": "Password",
@@ -19,7 +21,7 @@
   "orSignInWith": "or sign in with",
   "newToScene": "New to the scene?",
   "signUpNow": "Sign Up Now!",
-  "createAccount": "Creat Your Account",
+  "createAccount": "Create Your Account",
   "yourName": "Your Name",
   "lastName": "Last Name",
   "email": "Email",
@@ -47,5 +49,5 @@
   "newPassword": "New Password",
   "passwordRequirement": "Your new password must be different from previously used passwords",
   "confirmPassword": "Confirm Password",
-  "createNewPassword": "Creat New Password"
+  "createNewPassword": "Create New Password"
 }

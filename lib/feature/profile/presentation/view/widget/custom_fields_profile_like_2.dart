@@ -11,7 +11,7 @@ class CustomFieldsProfileLike2 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const CustomDropDownProfile(
+        CustomDropDownProfile(
           hint: 'Choose what you like',
           options: AppConstant.kWords,
           label: 'Do you enjoy traveling for concerts or prefer local shows?',
@@ -23,14 +23,14 @@ class CustomFieldsProfileLike2 extends StatelessWidget {
         ),
         SizedBox(height: AppDimensions.h16),
 
-        const CustomDropDownProfile(
+        CustomDropDownProfile(
           hint: 'Write how you usually find new music',
           options: AppConstant.kWords,
           label: 'How do you usually discover new music? ',
         ),
         SizedBox(height: AppDimensions.h16),
 
-        const CustomDropDownProfile(
+        CustomDropDownProfile(
           hint: 'Enter your thoughts',
           options: AppConstant.kWords,
           label:
@@ -38,7 +38,7 @@ class CustomFieldsProfileLike2 extends StatelessWidget {
         ),
         SizedBox(height: AppDimensions.h16),
 
-        const CustomDropDownProfile(
+        CustomDropDownProfile(
           options: AppConstant.kWords,
           label:
               'How far would you travel to see your favorite artist or band perform?',

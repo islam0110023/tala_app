@@ -1,8 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tala_app/core/utils/app_dimensions.dart';
 import 'package:tala_app/core/widget/custom_dropdown.dart';
 import 'package:tala_app/core/widget/custom_text_field.dart';
+import 'package:tala_app/generated/locale_keys.g.dart';
 
 class CustomFieldsSetProfile extends StatefulWidget {
   const CustomFieldsSetProfile({super.key});
@@ -13,7 +15,7 @@ class CustomFieldsSetProfile extends StatefulWidget {
 
 class _CustomFieldsSetProfileState extends State<CustomFieldsSetProfile> {
   late TextEditingController date;
-  final List<String> genderOptions = ['Male', 'Female'];
+  final List<String> genderOptions = [LocaleKeys.male.tr(), LocaleKeys.female.tr()];
   @override
   void initState() {
     // TODO: implement initState
@@ -32,8 +34,8 @@ class _CustomFieldsSetProfileState extends State<CustomFieldsSetProfile> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const CustomTextField(
-          hint: 'Name',
+        CustomTextField(
+          hint:LocaleKeys.name.tr(),
           suffixIcon: CupertinoIcons.person_crop_circle,
         ),
         SizedBox(height: AppDimensions.h14),
@@ -53,13 +55,13 @@ class _CustomFieldsSetProfileState extends State<CustomFieldsSetProfile> {
                   "${value!.day.toString().padLeft(2, "0")}/${value.month.toString().padLeft(2, "0")}/${value.year.toString()}";
             });
           },
-          hint: 'Date',
+          hint:LocaleKeys.date.tr(),
           suffixIcon:  CupertinoIcons.calendar,
           textInputType: TextInputType.datetime,
         ),
         SizedBox(height: AppDimensions.h14),
-        const CustomTextField(
-          hint: 'Location',
+        CustomTextField(
+          hint: LocaleKeys.location.tr(),
           suffixIcon: CupertinoIcons.location_solid,
         ),
       ],

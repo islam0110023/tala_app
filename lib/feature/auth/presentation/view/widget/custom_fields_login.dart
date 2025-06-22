@@ -1,9 +1,11 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tala_app/core/utils/app_dimensions.dart';
 import 'package:tala_app/core/utils/routes.dart';
 import 'package:tala_app/core/widget/custom_text_field.dart';
 import 'package:tala_app/feature/auth/presentation/view/widget/custom_forget_password_login.dart';
+import 'package:tala_app/generated/locale_keys.g.dart';
 
 class CustomFieldsLogin extends StatelessWidget {
   const CustomFieldsLogin({
@@ -14,9 +16,9 @@ class CustomFieldsLogin extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const CustomTextField(hint: 'Email or Phone number'),
+        CustomTextField(hint: LocaleKeys.emailOrPhone.tr()),
         SizedBox(height: AppDimensions.h23),
-        const CustomTextField(hint: 'Password', password_flag: true),
+        CustomTextField(hint: LocaleKeys.password.tr(), password_flag: true),
         SizedBox(height: AppDimensions.h33),
         CustomForgetPasswordLogin(
           onTap: () {

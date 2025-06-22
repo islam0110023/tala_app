@@ -1,8 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tala_app/core/utils/app_dimensions.dart';
 import 'package:tala_app/core/widget/custom_arrow_back.dart';
 import 'package:tala_app/core/widget/custom_title.dart';
+import 'package:tala_app/generated/locale_keys.g.dart';
 
 class CustomUpperLogin extends StatelessWidget {
   const CustomUpperLogin({
@@ -18,8 +20,8 @@ class CustomUpperLogin extends StatelessWidget {
           GoRouter.of(context).pop();
         }),
         SizedBox(height: AppDimensions.h33),
-        const CustomTitle(
-          title: 'Ready To Make Unforgettable\nMemories Again?',
+        CustomTitle(
+          title: LocaleKeys.readyToMakeMemories.tr(),
         ),
         SizedBox(height: AppDimensions.h49),
       ],

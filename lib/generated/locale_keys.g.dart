@@ -8,11 +8,16 @@ abstract class  LocaleKeys {
   static const startExperience = 'startExperience';
   static const alreadyHaveAccount = 'alreadyHaveAccount';
   static const signIn = 'signIn';
-  static const redefiningConnections = 'redefiningConnections';
+  static const redefiningSocial = 'redefiningSocial';
   static const redefining = 'redefining';
   static const social = 'social';
+  static const concert = 'concert';
+  static const experiences = 'experiences';
   static const connection = 'connection';
+  static const male = 'male';
+  static const female = 'female';
   static const and = 'and';
+  static const into = 'into';
   static const concertExperiences = 'concertExperiences';
   static const readyToMakeMemories = 'readyToMakeMemories';
   static const emailOrPhone = 'emailOrPhone';

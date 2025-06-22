@@ -1,9 +1,11 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tala_app/core/utils/app_color.dart';
 import 'package:tala_app/core/utils/app_dimensions.dart';
 import 'package:tala_app/core/utils/styling.dart';
+import 'package:tala_app/generated/locale_keys.g.dart';
 
 class CustomDropdown extends StatefulWidget {
   const CustomDropdown({super.key, required this.options});
@@ -49,7 +51,7 @@ class _CustomDropdownState extends State<CustomDropdown> {
           ),
 
           value: selectedGender,
-          hint: Text('Gender', style: Styling.textStyle13),
+          hint: Text(LocaleKeys.gender.tr(), style: Styling.textStyle13),
           decoration: InputDecoration(
             isDense: true,
             fillColor: AppColor.kTextFieldColor,

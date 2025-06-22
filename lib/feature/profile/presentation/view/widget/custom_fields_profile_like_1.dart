@@ -11,7 +11,7 @@ class CustomFieldsProfileLike1 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const CustomDropDownProfile(
+        CustomDropDownProfile(
           hint: 'Choose what you like',
           options: AppConstant.kWords,
           label: 'What genres of music do you enjoy the most?',
@@ -23,14 +23,14 @@ class CustomFieldsProfileLike1 extends StatelessWidget {
         ),
         SizedBox(height: AppDimensions.h16),
 
-        const CustomDropDownProfile(
+        CustomDropDownProfile(
           hint: 'Write how often you attend live music events',
           options: AppConstant.kWords,
           label: 'How often do you attend live music events? ',
         ),
         SizedBox(height: AppDimensions.h16),
 
-        const CustomDropDownProfile(
+        CustomDropDownProfile(
           hint: 'Enter your thoughts',
           options: AppConstant.kWords,
           label:
