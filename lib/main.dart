@@ -1,13 +1,26 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tala_app/core/utils/app_color.dart';
 import 'package:tala_app/core/utils/constants.dart';
 import 'package:tala_app/core/utils/routes.dart';
+import 'package:tala_app/generated/codegen_loader.g.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
 
-  runApp(const TalaApp());
+  runApp(
+    EasyLocalization(
+      supportedLocales: const [Locale('en'), Locale('de')],
+      path: 'assets/translate',
+      fallbackLocale: const Locale('en'),
+      startLocale: _detectDeviceLocale(),
+      assetLoader: const CodegenLoader(),
+      child: const TalaApp(),
+    ),
+  );
 }
 
 class TalaApp extends StatelessWidget {
@@ -25,6 +38,9 @@ class TalaApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       child: MaterialApp.router(
+        locale: context.locale,
+        localizationsDelegates: context.localizationDelegates,
+        supportedLocales: context.supportedLocales,
         builder: (context, child) {
           AppConstant.precacheAppImages(context);
 
@@ -36,4 +52,12 @@ class TalaApp extends StatelessWidget {
       ),
     );
   }
+}
+
+Locale _detectDeviceLocale() {
+  final deviceLocale = PlatformDispatcher.instance.locale;
+
+  return deviceLocale.languageCode == 'de'
+      ? const Locale('de')
+      : const Locale('en');
 }
