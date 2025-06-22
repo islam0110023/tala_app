@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tala_app/core/utils/app_dimensions.dart';
 import 'package:tala_app/feature/onboarding/presentation/view/widget/custom_icon_tala_onboarding.dart';
 
@@ -8,7 +7,8 @@ class CustomImageTalaOnBoarding extends StatelessWidget {
     super.key,
     required this.left,
     required this.top,
-    required this.image, required this.angle,
+    required this.image,
+    required this.angle,
   });
   final double left, top;
   final String image;
@@ -33,8 +33,8 @@ class CustomImageTalaOnBoarding extends StatelessWidget {
               ),
             ),
             CustomIconTalaOnBoarding(
-              top: -40.h,
-              left: 65.w,
+              top: -AppDimensions.h40,
+              left: AppDimensions.w65,
             ),
           ],
         ),

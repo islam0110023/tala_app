@@ -4,17 +4,11 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:tala_app/core/utils/app_color.dart';
 import 'package:tala_app/core/utils/app_dimensions.dart';
 
-class CustomDownOnboarding extends StatelessWidget {
-  const CustomDownOnboarding({
-    super.key,
-    required this.pageController,
-    required this.index, required this.onTap,
+class CustomNavTalaOnBoarding extends StatelessWidget {
+  const CustomNavTalaOnBoarding({
+    super.key, required this.onTap,
   });
-
-  final PageController pageController;
-  final int index;
-  final VoidCallback onTap;
-
+final VoidCallback onTap;
   @override
   Widget build(BuildContext context) {
     return Positioned(
@@ -26,7 +20,7 @@ class CustomDownOnboarding extends StatelessWidget {
           const Spacer(),
           SizedBox(width: AppDimensions.w20),
           SmoothPageIndicator(
-            controller: pageController,
+            controller: PageController(initialPage: 2),
             count: 3,
             effect: CustomizableEffect(
               activeDotDecoration: DotDecoration(
@@ -50,6 +44,7 @@ class CustomDownOnboarding extends StatelessWidget {
             onTap: onTap,
             splashColor: AppColor.kLightPink,
             borderRadius: BorderRadius.circular(AppDimensions.r8),
+
             child: Container(
               width: AppDimensions.w54,
               height: AppDimensions.w45,

@@ -48,7 +48,7 @@ class _CustomAnimateContainerState extends State<CustomAnimateContainer>
         _controller.forward(from: 0);
       } else {
         timer.cancel();
-        GoRouter.of(context).go(AppRoutes.loginScreen);
+        GoRouter.of(context).go(AppRoutes.onBoardingTalaScreen);
       }
     });
   }

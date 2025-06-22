@@ -94,6 +94,8 @@ class AppDimensions {
   static final w130 = 130.w;
   static final w260 = 260.w;
   static final w317 = 317.w;
+  static final w190 = 190.w;
+  static final w238 = 238.w;
 
 
 
