@@ -12,11 +12,7 @@ class OtpScreenBody extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: AppDimensions.r25),
       child: const Column(
-        children: [
-          CustomUpperOtp(),
-          CustomPageTextBody(),
-          CustomActionOtp(),
-        ],
+        children: [CustomUpperOtp(), CustomPageTextBody(), CustomActionOtp()],
       ),
     );
   }

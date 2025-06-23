@@ -29,7 +29,7 @@ class CustomActionOtp extends StatelessWidget {
         ),
         SizedBox(height: AppDimensions.h70),
         CustomButton(onTap: () {
-          GoRouter.of(context).go(AppRoutes.profileSetInfoScreen);
+          GoRouter.of(context).pushReplacement(AppRoutes.profileSetInfoScreen);
         }, name: LocaleKeys.verify.tr()),
       ],
     );
