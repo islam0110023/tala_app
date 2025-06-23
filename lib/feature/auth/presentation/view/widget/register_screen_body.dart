@@ -40,7 +40,7 @@ class RegisterScreenBody extends StatelessWidget {
               const CheckAgreeTerms(),
               SizedBox(height: AppDimensions.h41),
               CustomButton(onTap: () {
-                GoRouter.of(context).push(AppRoutes.profileSetInfoScreen);
+                GoRouter.of(context).push(AppRoutes.otpScreen);
               }, name: LocaleKeys.signUp.tr()),
               SizedBox(height: AppDimensions.h41),
               const CustomSignWithAuth(),

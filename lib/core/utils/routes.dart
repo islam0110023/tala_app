@@ -37,7 +37,7 @@ class AppRoutes {
     routes: [
       GoRoute(
         path: splashScreen,
-        builder: (context, state) => const OtpScreen(),
+        builder: (context, state) => const SplashScreen(),
       ),
       GoRoute(
         path: onBoardingScreen,
