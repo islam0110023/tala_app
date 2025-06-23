@@ -23,5 +23,6 @@ abstract class AppColor{
   static const kSugarWhite = Color(0xFFEFEFEF);
   static const kColorProgress = Color(0xFFA9A9A9);
   static const kColorOnboarding = Color(0xFF530B6B);
+  static const kColorBorderOtp =  Color(0xFFB653CB);
 
 }

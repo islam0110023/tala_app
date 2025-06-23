@@ -101,14 +101,11 @@ class AppDimensions {
   static final w317 = 317.w;
   static final w190 = 190.w;
   static final w238 = 238.w;
-
-
-
-
-
-
-
-
+  static final w53 = 53.w;
+  static final h45 = 45.h;
+  static final r7 = 7.r;
+  static final w60 = 60.w;
+  static final r1_8 = 1.8.r;
 
 
 

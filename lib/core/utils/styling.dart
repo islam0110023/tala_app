@@ -107,6 +107,12 @@ abstract class Styling{
     fontSize: 20.sp,
     fontFamily: AppConstant.kFontFamily,
     fontWeight: FontWeight.w700,
+  ); static final textStyleBlack15 = TextStyle(
+    color: AppColor.kBlack1,
+    fontSize: 15.sp,
+    fontFamily: AppConstant.kFontFamily,
+    fontWeight: FontWeight.w700,
+    decoration: TextDecoration.underline,
   );
 
 }
