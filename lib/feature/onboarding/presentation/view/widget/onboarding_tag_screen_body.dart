@@ -14,7 +14,7 @@ class OnboardingTagScreenBody extends StatelessWidget {
       decoration:const BoxDecoration(
         image: DecorationImage(
           image: AssetImage(AppImage.kOnboarding2),
-          fit: BoxFit.fill,
+          fit: BoxFit.cover,
         ),
       ),
       child: Column(

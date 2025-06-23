@@ -6,8 +6,8 @@ class AppImage{
   static const kAppleIcon='assets/images/apple_icon.svg';
   static const kGoogleIcon='assets/images/google_icon.svg';
   static const kPersonPicture='assets/images/profile_picture.svg';
-  static const kOnboarding2='assets/images/on boarding 12 (2).png';
-  static const kOnboarding1='assets/images/on boarding 13.png';
+  static const kOnboarding2='assets/images/onboarding2.jpg';
+  static const kOnboarding1='assets/images/onboarding1.jpg';
   static const kPassionGaming = 'assets/images/gaming_icon.svg';
   static const kPassionTravel = 'assets/images/travel_icon.svg';
   static const kPassionDance = 'assets/images/dance_icon.svg';

@@ -63,7 +63,7 @@ class _OnboardingSlideScreenBodyState extends State<OnboardingSlideScreenBody> {
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage(onboardingList[i].image),
-                  fit: BoxFit.fill,
+                  fit: BoxFit.cover,
                 ),
               ),
               child: Padding(
