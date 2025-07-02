@@ -41,10 +41,13 @@ class TextImageShader extends StatelessWidget {
 
         return SizedBox(
           width: width,
-          child: Text(
-            name,
-            style: textStyle.copyWith(
-              foreground: Paint()..shader = shader,
+          child: FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Text(
+              name,
+              style: textStyle.copyWith(
+                foreground: Paint()..shader = shader,
+              ),
             ),
           ),
         );
