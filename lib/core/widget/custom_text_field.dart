@@ -36,6 +36,7 @@ class CustomTextField extends StatelessWidget {
         ],
       ),
       child: TextFormField(
+        textInputAction: TextInputAction.next,
         readOnly: readOnly,
         controller: controller,
         obscureText: password_flag,

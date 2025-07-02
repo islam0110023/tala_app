@@ -44,6 +44,7 @@ class CustomFieldsProfileLike2 extends StatelessWidget {
               'How far would you travel to see your favorite artist or band perform?',
           hint: 'Write how far you would travel for a concert',
         ),
+        SizedBox(height: AppDimensions.h16),
       ],
     );
   }

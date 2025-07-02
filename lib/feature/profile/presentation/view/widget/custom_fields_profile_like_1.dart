@@ -42,6 +42,7 @@ class CustomFieldsProfileLike1 extends StatelessWidget {
           hint: 'Enter your favorite concert venue',
           label: 'What’s your favorite concert venue and why?',
         ),
+        SizedBox(height: AppDimensions.h16),
       ],
     );
   }

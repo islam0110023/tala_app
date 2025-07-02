@@ -43,8 +43,15 @@ class TalaApp extends StatelessWidget {
         supportedLocales: context.supportedLocales,
         builder: (context, child) {
           AppConstant.precacheAppImages(context);
+          final double scale = MediaQuery.of(context).textScaler.scale(1.0).clamp(1.0, 1.1);
 
-          return child!;
+
+          return MediaQuery(
+              data: MediaQuery.of(context).copyWith(
+                textScaler: TextScaler.linear(scale),
+              ),
+          child: child!
+          );
         },
         theme: ThemeData(scaffoldBackgroundColor: AppColor.kWhite1),
         routerConfig: AppRoutes.route,

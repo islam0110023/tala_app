@@ -11,8 +11,10 @@ class OtpScreenBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: AppDimensions.r25),
-      child: const Column(
-        children: [CustomUpperOtp(), CustomPageTextBody(), CustomActionOtp()],
+      child: const SingleChildScrollView(
+        child: Column(
+          children: [CustomUpperOtp(), CustomPageTextBody(), CustomActionOtp()],
+        ),
       ),
     );
   }

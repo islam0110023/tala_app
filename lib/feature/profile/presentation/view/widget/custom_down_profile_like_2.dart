@@ -10,7 +10,7 @@ class CustomDownProfileLike2 extends StatelessWidget {
     return Column(
       children: [
         CustomButton(onTap: () {}, name: 'Next'),
-        SizedBox(height: AppDimensions.h16),
+        SizedBox(height: AppDimensions.h20),
       ],
     );
   }
