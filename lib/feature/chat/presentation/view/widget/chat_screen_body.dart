@@ -8,8 +8,11 @@ class ChatScreenBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
+    return SafeArea(
+      child: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).unfocus();
+        },
         child: Padding(
           padding: const EdgeInsetsGeometry.symmetric(horizontal: 22.0),
           child: Column(
@@ -17,7 +20,7 @@ class ChatScreenBody extends StatelessWidget {
               const CustomHeaderChatRow(),
               SizedBox(height: AppDimensions.h30),
               Expanded(child: ListView()),
-              const Spacer(),
+
               const CustomChatFieldRow(),
               SizedBox(height: AppDimensions.h12),
             ],

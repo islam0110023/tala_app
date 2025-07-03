@@ -18,7 +18,7 @@ class CustomSearchField extends StatelessWidget {
         borderRadius: BorderRadius.circular(AppDimensions.r20),
         boxShadow: const [
           BoxShadow(
-            color: Color(0x285B0E6D),
+            color: AppColor.kBorderShadowColor,
             blurRadius: 14,
             offset: Offset(5, 5),
             spreadRadius: 0,
@@ -31,7 +31,7 @@ class CustomSearchField extends StatelessWidget {
           hintStyle: Styling.searchHintStyle,
           prefixIcon: const Icon(Icons.search),
           border: InputBorder.none,
-          contentPadding: const EdgeInsets.symmetric(vertical: 15),
+          contentPadding:  EdgeInsets.symmetric(vertical: AppDimensions.r15),
         ),
       ),
     );

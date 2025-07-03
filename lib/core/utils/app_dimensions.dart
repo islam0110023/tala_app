@@ -116,6 +116,10 @@ class AppDimensions {
   static final r7 = 7.r;
   static final w60 = 60.w;
   static final r1_8 = 1.8.r;
+  static final r45 = 45.r;
+  static final r55 = 55.r;
+  static final w68 = 68.w;
+  static final r50 = 50.r;
 
 
 
