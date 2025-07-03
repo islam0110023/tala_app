@@ -24,5 +24,10 @@ abstract class AppColor{
   static const kColorProgress = Color(0xFFA9A9A9);
   static const kColorOnboarding = Color(0xFF530B6B);
   static const kColorBorderOtp =  Color(0xFFB653CB);
+  static const kDividerColor =  Color(0x7F808080);
+  static const kNumberMessageColor =Color(0x26000000);
+  static const kBorderChatColor=Color(0xFFE3E9ED);
+  static const kBorderShadowColor = Color(0x285B0E6D);
+  static const kChatFieldColor = Color(0xD8EFEFEF);
 
 }

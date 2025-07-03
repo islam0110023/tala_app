@@ -3,6 +3,8 @@ import 'package:tala_app/feature/auth/presentation/view/login_screen.dart';
 import 'package:tala_app/feature/auth/presentation/view/new_password_screen.dart';
 import 'package:tala_app/feature/auth/presentation/view/otp_screen.dart';
 import 'package:tala_app/feature/auth/presentation/view/register_screen.dart';
+import 'package:tala_app/feature/chat/presentation/view/chat_screen.dart';
+import 'package:tala_app/feature/chat/presentation/view/chats_screen.dart';
 import 'package:tala_app/feature/onboarding/presentation/view/onboarding_screen.dart';
 import 'package:tala_app/feature/onboarding/presentation/view/onboarding_slide_screen.dart';
 import 'package:tala_app/feature/onboarding/presentation/view/onboarding_tags_screen.dart';
@@ -29,6 +31,8 @@ class AppRoutes {
   static const profileLike2Screen = '/profile_like_2_screen';
   static const onBoardingTalaScreen = '/onboarding_tala_screen';
   static const otpScreen = '/otp_screen';
+  static const chatsScreen = '/chats_screen';
+  static const chatScreen = '/chat_screen';
 
 
 
@@ -37,7 +41,7 @@ class AppRoutes {
     routes: [
       GoRoute(
         path: splashScreen,
-        builder: (context, state) => const SplashScreen(),
+        builder: (context, state) => const ChatsScreen(),
       ),
       GoRoute(
         path: onBoardingScreen,
@@ -90,6 +94,14 @@ class AppRoutes {
       GoRoute(
         path: otpScreen,
         builder: (context, state) => const OtpScreen(),
+      ),
+      GoRoute(
+        path: chatsScreen,
+        builder: (context, state) => const ChatsScreen(),
+      ),
+      GoRoute(
+        path: chatScreen,
+        builder: (context, state) => const ChatScreen(),
       ),
 
 

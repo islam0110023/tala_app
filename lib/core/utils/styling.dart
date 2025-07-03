@@ -114,5 +114,53 @@ abstract class Styling{
     fontWeight: FontWeight.w700,
     decoration: TextDecoration.underline,
   );
+  static final nameChatStyle = TextStyle(
+    color: AppColor.kColorOnboarding,
+    fontSize: 14.sp,
+    fontFamily: AppConstant.kFontFamily,
+    fontWeight: FontWeight.w700,
+  );
+  static final chatsHintStyle = TextStyle(
+    color: AppColor.kColorOnboarding,
+    fontSize: 10.sp,
+    fontFamily: AppConstant.kFontFamily,
+    fontWeight: FontWeight.w600,
+  );
+  static final timeChatStyle = TextStyle(
+    color: AppColor.kPrimaryPink,
+    fontSize: 10.sp,
+    fontFamily: AppConstant.kFontFamily,
+    fontWeight: FontWeight.w600,
+  );
+  static final messageNumberStyle=TextStyle(
+    color: AppColor.kWhite,
+    fontSize: 8.sp,
+    fontFamily: AppConstant.kFontFamily,
+    fontWeight: FontWeight.w600,
+  );
+  static final chatNumberStyle = TextStyle(
+    color: Colors.black,
+    fontSize: 14.sp,
+    fontFamily: AppConstant.kFontFamily,
+    fontWeight: FontWeight.w700,
+  );
+  static final chatStateStyle = TextStyle(
+    color: AppColor.kGray,
+    fontSize: 11.sp,
+    fontFamily: AppConstant.kFontFamily,
+    fontWeight: FontWeight.w700,
+  );
+  static final searchHintStyle = TextStyle(
+    color: AppColor.kColorOnboarding,
+    fontSize: 12.sp,
+    fontFamily: AppConstant.kFontFamily,
+    fontWeight: FontWeight.w600,
+  );
+  static final chatFieldStyle = TextStyle(
+    color: AppColor.kPrimaryPink,
+    fontSize: 10.sp,
+    fontFamily: AppConstant.kFontFamily,
+    fontWeight: FontWeight.w700,
+  );
 
 }
