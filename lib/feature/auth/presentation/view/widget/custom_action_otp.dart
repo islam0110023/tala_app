@@ -9,12 +9,11 @@ import 'package:tala_app/feature/auth/presentation/view/widget/custom_fields_otp
 import 'package:tala_app/generated/locale_keys.g.dart';
 
 class CustomActionOtp extends StatelessWidget {
-  const CustomActionOtp({
-    super.key,
-  });
+  const CustomActionOtp({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final bool isNewPassword = GoRouterState.of(context).extra as bool;
     return Column(
       children: [
         const CustomFieldsOtp(),
@@ -28,9 +27,18 @@ class CustomActionOtp extends StatelessWidget {
           style: Styling.textStyleBlack15,
         ),
         SizedBox(height: AppDimensions.h70),
-        CustomButton(onTap: () {
-          GoRouter.of(context).pushReplacement(AppRoutes.newPasswordScreen);
-        }, name: LocaleKeys.verify.tr()),
+        CustomButton(
+          onTap: () {
+            if (isNewPassword) {
+              GoRouter.of(context).pushReplacement(AppRoutes.newPasswordScreen);
+            } else {
+              GoRouter.of(
+                context,
+              ).pushReplacement(AppRoutes.profileSetInfoScreen);
+            }
+          },
+          name: LocaleKeys.verify.tr(),
+        ),
       ],
     );
   }

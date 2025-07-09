@@ -13,6 +13,7 @@ import 'package:tala_app/generated/locale_keys.g.dart';
 
 class ForgetPasswordScreenBody extends StatelessWidget {
   const ForgetPasswordScreenBody({super.key});
+  final bool isNewPassword = true;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +36,10 @@ class ForgetPasswordScreenBody extends StatelessWidget {
                         GoRouter.of(context).pop();
                       },
                     ),
-                    CustomTitle(title: LocaleKeys.sendCode.tr(), textFont: 28.sp),
+                    CustomTitle(
+                      title: LocaleKeys.sendCode.tr(),
+                      textFont: 28.sp,
+                    ),
                     SizedBox(height: AppDimensions.h7),
                     Text(
                       LocaleKeys.resetPassword.tr(),
@@ -43,13 +47,16 @@ class ForgetPasswordScreenBody extends StatelessWidget {
                       style: Styling.textStyleGray16,
                     ),
                     SizedBox(height: AppDimensions.h47),
-                    CustomTextField(
-                      hint: LocaleKeys.email.tr(),
-                    ),
+                    CustomTextField(hint: LocaleKeys.email.tr()),
                     SizedBox(height: AppDimensions.h51),
-                    CustomButton(onTap: () {
-                      GoRouter.of(context).push(AppRoutes.otpScreen);
-                    }, name: LocaleKeys.send.tr()),
+                    CustomButton(
+                      onTap: () {
+                        GoRouter.of(
+                          context,
+                        ).push(AppRoutes.otpScreen, extra: isNewPassword);
+                      },
+                      name: LocaleKeys.send.tr(),
+                    ),
                   ],
                 ),
               ),
