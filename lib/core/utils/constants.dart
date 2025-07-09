@@ -40,11 +40,11 @@ abstract class AppConstant{
   ];
  static void precacheAppImages(BuildContext context) {
     final List<AssetImage> imagesToPrecache = [
-      const AssetImage('assets/images/logo_tala.png'),
-      const AssetImage('assets/images/Tala.png'),
-      const AssetImage('assets/images/onboarding_logo.png'),
-      const AssetImage('assets/images/on boarding 12 (2).png'),
-      const AssetImage('assets/images/on boarding 13.png'),
+      const AssetImage(AppImage.kLogoImage),
+      const AssetImage(AppImage.kTalaImage),
+      const AssetImage(AppImage.kOnboardingLogo),
+      const AssetImage(AppImage.kOnboarding2),
+      const AssetImage(AppImage.kOnboarding1),
     ];
 
     for (final image in imagesToPrecache) {
