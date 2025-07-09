@@ -65,7 +65,10 @@ class CodegenLoader extends AssetLoader{
   "newPassword": "Neues Passwort",
   "passwordRequirement": "Dein neues Passwort muss sich von zuvor verwendeten unterscheiden",
   "confirmPassword": "Passwort bestätigen",
-  "createNewPassword": "Neues Passwort erstellen"
+  "createNewPassword": "Neues Passwort erstellen",
+  "resetPassword":"Um Ihr Passwort zurückzusetzen, geben Sie Ihre E-Mail-Adresse ein, um den Code zu erhalten.",
+  "sendCode":"Code senden",
+    "send":"Senden"
 };
 static const Map<String,dynamic> _en = {
   "@@locale": "en",
@@ -119,7 +122,10 @@ static const Map<String,dynamic> _en = {
   "newPassword": "New Password",
   "passwordRequirement": "Your new password must be different from previously used passwords",
   "confirmPassword": "Confirm Password",
-  "createNewPassword": "Create New Password"
+  "createNewPassword": "Create New Password",
+  "resetPassword":"To reset your password, enter your email to get the code.",
+  "sendCode":"Send Code",
+  "send":"Send"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"de": _de, "en": _en};
 }

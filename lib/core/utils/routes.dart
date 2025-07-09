@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:tala_app/feature/auth/presentation/view/forget_password_screen.dart';
 import 'package:tala_app/feature/auth/presentation/view/login_screen.dart';
 import 'package:tala_app/feature/auth/presentation/view/new_password_screen.dart';
 import 'package:tala_app/feature/auth/presentation/view/otp_screen.dart';
@@ -33,6 +34,7 @@ class AppRoutes {
   static const otpScreen = '/otp_screen';
   static const chatsScreen = '/chats_screen';
   static const chatScreen = '/chat_screen';
+  static const forgetPasswordScreen = '/forget_password_screen';
 
 
 
@@ -41,7 +43,7 @@ class AppRoutes {
     routes: [
       GoRoute(
         path: splashScreen,
-        builder: (context, state) => const ChatsScreen(),
+        builder: (context, state) => const SplashScreen(),
       ),
       GoRoute(
         path: onBoardingScreen,
@@ -92,6 +94,10 @@ class AppRoutes {
         builder: (context, state) => const OnboardingTalaScreen(),
       ),
       GoRoute(
+        path: forgetPasswordScreen,
+        builder: (context, state) => const ForgetPasswordScreen(),
+      ),
+      GoRoute(
         path: otpScreen,
         builder: (context, state) => const OtpScreen(),
       ),
@@ -103,8 +109,6 @@ class AppRoutes {
         path: chatScreen,
         builder: (context, state) => const ChatScreen(),
       ),
-
-
 
     ],
   );

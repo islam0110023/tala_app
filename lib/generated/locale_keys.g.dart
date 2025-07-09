@@ -54,5 +54,9 @@ abstract class  LocaleKeys {
   static const passwordRequirement = 'passwordRequirement';
   static const confirmPassword = 'confirmPassword';
   static const createNewPassword = 'createNewPassword';
+  static const resetPassword = 'resetPassword';
+  static const sendCode = 'sendCode';
+  static const send = 'send';
+
 
 }

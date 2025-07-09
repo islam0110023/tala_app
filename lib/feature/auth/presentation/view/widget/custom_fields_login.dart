@@ -22,7 +22,7 @@ class CustomFieldsLogin extends StatelessWidget {
         SizedBox(height: AppDimensions.h33),
         CustomForgetPasswordLogin(
           onTap: () {
-            GoRouter.of(context).push(AppRoutes.newPasswordScreen);
+            GoRouter.of(context).push(AppRoutes.forgetPasswordScreen);
           },
         ),
         SizedBox(height: AppDimensions.h36),
