@@ -40,6 +40,7 @@ class AppRoutes {
 
 
   static final route = GoRouter(
+    initialLocation: splashScreen,
     routes: [
       GoRoute(
         path: splashScreen,
