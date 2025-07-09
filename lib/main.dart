@@ -1,15 +1,21 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tala_app/core/utils/app_color.dart';
 import 'package:tala_app/core/utils/constants.dart';
 import 'package:tala_app/core/utils/routes.dart';
+import 'package:tala_app/firebase_options.dart';
 import 'package:tala_app/generated/codegen_loader.g.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await EasyLocalization.ensureInitialized();
+
+  await Future.wait([
+    Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform),
+    EasyLocalization.ensureInitialized(),
+  ]);
 
   runApp(
     EasyLocalization(
@@ -42,7 +48,9 @@ class TalaApp extends StatelessWidget {
         localizationsDelegates: context.localizationDelegates,
         supportedLocales: context.supportedLocales,
         builder: (context, child) {
-          AppConstant.precacheAppImages(context);
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            AppConstant.precacheAppImages(context);
+          });
           final double scale = MediaQuery.of(
             context,
           ).textScaler.scale(1.0).clamp(1.0, 1.1);
