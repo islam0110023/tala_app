@@ -36,6 +36,12 @@ class CustomTextField extends StatelessWidget {
         ],
       ),
       child: TextFormField(
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return 'Please enter your $hint';
+          }
+          return null;
+        },
         textInputAction: TextInputAction.next,
         readOnly: readOnly,
         controller: controller,

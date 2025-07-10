@@ -8,7 +8,7 @@ import 'package:flutter/services.dart';
 class Failure {
   const Failure(this.errMessage);
 
-  final String errMessage;
+  final dynamic errMessage;
 }
 
 class AppFailure extends Failure {
