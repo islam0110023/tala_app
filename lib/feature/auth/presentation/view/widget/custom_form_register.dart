@@ -27,7 +27,6 @@ class _CustomFormRegisterState extends State<CustomFormRegister> {
   late TextEditingController password;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     firstName = TextEditingController();
     lastName = TextEditingController();
@@ -38,7 +37,6 @@ class _CustomFormRegisterState extends State<CustomFormRegister> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     firstName.dispose();
     lastName.dispose();
@@ -69,7 +67,7 @@ class _CustomFormRegisterState extends State<CustomFormRegister> {
               if (form.currentState!.validate()) {
                 form.currentState!.save();
                 autoValidateMode = AutovalidateMode.disabled;
-                RegisterParam param = RegisterParam(
+                final RegisterParam param = RegisterParam(
                   firstName: firstName.text,
                   lastName: lastName.text,
                   email: email.text,

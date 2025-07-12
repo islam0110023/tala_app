@@ -18,7 +18,6 @@ class CustomActionLogin extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        CustomButton(onTap: () {}, name:LocaleKeys.login.tr()),
         SizedBox(height: AppDimensions.h167),
         const CustomSignWithAuth(),
         SizedBox(height: AppDimensions.h16),
