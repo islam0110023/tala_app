@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tala_app/core/utils/app_dimensions.dart';
+import 'package:tala_app/core/utils/constants.dart';
 import 'package:tala_app/core/utils/routes.dart';
 import 'package:tala_app/core/widget/custom_button.dart';
 import 'package:tala_app/core/widget/custom_text_field.dart';
@@ -61,9 +62,7 @@ class _CustomFormLoginState extends State<CustomFormLogin> {
     return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state is LoginFailure) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(state.errMessage)),
-          );
+          AppConstant.buildShowSnackBar(context, state.errMessage);
         } else if (state is LoginSuccess) {
           GoRouter.of(context).go(AppRoutes.chatsScreen);
         }
@@ -86,15 +85,16 @@ class _CustomFormLoginState extends State<CustomFormLogin> {
               ),
               SizedBox(height: AppDimensions.h33),
               CustomForgetPasswordLogin(
-                onTap: () => GoRouter.of(context).push(AppRoutes.forgetPasswordScreen),
+                onTap: () =>
+                    GoRouter.of(context).push(AppRoutes.forgetPasswordScreen),
               ),
               SizedBox(height: AppDimensions.h36),
               state is LoginLoading
                   ? const CircularProgressIndicator()
                   : CustomButton(
-                onTap: () => _submitForm(context),
-                name: LocaleKeys.login.tr(),
-              ),
+                      onTap: () => _submitForm(context),
+                      name: LocaleKeys.login.tr(),
+                    ),
             ],
           ),
         );
@@ -102,4 +102,3 @@ class _CustomFormLoginState extends State<CustomFormLogin> {
     );
   }
 }
-

@@ -1,13 +1,14 @@
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:tala_app/core/model/genre_model.dart';
 import 'package:tala_app/core/utils/asset_image.dart';
 import 'package:tala_app/generated/locale_keys.g.dart';
 
-abstract class AppConstant{
-  static const kFontFamily='Lato';
-  static const kFontFamilyInter='Inter';
-  static const kDurationSplash=2;
+abstract class AppConstant {
+  static const kFontFamily = 'Lato';
+  static const kFontFamilyInter = 'Inter';
+  static const kDurationSplash = 2;
   static final List<GenreModel> kGenres = [
     GenreModel(name: 'Rock'),
     GenreModel(name: 'Classical'),
@@ -38,7 +39,7 @@ abstract class AppConstant{
     LocaleKeys.experiences.tr(),
     LocaleKeys.into.tr(),
   ];
- static void precacheAppImages(BuildContext context) {
+  static void precacheAppImages(BuildContext context) {
     final List<AssetImage> imagesToPrecache = [
       const AssetImage(AppImage.kLogoImage),
       const AssetImage(AppImage.kTalaImage),
@@ -52,5 +53,19 @@ abstract class AppConstant{
     }
   }
 
+  static ScaffoldFeatureController<SnackBar, SnackBarClosedReason>
+  buildShowSnackBar(BuildContext context, String message) {
+    return ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
 
+        content: AwesomeSnackbarContent(
+          title: 'OnError',
+          message: message,
+          contentType: ContentType.failure,
+        ),
+      ),
+    );
+  }
 }

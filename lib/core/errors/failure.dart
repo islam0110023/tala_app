@@ -8,82 +8,96 @@ import 'package:flutter/services.dart';
 class Failure {
   const Failure(this.errMessage);
 
-  final dynamic errMessage;
+  final String errMessage;
 }
 
 class AppFailure extends Failure {
   const AppFailure(super.errMessage);
 
-  /// Factory constructor to handle all known errors
   factory AppFailure.fromException(dynamic error) {
-    // Dio Errors
+    // Dio errors
     if (error is DioException) {
       switch (error.type) {
         case DioExceptionType.connectionTimeout:
-          return const AppFailure('Connection timeout. Try again.');
+          return const AppFailure('Connection timed out. Please try again.');
         case DioExceptionType.sendTimeout:
-          return const AppFailure('Send timeout. Check your network.');
+          return const AppFailure('Send request timed out. Please check your internet connection.');
         case DioExceptionType.receiveTimeout:
-          return const AppFailure('Receive timeout. Try again later.');
-        case DioExceptionType.badResponse:
-          final statusCode = error.response?.statusCode ?? 0;
-          final serverMessage = error.response?.data['message'];
-          return AppFailure(
-            "Server Error $statusCode: ${serverMessage ?? 'Something went wrong'}",
-          );
+          return const AppFailure('Server took too long to respond.');
         case DioExceptionType.cancel:
           return const AppFailure('Request was cancelled.');
         case DioExceptionType.connectionError:
           return const AppFailure('No internet connection.');
-        case DioExceptionType.unknown:
+        case DioExceptionType.badResponse:
+          final statusCode = error.response?.statusCode ?? 0;
+          final serverMessage = error.response?.data['message'] ?? 'Something went wrong.';
+          return AppFailure('Server error ($statusCode): $serverMessage');
         default:
-          return const AppFailure('Unexpected error occurred. Try again.');
+          return const AppFailure('Unexpected error occurred. Please try again.');
       }
     }
 
-    // Firebase Auth Errors
+    // Firebase Auth errors
     if (error is FirebaseAuthException) {
       switch (error.code) {
         case 'invalid-email':
-          return const AppFailure('Invalid email address.');
+          return const AppFailure('The email address is invalid.');
         case 'user-disabled':
-          return const AppFailure('This account is disabled.');
+          return const AppFailure('This account has been disabled.');
         case 'user-not-found':
-          return const AppFailure('No user found for that email.');
+          return const AppFailure('No user found with this email.');
         case 'wrong-password':
           return const AppFailure('Incorrect password.');
         case 'email-already-in-use':
-          return const AppFailure('Email already in use.');
+          return const AppFailure('This email is already registered.');
         case 'weak-password':
           return const AppFailure('Password is too weak.');
         case 'too-many-requests':
           return const AppFailure('Too many requests. Try again later.');
+        case 'invalid-verification-code':
+          return const AppFailure('Invalid OTP code.');
+        case 'invalid-phone-number':
+          return const AppFailure('Invalid phone number format.');
+        case 'session-expired':
+          return const AppFailure('Verification session expired. Please try again.');
+        case 'missing-verification-code':
+          return const AppFailure('Verification code is missing.');
         default:
-          return AppFailure(error.message ?? 'Auth error occurred.');
+          return AppFailure(error.message ?? 'Authentication failed.');
       }
     }
 
-    // Firebase generic (e.g. Firestore)
+    // Firebase generic errors
     if (error is FirebaseException) {
       return AppFailure(error.message ?? 'Firebase error occurred.');
     }
 
-    // SocketException
+    // Platform errors (e.g., reCAPTCHA failures)
+    if (error is PlatformException) {
+      if (error.message?.contains('Recaptcha') == true) {
+        return const AppFailure('reCAPTCHA verification failed. Try again.');
+      }
+      return AppFailure(error.message ?? 'Platform error occurred.');
+    }
+
+    // Fallback reCAPTCHA or OTP errors from logs
+    if (error.toString().contains('RecaptchaAction')) {
+      return const AppFailure('reCAPTCHA verification failed. Make sure your Firebase settings are correct.');
+    }
+    if (error.toString().contains('invalid-phone-number')) {
+      return const AppFailure('Invalid or unsupported phone number.');
+    }
+
+    // Socket / Network
     if (error is SocketException) {
       return const AppFailure('No internet connection.');
     }
 
-    // TimeoutException
+    // Timeout
     if (error is TimeoutException) {
-      return const AppFailure('The request timed out.');
+      return const AppFailure('Request timed out. Please try again.');
     }
 
-    // PlatformException (plugins)
-    if (error is PlatformException) {
-      return AppFailure(error.message ?? 'Platform error occurred.');
-    }
-
-    // Unknown
-    return const AppFailure('An unexpected error occurred.');
+    return const AppFailure('An unexpected error occurred. Please try again.');
   }
 }

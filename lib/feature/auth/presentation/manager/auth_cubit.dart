@@ -19,16 +19,17 @@ class AuthCubit extends Cubit<AuthState> {
         emit(SignUpFailure(l.errMessage));
       },
       (r) {
-        emit(SignUpSuccess() );
+        emit(SignUpSuccess());
       },
     );
   }
+
   Future<void> login(LoginParam param) async {
     emit(LoginLoading());
     final result = await loginUseCase.call(param);
     result.fold(
-          (l) => emit(LoginFailure(l.errMessage)),
-          (r) => emit(LoginSuccess()),
+      (l) => emit(LoginFailure(l.errMessage)),
+      (r) => emit(LoginSuccess()),
     );
   }
 }

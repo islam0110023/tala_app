@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:tala_app/core/errors/failure.dart';
 import 'package:tala_app/feature/auth/data/data_source/auth_remote_data_source.dart';
 import 'package:tala_app/feature/auth/domain/entities/log_in_entity.dart';
@@ -18,7 +19,7 @@ class AuthRepoImpl extends AuthRepo {
     try {
       signUpEntity = await authRemoteDataSource.register(param);
       return right(signUpEntity);
-    } catch (e) {
+    } on FirebaseAuthException catch (e) {
       return left(AppFailure.fromException(e));
     }
   }
@@ -28,10 +29,8 @@ class AuthRepoImpl extends AuthRepo {
     try {
       final loginEntity = await authRemoteDataSource.login(param);
       return right(loginEntity);
-    } catch (e) {
+    } on FirebaseAuthException catch (e) {
       return left(AppFailure.fromException(e));
     }
   }
-
-
 }

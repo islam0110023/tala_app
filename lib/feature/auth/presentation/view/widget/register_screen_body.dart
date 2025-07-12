@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tala_app/core/utils/app_dimensions.dart';
+import 'package:tala_app/core/utils/constants.dart';
 import 'package:tala_app/core/utils/routes.dart';
 import 'package:tala_app/core/widget/custom_already_sign_in.dart';
 import 'package:tala_app/core/widget/custom_arrow_back.dart';
@@ -22,6 +23,9 @@ class RegisterScreenBody extends StatelessWidget {
       listener: (context, state) {
         if (state is SignUpSuccess) {
           GoRouter.of(context).push(AppRoutes.otpScreen, extra: false);
+        }
+        if (state is SignUpFailure) {
+          AppConstant.buildShowSnackBar(context, state.errMessage);
         }
       },
       builder: (context, state) {
