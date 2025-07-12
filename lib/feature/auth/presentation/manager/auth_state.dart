@@ -11,3 +11,9 @@ final class SignUpFailure extends AuthState {
 
   final String errMessage;
 }
+final class LoginLoading extends AuthState {}
+final class LoginSuccess extends AuthState {}
+final class LoginFailure extends AuthState {
+  LoginFailure(this.errMessage);
+  final String errMessage;
+}

@@ -10,6 +10,7 @@ import 'package:tala_app/core/utils/routes.dart';
 import 'package:tala_app/feature/auth/data/data_source/auth_remote_data_source.dart';
 import 'package:tala_app/feature/auth/data/repo/auth_repo_impl.dart';
 import 'package:tala_app/feature/auth/domain/repo/auth_repo.dart';
+import 'package:tala_app/feature/auth/domain/usecases/log_in_usecase.dart';
 import 'package:tala_app/feature/auth/domain/usecases/register_use_case.dart';
 import 'package:tala_app/feature/auth/presentation/manager/auth_cubit.dart';
 import 'package:tala_app/firebase_options.dart';
@@ -52,6 +53,7 @@ class TalaApp extends StatelessWidget {
       child: BlocProvider(
         create: (context) => AuthCubit(
           RegisterUseCase(AuthRepoImpl(AuthRemoteDataSourceImpl())),
+          LoginUseCase(AuthRepoImpl(AuthRemoteDataSourceImpl())),
         ),
         child: MaterialApp.router(
           locale: context.locale,

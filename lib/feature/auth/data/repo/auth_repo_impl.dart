@@ -1,7 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:tala_app/core/errors/failure.dart';
 import 'package:tala_app/feature/auth/data/data_source/auth_remote_data_source.dart';
+import 'package:tala_app/feature/auth/domain/entities/log_in_entity.dart';
 import 'package:tala_app/feature/auth/domain/entities/sign_up_entity.dart';
+import 'package:tala_app/feature/auth/domain/params/login_param.dart';
 import 'package:tala_app/feature/auth/domain/params/register_param.dart';
 import 'package:tala_app/feature/auth/domain/repo/auth_repo.dart';
 
@@ -10,6 +12,7 @@ class AuthRepoImpl extends AuthRepo {
 
   final AuthRemoteDataSource authRemoteDataSource;
   late final SignUpEntity signUpEntity;
+  late final LoginEntity loginEntity;
   @override
   Future<Either<Failure, SignUpEntity>> register(RegisterParam param) async {
     try {
@@ -19,5 +22,16 @@ class AuthRepoImpl extends AuthRepo {
       return left(AppFailure.fromException(e));
     }
   }
+
+  @override
+  Future<Either<Failure, LoginEntity>> login(LoginParam param) async {
+    try {
+      final loginEntity = await authRemoteDataSource.login(param);
+      return right(loginEntity);
+    } catch (e) {
+      return left(AppFailure.fromException(e));
+    }
+  }
+
 
 }
