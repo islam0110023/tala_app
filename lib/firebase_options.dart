@@ -50,19 +50,20 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyCXYX1GsZkgsAYdscfU2TcViMKigltDqpc',
-    appId: '1:388346863632:android:8376b04bce5de4f6076a95',
-    messagingSenderId: '388346863632',
-    projectId: 'tala-app-b812c',
-    storageBucket: 'tala-app-b812c.firebasestorage.app',
+    apiKey: 'AIzaSyB4AbpBfhe-XqJq6sOjW0cz9dpLxE4fiFg',
+    appId: '1:665998326850:android:07957b4c804a99037201db',
+    messagingSenderId: '665998326850',
+    projectId: 'tala-app-1',
+    storageBucket: 'tala-app-1.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDyxqeuUZ0xK4XD3SHVr3IlkGY6KHpM4bc',
-    appId: '1:388346863632:ios:31abb2bee202b29d076a95',
-    messagingSenderId: '388346863632',
-    projectId: 'tala-app-b812c',
-    storageBucket: 'tala-app-b812c.firebasestorage.app',
+    apiKey: 'AIzaSyDvkWJOtC5d73xr1ahn7xNgD3X6QwfPW5o',
+    appId: '1:665998326850:ios:aa75c9fb535f1b2f7201db',
+    messagingSenderId: '665998326850',
+    projectId: 'tala-app-1',
+    storageBucket: 'tala-app-1.firebasestorage.app',
     iosBundleId: 'com.example.talaApp',
   );
+
 }

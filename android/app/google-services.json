@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "388346863632",
-    "project_id": "tala-app-b812c",
-    "storage_bucket": "tala-app-b812c.firebasestorage.app"
+    "project_number": "665998326850",
+    "project_id": "tala-app-1",
+    "storage_bucket": "tala-app-1.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:388346863632:android:8376b04bce5de4f6076a95",
+        "mobilesdk_app_id": "1:665998326850:android:07957b4c804a99037201db",
         "android_client_info": {
           "package_name": "com.example.tala_app"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCXYX1GsZkgsAYdscfU2TcViMKigltDqpc"
+          "current_key": "AIzaSyB4AbpBfhe-XqJq6sOjW0cz9dpLxE4fiFg"
         }
       ],
       "services": {

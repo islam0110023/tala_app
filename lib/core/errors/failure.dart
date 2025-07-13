@@ -21,7 +21,9 @@ class AppFailure extends Failure {
         case DioExceptionType.connectionTimeout:
           return const AppFailure('Connection timed out. Please try again.');
         case DioExceptionType.sendTimeout:
-          return const AppFailure('Send request timed out. Please check your internet connection.');
+          return const AppFailure(
+            'Send request timed out. Please check your internet connection.',
+          );
         case DioExceptionType.receiveTimeout:
           return const AppFailure('Server took too long to respond.');
         case DioExceptionType.cancel:
@@ -30,10 +32,13 @@ class AppFailure extends Failure {
           return const AppFailure('No internet connection.');
         case DioExceptionType.badResponse:
           final statusCode = error.response?.statusCode ?? 0;
-          final serverMessage = error.response?.data['message'] ?? 'Something went wrong.';
+          final serverMessage =
+              error.response?.data['message'] ?? 'Something went wrong.';
           return AppFailure('Server error ($statusCode): $serverMessage');
         default:
-          return const AppFailure('Unexpected error occurred. Please try again.');
+          return const AppFailure(
+            'Unexpected error occurred. Please try again.',
+          );
       }
     }
 
@@ -59,9 +64,15 @@ class AppFailure extends Failure {
         case 'invalid-phone-number':
           return const AppFailure('Invalid phone number format.');
         case 'session-expired':
-          return const AppFailure('Verification session expired. Please try again.');
+          return const AppFailure(
+            'Verification session expired. Please try again.',
+          );
         case 'missing-verification-code':
           return const AppFailure('Verification code is missing.');
+        case 'invalid-credential':
+          return const AppFailure(
+            'The email or password is incorrect. Please check and try again.',
+          );
         default:
           return AppFailure(error.message ?? 'Authentication failed.');
       }
@@ -82,7 +93,9 @@ class AppFailure extends Failure {
 
     // Fallback reCAPTCHA or OTP errors from logs
     if (error.toString().contains('RecaptchaAction')) {
-      return const AppFailure('reCAPTCHA verification failed. Make sure your Firebase settings are correct.');
+      return const AppFailure(
+        'reCAPTCHA verification failed. Make sure your Firebase settings are correct.',
+      );
     }
     if (error.toString().contains('invalid-phone-number')) {
       return const AppFailure('Invalid or unsupported phone number.');

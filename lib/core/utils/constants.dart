@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:tala_app/core/model/genre_model.dart';
 import 'package:tala_app/core/utils/asset_image.dart';
+import 'package:tala_app/core/utils/styling.dart';
 import 'package:tala_app/generated/locale_keys.g.dart';
 
 abstract class AppConstant {
@@ -24,8 +25,14 @@ abstract class AppConstant {
     GenreModel(name: LocaleKeys.dance.tr(), imgUrl: AppImage.kPassionDance),
     GenreModel(name: LocaleKeys.arts.tr(), imgUrl: AppImage.kPassionArts),
     GenreModel(name: LocaleKeys.nature.tr(), imgUrl: AppImage.kPassionNature),
-    GenreModel(name: LocaleKeys.photography.tr(), imgUrl: AppImage.kPassionPhotography),
-    GenreModel(name: LocaleKeys.concerts.tr(), imgUrl: AppImage.kPassionConcert),
+    GenreModel(
+      name: LocaleKeys.photography.tr(),
+      imgUrl: AppImage.kPassionPhotography,
+    ),
+    GenreModel(
+      name: LocaleKeys.concerts.tr(),
+      imgUrl: AppImage.kPassionConcert,
+    ),
     GenreModel(name: LocaleKeys.travel.tr(), imgUrl: AppImage.kPassionTravel),
     GenreModel(name: LocaleKeys.music.tr(), imgUrl: AppImage.kPassionMusic),
   ];
@@ -40,19 +47,21 @@ abstract class AppConstant {
     LocaleKeys.into.tr(),
   ];
   static List<String> kQ1Choices = [
-    LocaleKeys.rock_concert.tr(), LocaleKeys.rap_battle.tr(), LocaleKeys.jazz_night.tr(), LocaleKeys.classical_orchestra.tr(), LocaleKeys.music_festivals.tr()
+    LocaleKeys.rock_concert.tr(),
+    LocaleKeys.rap_battle.tr(),
+    LocaleKeys.jazz_night.tr(),
+    LocaleKeys.classical_orchestra.tr(),
+    LocaleKeys.music_festivals.tr(),
   ];
   static List<String> kQ3Choices = [
-      LocaleKeys.every_week.tr(),
-      LocaleKeys.once_a_month.tr(),
-      LocaleKeys.every_few_months.tr(),
-      LocaleKeys.rarely.tr(),
-      LocaleKeys.never.tr(),
+    LocaleKeys.every_week.tr(),
+    LocaleKeys.once_a_month.tr(),
+    LocaleKeys.every_few_months.tr(),
+    LocaleKeys.rarely.tr(),
+    LocaleKeys.never.tr(),
   ];
 
-  static List<String> kQ4Choices = [
-    LocaleKeys.yes.tr(), LocaleKeys.no.tr()
-  ];
+  static List<String> kQ4Choices = [LocaleKeys.yes.tr(), LocaleKeys.no.tr()];
   static List<String> travelOptions = [
     LocaleKeys.within_my_city.tr(),
     LocaleKeys.another_city_nearby.tr(),
@@ -60,14 +69,19 @@ abstract class AppConstant {
     LocaleKeys.even_abroad.tr(),
     LocaleKeys.dont_travel.tr(),
   ];
-  static List<String> personalityOptions = [LocaleKeys.talkative_energetic.tr(), LocaleKeys.calm_chill.tr(), LocaleKeys.adventurous.tr(), LocaleKeys.artistic_deep.tr()];
+  static List<String> personalityOptions = [
+    LocaleKeys.talkative_energetic.tr(),
+    LocaleKeys.calm_chill.tr(),
+    LocaleKeys.adventurous.tr(),
+    LocaleKeys.artistic_deep.tr(),
+  ];
   static List<String> discoverOptions = [
     LocaleKeys.discover_through_friends.tr(),
     LocaleKeys.discover_social_media.tr(),
     LocaleKeys.discover_music_apps.tr(),
     LocaleKeys.discover_concerts.tr(),
     LocaleKeys.discover_online.tr(),
-];
+  ];
   static List<String> concertCompanyOptions = [
     LocaleKeys.always_with_friends.tr(),
     LocaleKeys.prefer_with_date.tr(),
@@ -100,10 +114,10 @@ abstract class AppConstant {
       SnackBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-
         content: AwesomeSnackbarContent(
-          title: 'OnError',
+          title: 'Oops',
           message: message,
+          messageTextStyle: Styling.textStyle10.copyWith(fontSize: 15),
           contentType: ContentType.failure,
         ),
       ),

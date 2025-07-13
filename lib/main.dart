@@ -1,5 +1,4 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +9,6 @@ import 'package:tala_app/core/utils/constants.dart';
 import 'package:tala_app/core/utils/routes.dart';
 import 'package:tala_app/feature/auth/data/data_source/auth_remote_data_source.dart';
 import 'package:tala_app/feature/auth/data/repo/auth_repo_impl.dart';
-import 'package:tala_app/feature/auth/domain/repo/auth_repo.dart';
 import 'package:tala_app/feature/auth/domain/usecases/log_in_usecase.dart';
 import 'package:tala_app/feature/auth/domain/usecases/register_use_case.dart';
 import 'package:tala_app/feature/auth/presentation/manager/auth_cubit.dart';
@@ -24,10 +22,6 @@ void main() async {
     Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform),
     EasyLocalization.ensureInitialized(),
   ]);
-  await FirebaseAppCheck.instance.activate(
-    androidProvider: AndroidProvider.playIntegrity,
-    appleProvider: AppleProvider.debug,
-  );
 
 
   runApp(
