@@ -1,4 +1,11 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tala_app/feature/auth/data/data_source/auth_remote_data_source.dart';
+import 'package:tala_app/feature/auth/data/repo/auth_repo_impl.dart';
+import 'package:tala_app/feature/auth/domain/usecases/log_in_usecase.dart';
+import 'package:tala_app/feature/auth/domain/usecases/register_use_case.dart';
+import 'package:tala_app/feature/auth/presentation/manager/login_cubit/login_cubit.dart';
+import 'package:tala_app/feature/auth/presentation/manager/register_cubit/register_cubit.dart';
 import 'package:tala_app/feature/auth/presentation/view/forget_password_screen.dart';
 import 'package:tala_app/feature/auth/presentation/view/login_screen.dart';
 import 'package:tala_app/feature/auth/presentation/view/new_password_screen.dart';
@@ -26,7 +33,8 @@ class AppRoutes {
   static const newPasswordScreen = '/new_password';
   static const onBoardingSlideScreen = '/onboarding_slide';
   static const onBoardingTagsScreen = '/onboarding_tags';
-  static const profileMusicPreferencesScreen = '/profile_music_preferences_screen';
+  static const profileMusicPreferencesScreen =
+      '/profile_music_preferences_screen';
   static const profileSelectPassionsScreen = '/profile_select_passion_screen';
   static const profileLike1Screen = '/profile_like_1_screen';
   static const profileLike2Screen = '/profile_like_2_screen';
@@ -35,9 +43,6 @@ class AppRoutes {
   static const chatsScreen = '/chats_screen';
   static const chatScreen = '/chat_screen';
   static const forgetPasswordScreen = '/forget_password_screen';
-
-
-
 
   static final route = GoRouter(
     initialLocation: splashScreen,
@@ -52,11 +57,29 @@ class AppRoutes {
       ),
       GoRoute(
         path: loginScreen,
-        builder: (context, state) => const LoginScreen(),
+        builder: (context, state) => MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (context) => LoginCubit(
+                LoginUseCase(AuthRepoImpl(AuthRemoteDataSourceImpl())),
+              ),
+            ),
+          ],
+          child: const LoginScreen(),
+        ),
       ),
       GoRoute(
         path: registerScreen,
-        builder: (context, state) => const RegisterScreen(),
+        builder: (context, state) => MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (context) => RegisterCubit(
+                RegisterUseCase(AuthRepoImpl(AuthRemoteDataSourceImpl())),
+              ),
+            ),
+          ],
+          child: const RegisterScreen(),
+        ),
       ),
       GoRoute(
         path: profileSetInfoScreen,
@@ -98,10 +121,7 @@ class AppRoutes {
         path: forgetPasswordScreen,
         builder: (context, state) => const ForgetPasswordScreen(),
       ),
-      GoRoute(
-        path: otpScreen,
-        builder: (context, state) => const OtpScreen(),
-      ),
+      GoRoute(path: otpScreen, builder: (context, state) => const OtpScreen()),
       GoRoute(
         path: chatsScreen,
         builder: (context, state) => const ChatsScreen(),
@@ -110,7 +130,6 @@ class AppRoutes {
         path: chatScreen,
         builder: (context, state) => const ChatScreen(),
       ),
-
     ],
   );
 }
