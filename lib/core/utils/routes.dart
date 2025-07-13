@@ -1,9 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:tala_app/feature/auth/data/data_source/auth_remote_data_source.dart';
-import 'package:tala_app/feature/auth/data/repo/auth_repo_impl.dart';
-import 'package:tala_app/feature/auth/domain/usecases/log_in_usecase.dart';
-import 'package:tala_app/feature/auth/domain/usecases/register_use_case.dart';
+import 'package:tala_app/core/utils/service_locator.dart';
 import 'package:tala_app/feature/auth/presentation/manager/login_cubit/login_cubit.dart';
 import 'package:tala_app/feature/auth/presentation/manager/register_cubit/register_cubit.dart';
 import 'package:tala_app/feature/auth/presentation/view/forget_password_screen.dart';
@@ -58,13 +55,7 @@ class AppRoutes {
       GoRoute(
         path: loginScreen,
         builder: (context, state) => MultiBlocProvider(
-          providers: [
-            BlocProvider(
-              create: (context) => LoginCubit(
-                LoginUseCase(AuthRepoImpl(AuthRemoteDataSourceImpl())),
-              ),
-            ),
-          ],
+          providers: [BlocProvider(create: (context) => LoginCubit(getIt()))],
           child: const LoginScreen(),
         ),
       ),
@@ -72,11 +63,7 @@ class AppRoutes {
         path: registerScreen,
         builder: (context, state) => MultiBlocProvider(
           providers: [
-            BlocProvider(
-              create: (context) => RegisterCubit(
-                RegisterUseCase(AuthRepoImpl(AuthRemoteDataSourceImpl())),
-              ),
-            ),
+            BlocProvider(create: (context) => RegisterCubit(getIt())),
           ],
           child: const RegisterScreen(),
         ),

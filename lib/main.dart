@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tala_app/core/utils/app_color.dart';
 import 'package:tala_app/core/utils/constants.dart';
 import 'package:tala_app/core/utils/routes.dart';
+import 'package:tala_app/core/utils/service_locator.dart';
 import 'package:tala_app/firebase_options.dart';
 import 'package:tala_app/generated/codegen_loader.g.dart';
 
@@ -16,6 +17,7 @@ void main() async {
     Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform),
     EasyLocalization.ensureInitialized(),
   ]);
+  setUpServices();
 
 
   runApp(
