@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tala_app/core/utils/app_color.dart';
 import 'package:tala_app/core/utils/app_dimensions.dart';
 import 'package:tala_app/core/utils/constants.dart';
 import 'package:tala_app/core/utils/routes.dart';
@@ -90,7 +91,9 @@ class _CustomFormLoginState extends State<CustomFormLogin> {
               ),
               SizedBox(height: AppDimensions.h36),
               state is LoginLoading
-                  ? const CircularProgressIndicator()
+                  ? const CircularProgressIndicator(
+                      color: AppColor.kPrimaryPink,
+                    )
                   : CustomButton(
                       onTap: () => _submitForm(context),
                       name: LocaleKeys.login.tr(),
