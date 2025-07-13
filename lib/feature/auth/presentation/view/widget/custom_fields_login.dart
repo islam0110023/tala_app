@@ -9,7 +9,7 @@ import 'package:tala_app/core/utils/routes.dart';
 import 'package:tala_app/core/widget/custom_button.dart';
 import 'package:tala_app/core/widget/custom_text_field.dart';
 import 'package:tala_app/feature/auth/domain/params/login_param.dart';
-import 'package:tala_app/feature/auth/presentation/manager/auth_cubit.dart';
+import 'package:tala_app/feature/auth/presentation/manager/login_cubit/login_cubit.dart';
 import 'package:tala_app/feature/auth/presentation/view/widget/custom_forget_password_login.dart';
 import 'package:tala_app/generated/locale_keys.g.dart';
 
@@ -50,7 +50,7 @@ class _CustomFormLoginState extends State<CustomFormLogin> {
         password: passwordController.text.trim(),
       );
 
-      BlocProvider.of<AuthCubit>(context).login(loginParam);
+      BlocProvider.of<LoginCubit>(context).login(loginParam);
     } else {
       setState(() {
         autoValidateMode = AutovalidateMode.always;
@@ -60,7 +60,7 @@ class _CustomFormLoginState extends State<CustomFormLogin> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AuthCubit, AuthState>(
+    return BlocConsumer<LoginCubit, LoginState>(
       listener: (context, state) {
         if (state is LoginFailure) {
           AppConstant.buildShowSnackBar(context, state.errMessage);
