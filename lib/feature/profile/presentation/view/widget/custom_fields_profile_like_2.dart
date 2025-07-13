@@ -1,8 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:tala_app/core/utils/app_dimensions.dart';
 import 'package:tala_app/core/utils/constants.dart';
 import 'package:tala_app/feature/profile/presentation/view/widget/custom_drop_down_profile.dart';
-import 'package:tala_app/feature/profile/presentation/view/widget/custom_text_field_profile.dart';
+import 'package:tala_app/generated/locale_keys.g.dart';
 
 class CustomFieldsProfileLike2 extends StatelessWidget {
   const CustomFieldsProfileLike2({super.key});
@@ -12,37 +13,36 @@ class CustomFieldsProfileLike2 extends StatelessWidget {
     return Column(
       children: [
         CustomDropDownProfile(
-          hint: 'Choose what you like',
-          options: AppConstant.kWords,
-          label: 'Do you enjoy traveling for concerts or prefer local shows?',
+          hint: LocaleKeys.choose_what_you_like.tr(),
+          options: AppConstant.loveTravelOptions,
+          label: LocaleKeys.travel_or_local.tr(),
         ),
         SizedBox(height: AppDimensions.h16),
-        const CustomTextFieldProfile(
-          hint: "Describe the best concert you've ever attended",
-          label: ' What’s the best concert you’ve ever attended and why?',
+        CustomDropDownProfile(
+          hint: LocaleKeys.choose_event_hint.tr(),
+          options: AppConstant.personalityOptions,
+          label: LocaleKeys.personality_preference.tr(),
         ),
         SizedBox(height: AppDimensions.h16),
 
         CustomDropDownProfile(
-          hint: 'Write how you usually find new music',
-          options: AppConstant.kWords,
-          label: 'How do you usually discover new music? ',
+          hint: LocaleKeys.discover_hint_2.tr(),
+          options: AppConstant.discoverOptions,
+          label: LocaleKeys.discover_music_2.tr(),
         ),
         SizedBox(height: AppDimensions.h16),
 
         CustomDropDownProfile(
-          hint: 'Enter your thoughts',
-          options: AppConstant.kWords,
-          label:
-              'Do you prefer attending concert with friends, or with a date?',
+          hint: LocaleKeys.concert_company_hint.tr(),
+          options: AppConstant.concertCompanyOptions,
+          label:LocaleKeys.concert_company.tr(),
         ),
         SizedBox(height: AppDimensions.h16),
 
         CustomDropDownProfile(
-          options: AppConstant.kWords,
-          label:
-              'How far would you travel to see your favorite artist or band perform?',
-          hint: 'Write how far you would travel for a concert',
+          options: AppConstant.travelOptions,
+          label:LocaleKeys.travel_distance.tr(),
+          hint: LocaleKeys.travel_distance_hint.tr(),
         ),
         SizedBox(height: AppDimensions.h16),
       ],

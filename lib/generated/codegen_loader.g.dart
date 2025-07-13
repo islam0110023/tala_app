@@ -68,8 +68,94 @@ class CodegenLoader extends AssetLoader{
   "createNewPassword": "Neues Passwort erstellen",
   "resetPassword":"Um Ihr Passwort zurückzusetzen, geben Sie Ihre E-Mail-Adresse ein, um den Code zu erhalten.",
   "sendCode":"Code senden",
-    "send":"Senden"
-};
+    "send":"Senden",
+    "rock": "Rock",
+    "classical": "Klassik",
+    "hiphop": "Hip-Hop",
+    "jazz": "Jazz",
+    "rap": "Rap",
+    "country": "Country",
+    "indie": "Indie",
+    "arabian": "Arabisch",
+    "gaming": "Gaming",
+    "dance": "Tanz",
+    "arts": "Kunst",
+    "nature": "Natur",
+    "photography": "Fotografie",
+    "concerts": "Konzerte",
+    "travel": "Reisen",
+    "music": "Musik",
+  "what_music_genres": "Welche Musikrichtungen gefallen dir am meisten?",
+    "select_up_to_five": "Du kannst bis zu fünf Interessen auswählen",
+    "what_are_your_passions": "Was sind deine Leidenschaften?",
+    "which_event_never_miss": "Welches Live-Musik-Event würdest du niemals verpassen?",
+    "choose_event_hint": "Wähle eine Option",
+
+    "top_fav_artists_label": "Wer sind deine drei Lieblingskünstler oder -bands?",
+    "top_fav_artists_hint": "Schreibe deine Lieblingskünstler oder Bands",
+
+    "how_often_attend": "Wie oft besuchst du Live-Musik-Events?",
+    "how_often_hint": "Gib an, wie oft du Live-Musik-Events besuchst",
+
+    "discover_new_artists": "Bist du begeistert davon, neue Künstler zu entdecken, oder bleibst du lieber bei deinen Favoriten?",
+    "discover_hint": "Gib deine Meinung ein",
+
+    "fav_venue_label": "Was ist dein Lieblingskonzertort und warum?",
+    "fav_venue_hint": "Gib deinen Lieblingsort ein",
+    "rock_concert": "Rockkonzert",
+    "rap_battle": "Rap-Battle",
+    "jazz_night": "Jazzabend",
+    "classical_orchestra": "Klassisches Orchester",
+    "music_festivals": "Musikfestivals",
+
+    "every_week": "Jede Woche",
+    "once_a_month": "Einmal im Monat",
+    "every_few_months": "Alle paar Monate",
+    "rarely": "Selten",
+    "never": "Nie",
+
+    "yes": "Ja",
+    "no": "Nein",
+    "travel_or_local": "Reist du gerne zu Konzerten oder bevorzugst du lokale Shows?",
+    "choose_what_you_like": "Wähle, was dir gefällt",
+
+    "personality_preference": "Mit welcher Art von Person verbringst du gerne Zeit?",
+    "talkative_energetic": "Gesprächig & energisch",
+    "calm_chill": "Ruhig & entspannt",
+    "adventurous": "Abenteuerlustig",
+    "artistic_deep": "Künstlerisch & tiefgründig",
+
+    "discover_music_2": "Wie entdeckst du normalerweise neue Musik?",
+    "discover_hint_2": "Schreibe, wie du neue Musik findest",
+
+    "concert_company": "Gehst du lieber mit Freunden oder mit einem Date zu Konzerten?",
+    "concert_company_hint": "Schreibe deine Gedanken",
+
+    "travel_distance": "Wie weit würdest du reisen, um deinen Lieblingskünstler live zu sehen?",
+    "travel_distance_hint": "Schreibe, wie weit du für ein Konzert reisen würdest",
+    "within_my_city": "In meiner Stadt",
+    "another_city_nearby": "In einer nahegelegenen Stadt",
+    "anywhere_in_country": "Überall im Land",
+    "even_abroad": "Sogar ins Ausland, wenn ich den Künstler liebe",
+    "dont_travel": "Ich reise nicht für Konzerte",
+
+    "always_with_friends": "Immer mit Freunden",
+    "prefer_with_date": "Ich gehe lieber mit einem Date",
+    "enjoy_both": "Beides gefällt mir",
+    "prefer_solo": "Ich gehe lieber alleine",
+
+    "discover_through_friends": "Durch Freunde",
+    "discover_social_media": "Soziale Medien (TikTok, Instagram)",
+    "discover_music_apps": "Musik-Apps (Spotify, Apple Music)",
+    "discover_concerts": "Konzerte & Events",
+    "discover_online": "Online-Empfehlungen",
+    "love_traveling": "Ich reise gerne zu Konzerten",
+    "prefer_local": "Ich bevorzuge lokale Shows",
+    "both_fine": "Beides ist für mich in Ordnung",
+    "opinion_matters": "Deine Meinung ist uns wichtig, um deine\nErfahrung mit dieser App zu verbessern",
+    "write_what_you_like": "Schreibe, was dir gefällt"
+
+  };
 static const Map<String,dynamic> _en = {
   "@@locale": "en",
   "embraceFuture": "Embrace the future of fun and romance,\n",
@@ -125,7 +211,93 @@ static const Map<String,dynamic> _en = {
   "createNewPassword": "Create New Password",
   "resetPassword":"To reset your password, enter your email to get the code.",
   "sendCode":"Send Code",
-  "send":"Send"
+  "send":"Send",
+    "rock": "Rock",
+    "classical": "Classical",
+    "hiphop": "Hip-Hop",
+    "jazz": "Jazz",
+    "rap": "Rap",
+    "country": "Country",
+    "indie": "Indie",
+    "arabian": "Arabian",
+    "gaming": "Gaming",
+    "dance": "Dance",
+    "arts": "Arts",
+    "nature": "Nature",
+    "photography": "Photography",
+    "concerts": "Concerts",
+    "travel": "Travel",
+    "music": "Music",
+  "what_music_genres": "What genres of music do you enjoy the most?",
+  "select_up_to_five": "You can select up to five interests",
+  "what_are_your_passions": "What are your passions?",
+  "which_event_never_miss": "Which live music event would you never miss?",
+  "choose_event_hint": "Choose one",
+
+  "top_fav_artists_label": "Who are your top three favorite artists or bands?",
+  "top_fav_artists_hint": "write your top favorite artists or bands",
+
+  "how_often_attend": "How often do you attend live music events?",
+  "how_often_hint": "Write how often you attend live music events",
+
+  "discover_new_artists": "Are you passionate about discovering new artists or do you stick to your favorites?",
+  "discover_hint": "Enter your thoughts",
+
+  "fav_venue_label": "What’s your favorite concert venue and why?",
+  "fav_venue_hint": "Enter your favorite concert venue",
+  "rock_concert": "Rock concert",
+  "rap_battle": "Rap battle",
+  "jazz_night": "Jazz night",
+  "classical_orchestra": "Classical orchestra",
+  "music_festivals": "Music festivals",
+
+  "every_week": "Every week",
+  "once_a_month": "Once a month",
+  "every_few_months": "Every few months",
+  "rarely": "Rarely",
+  "never": "Never",
+
+  "yes": "Yes",
+  "no": "No",
+  "travel_or_local": "Do you enjoy traveling for concerts or prefer local shows?",
+  "choose_what_you_like": "Choose what you like",
+
+  "personality_preference": "What kind of person do you like hanging out with?",
+  "talkative_energetic": "Talkative & energetic",
+  "calm_chill": "Calm & chill",
+  "adventurous": "Adventurous",
+  "artistic_deep": "Artistic & deep",
+
+  "discover_music_2": "How do you usually discover new music?",
+  "discover_hint_2": "Write how you usually find new music",
+
+  "concert_company": "Do you prefer attending concerts with friends, or with a date?",
+  "concert_company_hint": "Enter your thoughts",
+
+  "travel_distance": "How far would you travel to see your favorite artist or band perform?",
+  "travel_distance_hint": "Write how far you would travel for a concert",
+  "within_my_city": "Within my city",
+  "another_city_nearby": "Another city nearby",
+  "anywhere_in_country": "Anywhere in the country",
+  "even_abroad": "Even abroad if I love the artist",
+  "dont_travel": "I don’t travel for concerts",
+
+  "always_with_friends": "Always with friends",
+  "prefer_with_date": "Prefer going with a date",
+  "enjoy_both": "I enjoy both",
+  "prefer_solo": "I prefer going solo",
+
+  "discover_through_friends": "Through friends",
+  "discover_social_media": "Social media (TikTok, Instagram)",
+  "discover_music_apps": "Music apps (Spotify, Apple Music)",
+  "discover_concerts": "Concerts & events",
+  "discover_online": "Online recommendations",
+  "love_traveling": "I love traveling for concerts",
+  "prefer_local": "I prefer local shows",
+  "both_fine": "Both are fine with me",
+  "opinion_matters": "Your opinion matters to us to improve your\nexperience using this application",
+  "write_what_you_like": "Write what you like"
+
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"de": _de, "en": _en};
 }

@@ -1,8 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:tala_app/core/utils/app_dimensions.dart';
 import 'package:tala_app/core/utils/constants.dart';
 import 'package:tala_app/feature/profile/presentation/view/widget/custom_drop_down_profile.dart';
 import 'package:tala_app/feature/profile/presentation/view/widget/custom_text_field_profile.dart';
+import 'package:tala_app/generated/locale_keys.g.dart';
 
 class CustomFieldsProfileLike1 extends StatelessWidget {
   const CustomFieldsProfileLike1({super.key});
@@ -12,35 +14,34 @@ class CustomFieldsProfileLike1 extends StatelessWidget {
     return Column(
       children: [
         CustomDropDownProfile(
-          hint: 'Choose what you like',
-          options: AppConstant.kWords,
-          label: 'What genres of music do you enjoy the most?',
+          hint: LocaleKeys.choose_event_hint.tr(),
+          options: AppConstant.kQ1Choices,
+          label: LocaleKeys.which_event_never_miss.tr(),
         ),
         SizedBox(height: AppDimensions.h16),
-        const CustomTextFieldProfile(
-          hint: 'write your top favorite artists or bands',
-          label: ' Who are you top three favorite artists or bands?',
-        ),
-        SizedBox(height: AppDimensions.h16),
-
-        CustomDropDownProfile(
-          hint: 'Write how often you attend live music events',
-          options: AppConstant.kWords,
-          label: 'How often do you attend live music events? ',
+        CustomTextFieldProfile(
+          hint: LocaleKeys.top_fav_artists_hint.tr(),
+          label: LocaleKeys.top_fav_artists_label.tr(),
         ),
         SizedBox(height: AppDimensions.h16),
 
         CustomDropDownProfile(
-          hint: 'Enter your thoughts',
-          options: AppConstant.kWords,
-          label:
-          'Are you passionate about discovering new artists or do you stick to your favorites?',
+          hint: LocaleKeys.how_often_hint.tr(),
+          options: AppConstant.kQ3Choices,
+          label: LocaleKeys.how_often_attend.tr(),
         ),
         SizedBox(height: AppDimensions.h16),
 
-        const CustomTextFieldProfile(
-          hint: 'Enter your favorite concert venue',
-          label: 'What’s your favorite concert venue and why?',
+        CustomDropDownProfile(
+          hint: LocaleKeys.discover_hint.tr(),
+          options: AppConstant.kQ4Choices,
+          label:LocaleKeys.discover_new_artists.tr(),
+        ),
+        SizedBox(height: AppDimensions.h16),
+
+        CustomTextFieldProfile(
+          hint: LocaleKeys.fav_venue_hint.tr(),
+          label: LocaleKeys.fav_venue_label.tr(),
         ),
         SizedBox(height: AppDimensions.h16),
       ],

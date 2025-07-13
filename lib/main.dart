@@ -25,7 +25,7 @@ void main() async {
     EasyLocalization.ensureInitialized(),
   ]);
   await FirebaseAppCheck.instance.activate(
-    androidProvider: AndroidProvider.debug,
+    androidProvider: AndroidProvider.playIntegrity,
     appleProvider: AppleProvider.debug,
   );
 
