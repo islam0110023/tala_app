@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 import 'package:tala_app/core/utils/app_color.dart';
 import 'package:tala_app/core/utils/app_dimensions.dart';
 import 'package:tala_app/core/utils/styling.dart';
@@ -41,7 +39,7 @@ class CustomTabBar extends StatelessWidget {
       unselectedLabelStyle: Styling.textStyle16700,
       unselectedLabelColor: AppColor.kPrimaryPink,
       labelStyle: Styling.tabStyle,
-      labelPadding: EdgeInsets.symmetric(horizontal: 8),
+      labelPadding: EdgeInsets.symmetric(horizontal: AppDimensions.r8),
     );
   }
 }

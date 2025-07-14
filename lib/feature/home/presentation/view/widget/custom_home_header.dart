@@ -15,7 +15,7 @@ class CustomHomeHeader extends StatelessWidget {
         const CustomHomeSearch(),
         SizedBox(width: AppDimensions.w5,),
         const CustomRoundedIcon(icon: Icons.filter_alt_outlined,),
-        const CustomRoundedIcon(icon: Icons.notifications_none_outlined,),
+        const CustomRoundedIcon(icon: Icons.notifications,),
       ],
     );
   }
