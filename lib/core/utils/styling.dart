@@ -162,5 +162,42 @@ abstract class Styling{
     fontFamily: AppConstant.kFontFamily,
     fontWeight: FontWeight.w700,
   );
+  static final tabStyle = TextStyle(
+    color: AppColor.kPrimaryPink,
+    fontSize: 16.sp,
+    fontFamily: AppConstant.kFontFamily,
+    fontWeight: FontWeight.w700,
+  );
+  static final searchHomeHintStyle = TextStyle(
+    color: AppColor.kGray,
+    fontSize: 14.sp,
+    fontFamily: AppConstant.kFontFamily,
+    fontWeight: FontWeight.w500,
+  );
+  static final homeTextButton = TextStyle(
+    color: AppColor.kPrimaryPink,
+    fontSize: 15.sp,
+    fontFamily: AppConstant.kFontFamily,
+    fontWeight: FontWeight.w700,
+  );
+  static final textSpanKeyStyle = TextStyle(
+    color: AppColor.kColorOnboarding,
+    fontSize: 10.40.sp,
+    fontFamily: AppConstant.kFontFamily,
+    fontWeight: FontWeight.w600,
+  );
+  static final textSpanValueStyle = TextStyle(
+    color: AppColor.kPrimaryPink,
+    fontSize: 10.40.sp,
+    fontFamily: AppConstant.kFontFamily,
+    fontWeight: FontWeight.w400,
+  );
+  static final homeContainerLabelStyle = TextStyle(
+    color: AppColor.kPrimaryPink,
+    fontSize: 15.13.sp,
+    fontFamily: AppConstant.kFontFamily,
+    fontWeight: FontWeight.w500,
+  );
+
 
 }

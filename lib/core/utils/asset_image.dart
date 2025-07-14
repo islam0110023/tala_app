@@ -12,6 +12,9 @@ class AppImage{
   static const kPassionTravel = 'assets/images/travel_icon.svg';
   static const kPassionDance = 'assets/images/dance_icon.svg';
   static const kPassionArts = 'assets/images/arts_icon.svg';
+  static const kHomeIcon = 'assets/images/home_icon.svg';
+  static const kChatIcon = 'assets/images/chat_icon.svg';
+  static const kProfileIcon = 'assets/images/profile_icon.svg';
   static const kPassionNature = 'assets/images/nature_icon.svg';
   static const kPassionConcert = 'assets/images/concert_icon.svg';
   static const kPassionMusic = 'assets/images/music_icon.svg';
@@ -22,6 +25,8 @@ class AppImage{
   static const kImageTalaOnboarding3 = 'assets/images/Rectangle 617.png';
   static const kImageTalaOnboarding4 = 'assets/images/Rectangle 694.png';
   static const kImageIslam = 'assets/images/islam.png';
+  static const kImageTest = 'assets/images/test.jpg';
+  static const kTalaLogoNav = 'assets/images/tala_logo_nav.png';
 
 
 }

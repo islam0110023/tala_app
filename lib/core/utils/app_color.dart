@@ -29,5 +29,9 @@ abstract class AppColor{
   static const kBorderChatColor=Color(0xFFE3E9ED);
   static const kBorderShadowColor = Color(0x285B0E6D);
   static const kChatFieldColor = Color(0xD8EFEFEF);
+  static const kBoxShadowColor = Color(0x23000000);
+  static const kContainerGradient = Color(0x7FFF4F9D);
+  static const kHomeContainerBorder = Color(0xFFF0ADFF);
+
 
 }
