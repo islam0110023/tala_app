@@ -6,6 +6,7 @@ import 'package:tala_app/feature/auth/presentation/view/otp_screen.dart';
 import 'package:tala_app/feature/auth/presentation/view/register_screen.dart';
 import 'package:tala_app/feature/chat/presentation/view/chat_screen.dart';
 import 'package:tala_app/feature/chat/presentation/view/chats_screen.dart';
+import 'package:tala_app/feature/home/presentation/view/home_screen.dart';
 import 'package:tala_app/feature/onboarding/presentation/view/onboarding_screen.dart';
 import 'package:tala_app/feature/onboarding/presentation/view/onboarding_slide_screen.dart';
 import 'package:tala_app/feature/onboarding/presentation/view/onboarding_tags_screen.dart';
@@ -26,7 +27,8 @@ class AppRoutes {
   static const newPasswordScreen = '/new_password';
   static const onBoardingSlideScreen = '/onboarding_slide';
   static const onBoardingTagsScreen = '/onboarding_tags';
-  static const profileMusicPreferencesScreen = '/profile_music_preferences_screen';
+  static const profileMusicPreferencesScreen =
+      '/profile_music_preferences_screen';
   static const profileSelectPassionsScreen = '/profile_select_passion_screen';
   static const profileLike1Screen = '/profile_like_1_screen';
   static const profileLike2Screen = '/profile_like_2_screen';
@@ -35,9 +37,7 @@ class AppRoutes {
   static const chatsScreen = '/chats_screen';
   static const chatScreen = '/chat_screen';
   static const forgetPasswordScreen = '/forget_password_screen';
-
-
-
+  static const homeScreen = '/home_screen';
 
   static final route = GoRouter(
     initialLocation: splashScreen,
@@ -98,10 +98,7 @@ class AppRoutes {
         path: forgetPasswordScreen,
         builder: (context, state) => const ForgetPasswordScreen(),
       ),
-      GoRoute(
-        path: otpScreen,
-        builder: (context, state) => const OtpScreen(),
-      ),
+      GoRoute(path: otpScreen, builder: (context, state) => const OtpScreen()),
       GoRoute(
         path: chatsScreen,
         builder: (context, state) => const ChatsScreen(),
@@ -110,7 +107,10 @@ class AppRoutes {
         path: chatScreen,
         builder: (context, state) => const ChatScreen(),
       ),
-
+      GoRoute(
+        path: homeScreen,
+        builder: (context, state) => const HomeScreen(),
+      ),
     ],
   );
 }

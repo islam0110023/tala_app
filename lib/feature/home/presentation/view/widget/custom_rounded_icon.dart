@@ -3,9 +3,7 @@ import 'package:tala_app/core/utils/app_color.dart';
 import 'package:tala_app/core/utils/app_dimensions.dart';
 
 class CustomRoundedIcon extends StatelessWidget {
-  const CustomRoundedIcon({
-    super.key, required this.icon,
-  });
+  const CustomRoundedIcon({super.key, required this.icon});
   final IconData icon;
 
   @override
@@ -17,7 +15,10 @@ class CustomRoundedIcon extends StatelessWidget {
         color: Colors.white,
         shape: OvalBorder(),
       ),
-      child: IconButton(onPressed: (){}, icon: Icon(icon,color: AppColor.kPrimaryPink)),
+      child: IconButton(
+        onPressed: () {},
+        icon: Icon(icon, color: AppColor.kPrimaryPink, size: AppDimensions.r24),
+      ),
     );
   }
 }

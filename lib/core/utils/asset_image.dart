@@ -26,7 +26,8 @@ class AppImage{
   static const kImageTalaOnboarding4 = 'assets/images/Rectangle 694.png';
   static const kImageIslam = 'assets/images/islam.png';
   static const kImageTest = 'assets/images/test.jpg';
-  static const kTalaLogoNav = 'assets/images/tala_logo_nav.png';
+  static const kTalaLogoNav = 'assets/images/tala_button.png';
+  static const kTalaLogoNavHover = 'assets/images/tala_button_hover.png';
 
 
 }

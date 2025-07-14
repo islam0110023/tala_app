@@ -65,7 +65,7 @@ class _CustomFormLoginState extends State<CustomFormLogin> {
         if (state is LoginFailure) {
           AppConstant.buildShowSnackBar(context, state.errMessage);
         } else if (state is LoginSuccess) {
-          GoRouter.of(context).go(AppRoutes.chatsScreen);
+          GoRouter.of(context).go(AppRoutes.homeScreen);
         }
       },
       builder: (context, state) {

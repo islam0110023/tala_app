@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:tala_app/core/utils/app_dimensions.dart';
 import 'package:tala_app/feature/auth/presentation/view/widget/custom_action_otp.dart';
 import 'package:tala_app/feature/auth/presentation/view/widget/custom_page_text_body.dart';
