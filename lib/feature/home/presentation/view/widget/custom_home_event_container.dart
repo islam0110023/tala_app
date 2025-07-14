@@ -1,0 +1,46 @@
+import 'package:flutter/material.dart';
+import 'package:tala_app/core/utils/app_color.dart';
+import 'package:tala_app/core/utils/app_dimensions.dart';
+import 'package:tala_app/core/widget/custom_home_button.dart';
+import 'package:tala_app/feature/home/presentation/view/widget/custom_image_container.dart';
+import 'package:tala_app/feature/home/presentation/view/widget/custom_text_container_content.dart';
+
+class CustomHomeEventContainer extends StatelessWidget {
+  const CustomHomeEventContainer({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Flexible(
+          fit: FlexFit.loose,
+          child: Container(
+            width: double.infinity,
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(
+                colors: [AppColor.kContainerGradient,Colors.white],
+                begin: Alignment.topRight,
+                end: Alignment.bottomLeft,
+              ),
+              border: Border.all(color: AppColor.kHomeContainerBorder, width: 1),
+              borderRadius: BorderRadius.circular(AppDimensions.r20),
+            ),
+            child: Padding(padding: EdgeInsets.all(AppDimensions.r8),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const CustomImageContainer(),
+                  const CustomTextContainerContent(),
+                  CustomHomeButton(onTap: () {  }, text: 'Join Now',),
+                  SizedBox(height: AppDimensions.h10),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
