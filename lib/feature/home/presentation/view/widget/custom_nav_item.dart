@@ -23,30 +23,32 @@ class CustomNavItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final isSelected = selectedIndex == index;
 
-    return GestureDetector(
-      onTap: () => onTap(index),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          SvgPicture.asset(
-            icon,
-            width: AppDimensions.r24,
-            height: AppDimensions.r24,
-            colorFilter: ColorFilter.mode(
-              isSelected ? AppColor.kPrimaryPink : AppColor.kColorOnboarding,
-              BlendMode.srcIn,
+    return Expanded(
+      child: InkWell(
+        onTap: () => onTap(index),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SvgPicture.asset(
+              icon,
+              width: AppDimensions.r24,
+              height: AppDimensions.r24,
+              colorFilter: ColorFilter.mode(
+                isSelected ? AppColor.kPrimaryPink : AppColor.kColorOnboarding,
+                BlendMode.srcIn,
+              ),
             ),
-          ),
-          SizedBox(height: AppDimensions.h4),
-          Text(
-            label,
-            style: Styling.textNavBar.copyWith(
-              color: isSelected
-                  ? AppColor.kPrimaryPink
-                  : AppColor.kColorOnboarding,
+            SizedBox(height: AppDimensions.h4),
+            Text(
+              label,
+              style: Styling.textNavBar.copyWith(
+                color: isSelected
+                    ? AppColor.kPrimaryPink
+                    : AppColor.kColorOnboarding,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

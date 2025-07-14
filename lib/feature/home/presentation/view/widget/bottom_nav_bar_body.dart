@@ -33,7 +33,7 @@ class CustomBottomNavBar extends StatelessWidget {
         ],
       ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        //mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           CustomNavItem(
             index: 0,
@@ -42,27 +42,29 @@ class CustomBottomNavBar extends StatelessWidget {
             icon: AppImage.kHomeIcon,
             onTap: onTap,
           ),
-          GestureDetector(
-            onTap: () => onTap(1),
-            child: Container(
-              width: AppDimensions.r65,
-              height: AppDimensions.r65,
-              decoration: const BoxDecoration(
-                shape: BoxShape.circle,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black12,
-                    blurRadius: 20,
-                    offset: Offset(0, 0),
-                    spreadRadius: 1,
-                  ),
-                ],
-              ),
-              child: Image.asset(
-                selectedIndex == 1
-                    ? AppImage.kTalaLogoNavHover
-                    : AppImage.kTalaLogoNav,
-                fit: BoxFit.fill,
+          Expanded(
+            child: InkWell(
+              onTap: () => onTap(1),
+              child: Container(
+                width: AppDimensions.r65,
+                height: AppDimensions.r65,
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 20,
+                      offset: Offset(0, 0),
+                      spreadRadius: 1,
+                    ),
+                  ],
+                ),
+                child: Image.asset(
+                  selectedIndex == 1
+                      ? AppImage.kTalaLogoNavHover
+                      : AppImage.kTalaLogoNav,
+                  fit: BoxFit.contain,
+                ),
               ),
             ),
           ),

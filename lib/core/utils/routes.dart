@@ -1,4 +1,8 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tala_app/core/utils/service_locator.dart';
+import 'package:tala_app/feature/auth/presentation/manager/login_cubit/login_cubit.dart';
+import 'package:tala_app/feature/auth/presentation/manager/register_cubit/register_cubit.dart';
 import 'package:tala_app/feature/auth/presentation/view/forget_password_screen.dart';
 import 'package:tala_app/feature/auth/presentation/view/login_screen.dart';
 import 'package:tala_app/feature/auth/presentation/view/new_password_screen.dart';
@@ -52,11 +56,19 @@ class AppRoutes {
       ),
       GoRoute(
         path: loginScreen,
-        builder: (context, state) => const LoginScreen(),
+        builder: (context, state) => MultiBlocProvider(
+          providers: [BlocProvider(create: (context) => LoginCubit(getIt()))],
+          child: const LoginScreen(),
+        ),
       ),
       GoRoute(
         path: registerScreen,
-        builder: (context, state) => const RegisterScreen(),
+        builder: (context, state) => MultiBlocProvider(
+          providers: [
+            BlocProvider(create: (context) => RegisterCubit(getIt())),
+          ],
+          child: const RegisterScreen(),
+        ),
       ),
       GoRoute(
         path: profileSetInfoScreen,
