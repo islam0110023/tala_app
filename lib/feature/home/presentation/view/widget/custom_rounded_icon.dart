@@ -12,7 +12,7 @@ class CustomRoundedIcon extends StatelessWidget {
       width: AppDimensions.r50,
       height: AppDimensions.r50,
       decoration: const ShapeDecoration(
-        color: Colors.white,
+        color:AppColor.kWhite1,
         shape: OvalBorder(),
       ),
       child: IconButton(

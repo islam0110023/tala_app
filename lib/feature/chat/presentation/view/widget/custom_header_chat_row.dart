@@ -12,42 +12,45 @@ class CustomHeaderChatRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        CustomArrowBack(
-          onTap: () {
-            (context).pop();
-          },
-        ),
-        SizedBox(width: AppDimensions.w17),
-        CustomChatImageContainer(
-          img: const AssetImage(AppImage.kImageIslam),
-          radius: AppDimensions.r55,
-          withBorder: true,
-        ),
-        SizedBox(width: AppDimensions.w14),
-
-        Expanded(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Islam Ramadan', style: Styling.nameChatStyle),
-                  SizedBox(height: AppDimensions.h11),
-                  Text('Typing...', style: Styling.chatStateStyle),
-                ],
-              ),
-              CustomRoundedChatButton(
-                icon: Icons.call,
-                onPressed: () {},
-                radius: AppDimensions.r50,
-              ),
-            ],
+    return Padding(
+      padding:  EdgeInsets.symmetric(vertical: AppDimensions.r11),
+      child: Row(
+        children: [
+          CustomArrowBack(
+            onTap: () {
+              (context).pop();
+            },
           ),
-        ),
-      ],
+          SizedBox(width: AppDimensions.w17),
+          CustomChatImageContainer(
+            img: const AssetImage(AppImage.kImageIslam),
+            radius: AppDimensions.r55,
+            withBorder: true,
+          ),
+          SizedBox(width: AppDimensions.w14),
+
+          Expanded(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Islam Ramadan', style: Styling.nameChatStyle),
+                    SizedBox(height: AppDimensions.h11),
+                    Text('Typing...', style: Styling.chatStateStyle),
+                  ],
+                ),
+                CustomRoundedChatButton(
+                  icon: Icons.call,
+                  onPressed: () {},
+                  radius: AppDimensions.r50,
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

@@ -5,10 +5,8 @@ import 'package:tala_app/core/utils/styling.dart';
 import 'package:tala_app/feature/home/presentation/view/widget/custom_tab_widget.dart';
 
 class CustomTabBar extends StatelessWidget {
-  const CustomTabBar({
-    super.key,
-    required TabController tabController,
-  }) : _tabController = tabController;
+  const CustomTabBar({super.key, required TabController tabController})
+    : _tabController = tabController;
 
   final TabController _tabController;
 
@@ -29,8 +27,7 @@ class CustomTabBar extends StatelessWidget {
       physics: const BouncingScrollPhysics(),
       splashFactory: NoSplash.splashFactory,
       tabAlignment: TabAlignment.center,
-      indicator:  BoxDecoration(
-
+      indicator: BoxDecoration(
         color: AppColor.kPrimaryPink,
         borderRadius: BorderRadius.circular(AppDimensions.r25),
       ),

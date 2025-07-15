@@ -14,7 +14,6 @@ class CustomChatFieldRow extends StatelessWidget {
         Expanded(
           child: Container(
             width: double.infinity,
-            height: AppDimensions.h47,
             decoration: BoxDecoration(
               color: AppColor.kChatFieldColor,
               borderRadius: BorderRadius.circular(AppDimensions.r20),
@@ -36,30 +35,32 @@ class CustomChatFieldRow extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     IconButton(
-                      icon: const Icon(
+                      icon: Icon(
                         Icons.attach_file_rounded,
                         color: AppColor.kPrimaryPink,
+                        size: AppDimensions.r24,
                       ),
                       onPressed: () {},
                     ),
                     IconButton(
-                      icon: const Icon(
+                      icon: Icon(
                         Icons.camera_alt_rounded,
                         color: AppColor.kPrimaryPink,
+                        size: AppDimensions.r24,
                       ),
                       onPressed: () {},
                     ),
                   ],
                 ),
                 prefixIcon: IconButton(
-                  icon: const Icon(
+                  icon: Icon(
                     Icons.tag_faces_rounded,
                     color: AppColor.kPrimaryPink,
+                    size: AppDimensions.r24,
                   ),
                   onPressed: () {},
                 ),
                 border: InputBorder.none,
-                contentPadding: const EdgeInsets.symmetric(vertical: 15),
               ),
             ),
           ),

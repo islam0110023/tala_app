@@ -28,6 +28,7 @@ class CustomPersonChat extends StatelessWidget {
         GoRouter.of(context).push(AppRoutes.chatScreen);
       },
       contentPadding: EdgeInsets.zero,
+
       leading: CustomChatImageContainer(
         img: img,
         radius: AppDimensions.r55,
@@ -35,36 +36,43 @@ class CustomPersonChat extends StatelessWidget {
       ),
       title: Text(name, style: Styling.nameChatStyle),
       subtitle: Text(message, style: Styling.chatsHintStyle),
-      trailing: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(time, style: Styling.timeChatStyle),
-          SizedBox(height: AppDimensions.h6),
-          number != 0
-              ? Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: AppDimensions.r5,
-                    vertical: AppDimensions.r2,
-                  ),
-                  decoration: BoxDecoration(
-                    color: AppColor.kPrimaryPink,
-                    borderRadius: BorderRadius.circular(AppDimensions.r5),
-                    boxShadow: const [
-                      BoxShadow(
-                        color: AppColor.kNumberMessageColor,
-                        blurRadius: 4,
-                        offset: Offset(4, 4),
-                        spreadRadius: 0,
-                      ),
-                    ],
-                  ),
-                  child: Text(
-                    number > 99 ? '+99' : number.toString(),
-                    style: Styling.messageNumberStyle,
-                  ),
-                )
-              : SizedBox(height: AppDimensions.h10, width: AppDimensions.r25),
-        ],
+      trailing: FittedBox(
+        fit: BoxFit.scaleDown,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(time, style: Styling.timeChatStyle),
+            SizedBox(height: AppDimensions.h6),
+            number != 0
+                ? Container(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: AppDimensions.r5,
+                      vertical: AppDimensions.r2,
+                    ),
+                    decoration: BoxDecoration(
+                      color: AppColor.kPrimaryPink,
+                      borderRadius: BorderRadius.circular(AppDimensions.r5),
+                      boxShadow: const [
+                        BoxShadow(
+                          color: AppColor.kNumberMessageColor,
+                          blurRadius: 4,
+                          offset: Offset(4, 4),
+                          spreadRadius: 0,
+                        ),
+                      ],
+                    ),
+                    child: Text(
+                      number > 99 ? '+99' : number.toString(),
+                      style: Styling.messageNumberStyle,
+                    ),
+                  )
+                : SizedBox(
+                  height: AppDimensions.h10,
+                  width: AppDimensions.r25,
+                ),
+          ],
+        ),
       ),
     );
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tala_app/core/utils/app_color.dart';
+import 'package:tala_app/core/utils/app_dimensions.dart';
 
 class CustomRoundedChatButton extends StatelessWidget {
   const CustomRoundedChatButton({
@@ -21,8 +22,8 @@ class CustomRoundedChatButton extends StatelessWidget {
       height: radius,
       decoration: ShapeDecoration(
         color: (isPrimary) ? AppColor.kWhite : AppColor.kPrimaryPink,
-        shape: const OvalBorder(
-          side: BorderSide(width: 1, color: AppColor.kBorderChatColor),
+        shape:  OvalBorder(
+          side: BorderSide(width: AppDimensions.r2, color: AppColor.kBorderChatColor),
         ),
         shadows: (isPrimary)
             ? const [
@@ -39,6 +40,7 @@ class CustomRoundedChatButton extends StatelessWidget {
         onPressed: () {},
         icon: Icon(
           icon,
+          size: AppDimensions.r24,
           color: (isPrimary) ? AppColor.kPrimaryPink : AppColor.kWhite,
         ),
       ),

@@ -126,6 +126,7 @@ class AppDimensions {
   static final r50 = 50.r;
   static final h4 = 4.h;
   static final r65 = 65.r;
+  static final r75 = 75.r;
 
 
 

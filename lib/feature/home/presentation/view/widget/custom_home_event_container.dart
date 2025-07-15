@@ -6,9 +6,7 @@ import 'package:tala_app/feature/home/presentation/view/widget/custom_image_cont
 import 'package:tala_app/feature/home/presentation/view/widget/custom_text_container_content.dart';
 
 class CustomHomeEventContainer extends StatelessWidget {
-  const CustomHomeEventContainer({
-    super.key,
-  });
+  const CustomHomeEventContainer({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,20 +18,27 @@ class CustomHomeEventContainer extends StatelessWidget {
             width: double.infinity,
             decoration: BoxDecoration(
               gradient: const LinearGradient(
-                colors: [AppColor.kContainerGradient,Colors.white],
+                colors: [AppColor.kContainerGradient, AppColor.kWhite1],
                 begin: Alignment.topRight,
                 end: Alignment.bottomLeft,
               ),
-              border: Border.all(color: AppColor.kHomeContainerBorder, width: 1),
+              border: Border.all(
+                color: AppColor.kHomeContainerBorder,
+                width: AppDimensions.r2,
+              ),
               borderRadius: BorderRadius.circular(AppDimensions.r20),
             ),
-            child: Padding(padding: EdgeInsets.all(AppDimensions.r8),
+            child: Padding(
+              padding: EdgeInsets.all(AppDimensions.r8),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   const CustomImageContainer(),
-                  const CustomTextContainerContent(),
-                  CustomHomeButton(onTap: () {  }, text: 'Join Now',),
+                  const Align(
+                    alignment: Alignment.centerLeft,
+                    child: CustomTextContainerContent(),
+                  ),
+                  CustomHomeButton(onTap: () {}, text: 'Join Now'),
                   SizedBox(height: AppDimensions.h10),
                 ],
               ),

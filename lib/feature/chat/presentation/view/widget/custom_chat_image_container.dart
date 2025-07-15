@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:tala_app/core/utils/app_color.dart';
+import 'package:tala_app/core/utils/app_dimensions.dart';
 
 class CustomChatImageContainer extends StatelessWidget {
   const CustomChatImageContainer({
@@ -22,7 +23,7 @@ class CustomChatImageContainer extends StatelessWidget {
         shape: BoxShape.circle,
 
         border: (withBorder)
-            ? Border.all(color: Colors.grey, width: 2.r)
+            ? Border.all(color: AppColor.kGray, width: AppDimensions.r2)
             : null,
         image: DecorationImage(image: img, fit: BoxFit.cover),
       ),

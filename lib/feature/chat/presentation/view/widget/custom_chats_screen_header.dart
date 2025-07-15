@@ -16,7 +16,10 @@ class CustomChatsScreenHeader extends StatelessWidget {
           radius: AppDimensions.r45,
         ),
         const Spacer(),
-        IconButton(onPressed: () {}, icon: const Icon(CupertinoIcons.plus)),
+        IconButton(
+          onPressed: () {},
+          icon: Icon(CupertinoIcons.plus, size: AppDimensions.r24),
+        ),
       ],
     );
   }

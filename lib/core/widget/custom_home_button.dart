@@ -4,9 +4,7 @@ import 'package:tala_app/core/utils/app_dimensions.dart';
 import 'package:tala_app/core/utils/styling.dart';
 
 class CustomHomeButton extends StatelessWidget {
-  const CustomHomeButton({
-    super.key, required this.onTap, required this.text,
-  });
+  const CustomHomeButton({super.key, required this.onTap, required this.text});
   final VoidCallback onTap;
   final String text;
 
@@ -14,14 +12,18 @@ class CustomHomeButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
+
       child: Container(
         width: AppDimensions.w212,
-        height: AppDimensions.h36,
+        alignment: Alignment.center,
+        padding: EdgeInsets.symmetric(
+          vertical: AppDimensions.r11,
+        ),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: AppColor.kWhite1,
           border: Border.all(
             color: AppColor.kPrimaryPink,
-            width: 1,
+            width: AppDimensions.r2,
           ),
           borderRadius: BorderRadius.circular(AppDimensions.r20),
           boxShadow: const [
@@ -32,12 +34,7 @@ class CustomHomeButton extends StatelessWidget {
             ),
           ],
         ),
-        child: Center(
-          child: Text(
-            text,
-            style: Styling.homeTextButton,
-          ),
-        ),
+        child: Text(text, style: Styling.homeTextButton),
       ),
     );
   }

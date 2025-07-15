@@ -23,7 +23,6 @@ class CustomHomeSearch extends StatelessWidget {
         ),
         child: TextField(
           decoration: InputDecoration(
-            contentPadding: EdgeInsets.zero,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(AppDimensions.r25),
             ),
@@ -41,7 +40,10 @@ class CustomHomeSearch extends StatelessWidget {
                 width: AppDimensions.r2,
               ),
             ),
-            prefixIcon: const Icon(Icons.search, color: Colors.grey),
+            prefixIcon:  Padding(
+              padding:  EdgeInsets.symmetric(horizontal: AppDimensions.r11),
+              child: Icon(Icons.search, color: AppColor.kGray,size: AppDimensions.r24,),
+            ),
             hintText: 'Search...',
             hintStyle: Styling.searchHomeHintStyle,
           ),

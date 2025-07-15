@@ -14,7 +14,7 @@ class ChatScreenBody extends StatelessWidget {
           FocusScope.of(context).unfocus();
         },
         child: Padding(
-          padding: const EdgeInsetsGeometry.symmetric(horizontal: 22.0),
+          padding:  EdgeInsetsGeometry.symmetric(horizontal: AppDimensions.r24),
           child: Column(
             children: [
               const CustomHeaderChatRow(),
