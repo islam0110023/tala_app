@@ -11,18 +11,9 @@ class CustomScreenHandling extends StatelessWidget {
       onTap: () {
         FocusScope.of(context).unfocus();
       },
-      child: LayoutBuilder(
-        builder: (context, constraints) {
-          return SingleChildScrollView(
-            child: ConstrainedBox(
-              constraints: BoxConstraints(minHeight: constraints.maxHeight),
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: AppDimensions.r25),
-                child: IntrinsicHeight(child: child),
-              ),
-            ),
-          );
-        },
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: AppDimensions.r25),
+        child: child,
       ),
     );
   }
