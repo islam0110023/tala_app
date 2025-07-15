@@ -11,6 +11,7 @@ import 'package:tala_app/feature/auth/domain/params/register_param.dart';
 import 'package:tala_app/feature/auth/presentation/manager/register_cubit/register_cubit.dart';
 import 'package:tala_app/feature/auth/presentation/view/widget/check_agree_terms.dart';
 import 'package:tala_app/feature/auth/presentation/view/widget/custom_fields_register.dart';
+import 'package:tala_app/feature/profile/presentation/manager/user_form_cubit/user_form_cubit.dart';
 import 'package:tala_app/generated/locale_keys.g.dart';
 
 class CustomFormRegister extends StatefulWidget {
@@ -55,7 +56,21 @@ class _CustomFormRegisterState extends State<CustomFormRegister> {
     return BlocConsumer<RegisterCubit, RegisterState>(
       listener: (context, state) {
         if (state is SignUpSuccess) {
-          GoRouter.of(context).push(AppRoutes.otpScreen, extra: false);
+          final String uid = BlocProvider.of<RegisterCubit>(
+            context,
+          ).signUpEntity!.credential.user!.uid;
+          final cubit = BlocProvider.of<UserFormCubit>(context);
+          cubit.setBasicInfo(
+            uid: uid,
+            email: email.text,
+            phone: phone.text,
+            firstName: firstName.text,
+            lastName: lastName.text,
+          );
+          GoRouter.of(context).push(
+            AppRoutes.otpScreen,
+            extra: {'isNewPassword': false, 'cubit': cubit},
+          );
         }
         if (state is SignUpFailure) {
           AppConstant.buildShowSnackBar(context, state.errMessage);

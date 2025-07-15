@@ -6,8 +6,6 @@ class ProfileMusicPreferencesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: ProfileMusicPreferencesBody(),
-    );
+    return const Scaffold(body: ProfileMusicPreferencesBody());
   }
 }

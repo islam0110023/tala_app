@@ -6,6 +6,7 @@ import 'package:tala_app/core/utils/routes.dart';
 import 'package:tala_app/core/utils/styling.dart';
 import 'package:tala_app/core/widget/custom_button.dart';
 import 'package:tala_app/feature/auth/presentation/view/widget/custom_fields_otp.dart';
+import 'package:tala_app/feature/profile/presentation/manager/user_form_cubit/user_form_cubit.dart';
 import 'package:tala_app/generated/locale_keys.g.dart';
 
 class CustomActionOtp extends StatelessWidget {
@@ -13,7 +14,9 @@ class CustomActionOtp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool isNewPassword = GoRouterState.of(context).extra as bool;
+    final extra = GoRouterState.of(context).extra as Map<String, dynamic>;
+    final isNewPassword = extra['isNewPassword'] as bool;
+    final cubit = extra['cubit'] as UserFormCubit?;
     return Column(
       children: [
         const CustomFieldsOtp(),
@@ -34,7 +37,7 @@ class CustomActionOtp extends StatelessWidget {
             } else {
               GoRouter.of(
                 context,
-              ).pushReplacement(AppRoutes.profileSetInfoScreen);
+              ).pushReplacement(AppRoutes.profileSetInfoScreen, extra: cubit);
             }
           },
           name: LocaleKeys.verify.tr(),

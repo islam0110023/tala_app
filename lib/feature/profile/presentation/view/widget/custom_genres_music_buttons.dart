@@ -4,11 +4,23 @@ import 'package:tala_app/core/model/genre_model.dart';
 import 'package:tala_app/core/utils/app_dimensions.dart';
 import 'package:tala_app/feature/profile/presentation/view/widget/genre_button.dart';
 
-class CustomGenresMusicButtons extends StatelessWidget {
+class CustomGenresMusicButtons extends StatefulWidget {
   const CustomGenresMusicButtons({super.key, required this.genres});
 
   final List<GenreModel> genres;
 
+  @override
+  State<CustomGenresMusicButtons> createState() =>
+      _CustomGenresMusicButtonsState();
+  static List<String> getSelectedGenres(List<GenreModel> genres) {
+    return genres
+        .where((genre) => genre.isSelected)
+        .map((genre) => genre.name)
+        .toList();
+  }
+}
+
+class _CustomGenresMusicButtonsState extends State<CustomGenresMusicButtons> {
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -19,11 +31,11 @@ class CustomGenresMusicButtons extends StatelessWidget {
           crossAxisCount: 2,
           crossAxisSpacing: AppDimensions.w10,
           mainAxisSpacing: AppDimensions.h10,
-          childAspectRatio: 150.w/110.h,
+          childAspectRatio: 150.w / 110.h,
         ),
-        itemCount: genres.length,
+        itemCount: widget.genres.length,
         itemBuilder: (context, index) {
-          return GenreButton(genre: genres[index]);
+          return GenreButton(genre: widget.genres[index]);
         },
       ),
     );

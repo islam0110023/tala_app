@@ -1,11 +1,13 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tala_app/core/utils/app_dimensions.dart';
 import 'package:tala_app/core/utils/constants.dart';
 import 'package:tala_app/core/utils/routes.dart';
 import 'package:tala_app/core/utils/styling.dart';
 import 'package:tala_app/core/widget/custom_button.dart';
+import 'package:tala_app/feature/profile/presentation/manager/user_form_cubit/user_form_cubit.dart';
 import 'package:tala_app/feature/profile/presentation/view/widget/custom_genres_music_buttons.dart';
 import 'package:tala_app/feature/profile/presentation/view/widget/gradient_rectangle_blur.dart';
 import 'package:tala_app/feature/profile/presentation/view/widget/profile_progress_bar.dart';
@@ -41,14 +43,36 @@ class ProfileMusicPreferencesBody extends StatelessWidget {
               SizedBox(height: AppDimensions.h32),
               CustomGenresMusicButtons(genres: AppConstant.kGenres),
               SizedBox(height: AppDimensions.h32),
-              CustomButton(onTap: () {
-                GoRouter.of(context).push(AppRoutes.profileSelectPassionsScreen);
-              }, name: LocaleKeys.next.tr()),
+              CustomButton(
+                onTap: () {
+                  passDataToForm(context);
+                },
+                name: LocaleKeys.next.tr(),
+              ),
               SizedBox(height: AppDimensions.h16),
             ],
           ),
         ),
       ],
     );
+  }
+
+  void passDataToForm(BuildContext context) {
+    final selectedGenres =
+        CustomGenresMusicButtons.getSelectedGenres(
+          AppConstant.kGenres,
+        );
+    if (selectedGenres.isNotEmpty) {
+      final cubit = BlocProvider.of<UserFormCubit>(context);
+      cubit.setMusicType(selectedGenres);
+      GoRouter.of(
+        context,
+      ).push(AppRoutes.profileSelectPassionsScreen, extra: cubit);
+    } else {
+      AppConstant.buildShowSnackBar(
+        context,
+        'Please Select Interests Music',
+      );
+    }
   }
 }

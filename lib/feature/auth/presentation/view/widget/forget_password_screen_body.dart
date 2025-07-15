@@ -51,9 +51,10 @@ class ForgetPasswordScreenBody extends StatelessWidget {
                     SizedBox(height: AppDimensions.h51),
                     CustomButton(
                       onTap: () {
-                        GoRouter.of(
-                          context,
-                        ).push(AppRoutes.otpScreen, extra: isNewPassword);
+                        GoRouter.of(context).push(
+                          AppRoutes.otpScreen,
+                          extra: {'isNewPassword': isNewPassword},
+                        );
                       },
                       name: LocaleKeys.send.tr(),
                     ),

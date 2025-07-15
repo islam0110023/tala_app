@@ -15,6 +15,7 @@ import 'package:tala_app/feature/onboarding/presentation/view/onboarding_screen.
 import 'package:tala_app/feature/onboarding/presentation/view/onboarding_slide_screen.dart';
 import 'package:tala_app/feature/onboarding/presentation/view/onboarding_tags_screen.dart';
 import 'package:tala_app/feature/onboarding/presentation/view/onboarding_tala_screen.dart';
+import 'package:tala_app/feature/profile/presentation/manager/user_form_cubit/user_form_cubit.dart';
 import 'package:tala_app/feature/profile/presentation/view/profile_like_1_screen.dart';
 import 'package:tala_app/feature/profile/presentation/view/profile_like_2_screen.dart';
 import 'package:tala_app/feature/profile/presentation/view/profile_music_preferences_screen.dart';
@@ -66,13 +67,20 @@ class AppRoutes {
         builder: (context, state) => MultiBlocProvider(
           providers: [
             BlocProvider(create: (context) => RegisterCubit(getIt())),
+            BlocProvider(create: (context) => UserFormCubit()),
           ],
           child: const RegisterScreen(),
         ),
       ),
       GoRoute(
         path: profileSetInfoScreen,
-        builder: (context, state) => const ProfileSetInfoScreen(),
+        builder: (context, state) {
+          final cubit = state.extra as UserFormCubit;
+          return MultiBlocProvider(
+            providers: [BlocProvider.value(value: cubit)],
+            child: const ProfileSetInfoScreen(),
+          );
+        },
       ),
       GoRoute(
         path: newPasswordScreen,
@@ -88,19 +96,43 @@ class AppRoutes {
       ),
       GoRoute(
         path: profileMusicPreferencesScreen,
-        builder: (context, state) => const ProfileMusicPreferencesScreen(),
+        builder: (context, state) {
+          final cubit = state.extra as UserFormCubit;
+          return MultiBlocProvider(
+            providers: [BlocProvider.value(value: cubit)],
+            child: const ProfileMusicPreferencesScreen(),
+          );
+        },
       ),
       GoRoute(
         path: profileSelectPassionsScreen,
-        builder: (context, state) => const ProfileSelectPassionsScreen(),
+        builder: (context, state) {
+          final value = state.extra as UserFormCubit;
+          return MultiBlocProvider(
+            providers: [BlocProvider.value(value: value)],
+            child: const ProfileSelectPassionsScreen(),
+          );
+        },
       ),
       GoRoute(
         path: profileLike1Screen,
-        builder: (context, state) => const ProfileLike1Screen(),
+        builder: (context, state) {
+          final value = state.extra as UserFormCubit;
+          return MultiBlocProvider(
+            providers: [BlocProvider.value(value: value)],
+            child:  ProfileLike1Screen(),
+          );
+        },
       ),
       GoRoute(
         path: profileLike2Screen,
-        builder: (context, state) => const ProfileLike2Screen(),
+        builder: (context, state) {
+          final value = state.extra as UserFormCubit;
+          return MultiBlocProvider(
+            providers: [BlocProvider.value(value: value)],
+            child:  ProfileLike2Screen(),
+          );
+        },
       ),
       GoRoute(
         path: onBoardingTalaScreen,

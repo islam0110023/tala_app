@@ -10,6 +10,10 @@ abstract class AppConstant {
   static const kFontFamily = 'Lato';
   static const kFontFamilyInter = 'Inter';
   static const kDurationSplash = 2;
+  static final List<String> kGenderOptions = [
+    LocaleKeys.male.tr(),
+    LocaleKeys.female.tr(),
+  ];
   static final List<GenreModel> kGenres = [
     GenreModel(name: LocaleKeys.rock.tr()),
     GenreModel(name: LocaleKeys.classical.tr()),

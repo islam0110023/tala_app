@@ -6,11 +6,9 @@ import 'package:go_router/go_router.dart';
 import 'package:tala_app/core/utils/app_color.dart';
 import 'package:tala_app/core/utils/app_dimensions.dart';
 import 'package:tala_app/core/utils/asset_image.dart';
-import 'package:tala_app/core/utils/routes.dart';
 import 'package:tala_app/core/widget/custom_arrow_back.dart';
-import 'package:tala_app/core/widget/custom_button.dart';
 import 'package:tala_app/core/widget/custom_title.dart';
-import 'package:tala_app/feature/profile/presentation/view/widget/custom_fields_set_profile.dart';
+import 'package:tala_app/feature/profile/presentation/view/widget/custom_form_profile_set_info.dart';
 import 'package:tala_app/generated/locale_keys.g.dart';
 
 class ProfileSetInfoScreenBody extends StatelessWidget {
@@ -55,16 +53,7 @@ class ProfileSetInfoScreenBody extends StatelessWidget {
                 ),
               ),
               SizedBox(height: AppDimensions.h23),
-              const CustomFieldsSetProfile(),
-              SizedBox(height: AppDimensions.h42),
-              CustomButton(
-                onTap: () {
-                  GoRouter.of(
-                    context,
-                  ).push(AppRoutes.profileMusicPreferencesScreen);
-                },
-                name: LocaleKeys.completeProfile.tr(),
-              ),
+              const CustomFormProfileSetInfo(),
             ],
           ),
         ),
@@ -72,3 +61,4 @@ class ProfileSetInfoScreenBody extends StatelessWidget {
     );
   }
 }
+

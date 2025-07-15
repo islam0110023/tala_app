@@ -4,15 +4,16 @@ import 'package:tala_app/feature/profile/presentation/view/widget/custom_screen_
 import 'package:tala_app/feature/profile/presentation/view/widget/custom_upper_profile_like_2.dart';
 
 class ProfileLike2ScreenBody extends StatelessWidget {
-  const ProfileLike2ScreenBody({super.key});
+  const ProfileLike2ScreenBody({super.key, required this.profileFormKey});
+  final GlobalKey<CustomFieldsProfileLike2State> profileFormKey ;
 
   @override
   Widget build(BuildContext context) {
-    return const CustomScreenHandling(
+    return  CustomScreenHandling(
       child: CustomScrollView(
         slivers: [
-          SliverToBoxAdapter(child: CustomUpperProfileLike2()),
-          SliverToBoxAdapter(child: CustomFieldsProfileLike2()),
+         const SliverToBoxAdapter(child: CustomUpperProfileLike2()),
+          SliverToBoxAdapter(child: CustomFieldsProfileLike2(key:profileFormKey ,)),
         ],
       ),
     );

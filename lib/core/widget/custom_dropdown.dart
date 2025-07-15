@@ -7,16 +7,16 @@ import 'package:tala_app/core/utils/app_dimensions.dart';
 import 'package:tala_app/core/utils/styling.dart';
 import 'package:tala_app/generated/locale_keys.g.dart';
 
-class CustomDropdown extends StatefulWidget {
-  const CustomDropdown({super.key, required this.options});
+class CustomDropdown extends StatelessWidget {
+  const CustomDropdown({
+    super.key,
+    required this.options,
+    required this.onChanged,
+    required this.value,
+  });
   final List<String> options;
-
-  @override
-  State<CustomDropdown> createState() => _CustomDropdownState();
-}
-
-class _CustomDropdownState extends State<CustomDropdown> {
-  String? selectedGender;
+  final Function(String?) onChanged;
+  final String? value;
 
   @override
   Widget build(BuildContext context) {
@@ -33,24 +33,27 @@ class _CustomDropdownState extends State<CustomDropdown> {
       ),
       child: DropdownButtonHideUnderline(
         child: DropdownButtonFormField2(
-          items: widget.options.map((gender) {
+          validator: (value) {
+            if (value == null) {
+              return 'please select gender';
+            }
+            return null;
+          },
+          items: options.map((gender) {
             return DropdownMenuItem<String>(
               child: Text(gender, style: Styling.textStyle13),
               value: gender,
             );
           }).toList(),
-          onChanged: (value) {
-            setState(() {
-              selectedGender = value;
-            });
-          },
+          onChanged: onChanged,
           isDense: true,
 
           iconStyleData: IconStyleData(
             icon: Icon(CupertinoIcons.chevron_down, size: AppDimensions.r24),
           ),
 
-          value: selectedGender,
+          value: (value != null && options.contains(value)) ? value : null,
+
           hint: Text(LocaleKeys.gender.tr(), style: Styling.textStyle13),
           decoration: InputDecoration(
             isDense: true,
