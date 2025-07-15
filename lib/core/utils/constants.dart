@@ -113,7 +113,11 @@ abstract class AppConstant {
   }
 
   static ScaffoldFeatureController<SnackBar, SnackBarClosedReason>
-  buildShowSnackBar(BuildContext context, String message) {
+  buildShowSnackBar(
+    BuildContext context,
+    String message, [
+    ContentType type = ContentType.failure,
+  ]) {
     return ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         backgroundColor: Colors.transparent,
@@ -122,7 +126,7 @@ abstract class AppConstant {
           title: 'Oops',
           message: message,
           messageTextStyle: Styling.textStyle10.copyWith(fontSize: 15),
-          contentType: ContentType.failure,
+          contentType: type,
         ),
       ),
     );

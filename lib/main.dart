@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tala_app/core/utils/app_color.dart';
 import 'package:tala_app/core/utils/constants.dart';
@@ -9,6 +10,7 @@ import 'package:tala_app/core/utils/routes.dart';
 import 'package:tala_app/core/utils/service_locator.dart';
 import 'package:tala_app/firebase_options.dart';
 import 'package:tala_app/generated/codegen_loader.g.dart';
+import 'package:tala_app/my_observer.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,6 +20,7 @@ void main() async {
     EasyLocalization.ensureInitialized(),
   ]);
   setUpServices();
+  Bloc.observer = MyBlocObserver();
 
 
   runApp(

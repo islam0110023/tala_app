@@ -15,6 +15,7 @@ import 'package:tala_app/feature/onboarding/presentation/view/onboarding_screen.
 import 'package:tala_app/feature/onboarding/presentation/view/onboarding_slide_screen.dart';
 import 'package:tala_app/feature/onboarding/presentation/view/onboarding_tags_screen.dart';
 import 'package:tala_app/feature/onboarding/presentation/view/onboarding_tala_screen.dart';
+import 'package:tala_app/feature/profile/presentation/manager/save_user_cubit/save_user_cubit.dart';
 import 'package:tala_app/feature/profile/presentation/manager/user_form_cubit/user_form_cubit.dart';
 import 'package:tala_app/feature/profile/presentation/view/profile_like_1_screen.dart';
 import 'package:tala_app/feature/profile/presentation/view/profile_like_2_screen.dart';
@@ -120,7 +121,7 @@ class AppRoutes {
           final value = state.extra as UserFormCubit;
           return MultiBlocProvider(
             providers: [BlocProvider.value(value: value)],
-            child:  ProfileLike1Screen(),
+            child: ProfileLike1Screen(),
           );
         },
       ),
@@ -129,8 +130,11 @@ class AppRoutes {
         builder: (context, state) {
           final value = state.extra as UserFormCubit;
           return MultiBlocProvider(
-            providers: [BlocProvider.value(value: value)],
-            child:  ProfileLike2Screen(),
+            providers: [
+              BlocProvider.value(value: value),
+              BlocProvider(create: (context) => SaveUserCubit(getIt())),
+            ],
+            child: ProfileLike2Screen(),
           );
         },
       ),
