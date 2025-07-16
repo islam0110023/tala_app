@@ -1,21 +1,17 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tala_app/core/utils/app_color.dart';
 import 'package:tala_app/core/utils/app_dimensions.dart';
 
 class CustomContainerProfileImage extends StatelessWidget {
-  const CustomContainerProfileImage({
-    super.key,
-  });
+  const CustomContainerProfileImage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: AppDimensions.w145,
-      height: AppDimensions.h145,
+      width: AppDimensions.r145,
+      height: AppDimensions.r145,
       decoration: const ShapeDecoration(
-        color: Colors.white,
+        color: AppColor.kWhite1,
         shape: OvalBorder(),
         shadows: [
           BoxShadow(
@@ -27,7 +23,7 @@ class CustomContainerProfileImage extends StatelessWidget {
       ),
       child: Icon(
         CupertinoIcons.person,
-        size: 85.sp,
+        size: AppDimensions.r85,
         color: AppColor.kPrimaryPink,
       ),
     );

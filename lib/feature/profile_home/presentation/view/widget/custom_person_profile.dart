@@ -7,9 +7,7 @@ import 'package:tala_app/core/utils/styling.dart';
 import 'package:tala_app/feature/profile_home/presentation/view/widget/custom_container_profile_image.dart';
 
 class CustomPersonProfile extends StatelessWidget {
-  const CustomPersonProfile({
-    super.key, this.img='', required this.name,
-  });
+  const CustomPersonProfile({super.key, this.img = '', required this.name});
   final String img;
   final String name;
 
@@ -27,11 +25,11 @@ class CustomPersonProfile extends StatelessWidget {
               child: Container(
                 width: AppDimensions.r20,
                 height: AppDimensions.r20,
-                decoration: const ShapeDecoration(
+                decoration: ShapeDecoration(
                   color: Colors.white,
                   shape: OvalBorder(
                     side: BorderSide(
-                      width: 2,
+                      width: AppDimensions.r2,
                       strokeAlign: BorderSide.strokeAlignOutside,
                       color: AppColor.kProfileBorder,
                     ),
@@ -39,7 +37,7 @@ class CustomPersonProfile extends StatelessWidget {
                 ),
                 child: Icon(
                   CupertinoIcons.pen,
-                  size: 13.sp,
+                  size: AppDimensions.r13,
                   color: AppColor.kColorOnboarding,
                 ),
               ),
@@ -47,10 +45,7 @@ class CustomPersonProfile extends StatelessWidget {
           ],
         ),
         SizedBox(height: AppDimensions.h10),
-        Text(
-            name,
-            style: Styling.textStyle18700Purple
-        ),
+        Text(name, style: Styling.textStyle18700Purple),
       ],
     );
   }

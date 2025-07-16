@@ -30,7 +30,7 @@ class CustomTextClickable extends StatelessWidget {
           SizedBox(height: AppDimensions.h8),
           Container(
             width: double.infinity,
-            height: 1,
+            height: AppDimensions.r1,
             color: AppColor.kDividerColor,
           ),
         ],
