@@ -1,4 +1,6 @@
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -56,9 +58,10 @@ class _CustomFormRegisterState extends State<CustomFormRegister> {
     return BlocConsumer<RegisterCubit, RegisterState>(
       listener: (context, state) {
         if (state is SignUpSuccess) {
-          final String uid = BlocProvider.of<RegisterCubit>(
+          final user = BlocProvider.of<RegisterCubit>(
             context,
-          ).signUpEntity!.credential.user!.uid;
+          ).signUpEntity!.credential.user;
+          final uid = user!.uid;
           final cubit = BlocProvider.of<UserFormCubit>(context);
           cubit.setBasicInfo(
             uid: uid,
@@ -67,6 +70,9 @@ class _CustomFormRegisterState extends State<CustomFormRegister> {
             firstName: firstName.text,
             lastName: lastName.text,
           );
+          //verifyEmail(user);
+          //context.read<RegisterCubit>().reset();
+
           GoRouter.of(context).push(
             AppRoutes.otpScreen,
             extra: {'isNewPassword': false, 'cubit': cubit},
@@ -120,9 +126,22 @@ class _CustomFormRegisterState extends State<CustomFormRegister> {
         isAgree: true,
       );
       BlocProvider.of<RegisterCubit>(context).register(param);
+      FocusScope.of(context).unfocus();
     } else {
       autoValidateMode = AutovalidateMode.always;
       setState(() {});
+    }
+  }
+
+  Future<void> verifyEmail(User? user) async {
+    // final user = FirebaseAuth.instance.currentUser;
+    if (user != null && !user.emailVerified) {
+      await user.sendEmailVerification();
+      AppConstant.buildShowSnackBar(
+        context,
+        'Verification email sent',
+        ContentType.help,
+      );
     }
   }
 }

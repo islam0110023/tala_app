@@ -27,6 +27,8 @@ class CustomDownProfileLike1 extends StatelessWidget {
                     .getAllSelectedValues();
                 final cubit=BlocProvider.of<UserFormCubit>(context);
                 cubit.setMusicLike(musicLike);
+                FocusScope.of(context).unfocus();
+
                 GoRouter.of(context).push(AppRoutes.profileLike2Screen,extra: cubit);
               }
             },

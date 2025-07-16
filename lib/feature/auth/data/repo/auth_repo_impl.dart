@@ -13,8 +13,8 @@ class AuthRepoImpl extends AuthRepo {
   AuthRepoImpl(this.authRemoteDataSource);
 
   final AuthRemoteDataSource authRemoteDataSource;
-  late final SignUpEntity signUpEntity;
-  late final LoginEntity loginEntity;
+  late  SignUpEntity signUpEntity;
+  late  LoginEntity loginEntity;
   @override
   Future<Either<Failure, SignUpEntity>> register(RegisterParam param) async {
     try {

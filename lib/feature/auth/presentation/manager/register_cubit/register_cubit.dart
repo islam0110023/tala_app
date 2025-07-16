@@ -24,4 +24,7 @@ class RegisterCubit extends Cubit<RegisterState> {
       },
     );
   }
+  void reset() {
+    emit(RegisterInitial());
+  }
 }

@@ -1,8 +1,12 @@
+import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tala_app/core/utils/app_dimensions.dart';
 import 'package:tala_app/core/utils/constants.dart';
+import 'package:tala_app/core/utils/routes.dart';
 import 'package:tala_app/feature/profile_home/presentation/view/widget/custom_text_clickable.dart';
 import 'package:tala_app/generated/locale_keys.g.dart';
 
@@ -53,8 +57,17 @@ class ProfileOptionsList extends StatelessWidget {
 
           CustomTextClickable(
             title: LocaleKeys.log_out.tr(),
-            onTap: () {
-              AppConstant.showSignOutConfirmationDialog(context);
+            onTap: () async {
+              final result = await AppConstant.showSignOutConfirmationDialog(
+                context,
+                'Sign Out',
+                'Are you sure you want to sign out?',
+              );
+              if (result == OkCancelResult.ok) {
+                await FirebaseAuth.instance.signOut();
+
+                GoRouter.of(context).go(AppRoutes.loginScreen);
+              }
             },
             icon: const Icon(Icons.logout, color: Colors.white),
           ),

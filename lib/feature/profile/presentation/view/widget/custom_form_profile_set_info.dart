@@ -85,6 +85,8 @@ class _CustomFormProfileSetInfoState extends State<CustomFormProfileSetInfo> {
                   location: location.text,
                 );
                 cubit.setProfile(userProfileModel);
+                FocusScope.of(context).unfocus();
+
                 GoRouter.of(
                   context,
                 ).push(AppRoutes.profileMusicPreferencesScreen, extra: cubit);

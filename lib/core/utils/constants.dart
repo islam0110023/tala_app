@@ -137,22 +137,18 @@ abstract class AppConstant {
     );
   }
 
-  static Future<void> showSignOutConfirmationDialog(
+  static Future<OkCancelResult> showSignOutConfirmationDialog(
     BuildContext context,
+    String title,
+    String message,
   ) async {
-    final result = await showOkCancelAlertDialog(
+    return await showOkCancelAlertDialog(
       context: context,
-      title: 'Sign Out',
-      message: 'Are you sure you want to sign out?',
-      okLabel: 'Yes, Sign Out',
+      title: title,
+      message: message,
+      okLabel: 'Yes, $title',
       cancelLabel: 'Cancel',
       barrierDismissible: false,
     );
-
-    if (result == OkCancelResult.ok) {
-      await FirebaseAuth.instance.signOut();
-
-      GoRouter.of(context).go(AppRoutes.loginScreen);
-    }
   }
 }

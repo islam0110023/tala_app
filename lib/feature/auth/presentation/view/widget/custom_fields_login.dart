@@ -51,6 +51,8 @@ class _CustomFormLoginState extends State<CustomFormLogin> {
       );
 
       BlocProvider.of<LoginCubit>(context).login(loginParam);
+      FocusScope.of(context).unfocus();
+
     } else {
       setState(() {
         autoValidateMode = AutovalidateMode.always;

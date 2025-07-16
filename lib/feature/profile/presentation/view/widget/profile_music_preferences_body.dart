@@ -65,6 +65,8 @@ class ProfileMusicPreferencesBody extends StatelessWidget {
     if (selectedGenres.isNotEmpty) {
       final cubit = BlocProvider.of<UserFormCubit>(context);
       cubit.setMusicType(selectedGenres);
+      FocusScope.of(context).unfocus();
+
       GoRouter.of(
         context,
       ).push(AppRoutes.profileSelectPassionsScreen, extra: cubit);

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tala_app/core/utils/app_color.dart';
@@ -23,7 +24,12 @@ class _SplashScreenBodyState extends State<SplashScreenBody> {
 
   void navigateToOnboarding() {
     Future.delayed(const Duration(seconds: AppConstant.kDurationSplash), () {
-      GoRouter.of(context).pushReplacement(AppRoutes.onBoardingScreen);
+      final User? user = FirebaseAuth.instance.currentUser;
+      if (user != null) {
+        GoRouter.of(context).pushReplacement(AppRoutes.homeScreen);
+      } else {
+        GoRouter.of(context).pushReplacement(AppRoutes.onBoardingScreen);
+      }
     });
   }
 
@@ -31,11 +37,15 @@ class _SplashScreenBodyState extends State<SplashScreenBody> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Container(color: AppColor.kPurple ),
+        Container(color: AppColor.kPurple),
         Container(
-          decoration:  const BoxDecoration(
+          decoration: const BoxDecoration(
             gradient: LinearGradient(
-              colors: [AppColor.kLightPurple, AppColor.kLightPink, AppColor.kPrimaryPink],
+              colors: [
+                AppColor.kLightPurple,
+                AppColor.kLightPink,
+                AppColor.kPrimaryPink,
+              ],
               begin: Alignment.topRight,
               end: Alignment.bottomLeft,
               stops: [0, .38, .87],

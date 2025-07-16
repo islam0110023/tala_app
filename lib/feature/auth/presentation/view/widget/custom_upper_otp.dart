@@ -1,12 +1,13 @@
+import 'package:adaptive_dialog/adaptive_dialog.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tala_app/core/utils/app_dimensions.dart';
+import 'package:tala_app/core/utils/constants.dart';
 import 'package:tala_app/core/widget/custom_arrow_back.dart';
 
 class CustomUpperOtp extends StatelessWidget {
-  const CustomUpperOtp({
-    super.key,
-  });
+  const CustomUpperOtp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -14,8 +15,18 @@ class CustomUpperOtp extends StatelessWidget {
       children: [
         SizedBox(height: AppDimensions.h47),
         CustomArrowBack(
-          onTap: () {
-            GoRouter.of(context).pop();
+          onTap: () async {
+            final result = await AppConstant.showSignOutConfirmationDialog(
+              context,
+              'Delete',
+              'If you go back now, your account will be deleted.',
+            );
+            if (result == OkCancelResult.ok) {
+              await FirebaseAuth.instance.currentUser!.delete();
+              GoRouter.of(context).pop();
+            }
+
+            // GoRouter.of(context).pop();
           },
         ),
       ],

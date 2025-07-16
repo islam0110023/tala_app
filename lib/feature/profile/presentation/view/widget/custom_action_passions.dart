@@ -26,6 +26,8 @@ class CustomActionPassions extends StatelessWidget {
             if (selectedGenres.length > 5) {
               final cubit = BlocProvider.of<UserFormCubit>(context);
               cubit.setPassions(selectedGenres);
+              FocusScope.of(context).unfocus();
+
               GoRouter.of(
                 context,
               ).push(AppRoutes.profileLike1Screen, extra: cubit);

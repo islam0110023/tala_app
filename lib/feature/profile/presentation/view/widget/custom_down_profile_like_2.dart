@@ -61,6 +61,8 @@ class CustomDownProfileLike2 extends StatelessWidget {
                           BlocProvider.of<SaveUserCubit>(
                             context,
                           ).saveUser(userModel);
+                          FocusScope.of(context).unfocus();
+
                         }
                       },
                       name: LocaleKeys.next.tr(),
