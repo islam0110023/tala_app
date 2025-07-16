@@ -130,4 +130,16 @@ abstract class  LocaleKeys {
   static const both_fine = 'both_fine';
   static const opinion_matters = 'opinion_matters';
   static const write_what_you_like = 'write_what_you_like';
+  static const profile = 'profile';
+  static const your_profile = 'your_profile';
+  static const ticket = 'ticket';
+  static const payment_methods = 'payment_methods';
+  static const setting = 'setting';
+  static const privacy_policy = 'privacy_policy';
+  static const favorite = 'favorite';
+  static const log_out = 'log_out';
+  static const home = 'home';
+  static const chat = 'chat';
+  static const search = 'search';
+  static const join_now = 'join_now';
 }

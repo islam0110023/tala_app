@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tala_app/core/utils/app_color.dart';
 import 'package:tala_app/core/utils/app_dimensions.dart';
 import 'package:tala_app/core/utils/styling.dart';
+import 'package:tala_app/generated/locale_keys.g.dart';
 
 class CustomHomeSearch extends StatelessWidget {
   const CustomHomeSearch({super.key});
@@ -44,7 +45,7 @@ class CustomHomeSearch extends StatelessWidget {
               padding:  EdgeInsets.symmetric(horizontal: AppDimensions.r11),
               child: Icon(Icons.search, color: AppColor.kGray,size: AppDimensions.r24,),
             ),
-            hintText: 'Search...',
+            hintText: '${LocaleKeys.search}...',
             hintStyle: Styling.searchHomeHintStyle,
           ),
         ),

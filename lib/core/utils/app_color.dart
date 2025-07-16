@@ -32,6 +32,9 @@ abstract class AppColor{
   static const kBoxShadowColor = Color(0x23000000);
   static const kContainerGradient = Color(0x7FFF4F9D);
   static const kHomeContainerBorder = Color(0xFFF0ADFF);
-
+  static const kProfileBorder = Color(0xFFE09AC2);
+  static const kProfileScaffold = Color(0xFFF5D6E4);
+  static const kContainerGradient1 = Color(0x7FDB0165);
+  static const kContainerGradient2 = Color(0x7F701774);
 
 }

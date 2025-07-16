@@ -166,6 +166,18 @@ class CodegenLoader extends AssetLoader {
     "opinion_matters":
         "Deine Meinung ist uns wichtig, um deine\nErfahrung mit dieser App zu verbessern",
     "write_what_you_like": "Schreibe, was dir gefällt",
+    "profile": "Profil",
+    "your_profile": "Dein Profil",
+    "ticket": "Ticket",
+    "payment_methods": "Zahlungsmethoden",
+    "setting": "Einstellungen",
+    "privacy_policy": "Datenschutzerklärung",
+    "favorite": "Favorit",
+    "log_out": "Abmelden",
+    "home": "Startseite",
+    "chat": "Chat",
+    "search": "Suche",
+    "join_now": "Jetzt beitreten"
   };
   static const Map<String, dynamic> _en = {
     "@@locale": "en",
@@ -317,6 +329,18 @@ class CodegenLoader extends AssetLoader {
     "opinion_matters":
         "Your opinion matters to us to improve your\nexperience using this application",
     "write_what_you_like": "Write what you like",
+    "profile": "Profile",
+    "your_profile": "Your Profile",
+    "ticket": "Ticket",
+    "payment_methods": "Payment Methods",
+    "setting": "Setting",
+    "privacy_policy": "Privacy Policy",
+    "favorite": "Favorite",
+    "log_out": "Log out",
+    "home": "Home",
+    "chat": "Chat",
+    "search": "Search",
+    "join_now": "Join Now",
   };
   static const Map<String, Map<String, dynamic>> mapLocales = {
     "de": _de,

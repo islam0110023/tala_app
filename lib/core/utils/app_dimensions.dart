@@ -6,6 +6,7 @@ class AppDimensions {
   static final w2_2 = 2.2.w;
   static final w2_5 = 2.5.w;
   static final h70 = 70.h;
+  static final h8 = 8.h;
   static final h86 = 86.h;
   static final h40 = 40.h;
   static final h17 = 17.h;
@@ -17,6 +18,7 @@ class AppDimensions {
   static final r15 = 15.r;
   static final r30 = 30.r;
   static final w8 = 8.w;
+  static final w145 = 145.w;
   static final w14 = 14.w;
   static final w16 = 16.w;
   static final h106 = 106.h;
@@ -36,6 +38,7 @@ class AppDimensions {
   static final r16 = 16.r;
   static final r25 = 25.r;
   static final r17 = 17.r;
+  static final w30 = 30.w;
   static final w309 = 309.w;
   static final h55 = 55.h;
   static final r40 = 40.r;
@@ -55,6 +58,8 @@ class AppDimensions {
   static final h51=51.h;
   static final h5=5.h;
   static final h42=42.h;
+  static final h145= 145.h;
+  static final h15= 15.h;
   static final h14= 14.h;
   static final h38 = 38.h;
   static final h48 = 48.h;
@@ -81,6 +86,7 @@ class AppDimensions {
   static final w10 = 10.w;
   static final w168 = 168.w;
   static final w555 = 555.w;
+  static final h532 = 532.h;
   static final h555 = 555.h;
   static final r18 = 18.r;
   static final h800 = 800.h;
@@ -88,6 +94,7 @@ class AppDimensions {
   static final h_250 = -250.0.h;
   static final r3 =3.r;
   static final r13 =13.r;
+  static final w667 =667.w;
   static final w600 =600.w;
   static final w_80 =-80.0.w;
   static final w824 =824.w;
@@ -100,6 +107,7 @@ class AppDimensions {
   static final r110 =110.r;
   static final h90 = 90.h;
   static final h160 = 160.h;
+  static final h24 = 24.h;
   static final h240 = 240.h;
   static final h200 = 200.h;
   static final h350 = 350.h;
