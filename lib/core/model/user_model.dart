@@ -10,6 +10,7 @@ class UserModel {
     required this.musicType,
     required this.musicLike,
     required this.personality,
+    this.isComplete = false,
   });
 
   factory UserModel.fromMap(Map<String, dynamic> map) {
@@ -24,31 +25,40 @@ class UserModel {
       musicType: List<String>.from(map['musicType']),
       musicLike: MusicLike.fromMap(map['musicLike']),
       personality: UserPersonality.fromMap(map['personality']),
+      isComplete: map['isComplete'],
     );
   }
-  final String uid;
-  final String email;
-  final String phone;
-  final String firstName;
-  final String lastName;
-  final UserProfile profile;
-  final List<String> passions;
-  final List<String> musicType;
-  final MusicLike musicLike;
-  final UserPersonality personality;
+  final String? uid;
+  final String? email;
+  final String? phone;
+  final String? firstName;
+  final String? lastName;
+  final bool? isComplete;
+  final UserProfile? profile;
+  final List<String>? passions;
+  final List<String>? musicType;
+  final MusicLike? musicLike;
+  final UserPersonality? personality;
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toFirstMap() {
     return {
       'uid': uid,
       'email': email,
       'phone': phone,
       'firstName': firstName,
       'lastName': lastName,
-      'profile': profile.toMap(),
+      'isComplete': isComplete,
+    };
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'isComplete': isComplete,
+      'profile': profile!.toMap(),
       'passions': passions,
       'musicType': musicType,
-      'musicLike': musicLike.toMap(),
-      'personality': personality.toMap(),
+      'musicLike': musicLike!.toMap(),
+      'personality': personality!.toMap(),
     };
   }
 }

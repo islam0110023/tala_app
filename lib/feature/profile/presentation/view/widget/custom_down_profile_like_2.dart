@@ -1,5 +1,6 @@
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -25,8 +26,9 @@ class CustomDownProfileLike2 extends StatelessWidget {
         if (state is SaveUserSuccess) {
           AppConstant.buildShowSnackBar(
             context,
-            'Create Account Successfully',
+            'Profile completed! Discover people who vibe like you 🔥',
             ContentType.success,
+            'Welcome!',
           );
 
           GoRouter.of(context).go(AppRoutes.homeScreen);
@@ -52,6 +54,9 @@ class CustomDownProfileLike2 extends StatelessWidget {
                               .setAllValues();
                           final cubit = BlocProvider.of<UserFormCubit>(context);
                           cubit.setPersonality(personality);
+                          final uid = FirebaseAuth.instance.currentUser!.uid;
+                          cubit.setUid(uid);
+                          cubit.setComplete();
                           final userModel = cubit.build();
                           BlocProvider.of<SaveUserCubit>(
                             context,

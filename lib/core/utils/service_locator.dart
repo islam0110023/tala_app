@@ -4,6 +4,7 @@ import 'package:tala_app/feature/auth/data/repo/auth_repo_impl.dart';
 import 'package:tala_app/feature/auth/domain/repo/auth_repo.dart';
 import 'package:tala_app/feature/auth/domain/usecases/log_in_usecase.dart';
 import 'package:tala_app/feature/auth/domain/usecases/register_use_case.dart';
+import 'package:tala_app/feature/auth/domain/usecases/save_user_auth_use_case.dart';
 import 'package:tala_app/feature/profile/data/data_source/profile_remote_data_source.dart';
 import 'package:tala_app/feature/profile/data/repo/profile_repo_impl.dart';
 import 'package:tala_app/feature/profile/domain/repo/profile_repo.dart';
@@ -26,4 +27,5 @@ void setUpServices() {
   getIt.registerLazySingleton(() => RegisterUseCase(getIt()));
   getIt.registerLazySingleton(() => LoginUseCase(getIt()));
   getIt.registerLazySingleton(() => SaveUserUsaCase(getIt()));
+  getIt.registerLazySingleton(() => SaveUserAuthUseCase(getIt()));
 }

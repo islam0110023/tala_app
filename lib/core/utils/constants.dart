@@ -117,13 +117,14 @@ abstract class AppConstant {
     BuildContext context,
     String message, [
     ContentType type = ContentType.failure,
+    String title = 'Oops',
   ]) {
     return ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
         content: AwesomeSnackbarContent(
-          title: 'Oops',
+          title: title,
           message: message,
           messageTextStyle: Styling.textStyle10.copyWith(fontSize: 15),
           contentType: type,

@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:tala_app/core/utils/service_locator.dart';
 import 'package:tala_app/feature/auth/presentation/manager/login_cubit/login_cubit.dart';
 import 'package:tala_app/feature/auth/presentation/manager/register_cubit/register_cubit.dart';
+import 'package:tala_app/feature/auth/presentation/manager/save_user_auth_cubit/save_user_auth_cubit.dart';
 import 'package:tala_app/feature/auth/presentation/view/forget_password_screen.dart';
 import 'package:tala_app/feature/auth/presentation/view/login_screen.dart';
 import 'package:tala_app/feature/auth/presentation/view/new_password_screen.dart';
@@ -146,7 +147,20 @@ class AppRoutes {
         path: forgetPasswordScreen,
         builder: (context, state) => const ForgetPasswordScreen(),
       ),
-      GoRoute(path: otpScreen, builder: (context, state) => const OtpScreen()),
+      GoRoute(
+        path: otpScreen,
+        builder: (context, state) {
+          final extra = state.extra as Map<String, dynamic>;
+          final value = extra['cubit'] as UserFormCubit;
+          return MultiBlocProvider(
+            providers: [
+              BlocProvider.value(value: value),
+              BlocProvider(create: (context) => SaveUserAuthCubit(getIt())),
+            ],
+            child: const OtpScreen(),
+          );
+        },
+      ),
       GoRoute(
         path: chatsScreen,
         builder: (context, state) => const ChatsScreen(),

@@ -12,7 +12,7 @@ class ProfileRemoteDataSourceImpl extends ProfileRemoteDataSource {
     await FirebaseFirestore.instance
         .collection('users')
         .doc(user.uid)
-        .set(user.toMap());
+        .set(user.toMap(), SetOptions(merge: true));
     return unit;
   }
 }

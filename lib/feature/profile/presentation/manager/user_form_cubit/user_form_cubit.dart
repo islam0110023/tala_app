@@ -21,6 +21,18 @@ class UserFormCubit extends Cubit<UserModelBuilder> {
     );
   }
 
+  void setComplete() {
+    emit(state..isComplete = true);
+  }
+
+  void setIncomplete() {
+    emit(state..isComplete = false);
+  }
+
+  void setUid(String uid) {
+    emit(state..uid = uid);
+  }
+
   void setProfile(UserProfile profile) {
     emit(state..profile = profile);
   }
@@ -44,6 +56,10 @@ class UserFormCubit extends Cubit<UserModelBuilder> {
   UserModel build() {
     return state.build();
   }
+
+  UserModel firstBuild() {
+    return state.firstBuild();
+  }
 }
 
 class UserModelBuilder {
@@ -57,13 +73,10 @@ class UserModelBuilder {
   List<String>? musicType;
   MusicLike? musicLike;
   UserPersonality? personality;
+  bool? isComplete;
 
   UserModel build() {
     if (uid == null ||
-        email == null ||
-        phone == null ||
-        firstName == null ||
-        lastName == null ||
         profile == null ||
         passions == null ||
         musicType == null ||
@@ -74,15 +87,39 @@ class UserModelBuilder {
 
     return UserModel(
       uid: uid!,
-      email: email!,
-      phone: phone!,
-      firstName: firstName!,
-      lastName: lastName!,
+      email: email,
+      phone: phone,
+      firstName: firstName,
+      lastName: lastName,
       profile: profile!,
       passions: passions!,
       musicType: musicType!,
       musicLike: musicLike!,
       personality: personality!,
+      isComplete: isComplete!,
+    );
+  }
+
+  UserModel firstBuild() {
+    if (uid == null ||
+        email == null ||
+        phone == null ||
+        firstName == null ||
+        lastName == null) {
+      throw Exception('Some required fields are missing.');
+    }
+
+    return UserModel(
+      uid: uid!,
+      email: email!,
+      phone: phone!,
+      firstName: firstName!,
+      lastName: lastName!,
+      profile: profile,
+      passions: passions,
+      musicType: musicType,
+      musicLike: musicLike,
+      personality: personality,
     );
   }
 }
