@@ -1,8 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:tala_app/core/utils/app_color.dart';
 import 'package:tala_app/core/utils/app_dimensions.dart';
 import 'package:tala_app/core/utils/asset_image.dart';
 import 'package:tala_app/feature/home/presentation/view/widget/custom_nav_item.dart';
+import 'package:tala_app/generated/locale_keys.g.dart';
 
 class CustomBottomNavBar extends StatelessWidget {
   const CustomBottomNavBar({
@@ -33,12 +35,11 @@ class CustomBottomNavBar extends StatelessWidget {
         ],
       ),
       child: Row(
-        //mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           CustomNavItem(
             index: 0,
             selectedIndex: selectedIndex,
-            label: 'Home',
+            label: LocaleKeys.home.tr(),
             icon: AppImage.kHomeIcon,
             onTap: onTap,
           ),
@@ -71,14 +72,14 @@ class CustomBottomNavBar extends StatelessWidget {
           CustomNavItem(
             index: 2,
             selectedIndex: selectedIndex,
-            label: 'Chat',
+            label: LocaleKeys.chat.tr(),
             icon: AppImage.kChatIcon,
             onTap: onTap,
           ),
           CustomNavItem(
             index: 3,
             selectedIndex: selectedIndex,
-            label: 'Profile',
+            label: LocaleKeys.profile.tr(),
             icon: AppImage.kProfileIcon,
             onTap: onTap,
           ),

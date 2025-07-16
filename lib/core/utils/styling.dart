@@ -203,4 +203,10 @@ abstract class Styling {
     fontFamily: AppConstant.kFontFamily,
     fontWeight: FontWeight.w600,
   );
+  static final textStyle18700Purple = TextStyle(
+    color: AppColor.kColorOnboarding,
+    fontSize: 18.sp,
+    fontFamily: AppConstant.kFontFamily,
+    fontWeight: FontWeight.w700,
+  );
 }

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:tala_app/core/utils/app_color.dart';
 import 'package:tala_app/feature/chat/presentation/view/chats_screen.dart';
 import 'package:tala_app/feature/home/presentation/view/widget/bottom_nav_bar_body.dart';
 import 'package:tala_app/feature/home/presentation/view/widget/home_screen_body.dart';
+import 'package:tala_app/feature/profile_home/presentation/view/profile_home_page.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -17,7 +19,7 @@ class _HomeScreenState extends State<HomeScreen> {
     HomeScreenBody(),
     Placeholder(),
     ChatsScreen(),
-    Placeholder(),
+    ProfileHomePage(),
   ];
 
   void onTap(int index) {
@@ -30,6 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: pages[selectedIndex],
+      backgroundColor: (selectedIndex == 3)? AppColor.kProfileScaffold: Colors.white,
       bottomNavigationBar: CustomBottomNavBar(
         selectedIndex: selectedIndex,
         onTap: onTap,
