@@ -61,7 +61,9 @@ class AppRoutes {
       GoRoute(
         path: loginScreen,
         builder: (context, state) => MultiBlocProvider(
-          providers: [BlocProvider(create: (context) => LoginCubit(getIt()))],
+          providers: [
+            BlocProvider(create: (context) => LoginCubit(getIt(), getIt())),
+          ],
           child: const LoginScreen(),
         ),
       ),

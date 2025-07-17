@@ -54,4 +54,14 @@ class AuthRepoImpl extends AuthRepo {
       return left(AppFailure.fromException(e));
     }
   }
+
+  @override
+  Future<Either<Failure, LoginEntity>> loginWithGoogle() async {
+    try {
+      final loginEntity = await authRemoteDataSource.loginWithGoogle();
+      return right(loginEntity);
+    } on FirebaseAuthException catch (e) {
+      return left(AppFailure.fromException(e));
+    }
+  }
 }

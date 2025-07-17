@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:tala_app/core/model/user_model.dart';
 import 'package:tala_app/feature/auth/domain/entities/log_in_entity.dart';
 import 'package:tala_app/feature/auth/domain/entities/sign_up_entity.dart';
@@ -12,6 +13,7 @@ abstract class AuthRemoteDataSource {
   Future<LoginEntity> login(LoginParam param);
   Future<Unit> saveUser(UserModel user);
   Future<Unit> resetPassword(String email);
+  Future<LoginEntity> loginWithGoogle();
 }
 
 class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
@@ -53,5 +55,22 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
   Future<Unit> resetPassword(String email) async {
     await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
     return unit;
+  }
+
+  @override
+  Future<LoginEntity> loginWithGoogle() async {
+    final googleSignIn = GoogleSignIn();
+    final googleUser = await googleSignIn.signIn();
+    if (googleUser == null) throw Exception('Sign-in cancelled');
+    final googleAuth = await googleUser.authentication;
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
+    );
+
+    final userCredential = await FirebaseAuth.instance.signInWithCredential(
+      credential,
+    );
+    return LoginEntity(credential: userCredential);
   }
 }

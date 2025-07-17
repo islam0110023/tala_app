@@ -3,6 +3,7 @@ import 'package:tala_app/feature/auth/data/data_source/auth_remote_data_source.d
 import 'package:tala_app/feature/auth/data/repo/auth_repo_impl.dart';
 import 'package:tala_app/feature/auth/domain/repo/auth_repo.dart';
 import 'package:tala_app/feature/auth/domain/usecases/log_in_usecase.dart';
+import 'package:tala_app/feature/auth/domain/usecases/login_with_google_use_case.dart';
 import 'package:tala_app/feature/auth/domain/usecases/register_use_case.dart';
 import 'package:tala_app/feature/auth/domain/usecases/reset_password_use_case.dart';
 import 'package:tala_app/feature/auth/domain/usecases/save_user_auth_use_case.dart';
@@ -30,4 +31,5 @@ void setUpServices() {
   getIt.registerLazySingleton(() => SaveUserUsaCase(getIt()));
   getIt.registerLazySingleton(() => SaveUserAuthUseCase(getIt()));
   getIt.registerLazySingleton(() => ResetPasswordUseCase(getIt()));
+  getIt.registerLazySingleton(() => LoginWithGoogleUseCase(getIt()));
 }
