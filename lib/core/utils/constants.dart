@@ -1,12 +1,9 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:tala_app/core/model/genre_model.dart';
 import 'package:tala_app/core/utils/asset_image.dart';
-import 'package:tala_app/core/utils/routes.dart';
 import 'package:tala_app/core/utils/styling.dart';
 import 'package:tala_app/generated/locale_keys.g.dart';
 

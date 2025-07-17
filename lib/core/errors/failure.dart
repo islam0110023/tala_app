@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
 class Failure {
@@ -15,6 +16,7 @@ class AppFailure extends Failure {
   const AppFailure(super.errMessage);
 
   factory AppFailure.fromException(dynamic error) {
+    debugPrint('AppFailure.fromException: $error');
     // Dio errors
     if (error is DioException) {
       switch (error.type) {
@@ -73,6 +75,16 @@ class AppFailure extends Failure {
           return const AppFailure(
             'The email or password is incorrect. Please check and try again.',
           );
+        case 'unknown':
+          {
+            final errorMsg = error.message?.toLowerCase() ?? '';
+            if (errorMsg.contains('password must contain')) {
+              return const AppFailure(
+                'Password must contain a lower case character and numeric character',
+              );
+            }
+            return AppFailure(error.message ?? 'Authentication failed.');
+          }
         default:
           return AppFailure(error.message ?? 'Authentication failed.');
       }
