@@ -71,7 +71,7 @@ class AppRoutes {
         path: registerScreen,
         builder: (context, state) => MultiBlocProvider(
           providers: [
-            BlocProvider(create: (context) => RegisterCubit(getIt())),
+            BlocProvider(create: (context) => RegisterCubit(getIt(),getIt())),
             BlocProvider(create: (context) => UserFormCubit()),
           ],
           child: const RegisterScreen(),
