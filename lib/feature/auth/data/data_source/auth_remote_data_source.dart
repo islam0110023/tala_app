@@ -11,6 +11,7 @@ abstract class AuthRemoteDataSource {
   Future<SignUpEntity> register(RegisterParam param);
   Future<LoginEntity> login(LoginParam param);
   Future<Unit> saveUser(UserModel user);
+  Future<Unit> resetPassword(String email);
 }
 
 class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
@@ -32,8 +33,7 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
 
   @override
   Future<LoginEntity> login(LoginParam param) async {
-    final credential = await FirebaseAuth.instance
-        .signInWithEmailAndPassword(
+    final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
       email: param.email,
       password: param.password,
     );
@@ -41,11 +41,17 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
   }
 
   @override
-  Future<Unit> saveUser(UserModel user) async{
+  Future<Unit> saveUser(UserModel user) async {
     await FirebaseFirestore.instance
         .collection('users')
         .doc(user.uid)
         .set(user.toFirstMap(), SetOptions(merge: true));
+    return unit;
+  }
+
+  @override
+  Future<Unit> resetPassword(String email) async {
+    await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
     return unit;
   }
 }

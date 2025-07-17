@@ -3,12 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tala_app/core/utils/app_dimensions.dart';
-import 'package:tala_app/core/utils/routes.dart';
 import 'package:tala_app/core/utils/styling.dart';
 import 'package:tala_app/core/widget/custom_arrow_back.dart';
-import 'package:tala_app/core/widget/custom_button.dart';
-import 'package:tala_app/core/widget/custom_text_field.dart';
 import 'package:tala_app/core/widget/custom_title.dart';
+import 'package:tala_app/feature/auth/presentation/view/widget/custom_form_forget_password.dart';
 import 'package:tala_app/generated/locale_keys.g.dart';
 
 class ForgetPasswordScreenBody extends StatelessWidget {
@@ -47,17 +45,7 @@ class ForgetPasswordScreenBody extends StatelessWidget {
                       style: Styling.textStyleGray16,
                     ),
                     SizedBox(height: AppDimensions.h47),
-                    CustomTextField(hint: LocaleKeys.email.tr()),
-                    SizedBox(height: AppDimensions.h51),
-                    CustomButton(
-                      onTap: () {
-                        GoRouter.of(context).push(
-                          AppRoutes.otpScreen,
-                          extra: {'isNewPassword': isNewPassword},
-                        );
-                      },
-                      name: LocaleKeys.send.tr(),
-                    ),
+                    const CustomFormForgetPassword(),
                   ],
                 ),
               ),
@@ -68,3 +56,4 @@ class ForgetPasswordScreenBody extends StatelessWidget {
     );
   }
 }
+

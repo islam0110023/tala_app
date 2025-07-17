@@ -13,8 +13,8 @@ class AuthRepoImpl extends AuthRepo {
   AuthRepoImpl(this.authRemoteDataSource);
 
   final AuthRemoteDataSource authRemoteDataSource;
-  late  SignUpEntity signUpEntity;
-  late  LoginEntity loginEntity;
+  late SignUpEntity signUpEntity;
+  late LoginEntity loginEntity;
   @override
   Future<Either<Failure, SignUpEntity>> register(RegisterParam param) async {
     try {
@@ -39,6 +39,16 @@ class AuthRepoImpl extends AuthRepo {
   Future<Either<Failure, Unit>> saveUser(UserModel user) async {
     try {
       await authRemoteDataSource.saveUser(user);
+      return right(unit);
+    } on FirebaseAuthException catch (e) {
+      return left(AppFailure.fromException(e));
+    }
+  }
+
+  @override
+  Future<Either<Failure, Unit>> resetPassword(String email) async {
+    try {
+      await authRemoteDataSource.resetPassword(email);
       return right(unit);
     } on FirebaseAuthException catch (e) {
       return left(AppFailure.fromException(e));

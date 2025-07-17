@@ -10,4 +10,5 @@ abstract class AuthRepo {
   Future<Either<Failure, SignUpEntity>> register(RegisterParam param);
   Future<Either<Failure, LoginEntity>> login(LoginParam param);
   Future<Either<Failure, Unit>> saveUser(UserModel user);
+  Future<Either<Failure, Unit>> resetPassword(String email);
 }

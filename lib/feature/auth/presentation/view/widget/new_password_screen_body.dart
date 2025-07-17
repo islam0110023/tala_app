@@ -33,7 +33,10 @@ class NewPasswordScreenBody extends StatelessWidget {
                         GoRouter.of(context).pop();
                       },
                     ),
-                    CustomTitle(title: LocaleKeys.newPassword.tr(), textFont: 28),
+                    CustomTitle(
+                      title: LocaleKeys.newPassword.tr(),
+                      textFont: 28,
+                    ),
                     SizedBox(height: AppDimensions.h7),
                     Text(
                       LocaleKeys.passwordRequirement.tr(),
@@ -43,7 +46,10 @@ class NewPasswordScreenBody extends StatelessWidget {
                     SizedBox(height: AppDimensions.h33),
                     const CustomFieldsNewPassword(),
                     SizedBox(height: AppDimensions.h51),
-                    CustomButton(onTap: () {}, name: LocaleKeys.createNewPassword.tr()),
+                    CustomButton(
+                      onTap: () {},
+                      name: LocaleKeys.createNewPassword.tr(),
+                    ),
                   ],
                 ),
               ),
