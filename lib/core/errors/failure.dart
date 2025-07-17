@@ -85,6 +85,19 @@ class AppFailure extends Failure {
             }
             return AppFailure(error.message ?? 'Authentication failed.');
           }
+        case 'internal-error':
+          {
+            final errorMsg = error.message?.toLowerCase() ?? '';
+            if (errorMsg.contains(
+              'print and inspect the error details for more information.',
+            )) {
+              return const AppFailure(
+                'Password must contain a lower case character and numeric character',
+              );
+            }
+            return AppFailure(error.message ?? 'Authentication failed.');
+          }
+
         default:
           return AppFailure(error.message ?? 'Authentication failed.');
       }
