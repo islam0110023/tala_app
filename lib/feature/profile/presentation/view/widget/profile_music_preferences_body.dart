@@ -62,7 +62,7 @@ class ProfileMusicPreferencesBody extends StatelessWidget {
         CustomGenresMusicButtons.getSelectedGenres(
           AppConstant.kGenres,
         );
-    if (selectedGenres.isNotEmpty) {
+    if (selectedGenres.length<=5 && selectedGenres.isNotEmpty) {
       final cubit = BlocProvider.of<UserFormCubit>(context);
       cubit.setMusicType(selectedGenres);
       FocusScope.of(context).unfocus();
@@ -73,7 +73,7 @@ class ProfileMusicPreferencesBody extends StatelessWidget {
     } else {
       AppConstant.buildShowSnackBar(
         context,
-        'Please Select Interests Music',
+        'Please Select Interests Music Up To Five',
       );
     }
   }

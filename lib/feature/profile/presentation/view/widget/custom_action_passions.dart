@@ -23,7 +23,7 @@ class CustomActionPassions extends StatelessWidget {
             final selectedGenres = CustomGenresMusicButtons.getSelectedGenres(
               AppConstant.kGenresPassion,
             );
-            if (selectedGenres.length > 5) {
+            if (selectedGenres.length <= 5 && selectedGenres.isNotEmpty) {
               final cubit = BlocProvider.of<UserFormCubit>(context);
               cubit.setPassions(selectedGenres);
               FocusScope.of(context).unfocus();
@@ -34,7 +34,7 @@ class CustomActionPassions extends StatelessWidget {
             } else {
               AppConstant.buildShowSnackBar(
                 context,
-                'Please Select Interests Music Up To Five',
+                'Please Select Interests Passions Up To Five',
               );
             }
           },
