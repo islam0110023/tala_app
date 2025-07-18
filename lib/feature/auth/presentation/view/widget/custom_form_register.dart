@@ -11,6 +11,7 @@ import 'package:tala_app/core/utils/routes.dart';
 import 'package:tala_app/core/widget/custom_button.dart';
 import 'package:tala_app/feature/auth/domain/params/register_param.dart';
 import 'package:tala_app/feature/auth/presentation/manager/register_cubit/register_cubit.dart';
+import 'package:tala_app/feature/auth/presentation/manager/save_user_auth_cubit/save_user_auth_cubit.dart';
 import 'package:tala_app/feature/auth/presentation/view/widget/check_agree_terms.dart';
 import 'package:tala_app/feature/auth/presentation/view/widget/custom_fields_register.dart';
 import 'package:tala_app/feature/profile/presentation/manager/user_form_cubit/user_form_cubit.dart';
@@ -55,61 +56,70 @@ class _CustomFormRegisterState extends State<CustomFormRegister> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<RegisterCubit, RegisterState>(
+    return BlocListener<SaveUserAuthCubit, SaveUserAuthState>(
       listener: (context, state) {
-        if (state is SignUpSuccess) {
-          final user = BlocProvider.of<RegisterCubit>(
-            context,
-          ).signUpEntity!.credential.user;
-          final uid = user!.uid;
+        if (state is SaveUserAuthSuccess) {
           final cubit = BlocProvider.of<UserFormCubit>(context);
-          cubit.setBasicInfo(
-            uid: uid,
-            email: email.text,
-            phone: phone.text,
-            firstName: firstName.text,
-            lastName: lastName.text,
-          );
-          //verifyEmail(user);
-          //context.read<RegisterCubit>().reset();
 
           GoRouter.of(context).push(
             AppRoutes.otpScreen,
             extra: {'isNewPassword': false, 'cubit': cubit},
           );
         }
-        if (state is SignUpFailure) {
-          AppConstant.buildShowSnackBar(context, state.errMessage);
-        }
       },
-      builder: (context, state) {
-        return Form(
-          key: form,
-          autovalidateMode: autoValidateMode,
+      child: BlocConsumer<RegisterCubit, RegisterState>(
+        listener: (context, state) {
+          if (state is SignUpSuccess) {
+            final user = BlocProvider.of<RegisterCubit>(
+              context,
+            ).signUpEntity!.credential.user;
+            final uid = user!.uid;
+            final cubit = BlocProvider.of<UserFormCubit>(context);
+            cubit.setBasicInfo(
+              uid: uid,
+              email: email.text,
+              phone: phone.text,
+              firstName: firstName.text,
+              lastName: lastName.text,
+            );
+            final user1 = cubit.firstBuild();
+            BlocProvider.of<SaveUserAuthCubit>(context).saveUser(user1);
+            //verifyEmail(user);
+            //context.read<RegisterCubit>().reset();
+          }
+          if (state is SignUpFailure) {
+            AppConstant.buildShowSnackBar(context, state.errMessage);
+          }
+        },
+        builder: (context, state) {
+          return Form(
+            key: form,
+            autovalidateMode: autoValidateMode,
 
-          child: Column(
-            children: [
-              CustomFieldsRegister(
-                firstName: firstName,
-                email: email,
-                lastName: lastName,
-                phone: phone,
-                password: password,
-              ),
-              const CheckAgreeTerms(),
-              SizedBox(height: AppDimensions.h41),
-              state is SignUpLoading
-                  ? const CircularProgressIndicator(
-                      color: AppColor.kPrimaryPink,
-                    )
-                  : CustomButton(
-                      onTap: () => signUp(context),
-                      name: LocaleKeys.signUp.tr(),
-                    ),
-            ],
-          ),
-        );
-      },
+            child: Column(
+              children: [
+                CustomFieldsRegister(
+                  firstName: firstName,
+                  email: email,
+                  lastName: lastName,
+                  phone: phone,
+                  password: password,
+                ),
+                const CheckAgreeTerms(),
+                SizedBox(height: AppDimensions.h41),
+                state is SignUpLoading
+                    ? const CircularProgressIndicator(
+                        color: AppColor.kPrimaryPink,
+                      )
+                    : CustomButton(
+                        onTap: () => signUp(context),
+                        name: LocaleKeys.signUp.tr(),
+                      ),
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
 

@@ -73,6 +73,8 @@ class AppRoutes {
           providers: [
             BlocProvider(create: (context) => RegisterCubit(getIt(),getIt())),
             BlocProvider(create: (context) => UserFormCubit()),
+            BlocProvider(create: (context) => SaveUserAuthCubit(getIt())),
+
           ],
           child: const RegisterScreen(),
         ),
@@ -161,7 +163,6 @@ class AppRoutes {
           return MultiBlocProvider(
             providers: [
               BlocProvider.value(value: value),
-              BlocProvider(create: (context) => SaveUserAuthCubit(getIt())),
             ],
             child: const OtpScreen(),
           );
