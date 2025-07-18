@@ -84,7 +84,7 @@ class UserModelBuilder {
         musicType == null ||
         musicLike == null ||
         personality == null) {
-      throw Exception('Some required fields are missing.');
+      throw Exception(LocaleKeys.some_required_fields_missing.tr());
     }
 
     return UserModel(
