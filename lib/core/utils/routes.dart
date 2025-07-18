@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tala_app/core/utils/service_locator.dart';
+import 'package:tala_app/feature/auth/presentation/manager/get_user_complete_cubit/get_user_complete_cubit.dart';
 import 'package:tala_app/feature/auth/presentation/manager/login_cubit/login_cubit.dart';
 import 'package:tala_app/feature/auth/presentation/manager/register_cubit/register_cubit.dart';
 import 'package:tala_app/feature/auth/presentation/manager/reset_password_cubit/reset_password_cubit.dart';
@@ -63,6 +64,8 @@ class AppRoutes {
         builder: (context, state) => MultiBlocProvider(
           providers: [
             BlocProvider(create: (context) => LoginCubit(getIt(), getIt())),
+            BlocProvider(create: (context) => GetUserCompleteCubit(getIt())),
+            BlocProvider(create: (context) => UserFormCubit()),
           ],
           child: const LoginScreen(),
         ),
@@ -71,10 +74,9 @@ class AppRoutes {
         path: registerScreen,
         builder: (context, state) => MultiBlocProvider(
           providers: [
-            BlocProvider(create: (context) => RegisterCubit(getIt(),getIt())),
+            BlocProvider(create: (context) => RegisterCubit(getIt(), getIt())),
             BlocProvider(create: (context) => UserFormCubit()),
             BlocProvider(create: (context) => SaveUserAuthCubit(getIt())),
-
           ],
           child: const RegisterScreen(),
         ),
@@ -161,9 +163,7 @@ class AppRoutes {
           final extra = state.extra as Map<String, dynamic>;
           final value = extra['cubit'] as UserFormCubit;
           return MultiBlocProvider(
-            providers: [
-              BlocProvider.value(value: value),
-            ],
+            providers: [BlocProvider.value(value: value)],
             child: const OtpScreen(),
           );
         },

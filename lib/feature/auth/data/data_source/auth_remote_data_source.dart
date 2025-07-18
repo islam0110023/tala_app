@@ -16,6 +16,7 @@ abstract class AuthRemoteDataSource {
   Future<Unit> saveUser(UserModel user);
   Future<Unit> resetPassword(String email);
   Future<LoginEntity> loginWithGoogle();
+  Future<bool> getUserComplete(String uid);
 }
 
 class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
@@ -74,5 +75,19 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
       credential,
     );
     return LoginEntity(credential: userCredential);
+  }
+
+  @override
+  Future<bool> getUserComplete(String uid) async {
+    final doc = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(uid)
+        .get();
+    if (doc.exists) {
+      final data = doc.data() as Map<String, dynamic>;
+      final bool isComplete = data['isComplete'];
+      return isComplete;
+    }
+    return false;
   }
 }

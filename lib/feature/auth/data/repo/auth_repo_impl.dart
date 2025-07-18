@@ -64,4 +64,14 @@ class AuthRepoImpl extends AuthRepo {
       return left(AppFailure.fromException(e));
     }
   }
+
+  @override
+  Future<Either<Failure, bool>> getUserComplete(String uid) async {
+    try {
+      final isComplete = await authRemoteDataSource.getUserComplete(uid);
+      return right(isComplete);
+    } on FirebaseAuthException catch (e) {
+      return left(AppFailure.fromException(e));
+    }
+  }
 }
