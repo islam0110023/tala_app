@@ -3,6 +3,7 @@ import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:tala_app/core/model/genre_model.dart';
 import 'package:tala_app/core/utils/asset_image.dart';
 import 'package:tala_app/core/utils/styling.dart';
@@ -151,6 +152,11 @@ abstract class AppConstant {
   }
   static Future<bool> isConnected() async {
     final connectivityResult = await Connectivity().checkConnectivity();
-    return connectivityResult != ConnectivityResult.none;
+
+    if (connectivityResult == ConnectivityResult.none) {
+      return false;
+    }
+
+    return await InternetConnectionChecker.instance.hasConnection;
   }
 }

@@ -1,10 +1,13 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tala_app/core/utils/app_color.dart';
 import 'package:tala_app/core/utils/app_dimensions.dart';
 import 'package:tala_app/core/utils/asset_image.dart';
+import 'package:tala_app/core/utils/constants.dart';
 import 'package:tala_app/core/widget/custom_sign_with_icon.dart';
 import 'package:tala_app/feature/auth/presentation/manager/register_cubit/register_cubit.dart';
+import 'package:tala_app/generated/locale_keys.g.dart';
 
 class CustomAlternativeSignUp extends StatelessWidget {
   const CustomAlternativeSignUp({super.key});
@@ -25,7 +28,16 @@ class CustomAlternativeSignUp extends StatelessWidget {
                 ? const CircularProgressIndicator(color: AppColor.kPrimaryPink)
                 : CustomSignWithIcon(
                     img: AppImage.kGoogleIcon,
-                    onTap: () {
+                    onTap: () async{
+                      final isConnected =
+                        await  AppConstant.isConnected();
+                      if (!isConnected) {
+                        AppConstant.buildShowSnackBar(
+                          context,
+                          LocaleKeys.noInternetConnection.tr(),
+                        );
+                        return;
+                      }
                       context.read<RegisterCubit>().registerWithGoogle();
                     },
                   ),

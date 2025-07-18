@@ -65,8 +65,9 @@ class _CustomFormForgetPasswordState extends State<CustomFormForgetPassword> {
                     onTap: () async{
                       final isConnected = await AppConstant.isConnected();
                       if (!isConnected) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text(LocaleKeys.noInternetConnection.tr())),
+                        AppConstant.buildShowSnackBar(
+                          context,
+                          LocaleKeys.noInternetConnection.tr(),
                         );
                         return;
                       }

@@ -73,7 +73,9 @@ class _CustomFormLoginState extends State<CustomFormLogin> {
         }
         if (state is GetUserCompleteNotComplete) {
           final cubit = BlocProvider.of<UserFormCubit>(context);
-          GoRouter.of(context).push(AppRoutes.profileSetInfoScreen, extra: cubit);
+          GoRouter.of(
+            context,
+          ).push(AppRoutes.profileSetInfoScreen, extra: cubit);
         }
       },
       child: BlocConsumer<LoginCubit, LoginState>(
@@ -117,16 +119,18 @@ class _CustomFormLoginState extends State<CustomFormLogin> {
                         color: AppColor.kPrimaryPink,
                       )
                     : CustomButton(
-                        onTap: () async{
+                        onTap: () async {
                           final isConnected = await AppConstant.isConnected();
                           if (!isConnected) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text(LocaleKeys.noInternetConnection.tr())),
+                            AppConstant.buildShowSnackBar(
+                              context,
+                              LocaleKeys.noInternetConnection.tr(),
                             );
+
                             return;
                           }
                           _submitForm(context);
-                          },
+                        },
                         name: LocaleKeys.login.tr(),
                       ),
               ],
