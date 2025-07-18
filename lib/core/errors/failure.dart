@@ -1,10 +1,11 @@
 import 'dart:async';
 import 'dart:io';
-
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:tala_app/generated/locale_keys.g.dart';
 
 class Failure {
   const Failure(this.errMessage);
@@ -16,126 +17,101 @@ class AppFailure extends Failure {
   const AppFailure(super.errMessage);
 
   factory AppFailure.fromException(dynamic error) {
-    debugPrint('AppFailure.fromException: $error');
-    // Dio errors
+    debugPrint('AppFailure.fromException: \$error');
+
     if (error is DioException) {
       switch (error.type) {
         case DioExceptionType.connectionTimeout:
-          return const AppFailure('Connection timed out. Please try again.');
+          return AppFailure(LocaleKeys.connectionTimeout.tr());
         case DioExceptionType.sendTimeout:
-          return const AppFailure(
-            'Send request timed out. Please check your internet connection.',
-          );
+          return AppFailure(LocaleKeys.sendTimeout.tr());
         case DioExceptionType.receiveTimeout:
-          return const AppFailure('Server took too long to respond.');
+          return AppFailure(LocaleKeys.receiveTimeout.tr());
         case DioExceptionType.cancel:
-          return const AppFailure('Request was cancelled.');
+          return AppFailure(LocaleKeys.cancel.tr());
         case DioExceptionType.connectionError:
-          return const AppFailure('No internet connection.');
+          return AppFailure(LocaleKeys.connectionError.tr());
         case DioExceptionType.badResponse:
           final statusCode = error.response?.statusCode ?? 0;
-          final serverMessage =
-              error.response?.data['message'] ?? 'Something went wrong.';
-          return AppFailure('Server error ($statusCode): $serverMessage');
+          final serverMessage = error.response?.data['message'] ?? 'Something went wrong.';
+          return AppFailure(LocaleKeys.badResponse.tr(namedArgs: {
+            'statusCode': statusCode.toString(),
+            'message': serverMessage,
+          }));
         default:
-          return const AppFailure(
-            'Unexpected error occurred. Please try again.',
-          );
+          return AppFailure(LocaleKeys.unexpected.tr());
       }
     }
 
-    // Firebase Auth errors
     if (error is FirebaseAuthException) {
       switch (error.code) {
         case 'invalid-email':
-          return const AppFailure('The email address is invalid.');
+          return AppFailure(LocaleKeys.invalidEmail.tr());
         case 'user-disabled':
-          return const AppFailure('This account has been disabled.');
+          return AppFailure(LocaleKeys.userDisabled.tr());
         case 'user-not-found':
-          return const AppFailure('No user found with this email.');
+          return AppFailure(LocaleKeys.userNotFound.tr());
         case 'wrong-password':
-          return const AppFailure('Incorrect password.');
+          return AppFailure(LocaleKeys.wrongPassword.tr());
         case 'email-already-in-use':
-          return const AppFailure('This email is already registered.');
+          return AppFailure(LocaleKeys.emailInUse.tr());
         case 'weak-password':
-          return const AppFailure('Password is too weak.');
+          return AppFailure(LocaleKeys.weakPassword.tr());
         case 'too-many-requests':
-          return const AppFailure('Too many requests. Try again later.');
+          return AppFailure(LocaleKeys.tooManyRequests.tr());
         case 'invalid-verification-code':
-          return const AppFailure('Invalid OTP code.');
+          return AppFailure(LocaleKeys.invalidOtp.tr());
         case 'invalid-phone-number':
-          return const AppFailure('Invalid phone number format.');
+          return AppFailure(LocaleKeys.invalidPhone.tr());
         case 'session-expired':
-          return const AppFailure(
-            'Verification session expired. Please try again.',
-          );
+          return AppFailure(LocaleKeys.sessionExpired.tr());
         case 'missing-verification-code':
-          return const AppFailure('Verification code is missing.');
+          return AppFailure(LocaleKeys.missingOtp.tr());
         case 'invalid-credential':
-          return const AppFailure(
-            'The email or password is incorrect. Please check and try again.',
-          );
+          return AppFailure(LocaleKeys.invalidCredential.tr());
         case 'unknown':
-          {
-            final errorMsg = error.message?.toLowerCase() ?? '';
-            if (errorMsg.contains('password must contain')) {
-              return const AppFailure(
-                'Password must contain a lower case character and numeric character',
-              );
-            }
-            return AppFailure(error.message ?? 'Authentication failed.');
+          final errorMsg = error.message?.toLowerCase() ?? '';
+          if (errorMsg.contains('password must contain')) {
+            return AppFailure(LocaleKeys.passwordRule.tr());
           }
+          return AppFailure(error.message ?? LocaleKeys.authFailed.tr());
         case 'internal-error':
-          {
-            final errorMsg = error.message?.toLowerCase() ?? '';
-            if (errorMsg.contains(
-              'print and inspect the error details for more information.',
-            )) {
-              return const AppFailure(
-                'Password must contain a lower case character and numeric character',
-              );
-            }
-            return AppFailure(error.message ?? 'Authentication failed.');
+          final errorMsg = error.message?.toLowerCase() ?? '';
+          if (errorMsg.contains('print and inspect the error details')) {
+            return AppFailure(LocaleKeys.passwordRule.tr());
           }
-
+          return AppFailure(error.message ?? LocaleKeys.authFailed.tr());
         default:
-          return AppFailure(error.message ?? 'Authentication failed.');
+          return AppFailure(error.message ?? LocaleKeys.authFailed.tr());
       }
     }
 
-    // Firebase generic errors
     if (error is FirebaseException) {
-      return AppFailure(error.message ?? 'Firebase error occurred.');
+      return AppFailure(error.message ?? LocaleKeys.firebaseError.tr());
     }
 
-    // Platform errors (e.g., reCAPTCHA failures)
     if (error is PlatformException) {
       if (error.message?.contains('Recaptcha') == true) {
-        return const AppFailure('reCAPTCHA verification failed. Try again.');
+        return AppFailure(LocaleKeys.recaptchaError.tr());
       }
-      return AppFailure(error.message ?? 'Platform error occurred.');
+      return AppFailure(error.message ?? LocaleKeys.platformError.tr());
     }
 
-    // Fallback reCAPTCHA or OTP errors from logs
     if (error.toString().contains('RecaptchaAction')) {
-      return const AppFailure(
-        'reCAPTCHA verification failed. Make sure your Firebase settings are correct.',
-      );
+      return AppFailure(LocaleKeys.fallbackRecaptcha.tr());
     }
     if (error.toString().contains('invalid-phone-number')) {
-      return const AppFailure('Invalid or unsupported phone number.');
+      return AppFailure(LocaleKeys.invalidPhone.tr());
     }
 
-    // Socket / Network
     if (error is SocketException) {
-      return const AppFailure('No internet connection.');
+      return AppFailure(LocaleKeys.socketError.tr());
     }
 
-    // Timeout
     if (error is TimeoutException) {
-      return const AppFailure('Request timed out. Please try again.');
+      return AppFailure(LocaleKeys.timeout.tr());
     }
 
-    return const AppFailure('An unexpected error occurred. Please try again.');
+    return AppFailure(LocaleKeys.unexpected.tr());
   }
 }

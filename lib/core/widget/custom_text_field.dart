@@ -1,7 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:tala_app/core/utils/app_color.dart';
 import 'package:tala_app/core/utils/app_dimensions.dart';
 import 'package:tala_app/core/utils/styling.dart';
+import 'package:tala_app/generated/locale_keys.g.dart';
 
 class CustomTextField extends StatelessWidget {
   const CustomTextField({
@@ -38,7 +40,7 @@ class CustomTextField extends StatelessWidget {
       child: TextFormField(
         validator: (value) {
           if (value == null || value.isEmpty) {
-            return 'Please enter your $hint';
+            return '${LocaleKeys.please_enter.tr()} $hint';
           }
           return null;
         },

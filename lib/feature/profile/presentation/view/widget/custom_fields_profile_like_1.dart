@@ -43,7 +43,7 @@ class CustomFieldsProfileLike1State extends State<CustomFieldsProfileLike1> {
       concertVenue: favVenueController.text,
       favoriteArtists: favArtistsController.text,
       liveMusic: q3Selections,
-      likesDiscovering: q4Selections.contains('Yes') ? true : false,
+      likesDiscovering: q4Selections.contains(LocaleKeys.yes.tr()) ? true : false,
     );
   }
 
@@ -54,7 +54,7 @@ class CustomFieldsProfileLike1State extends State<CustomFieldsProfileLike1> {
         favArtistsController.text.isEmpty ||
         favVenueController.text.isEmpty ||
         favArtistsController.text.isEmpty) {
-      AppConstant.buildShowSnackBar(context, 'Please select all fields');
+      AppConstant.buildShowSnackBar(context, LocaleKeys.please_select_all_fields.tr());
       return false;
     }
     return true;

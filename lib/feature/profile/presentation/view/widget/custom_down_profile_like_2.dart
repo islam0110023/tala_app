@@ -26,9 +26,9 @@ class CustomDownProfileLike2 extends StatelessWidget {
         if (state is SaveUserSuccess) {
           AppConstant.buildShowSnackBar(
             context,
-            'Profile completed! Discover people who vibe like you 🔥',
+            LocaleKeys.profile_completed.tr(),
             ContentType.success,
-            'Welcome!',
+            LocaleKeys.welcome.tr(),
           );
 
           GoRouter.of(context).go(AppRoutes.homeScreen);

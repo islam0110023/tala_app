@@ -1,10 +1,12 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tala_app/core/utils/app_dimensions.dart';
 import 'package:tala_app/core/utils/constants.dart';
 import 'package:tala_app/core/widget/custom_arrow_back.dart';
+import 'package:tala_app/generated/locale_keys.g.dart';
 
 class CustomUpperOtp extends StatelessWidget {
   const CustomUpperOtp({super.key});
@@ -18,8 +20,8 @@ class CustomUpperOtp extends StatelessWidget {
           onTap: () async {
             final result = await AppConstant.showSignOutConfirmationDialog(
               context,
-              'Delete',
-              'If you go back now, your account will be deleted.',
+              LocaleKeys.delete.tr(),
+              LocaleKeys.if_you_go_back_now.tr(),
             );
             if (result == OkCancelResult.ok) {
               await FirebaseAuth.instance.currentUser!.delete();

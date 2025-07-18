@@ -143,8 +143,8 @@ abstract class AppConstant {
       context: context,
       title: title,
       message: message,
-      okLabel: 'Yes, $title',
-      cancelLabel: 'Cancel',
+      okLabel: '${LocaleKeys.yes.tr()}, $title',
+      cancelLabel: LocaleKeys.cancel.tr(),
       barrierDismissible: false,
     );
   }

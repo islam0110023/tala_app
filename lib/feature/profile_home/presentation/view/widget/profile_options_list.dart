@@ -60,8 +60,8 @@ class ProfileOptionsList extends StatelessWidget {
             onTap: () async {
               final result = await AppConstant.showSignOutConfirmationDialog(
                 context,
-                'Sign Out',
-                'Are you sure you want to sign out?',
+                LocaleKeys.sign_out.tr(),
+                LocaleKeys.are_you_sure_sign_out.tr(),
               );
               if (result == OkCancelResult.ok) {
                 await FirebaseAuth.instance.signOut();

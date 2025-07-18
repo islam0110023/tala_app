@@ -73,7 +73,7 @@ class ProfileMusicPreferencesBody extends StatelessWidget {
     } else {
       AppConstant.buildShowSnackBar(
         context,
-        'Please Select Interests Music Up To Five',
+        LocaleKeys.please_select_music_up_five.tr(),
       );
     }
   }

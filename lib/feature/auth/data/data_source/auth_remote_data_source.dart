@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:tala_app/core/model/user_model.dart';
@@ -7,6 +8,7 @@ import 'package:tala_app/feature/auth/domain/entities/log_in_entity.dart';
 import 'package:tala_app/feature/auth/domain/entities/sign_up_entity.dart';
 import 'package:tala_app/feature/auth/domain/params/login_param.dart';
 import 'package:tala_app/feature/auth/domain/params/register_param.dart';
+import 'package:tala_app/generated/locale_keys.g.dart';
 
 abstract class AuthRemoteDataSource {
   Future<SignUpEntity> register(RegisterParam param);
@@ -61,7 +63,7 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
   Future<LoginEntity> loginWithGoogle() async {
     final googleSignIn = GoogleSignIn();
     final googleUser = await googleSignIn.signIn();
-    if (googleUser == null) throw Exception('Sign-in cancelled');
+    if (googleUser == null) throw Exception(LocaleKeys.sign_in_canceled.tr());
     final googleAuth = await googleUser.authentication;
     final credential = GoogleAuthProvider.credential(
       accessToken: googleAuth.accessToken,

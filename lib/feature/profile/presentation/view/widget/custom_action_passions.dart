@@ -34,7 +34,7 @@ class CustomActionPassions extends StatelessWidget {
             } else {
               AppConstant.buildShowSnackBar(
                 context,
-                'Please Select Interests Passions Up To Five',
+                LocaleKeys.please_select_up_five.tr(),
               );
             }
           },

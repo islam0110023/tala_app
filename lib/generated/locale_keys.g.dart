@@ -142,4 +142,56 @@ abstract class  LocaleKeys {
   static const chat = 'chat';
   static const search = 'search';
   static const join_now = 'join_now';
+  static const sign_out = 'sign_out';
+  static const are_you_sure_sign_out = 'are_you_sure_you_want_to_sign_out?';
+  static const please_select_up_five = 'please_select_interests_passions_up_to_five';
+  static const welcome = 'welcome!';
+  static const profile_completed = 'profile_completed!_discover_people_who_vibe_like_you';
+  static const please_select_all_fields = 'please_select_all_fields';
+  static const please_fill_all_fields = 'please_fill_all_fields';
+  static const please_select_music_up_five = 'please_select_interests_music_up_to_five';
+  static const some_required_fields_missing = 'some_required_fields_are_missing.';
+  static const for_you = 'for_you';
+  static const trending = 'trending';
+  static const popular = 'popular';
+  static const nearby = 'nearby';
+  static const type_a_message = 'type_a_message';
+  static const typing = 'typing';
+  static const sign_in_canceled = 'sign-in_cancelled';
+  static const check_email = 'check_your_email';
+  static const success = 'success';
+  static const delete = 'delete';
+  static const if_you_go_back_now = 'if_you_go_back_now,_your_account_will_be_deleted.';
+  static const please_enter = 'please_enter_your';
+
+  /////////////////
+  static const connectionTimeout = 'connection_timeout';
+  static const sendTimeout = 'send_timeout';
+  static const receiveTimeout = 'receive_timeout';
+  static const cancel = 'cancel';
+  static const connectionError = 'connection_error';
+  static const badResponse = 'bad_response';
+  static const unexpected = 'unexpected_error';
+
+  static const invalidEmail = 'invalid_email';
+  static const userDisabled = 'user_disabled';
+  static const userNotFound = 'user_not_found';
+  static const wrongPassword = 'wrong_password';
+  static const emailInUse = 'email_in_use';
+  static const weakPassword = 'weak_password';
+  static const tooManyRequests = 'too_many_requests';
+  static const invalidOtp = 'invalid_otp';
+  static const invalidPhone = 'invalid_phone';
+  static const sessionExpired = 'session_expired';
+  static const missingOtp = 'missing_otp';
+  static const invalidCredential = 'invalid_credential';
+  static const passwordRule = 'password_rule';
+  static const authFailed = 'auth_failed';
+
+  static const firebaseError = 'firebase_error';
+  static const recaptchaError = 'recaptcha_error';
+  static const platformError = 'platform_error';
+  static const fallbackRecaptcha = 'fallback_recaptcha';
+  static const socketError = 'socket_error';
+  static const timeout = 'timeout';
 }

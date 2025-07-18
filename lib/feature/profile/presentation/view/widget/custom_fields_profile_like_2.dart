@@ -32,7 +32,7 @@ class CustomFieldsProfileLike2State extends State<CustomFieldsProfileLike2> {
 
   bool validate() {
     if (q1.isEmpty || q2.isEmpty || q3.isEmpty || q4.isEmpty || q5.isEmpty) {
-      AppConstant.buildShowSnackBar(context, 'Please fill all fields');
+      AppConstant.buildShowSnackBar(context, LocaleKeys.please_fill_all_fields.tr());
       return false;
     }
     return true;

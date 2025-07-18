@@ -41,9 +41,9 @@ class _CustomFormForgetPasswordState extends State<CustomFormForgetPassword> {
         if (state is ResetPasswordSuccess) {
           AppConstant.buildShowSnackBar(
             context,
-            'Check your email',
+            LocaleKeys.check_email.tr(),
             ContentType.success,
-            'success',
+            LocaleKeys.success.tr(),
           );
           Navigator.pop(context);
         }

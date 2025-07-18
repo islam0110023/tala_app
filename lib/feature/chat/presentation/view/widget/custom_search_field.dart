@@ -1,7 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:tala_app/core/utils/app_color.dart';
 import 'package:tala_app/core/utils/app_dimensions.dart';
 import 'package:tala_app/core/utils/styling.dart';
+import 'package:tala_app/generated/locale_keys.g.dart';
 
 class CustomSearchField extends StatelessWidget {
   const CustomSearchField({super.key});
@@ -24,7 +26,7 @@ class CustomSearchField extends StatelessWidget {
       child: TextField(
         style: Styling.searchHintStyle,
         decoration: InputDecoration(
-          hintText: 'Search',
+          hintText: LocaleKeys.search.tr(),
           hintStyle: Styling.searchHintStyle,
           prefixIcon: Padding(
             padding: EdgeInsets.symmetric(horizontal: AppDimensions.r11),

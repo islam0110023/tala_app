@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tala_app/core/model/user_model.dart';
+import 'package:tala_app/generated/locale_keys.g.dart';
 
 class UserFormCubit extends Cubit<UserModelBuilder> {
   UserFormCubit() : super(UserModelBuilder());
@@ -106,7 +108,7 @@ class UserModelBuilder {
         phone == null ||
         firstName == null ||
         lastName == null) {
-      throw Exception('Some required fields are missing.');
+      throw Exception(LocaleKeys.some_required_fields_missing.tr());
     }
 
     return UserModel(
