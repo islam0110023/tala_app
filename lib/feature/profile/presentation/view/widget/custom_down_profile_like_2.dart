@@ -48,7 +48,14 @@ class CustomDownProfileLike2 extends StatelessWidget {
                       color: AppColor.kPrimaryPink,
                     )
                   : CustomButton(
-                      onTap: () {
+                      onTap: () async {
+                        final isConnected = await AppConstant.isConnected();
+                        if (!isConnected) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text(LocaleKeys.noInternetConnection.tr())),
+                          );
+                          return;
+                        }
                         if (profileFormKey.currentState!.validate()) {
                           final personality = profileFormKey.currentState!
                               .setAllValues();

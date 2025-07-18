@@ -112,7 +112,16 @@ class _CustomFormRegisterState extends State<CustomFormRegister> {
                         color: AppColor.kPrimaryPink,
                       )
                     : CustomButton(
-                        onTap: () => signUp(context),
+                        onTap: () async{
+                          final isConnected = await AppConstant.isConnected();
+                          if (!isConnected) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text(LocaleKeys.noInternetConnection.tr())),
+                            );
+                            return;
+                          }
+                          signUp(context);
+                        },
                         name: LocaleKeys.signUp.tr(),
                       ),
               ],

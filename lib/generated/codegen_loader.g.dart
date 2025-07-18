@@ -229,7 +229,8 @@ class CodegenLoader extends AssetLoader {
     "platform_error": "Plattformfehler aufgetreten.",
     "fallback_recaptcha": "reCAPTCHA-Verifizierung fehlgeschlagen. Firebase-Einstellungen überprüfen.",
     "socket_error": "Keine Internetverbindung.",
-    "timeout": "Zeitüberschreitung bei der Anfrage. Bitte erneut versuchen."
+    "timeout": "Zeitüberschreitung bei der Anfrage. Bitte erneut versuchen.",
+    "no_internet_connection": "Keine Internetverbindung.",
   };
   static const Map<String, dynamic> _en = {
     "@@locale": "en",
@@ -444,7 +445,8 @@ class CodegenLoader extends AssetLoader {
     "platform_error": "Platform error occurred.",
     "fallback_recaptcha": "reCAPTCHA verification failed. Make sure your Firebase settings are correct.",
     "socket_error": "No internet connection.",
-    "timeout": "Request timed out. Please try again."
+    "timeout": "Request timed out. Please try again.",
+    "no_internet_connection": "No internet connection.",
   };
   static const Map<String, Map<String, dynamic>> mapLocales = {
     "de": _de,

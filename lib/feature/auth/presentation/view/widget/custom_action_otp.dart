@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tala_app/core/utils/app_dimensions.dart';
+import 'package:tala_app/core/utils/constants.dart';
 import 'package:tala_app/core/utils/routes.dart';
 import 'package:tala_app/core/utils/styling.dart';
 import 'package:tala_app/core/widget/custom_button.dart';
@@ -32,7 +33,14 @@ class CustomActionOtp extends StatelessWidget {
         ),
         SizedBox(height: AppDimensions.h70),
         CustomButton(
-          onTap: () {
+          onTap: () async{
+            final isConnected = await AppConstant.isConnected();
+            if (!isConnected) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text(LocaleKeys.noInternetConnection.tr())),
+              );
+              return;
+            }
             if (isNewPassword) {
               GoRouter.of(context).pushReplacement(AppRoutes.newPasswordScreen);
             } else {

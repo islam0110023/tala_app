@@ -117,7 +117,16 @@ class _CustomFormLoginState extends State<CustomFormLogin> {
                         color: AppColor.kPrimaryPink,
                       )
                     : CustomButton(
-                        onTap: () => _submitForm(context),
+                        onTap: () async{
+                          final isConnected = await AppConstant.isConnected();
+                          if (!isConnected) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text(LocaleKeys.noInternetConnection.tr())),
+                            );
+                            return;
+                          }
+                          _submitForm(context);
+                          },
                         name: LocaleKeys.login.tr(),
                       ),
               ],

@@ -194,4 +194,5 @@ abstract class  LocaleKeys {
   static const fallbackRecaptcha = 'fallback_recaptcha';
   static const socketError = 'socket_error';
   static const timeout = 'timeout';
+  static const noInternetConnection = 'no_internet_connection';
 }

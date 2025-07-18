@@ -62,7 +62,14 @@ class _CustomFormForgetPasswordState extends State<CustomFormForgetPassword> {
             state is ResetPasswordLoading
                 ? const CircularProgressIndicator(color: AppColor.kPrimaryPink)
                 : CustomButton(
-                    onTap: () {
+                    onTap: () async{
+                      final isConnected = await AppConstant.isConnected();
+                      if (!isConnected) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text(LocaleKeys.noInternetConnection.tr())),
+                        );
+                        return;
+                      }
                       context.read<ResetPasswordCubit>().resetPassword(
                         emailController.text,
                       );

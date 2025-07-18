@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tala_app/core/model/user_model.dart';
 import 'package:tala_app/core/utils/app_dimensions.dart';
+import 'package:tala_app/core/utils/constants.dart';
 import 'package:tala_app/core/utils/routes.dart';
 import 'package:tala_app/core/widget/custom_button.dart';
 import 'package:tala_app/feature/profile/presentation/manager/user_form_cubit/user_form_cubit.dart';
@@ -74,7 +75,14 @@ class _CustomFormProfileSetInfoState extends State<CustomFormProfileSetInfo> {
           ),
           SizedBox(height: AppDimensions.h42),
           CustomButton(
-            onTap: () {
+            onTap: () async{
+              final isConnected = await AppConstant.isConnected();
+              if (!isConnected) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text(LocaleKeys.noInternetConnection.tr())),
+                );
+                return;
+              }
               if (formKey.currentState!.validate()) {
                 formKey.currentState!.save();
                 final cubit = BlocProvider.of<UserFormCubit>(context);
