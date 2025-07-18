@@ -1,9 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tala_app/core/utils/app_color.dart';
 import 'package:tala_app/core/utils/constants.dart';
 import 'package:tala_app/core/utils/routes.dart';
+import 'package:tala_app/feature/auth/presentation/manager/get_user_complete_cubit/get_user_complete_cubit.dart';
 import 'package:tala_app/feature/splash_screen/presentation/view/widget/custom_layout_splash_ipad.dart';
 import 'package:tala_app/feature/splash_screen/presentation/view/widget/custom_layout_splash_mobile.dart';
 
@@ -26,42 +28,54 @@ class _SplashScreenBodyState extends State<SplashScreenBody> {
     Future.delayed(const Duration(seconds: AppConstant.kDurationSplash), () {
       final User? user = FirebaseAuth.instance.currentUser;
       if (user != null) {
-        GoRouter.of(context).pushReplacement(AppRoutes.homeScreen);
+        final uid = user.uid;
+        context.read<GetUserCompleteCubit>().getUserComplete(uid);
+        // GoRouter.of(context).pushReplacement(AppRoutes.homeScreen);
       } else {
-        GoRouter.of(context).pushReplacement(AppRoutes.onBoardingScreen);
+        GoRouter.of(context).go(AppRoutes.onBoardingScreen);
       }
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Container(color: AppColor.kPurple),
-        Container(
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                AppColor.kLightPurple,
-                AppColor.kLightPink,
-                AppColor.kPrimaryPink,
-              ],
-              begin: Alignment.topRight,
-              end: Alignment.bottomLeft,
-              stops: [0, .38, .87],
+    return BlocListener<GetUserCompleteCubit, GetUserCompleteState>(
+      listener: (context, state) {
+        if (state is GetUserCompleteIsComplete) {
+          GoRouter.of(context).go(AppRoutes.homeScreen);
+        }
+        if (state is GetUserCompleteNotComplete) {
+          GoRouter.of(context).go(AppRoutes.onBoardingScreen);
+        }
+      },
+      child: Stack(
+        children: [
+          Container(color: AppColor.kPurple),
+          Container(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  AppColor.kLightPurple,
+                  AppColor.kLightPink,
+                  AppColor.kPrimaryPink,
+                ],
+                begin: Alignment.topRight,
+                end: Alignment.bottomLeft,
+                stops: [0, .38, .87],
+              ),
             ),
           ),
-        ),
-        LayoutBuilder(
-          builder: (context, constraints) {
-            if (constraints.maxWidth > 600) {
-              return const CustomLayoutSplashIpad();
-            } else {
-              return const CustomLayoutSplashMobile();
-            }
-          },
-        ),
-      ],
+          LayoutBuilder(
+            builder: (context, constraints) {
+              if (constraints.maxWidth > 600) {
+                return const CustomLayoutSplashIpad();
+              } else {
+                return const CustomLayoutSplashMobile();
+              }
+            },
+          ),
+        ],
+      ),
     );
   }
 }

@@ -53,7 +53,12 @@ class AppRoutes {
     routes: [
       GoRoute(
         path: splashScreen,
-        builder: (context, state) => const SplashScreen(),
+        builder: (context, state) => MultiBlocProvider(
+          providers: [
+            BlocProvider(create: (context) => GetUserCompleteCubit(getIt())),
+          ],
+          child: const SplashScreen(),
+        ),
       ),
       GoRoute(
         path: onBoardingScreen,
