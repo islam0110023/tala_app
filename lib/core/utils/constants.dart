@@ -10,7 +10,8 @@ import 'package:tala_app/core/utils/styling.dart';
 import 'package:tala_app/generated/locale_keys.g.dart';
 
 abstract class AppConstant {
-  static const kFontFamily = 'Lato';
+  static const kFontFamily = 'Poppins';
+  static const kFontFamily2 = 'Lato';
   static const kFontFamilyInter = 'Inter';
   static const kDurationSplash = 2;
   static final List<String> kGenderOptions = [
