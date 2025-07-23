@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:tala_app/core/utils/app_color.dart';
 import 'package:tala_app/core/utils/constants.dart';
 import 'package:tala_app/core/utils/routes.dart';
@@ -18,10 +19,13 @@ void main() async {
   await Future.wait([
     Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform),
     EasyLocalization.ensureInitialized(),
+    GoogleSignIn.instance.initialize(
+      serverClientId:
+          '665998326850-4j6p02pe9k0vdiujmio5dqcrbe3sstup.apps.googleusercontent.com',
+    ),
   ]);
   setUpServices();
   Bloc.observer = MyBlocObserver();
-
 
   runApp(
     EasyLocalization(

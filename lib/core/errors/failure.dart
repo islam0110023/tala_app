@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:tala_app/generated/locale_keys.g.dart';
 
 class Failure {
@@ -17,7 +18,25 @@ class AppFailure extends Failure {
   const AppFailure(super.errMessage);
 
   factory AppFailure.fromException(dynamic error) {
-    debugPrint('AppFailure.fromException: \$error');
+    debugPrint('AppFailure.fromException: $error');
+    if (error is GoogleSignInException) {
+      switch (error.code) {
+        case GoogleSignInExceptionCode.canceled:
+          return const AppFailure('user canceled');
+        case GoogleSignInExceptionCode.clientConfigurationError:
+          return const AppFailure('client configuration error');
+        case GoogleSignInExceptionCode.interrupted:
+          return const AppFailure('interrupted');
+        case GoogleSignInExceptionCode.providerConfigurationError:
+          return const AppFailure('provider configuration error');
+        case GoogleSignInExceptionCode.unknownError:
+          return const AppFailure('unknown error');
+        case GoogleSignInExceptionCode.uiUnavailable:
+          return const AppFailure('ui unavailable');
+        default:
+          return const AppFailure('unknown error');
+      }
+    }
 
     if (error is DioException) {
       switch (error.type) {
@@ -33,11 +52,16 @@ class AppFailure extends Failure {
           return AppFailure(LocaleKeys.connectionError.tr());
         case DioExceptionType.badResponse:
           final statusCode = error.response?.statusCode ?? 0;
-          final serverMessage = error.response?.data['message'] ?? 'Something went wrong.';
-          return AppFailure(LocaleKeys.badResponse.tr(namedArgs: {
-            'statusCode': statusCode.toString(),
-            'message': serverMessage,
-          }));
+          final serverMessage =
+              error.response?.data['message'] ?? 'Something went wrong.';
+          return AppFailure(
+            LocaleKeys.badResponse.tr(
+              namedArgs: {
+                'statusCode': statusCode.toString(),
+                'message': serverMessage,
+              },
+            ),
+          );
         default:
           return AppFailure(LocaleKeys.unexpected.tr());
       }

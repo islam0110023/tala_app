@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:tala_app/core/errors/failure.dart';
 import 'package:tala_app/core/model/user_model.dart';
 import 'package:tala_app/feature/auth/data/data_source/auth_remote_data_source.dart';
@@ -60,7 +61,7 @@ class AuthRepoImpl extends AuthRepo {
     try {
       final loginEntity = await authRemoteDataSource.loginWithGoogle();
       return right(loginEntity);
-    } on FirebaseAuthException catch (e) {
+    } on GoogleSignInException catch (e) {
       return left(AppFailure.fromException(e));
     }
   }
@@ -70,7 +71,7 @@ class AuthRepoImpl extends AuthRepo {
     try {
       final isComplete = await authRemoteDataSource.getUserComplete(uid);
       return right(isComplete);
-    } on FirebaseAuthException catch (e) {
+    }  catch (e) {
       return left(AppFailure.fromException(e));
     }
   }

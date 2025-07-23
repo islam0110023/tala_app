@@ -12,7 +12,20 @@
           "package_name": "com.example.tala_app"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "665998326850-ms7mkf5778k25gt2gkr88vcb15k1fukk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.tala_app",
+            "certificate_hash": "9a8c80b9260b5dca1271aa61d2a7800e2d2b7e2d"
+          }
+        },
+        {
+          "client_id": "665998326850-4j6p02pe9k0vdiujmio5dqcrbe3sstup.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyB4AbpBfhe-XqJq6sOjW0cz9dpLxE4fiFg"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "665998326850-4j6p02pe9k0vdiujmio5dqcrbe3sstup.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "665998326850-egd6g2g1tmsrug4nvuspro8r46k2neut.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.talaApp"
+              }
+            }
+          ]
         }
       }
     }

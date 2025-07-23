@@ -62,12 +62,13 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
 
   @override
   Future<LoginEntity> loginWithGoogle() async {
-    final googleSignIn = GoogleSignIn();
-    final googleUser = await googleSignIn.signIn();
+    final GoogleSignInAccount? googleUser = await GoogleSignIn.instance
+        .authenticate();
     if (googleUser == null) throw Exception(LocaleKeys.sign_in_canceled.tr());
-    final googleAuth = await googleUser.authentication;
+    final GoogleSignInAuthentication googleAuth =
+        await googleUser.authentication;
+
     final credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth.accessToken,
       idToken: googleAuth.idToken,
     );
 
