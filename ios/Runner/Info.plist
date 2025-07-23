@@ -50,5 +50,14 @@
     	<string>en</string>
     	<string>de</string>
     </array>
+    <key>CFBundleURLTypes</key>
+    <array>
+        <dict>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>com.googleusercontent.apps.665998326850-egd6g2g1tmsrug4nvuspro8r46k2neut</string>
+            </array>
+        </dict>
+    </array>
 </dict>
 </plist>
