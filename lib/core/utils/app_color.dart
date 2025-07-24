@@ -36,5 +36,6 @@ abstract class AppColor{
   static const kProfileScaffold = Color(0xFFF5D6E4);
   static const kContainerGradient1 = Color(0x7FDB0165);
   static const kContainerGradient2 = Color(0x7F701774);
+  static const dismissibleBackground = Color(0xFFFF4F9D);
 
 }

@@ -3,8 +3,9 @@ import 'package:tala_app/core/utils/app_color.dart';
 import 'package:tala_app/core/utils/app_dimensions.dart';
 
 class CustomRoundedIcon extends StatelessWidget {
-  const CustomRoundedIcon({super.key, required this.icon});
+  const CustomRoundedIcon({super.key, required this.icon, this.onPressed});
   final IconData icon;
+  final void Function()? onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +17,7 @@ class CustomRoundedIcon extends StatelessWidget {
         shape: OvalBorder(),
       ),
       child: IconButton(
-        onPressed: () {},
+        onPressed: onPressed,
         icon: Icon(icon, color: AppColor.kPrimaryPink, size: AppDimensions.r24),
       ),
     );

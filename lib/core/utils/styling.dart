@@ -209,4 +209,32 @@ abstract class Styling {
     fontFamily: AppConstant.kFontFamily,
     fontWeight: FontWeight.w700,
   );
+  static final textStyle14700White = TextStyle(
+    color: AppColor.kWhite,
+    fontSize: 14.sp,
+    fontFamily: AppConstant.kFontFamily,
+    fontWeight: FontWeight.w700,
+    height: 1.29,
+  );
+  static final textStyle10700LightGray = TextStyle(
+    color: AppColor.kLightGray,
+    fontSize: 10.sp,
+    fontFamily: AppConstant.kFontFamily,
+    fontWeight: FontWeight.w700,
+    height: 1.80,
+  );
+  static final textStyle13600Pink = TextStyle(
+    color: AppColor.kPrimaryPink,
+    fontSize: 13.sp,
+    fontFamily: AppConstant.kFontFamily,
+    fontWeight: FontWeight.w600,
+    height: 1.38,
+  );
+  static final textStyle11400Black = TextStyle(
+    color: AppColor.kBlack,
+    fontSize: 11.sp,
+    fontFamily: AppConstant.kFontFamily,
+    fontWeight: FontWeight.w400,
+    height: 1.27,
+  );
 }

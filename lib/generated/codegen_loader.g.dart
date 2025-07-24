@@ -231,6 +231,8 @@ class CodegenLoader extends AssetLoader {
     "socket_error": "Keine Internetverbindung.",
     "timeout": "Zeitüberschreitung bei der Anfrage. Bitte erneut versuchen.",
     "no_internet_connection": "Keine Internetverbindung.",
+    "notification": "Benachrichtigung",
+    "mark_all_as_read": "Alle als gelesen markieren",
   };
   static const Map<String, dynamic> _en = {
     "@@locale": "en",
@@ -447,6 +449,8 @@ class CodegenLoader extends AssetLoader {
     "socket_error": "No internet connection.",
     "timeout": "Request timed out. Please try again.",
     "no_internet_connection": "No internet connection.",
+    "notification": "Notification",
+    "mark_all_as_read": "Mark all as read",
   };
   static const Map<String, Map<String, dynamic>> mapLocales = {
     "de": _de,

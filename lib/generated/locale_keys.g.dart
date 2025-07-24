@@ -195,4 +195,6 @@ abstract class  LocaleKeys {
   static const socketError = 'socket_error';
   static const timeout = 'timeout';
   static const noInternetConnection = 'no_internet_connection';
+  static const notification = 'notification';
+  static const mark_all_as_read = 'mark_all_as_read';
 }

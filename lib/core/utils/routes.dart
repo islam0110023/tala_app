@@ -14,6 +14,7 @@ import 'package:tala_app/feature/auth/presentation/view/register_screen.dart';
 import 'package:tala_app/feature/chat/presentation/view/chat_screen.dart';
 import 'package:tala_app/feature/chat/presentation/view/chats_screen.dart';
 import 'package:tala_app/feature/home/presentation/view/home_screen.dart';
+import 'package:tala_app/feature/notification/presentation/view/notification_screen.dart';
 import 'package:tala_app/feature/onboarding/presentation/view/onboarding_screen.dart';
 import 'package:tala_app/feature/onboarding/presentation/view/onboarding_slide_screen.dart';
 import 'package:tala_app/feature/onboarding/presentation/view/onboarding_tags_screen.dart';
@@ -47,6 +48,7 @@ class AppRoutes {
   static const chatScreen = '/chat_screen';
   static const forgetPasswordScreen = '/forget_password_screen';
   static const homeScreen = '/home_screen';
+  static const notificationScreen = '/notification_screen';
 
   static final route = GoRouter(
     initialLocation: splashScreen,
@@ -184,6 +186,10 @@ class AppRoutes {
       GoRoute(
         path: homeScreen,
         builder: (context, state) => const HomeScreen(),
+      ),
+      GoRoute(
+        path: notificationScreen,
+        builder: (context, state) => const NotificationScreen(),
       ),
     ],
   );
