@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:tala_app/core/services/internet_services.dart';
 import 'package:tala_app/core/utils/app_color.dart';
 import 'package:tala_app/core/utils/constants.dart';
 import 'package:tala_app/core/utils/routes.dart';
@@ -12,6 +13,8 @@ import 'package:tala_app/core/utils/service_locator.dart';
 import 'package:tala_app/firebase_options.dart';
 import 'package:tala_app/generated/codegen_loader.g.dart';
 import 'package:tala_app/my_observer.dart';
+
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -55,11 +58,23 @@ class TalaApp extends StatelessWidget {
       splitScreenMode: true,
       child: MaterialApp.router(
         locale: context.locale,
+
         localizationsDelegates: context.localizationDelegates,
         supportedLocales: context.supportedLocales,
         builder: (context, child) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
             AppConstant.precacheAppImages(context);
+            getIt<InternetService>().onStatusChanged.listen((connected) {
+              if (!connected) {
+                final context = navigatorKey.currentContext;
+                if (context != null) {
+                  AppConstant.buildShowSnackBar(
+                    context,
+                    'No internet connection',
+                  );
+                }
+              }
+            });
           });
           final double scale = MediaQuery.of(
             context,

@@ -4,10 +4,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tala_app/core/services/internet_services.dart';
 import 'package:tala_app/core/utils/app_color.dart';
 import 'package:tala_app/core/utils/app_dimensions.dart';
 import 'package:tala_app/core/utils/constants.dart';
 import 'package:tala_app/core/utils/routes.dart';
+import 'package:tala_app/core/utils/service_locator.dart';
 import 'package:tala_app/core/widget/custom_button.dart';
 import 'package:tala_app/feature/profile/presentation/manager/save_user_cubit/save_user_cubit.dart';
 import 'package:tala_app/feature/profile/presentation/manager/user_form_cubit/user_form_cubit.dart';
@@ -49,7 +51,8 @@ class CustomDownProfileLike2 extends StatelessWidget {
                     )
                   : CustomButton(
                       onTap: () async {
-                        final isConnected = await AppConstant.isConnected();
+                        final isConnected =
+                            getIt<InternetService>().isConnected;
                         if (!isConnected) {
                           AppConstant.buildShowSnackBar(
                             context,
@@ -70,7 +73,6 @@ class CustomDownProfileLike2 extends StatelessWidget {
                             context,
                           ).saveUser(userModel);
                           FocusScope.of(context).unfocus();
-
                         }
                       },
                       name: LocaleKeys.next.tr(),

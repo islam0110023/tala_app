@@ -1,8 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tala_app/core/services/internet_services.dart';
 import 'package:tala_app/core/utils/app_dimensions.dart';
 import 'package:tala_app/core/utils/constants.dart';
+import 'package:tala_app/core/utils/service_locator.dart';
 import 'package:tala_app/core/utils/styling.dart';
 import 'package:tala_app/core/widget/custom_arrow_back.dart';
 import 'package:tala_app/core/widget/custom_button.dart';
@@ -49,10 +51,12 @@ class NewPasswordScreenBody extends StatelessWidget {
                     SizedBox(height: AppDimensions.h51),
                     CustomButton(
                       onTap: () async{
-                        final isConnected = await AppConstant.isConnected();
+                        final isConnected =
+                            getIt<InternetService>().isConnected;
                         if (!isConnected) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text(LocaleKeys.noInternetConnection.tr())),
+                          AppConstant.buildShowSnackBar(
+                            context,
+                            LocaleKeys.noInternetConnection.tr(),
                           );
                           return;
                         }

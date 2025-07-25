@@ -28,6 +28,7 @@ import 'package:tala_app/feature/profile/presentation/view/profile_music_prefere
 import 'package:tala_app/feature/profile/presentation/view/profile_select_passions_screen.dart';
 import 'package:tala_app/feature/profile/presentation/view/profile_set_info_screen.dart';
 import 'package:tala_app/feature/splash_screen/presentation/view/splash_screen.dart';
+import 'package:tala_app/main.dart';
 
 class AppRoutes {
   static const splashScreen = '/';
@@ -53,6 +54,7 @@ class AppRoutes {
   static const completeSocialRegisterScreen = '/complete_social_register_screen';
 
   static final route = GoRouter(
+    navigatorKey: navigatorKey,
     initialLocation: splashScreen,
     routes: [
       GoRoute(
@@ -86,6 +88,8 @@ class AppRoutes {
             BlocProvider(create: (context) => RegisterCubit(getIt(), getIt())),
             BlocProvider(create: (context) => UserFormCubit()),
             BlocProvider(create: (context) => SaveUserAuthCubit(getIt())),
+            BlocProvider(create: (context) => GetUserCompleteCubit(getIt())),
+
           ],
           child: const RegisterScreen(),
         ),
@@ -195,7 +199,11 @@ class AppRoutes {
       ),
       GoRoute(
         path: completeSocialRegisterScreen,
-        builder: (context, state) => const CompleteSocialRegisterScreen(),
+        builder: (context, state) => MultiBlocProvider(providers: [
+          BlocProvider(create: (context) => UserFormCubit(),),
+          BlocProvider(create: (context) => SaveUserAuthCubit(getIt())),
+        ],
+        child: const CompleteSocialRegisterScreen()),
       ),
     ],
   );

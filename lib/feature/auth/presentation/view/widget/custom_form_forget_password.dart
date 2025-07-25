@@ -2,9 +2,11 @@ import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tala_app/core/services/internet_services.dart';
 import 'package:tala_app/core/utils/app_color.dart';
 import 'package:tala_app/core/utils/app_dimensions.dart';
 import 'package:tala_app/core/utils/constants.dart';
+import 'package:tala_app/core/utils/service_locator.dart';
 import 'package:tala_app/core/widget/custom_button.dart';
 import 'package:tala_app/core/widget/custom_text_field.dart';
 import 'package:tala_app/feature/auth/presentation/manager/reset_password_cubit/reset_password_cubit.dart';
@@ -62,8 +64,8 @@ class _CustomFormForgetPasswordState extends State<CustomFormForgetPassword> {
             state is ResetPasswordLoading
                 ? const CircularProgressIndicator(color: AppColor.kPrimaryPink)
                 : CustomButton(
-                    onTap: () async{
-                      final isConnected = await AppConstant.isConnected();
+                    onTap: () async {
+                      final isConnected = getIt<InternetService>().isConnected;
                       if (!isConnected) {
                         AppConstant.buildShowSnackBar(
                           context,

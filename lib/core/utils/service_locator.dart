@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:tala_app/core/services/internet_services.dart';
 import 'package:tala_app/feature/auth/data/data_source/auth_remote_data_source.dart';
 import 'package:tala_app/feature/auth/data/repo/auth_repo_impl.dart';
 import 'package:tala_app/feature/auth/domain/repo/auth_repo.dart';
@@ -15,6 +16,7 @@ import 'package:tala_app/feature/profile/domain/usa_case/save_user_usa_case.dart
 
 final getIt = GetIt.instance;
 void setUpServices() {
+  getIt.registerLazySingleton<InternetService>(() => InternetService());
   //data source
   getIt.registerLazySingleton<AuthRemoteDataSource>(
     () => AuthRemoteDataSourceImpl(),
