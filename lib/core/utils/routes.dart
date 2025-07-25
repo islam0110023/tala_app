@@ -6,6 +6,7 @@ import 'package:tala_app/feature/auth/presentation/manager/login_cubit/login_cub
 import 'package:tala_app/feature/auth/presentation/manager/register_cubit/register_cubit.dart';
 import 'package:tala_app/feature/auth/presentation/manager/reset_password_cubit/reset_password_cubit.dart';
 import 'package:tala_app/feature/auth/presentation/manager/save_user_auth_cubit/save_user_auth_cubit.dart';
+import 'package:tala_app/feature/auth/presentation/view/complete_social_register_screen.dart';
 import 'package:tala_app/feature/auth/presentation/view/forget_password_screen.dart';
 import 'package:tala_app/feature/auth/presentation/view/login_screen.dart';
 import 'package:tala_app/feature/auth/presentation/view/new_password_screen.dart';
@@ -49,6 +50,7 @@ class AppRoutes {
   static const forgetPasswordScreen = '/forget_password_screen';
   static const homeScreen = '/home_screen';
   static const notificationScreen = '/notification_screen';
+  static const completeSocialRegisterScreen = '/complete_social_register_screen';
 
   static final route = GoRouter(
     initialLocation: splashScreen,
@@ -190,6 +192,10 @@ class AppRoutes {
       GoRoute(
         path: notificationScreen,
         builder: (context, state) => const NotificationScreen(),
+      ),
+      GoRoute(
+        path: completeSocialRegisterScreen,
+        builder: (context, state) => const CompleteSocialRegisterScreen(),
       ),
     ],
   );

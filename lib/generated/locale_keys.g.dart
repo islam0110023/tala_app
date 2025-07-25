@@ -197,4 +197,5 @@ abstract class  LocaleKeys {
   static const noInternetConnection = 'no_internet_connection';
   static const notification = 'notification';
   static const mark_all_as_read = 'mark_all_as_read';
+  static const complete_your_account = 'complete_your_account';
 }

@@ -233,6 +233,7 @@ class CodegenLoader extends AssetLoader {
     "no_internet_connection": "Keine Internetverbindung.",
     "notification": "Benachrichtigung",
     "mark_all_as_read": "Alle als gelesen markieren",
+    "complete_your_account": "Fülle dein Konto aus",
   };
   static const Map<String, dynamic> _en = {
     "@@locale": "en",
@@ -451,6 +452,7 @@ class CodegenLoader extends AssetLoader {
     "no_internet_connection": "No internet connection.",
     "notification": "Notification",
     "mark_all_as_read": "Mark all as read",
+    "complete_your_account": "Complete your Account",
   };
   static const Map<String, Map<String, dynamic>> mapLocales = {
     "de": _de,
