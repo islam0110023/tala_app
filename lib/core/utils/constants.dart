@@ -160,4 +160,6 @@ abstract class AppConstant {
 
     return await InternetConnectionChecker.instance.hasConnection;
   }
+  static final List<int> notifications = List.generate(5, (index) => index);
+
 }

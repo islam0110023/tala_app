@@ -3,7 +3,6 @@ import 'package:tala_app/feature/notification/presentation/view/widget/custom_no
 import 'package:tala_app/feature/notification/presentation/view/widget/dismissible_background.dart';
 
 class NotificationListItem extends StatelessWidget {
-
   const NotificationListItem({
     super.key,
     required this.index,
@@ -16,17 +15,16 @@ class NotificationListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Dismissible(
       key: ValueKey(index),
-      direction: DismissDirection.horizontal,
+      direction: DismissDirection.startToEnd,
       onDismissed: (direction) => onDismissed(),
-      background: const DismissibleBackground(isStart: true),
-      secondaryBackground: const DismissibleBackground(isStart: false),
+      background: const DismissibleBackground(),
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 300),
         curve: Curves.easeInOut,
         child: const CustomNotificationContainer(
           title: 'Event Booked successfully',
           message:
-          'Acoustic Serenade Showcase Acoustic Serenade Showcase Acoustic Serenade',
+              'Acoustic Serenade Showcase Acoustic Serenade Showcase Acoustic Serenade',
           time: '1h',
         ),
       ),

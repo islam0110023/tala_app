@@ -4,8 +4,7 @@ import 'package:tala_app/core/utils/app_dimensions.dart';
 import 'package:tala_app/core/utils/styling.dart';
 
 class DismissibleBackground extends StatelessWidget {
-  const DismissibleBackground({super.key, required this.isStart});
-  final bool isStart;
+  const DismissibleBackground({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,19 +14,17 @@ class DismissibleBackground extends StatelessWidget {
         borderRadius: BorderRadius.circular(AppDimensions.r15),
       ),
       padding: EdgeInsets.symmetric(horizontal: AppDimensions.r20),
-      alignment: isStart ? Alignment.centerLeft : Alignment.centerRight,
+      alignment: Alignment.centerLeft,
       child: Row(
-        mainAxisAlignment: isStart ? MainAxisAlignment.start : MainAxisAlignment.end,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          if (!isStart)
-            Text('Remove Notification',
-                style: Styling.textStyle16700),
-          if (!isStart) SizedBox(width: AppDimensions.w10),
-          Icon(Icons.delete_outline, color: Colors.white, size: AppDimensions.r25),
-          if (isStart) SizedBox(width: AppDimensions.w10),
-          if (isStart)
-            Text('Remove Notification',
-                style: Styling.textStyle16700),
+          Icon(
+            Icons.delete_outline,
+            color: Colors.white,
+            size: AppDimensions.r25,
+          ),
+          SizedBox(width: AppDimensions.w10),
+          Text('Remove Notification', style: Styling.textStyle16700),
         ],
       ),
     );
