@@ -10,10 +10,12 @@ class CustomFormCompleteSocialRegister extends StatefulWidget {
   const CustomFormCompleteSocialRegister({super.key});
 
   @override
-  State<CustomFormCompleteSocialRegister> createState() => _CustomFormCompleteSocialRegisterState();
+  State<CustomFormCompleteSocialRegister> createState() =>
+      _CustomFormCompleteSocialRegisterState();
 }
 
-class _CustomFormCompleteSocialRegisterState extends State<CustomFormCompleteSocialRegister> {
+class _CustomFormCompleteSocialRegisterState
+    extends State<CustomFormCompleteSocialRegister> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   AutovalidateMode autoValidateMode = AutovalidateMode.disabled;
 
@@ -50,19 +52,21 @@ class _CustomFormCompleteSocialRegisterState extends State<CustomFormCompleteSoc
             phoneNumberController: phoneNumberController,
           ),
           const CheckAgreeTerms(),
-          SizedBox(height: AppDimensions.h51,),
-          CustomButton(onTap: (){
-            if(formKey.currentState!.validate()){
-              formKey.currentState!.save();
-              autoValidateMode = AutovalidateMode.disabled;
-            }else{
-              autoValidateMode = AutovalidateMode.always;
-              setState(() {});
-            }
-          }, name: LocaleKeys.next.tr()),
+          SizedBox(height: AppDimensions.h51),
+          CustomButton(
+            onTap: () {
+              if (formKey.currentState!.validate()) {
+                formKey.currentState!.save();
+                autoValidateMode = AutovalidateMode.disabled;
+              } else {
+                autoValidateMode = AutovalidateMode.always;
+                setState(() {});
+              }
+            },
+            name: LocaleKeys.next.tr(),
+          ),
         ],
       ),
     );
   }
 }
-
