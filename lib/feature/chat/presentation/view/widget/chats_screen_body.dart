@@ -41,30 +41,27 @@ class ChatsScreenBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: AppDimensions.r25),
-          child: Column(
-            children: [
-              const CustomUpperChat(),
-              Expanded(
-                child: ListView.separated(
-                  itemCount: _buildList.length,
-                  itemBuilder: (context, index) {
-                    return _buildList[index];
-                  },
-                  separatorBuilder: (BuildContext context, int index) =>
-                      Divider(
-                        height: AppDimensions.h6,
-                        thickness: AppDimensions.sp1,
-                        indent: AppDimensions.w68,
-                        color: AppColor.kDividerColor,
-                      ),
+    return SafeArea(
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: AppDimensions.r25),
+        child: Column(
+          children: [
+            const CustomUpperChat(),
+            Expanded(
+              child: ListView.separated(
+                itemCount: _buildList.length,
+                itemBuilder: (context, index) {
+                  return _buildList[index];
+                },
+                separatorBuilder: (BuildContext context, int index) => Divider(
+                  height: AppDimensions.h6,
+                  thickness: AppDimensions.sp1,
+                  indent: AppDimensions.w68,
+                  color: AppColor.kDividerColor,
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

@@ -237,4 +237,23 @@ abstract class Styling {
     fontWeight: FontWeight.w400,
     height: 1.27,
   );
+  static final textStyle32 = TextStyle(
+    color: AppColor.kWhite1,
+    fontSize: 32.sp,
+    fontFamily: AppConstant.kFontFamily,
+    fontWeight: FontWeight.w800,
+  );
+  static final textStyle14 = TextStyle(
+    color: AppColor.kWhite1,
+    fontSize: 14.sp,
+    fontFamily: AppConstant.kFontFamily,
+    fontWeight: FontWeight.w600,
+  );
+  static final textStyleDating20 = TextStyle(
+    color: AppColor.kColorDatingTitle ,
+    fontSize: 20.sp,
+    fontFamily: AppConstant.kFontFamily,
+    fontWeight: FontWeight.w700,
+  );
+
 }

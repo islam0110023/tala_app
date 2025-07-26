@@ -1,13 +1,13 @@
-class AppImage{
+class AppImage {
   AppImage._();
-  static const kLogoImage='assets/images/logo_tala.png';
-  static const kTalaImage='assets/images/Tala.png';
-  static const kOnboardingLogo='assets/images/onboarding_logo.png';
-  static const kAppleIcon='assets/images/apple_icon.svg';
-  static const kGoogleIcon='assets/images/google_icon.svg';
-  static const kPersonPicture='assets/images/profile_picture.svg';
-  static const kOnboarding2='assets/images/onboarding2.jpg';
-  static const kOnboarding1='assets/images/onboarding1.jpg';
+  static const kLogoImage = 'assets/images/logo_tala.png';
+  static const kTalaImage = 'assets/images/Tala.png';
+  static const kOnboardingLogo = 'assets/images/onboarding_logo.png';
+  static const kAppleIcon = 'assets/images/apple_icon.svg';
+  static const kGoogleIcon = 'assets/images/google_icon.svg';
+  static const kPersonPicture = 'assets/images/profile_picture.svg';
+  static const kOnboarding2 = 'assets/images/onboarding2.jpg';
+  static const kOnboarding1 = 'assets/images/onboarding1.jpg';
   static const kPassionGaming = 'assets/images/gaming_icon.svg';
   static const kPassionTravel = 'assets/images/travel_icon.svg';
   static const kPassionDance = 'assets/images/dance_icon.svg';
@@ -28,6 +28,5 @@ class AppImage{
   static const kImageTest = 'assets/images/test.jpg';
   static const kTalaLogoNav = 'assets/images/tala_button.png';
   static const kTalaLogoNavHover = 'assets/images/tala_button_hover.png';
-
-
+  static const kHeartIcon = 'assets/images/heart_icon.svg';
 }

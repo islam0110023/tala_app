@@ -37,5 +37,13 @@ abstract class AppColor{
   static const kContainerGradient1 = Color(0x7FDB0165);
   static const kContainerGradient2 = Color(0x7F701774);
   static const dismissibleBackground = Color(0xFFFF4F9D);
+  static const kColorDatingTitle = Color(0xFF530A6A);
+  static const  kLightCloud = Color(0x33EFEFEF);
+   static const kSoftPinkAura = Color(0x80F79FC6);
+   static const kVibrantRoseGlow = Color(0x98FF4F9D);
+
+  static const kBackgroundSoftGray = Color(0xCBEFEFEF);
+  static const kGradientBlushPink = Color(0x98F79FC6);
+  static const kAccentBerryRose = Color(0xB3FF4F9D);
 
 }
