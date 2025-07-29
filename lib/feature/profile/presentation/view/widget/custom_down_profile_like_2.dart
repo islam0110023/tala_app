@@ -27,7 +27,9 @@ class CustomDownProfileLike2 extends StatelessWidget {
         BlocListener<OpenAiCubit, OpenAiState>(
           listener: (context, state) {
             if (state is OpenAiFailure) {
-              context.pop();
+              if (context.canPop()) {
+                context.pop();
+              }
               AppConstant.buildShowSnackBar(context, state.errMessage);
             }
             if (state is OpenAiSuccess) {
@@ -50,7 +52,9 @@ class CustomDownProfileLike2 extends StatelessWidget {
             sendUserToOpenAi(context);
           }
           if (state is SaveUserFailure) {
-            context.pop();
+            if (context.canPop()) {
+              context.pop();
+            }
             AppConstant.buildShowSnackBar(context, state.errMessage);
           }
         },

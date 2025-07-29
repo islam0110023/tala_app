@@ -68,15 +68,21 @@ class _CustomFormLoginState extends State<CustomFormLogin> {
     return BlocListener<GetUserCompleteCubit, GetUserCompleteState>(
       listener: (context, state) {
         if (state is GetUserCompleteFailure) {
-          context.pop();
+          if (context.canPop()) {
+            context.pop();
+          }
           AppConstant.buildShowSnackBar(context, state.errMessage);
         }
         if (state is GetUserCompleteIsComplete) {
-          context.pop();
+          if (context.canPop()) {
+            context.pop();
+          }
           GoRouter.of(context).go(AppRoutes.homeScreen);
         }
         if (state is GetUserCompleteNotComplete) {
-          context.pop();
+          if (context.canPop()) {
+            context.pop();
+          }
           final cubit = BlocProvider.of<UserFormCubit>(context);
           GoRouter.of(
             context,
@@ -86,7 +92,9 @@ class _CustomFormLoginState extends State<CustomFormLogin> {
       child: BlocConsumer<LoginCubit, LoginState>(
         listener: (context, state) {
           if (state is LoginFailure) {
-            context.pop();
+            if (context.canPop()) {
+              context.pop();
+            }
             AppConstant.buildShowSnackBar(context, state.errMessage);
           } else if (state is LoginSuccess) {
             final uid = context

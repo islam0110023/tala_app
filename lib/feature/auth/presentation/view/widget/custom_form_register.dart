@@ -61,7 +61,9 @@ class _CustomFormRegisterState extends State<CustomFormRegister> {
       listener: (context, state) {
         if (state is SaveUserAuthSuccess) {
           final cubit = BlocProvider.of<UserFormCubit>(context);
-          context.pop();
+          if (context.canPop()) {
+            context.pop();
+          }
 
           GoRouter.of(context).push(
             AppRoutes.otpScreen,
@@ -69,7 +71,9 @@ class _CustomFormRegisterState extends State<CustomFormRegister> {
           );
         }
         if (state is SaveUserAuthFailure) {
-          context.pop();
+          if (context.canPop()) {
+            context.pop();
+          }
           AppConstant.buildShowSnackBar(context, state.errMessage);
         }
       },
@@ -94,7 +98,9 @@ class _CustomFormRegisterState extends State<CustomFormRegister> {
             //context.read<RegisterCubit>().reset();
           }
           if (state is SignUpFailure) {
-            context.pop();
+            if (context.canPop()) {
+              context.pop();
+            }
             AppConstant.buildShowSnackBar(context, state.errMessage);
           }
         },

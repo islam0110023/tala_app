@@ -22,22 +22,30 @@ class CustomAlternativeSignIn extends StatelessWidget {
     return BlocListener<GetUserCompleteCubit, GetUserCompleteState>(
       listener: (context, state) {
         if (state is GetUserCompleteNotComplete) {
-          context.pop();
+          if (context.canPop()) {
+            context.pop();
+          }
           GoRouter.of(context).push(AppRoutes.completeSocialRegisterScreen);
         }
         if (state is GetUserCompleteIsComplete) {
-          context.pop();
+          if (context.canPop()) {
+            context.pop();
+          }
           GoRouter.of(context).push(AppRoutes.homeScreen);
         }
         if (state is GetUserCompleteFailure) {
-          context.pop();
+          if (context.canPop()) {
+            context.pop();
+          }
           AppConstant.buildShowSnackBar(context, state.errMessage);
         }
       },
       child: BlocConsumer<LoginCubit, LoginState>(
         listener: (context, state) {
           if (state is LoginWithGoogleFailure) {
-            context.pop();
+            if (context.canPop()) {
+              context.pop();
+            }
             AppConstant.buildShowSnackBar(context, state.errMessage);
           }
           if (state is LoginWithGoogleSuccess) {
@@ -45,7 +53,9 @@ class CustomAlternativeSignIn extends StatelessWidget {
             final isNewUser =
                 cubit.loginEntity!.credential.additionalUserInfo!.isNewUser;
             if (isNewUser) {
-              context.pop();
+              if (context.canPop()) {
+                context.pop();
+              }
               GoRouter.of(context).push(AppRoutes.completeSocialRegisterScreen);
             } else {
               context.read<GetUserCompleteCubit>().getUserComplete(

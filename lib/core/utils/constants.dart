@@ -183,7 +183,7 @@ abstract class AppConstant {
           ),
           alignment: Alignment.center,
           child: Padding(
-            padding: EdgeInsets.all(AppDimensions.r24),
+            padding: EdgeInsets.all(AppDimensions.r12),
             child: SizedBox(
               width: AppDimensions.r60,
               height: AppDimensions.r60,

@@ -28,7 +28,9 @@ class RegisterScreenBody extends StatelessWidget {
 
               CustomArrowBack(
                 onTap: () {
-                  GoRouter.of(context).pop();
+                  if (context.canPop()) {
+                    context.pop();
+                  }
                 },
               ),
               SizedBox(height: AppDimensions.h28),

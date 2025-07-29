@@ -41,17 +41,23 @@ class _CustomFormForgetPasswordState extends State<CustomFormForgetPassword> {
     return BlocConsumer<ResetPasswordCubit, ResetPasswordState>(
       listener: (context, state) {
         if (state is ResetPasswordSuccess) {
-          context.pop();
+          if (context.canPop()) {
+            context.pop();
+          }
           AppConstant.buildShowSnackBar(
             context,
             LocaleKeys.check_email.tr(),
             ContentType.success,
             LocaleKeys.success.tr(),
           );
-          context.pop();
+          if (context.canPop()) {
+            context.pop();
+          }
         }
         if (state is ResetPasswordFailure) {
-          context.pop();
+          if (context.canPop()) {
+            context.pop();
+          }
           AppConstant.buildShowSnackBar(context, state.errMessage);
         }
       },

@@ -25,7 +25,9 @@ class CustomUpperOtp extends StatelessWidget {
             );
             if (result == OkCancelResult.ok) {
               await FirebaseAuth.instance.currentUser!.delete();
-              GoRouter.of(context).pop();
+              if (context.canPop()) {
+                context.pop();
+              }
             }
 
             // GoRouter.of(context).pop();

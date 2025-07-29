@@ -54,14 +54,18 @@ class _CustomFormCompleteSocialRegisterState
       listener: (context, state) {
         if (state is SaveUserAuthSuccess) {
           final cubit = BlocProvider.of<UserFormCubit>(context);
-          context.pop();
+          if (context.canPop()) {
+            context.pop();
+          }
 
           GoRouter.of(
             context,
           ).push(AppRoutes.profileSetInfoScreen, extra: cubit);
         }
         if (state is SaveUserAuthFailure) {
-          context.pop();
+          if (context.canPop()) {
+            context.pop();
+          }
           AppConstant.buildShowSnackBar(context, state.errMessage);
         }
       },
