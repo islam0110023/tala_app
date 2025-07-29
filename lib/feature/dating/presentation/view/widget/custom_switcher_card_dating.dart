@@ -12,6 +12,8 @@ class CustomSwitcherCardDating extends StatefulWidget {
 
 class _CustomSwitcherCardDatingState extends State<CustomSwitcherCardDating> {
   int currentIndex = 0;
+  double dragStartX = 0;
+
   final List<Widget> userCards = const [
     CustomFirstCardDating(),
     CustomSecondCardDating(),
@@ -30,11 +32,15 @@ class _CustomSwitcherCardDatingState extends State<CustomSwitcherCardDating> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onHorizontalDragEnd: (details) {
-        if (details.primaryVelocity! < -50) {
-          handleSwipe(true);
-        } else if (details.primaryVelocity! > 50) {
+      onHorizontalDragStart: (details) {
+        dragStartX = details.globalPosition.dx;
+      },
+      onHorizontalDragUpdate: (details) {
+        final dragOffset = details.globalPosition.dx - dragStartX;
+        if (dragOffset > 40) {
           handleSwipe(false);
+        } else if (dragOffset < -40) {
+          handleSwipe(true);
         }
       },
       child: AnimatedSwitcher(
