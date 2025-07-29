@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tala_app/core/services/internet_services.dart';
-import 'package:tala_app/core/utils/app_color.dart';
 import 'package:tala_app/core/utils/app_dimensions.dart';
 import 'package:tala_app/core/utils/constants.dart';
 import 'package:tala_app/core/utils/routes.dart';
@@ -62,11 +61,16 @@ class _CustomFormRegisterState extends State<CustomFormRegister> {
       listener: (context, state) {
         if (state is SaveUserAuthSuccess) {
           final cubit = BlocProvider.of<UserFormCubit>(context);
+          context.pop();
 
           GoRouter.of(context).push(
             AppRoutes.otpScreen,
             extra: {'isNewPassword': false, 'cubit': cubit},
           );
+        }
+        if (state is SaveUserAuthFailure) {
+          context.pop();
+          AppConstant.buildShowSnackBar(context, state.errMessage);
         }
       },
       child: BlocConsumer<RegisterCubit, RegisterState>(
@@ -90,6 +94,7 @@ class _CustomFormRegisterState extends State<CustomFormRegister> {
             //context.read<RegisterCubit>().reset();
           }
           if (state is SignUpFailure) {
+            context.pop();
             AppConstant.buildShowSnackBar(context, state.errMessage);
           }
         },
@@ -109,25 +114,20 @@ class _CustomFormRegisterState extends State<CustomFormRegister> {
                 ),
                 const CheckAgreeTerms(),
                 SizedBox(height: AppDimensions.h41),
-                state is SignUpLoading
-                    ? const CircularProgressIndicator(
-                        color: AppColor.kPrimaryPink,
-                      )
-                    : CustomButton(
-                        onTap: () async {
-                          final isConnected =
-                              getIt<InternetService>().isConnected;
-                          if (!isConnected) {
-                            AppConstant.buildShowSnackBar(
-                              context,
-                              LocaleKeys.noInternetConnection.tr(),
-                            );
-                            return;
-                          }
-                          signUp(context);
-                        },
-                        name: LocaleKeys.signUp.tr(),
-                      ),
+                CustomButton(
+                  onTap: () async {
+                    final isConnected = getIt<InternetService>().isConnected;
+                    if (!isConnected) {
+                      AppConstant.buildShowSnackBar(
+                        context,
+                        LocaleKeys.noInternetConnection.tr(),
+                      );
+                      return;
+                    }
+                    signUp(context);
+                  },
+                  name: LocaleKeys.signUp.tr(),
+                ),
               ],
             ),
           );
@@ -148,6 +148,7 @@ class _CustomFormRegisterState extends State<CustomFormRegister> {
         password: password.text,
         isAgree: true,
       );
+      AppConstant.showLoadingDialog(context);
       BlocProvider.of<RegisterCubit>(context).register(param);
       FocusScope.of(context).unfocus();
     } else {

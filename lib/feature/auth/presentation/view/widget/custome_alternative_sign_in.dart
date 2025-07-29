@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tala_app/core/services/internet_services.dart';
-import 'package:tala_app/core/utils/app_color.dart';
 import 'package:tala_app/core/utils/app_dimensions.dart';
 import 'package:tala_app/core/utils/asset_image.dart';
 import 'package:tala_app/core/utils/constants.dart';
@@ -23,18 +22,22 @@ class CustomAlternativeSignIn extends StatelessWidget {
     return BlocListener<GetUserCompleteCubit, GetUserCompleteState>(
       listener: (context, state) {
         if (state is GetUserCompleteNotComplete) {
+          context.pop();
           GoRouter.of(context).push(AppRoutes.completeSocialRegisterScreen);
         }
         if (state is GetUserCompleteIsComplete) {
+          context.pop();
           GoRouter.of(context).push(AppRoutes.homeScreen);
         }
         if (state is GetUserCompleteFailure) {
+          context.pop();
           AppConstant.buildShowSnackBar(context, state.errMessage);
         }
       },
       child: BlocConsumer<LoginCubit, LoginState>(
         listener: (context, state) {
           if (state is LoginWithGoogleFailure) {
+            context.pop();
             AppConstant.buildShowSnackBar(context, state.errMessage);
           }
           if (state is LoginWithGoogleSuccess) {
@@ -42,6 +45,7 @@ class CustomAlternativeSignIn extends StatelessWidget {
             final isNewUser =
                 cubit.loginEntity!.credential.additionalUserInfo!.isNewUser;
             if (isNewUser) {
+              context.pop();
               GoRouter.of(context).push(AppRoutes.completeSocialRegisterScreen);
             } else {
               context.read<GetUserCompleteCubit>().getUserComplete(
@@ -61,25 +65,21 @@ class CustomAlternativeSignIn extends StatelessWidget {
                 },
               ),
               SizedBox(width: AppDimensions.w20),
-              state is LoginWithGoogleLoading
-                  ? const CircularProgressIndicator(
-                      color: AppColor.kPrimaryPink,
-                    )
-                  : CustomSignWithIcon(
-                      img: AppImage.kGoogleIcon,
-                      onTap: () async {
-                        final isConnected =
-                            getIt<InternetService>().isConnected;
-                        if (!isConnected) {
-                          AppConstant.buildShowSnackBar(
-                            context,
-                            LocaleKeys.noInternetConnection.tr(),
-                          );
-                          return;
-                        }
-                        context.read<LoginCubit>().loginWithGoogle();
-                      },
-                    ),
+              CustomSignWithIcon(
+                img: AppImage.kGoogleIcon,
+                onTap: () async {
+                  final isConnected = getIt<InternetService>().isConnected;
+                  if (!isConnected) {
+                    AppConstant.buildShowSnackBar(
+                      context,
+                      LocaleKeys.noInternetConnection.tr(),
+                    );
+                    return;
+                  }
+                  AppConstant.showLoadingDialog(context);
+                  context.read<LoginCubit>().loginWithGoogle();
+                },
+              ),
             ],
           );
         },

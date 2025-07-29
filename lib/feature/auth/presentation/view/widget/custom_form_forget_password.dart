@@ -2,8 +2,8 @@ import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tala_app/core/services/internet_services.dart';
-import 'package:tala_app/core/utils/app_color.dart';
 import 'package:tala_app/core/utils/app_dimensions.dart';
 import 'package:tala_app/core/utils/constants.dart';
 import 'package:tala_app/core/utils/service_locator.dart';
@@ -41,15 +41,17 @@ class _CustomFormForgetPasswordState extends State<CustomFormForgetPassword> {
     return BlocConsumer<ResetPasswordCubit, ResetPasswordState>(
       listener: (context, state) {
         if (state is ResetPasswordSuccess) {
+          context.pop();
           AppConstant.buildShowSnackBar(
             context,
             LocaleKeys.check_email.tr(),
             ContentType.success,
             LocaleKeys.success.tr(),
           );
-          Navigator.pop(context);
+          context.pop();
         }
         if (state is ResetPasswordFailure) {
+          context.pop();
           AppConstant.buildShowSnackBar(context, state.errMessage);
         }
       },
@@ -61,25 +63,24 @@ class _CustomFormForgetPasswordState extends State<CustomFormForgetPassword> {
               controller: emailController,
             ),
             SizedBox(height: AppDimensions.h51),
-            state is ResetPasswordLoading
-                ? const CircularProgressIndicator(color: AppColor.kPrimaryPink)
-                : CustomButton(
-                    onTap: () async {
-                      final isConnected = getIt<InternetService>().isConnected;
-                      if (!isConnected) {
-                        AppConstant.buildShowSnackBar(
-                          context,
-                          LocaleKeys.noInternetConnection.tr(),
-                        );
-                        return;
-                      }
-                      context.read<ResetPasswordCubit>().resetPassword(
-                        emailController.text,
-                      );
-                      FocusScope.of(context).unfocus();
-                    },
-                    name: LocaleKeys.send.tr(),
-                  ),
+            CustomButton(
+              onTap: () async {
+                final isConnected = getIt<InternetService>().isConnected;
+                if (!isConnected) {
+                  AppConstant.buildShowSnackBar(
+                    context,
+                    LocaleKeys.noInternetConnection.tr(),
+                  );
+                  return;
+                }
+                AppConstant.showLoadingDialog(context);
+                context.read<ResetPasswordCubit>().resetPassword(
+                  emailController.text,
+                );
+                FocusScope.of(context).unfocus();
+              },
+              name: LocaleKeys.send.tr(),
+            ),
           ],
         );
       },

@@ -20,6 +20,7 @@ import 'package:tala_app/feature/onboarding/presentation/view/onboarding_screen.
 import 'package:tala_app/feature/onboarding/presentation/view/onboarding_slide_screen.dart';
 import 'package:tala_app/feature/onboarding/presentation/view/onboarding_tags_screen.dart';
 import 'package:tala_app/feature/onboarding/presentation/view/onboarding_tala_screen.dart';
+import 'package:tala_app/feature/profile/presentation/manager/open_ai_cubit/open_ai_cubit.dart';
 import 'package:tala_app/feature/profile/presentation/manager/save_user_cubit/save_user_cubit.dart';
 import 'package:tala_app/feature/profile/presentation/manager/user_form_cubit/user_form_cubit.dart';
 import 'package:tala_app/feature/profile/presentation/view/profile_like_1_screen.dart';
@@ -154,6 +155,7 @@ class AppRoutes {
             providers: [
               BlocProvider.value(value: value),
               BlocProvider(create: (context) => SaveUserCubit(getIt())),
+              BlocProvider(create: (context) => OpenAiCubit(getIt())),
             ],
             child: ProfileLike2Screen(),
           );

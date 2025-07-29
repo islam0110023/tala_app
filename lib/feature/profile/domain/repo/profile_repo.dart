@@ -4,4 +4,5 @@ import 'package:tala_app/core/model/user_model.dart';
 
 abstract class ProfileRepo {
   Future<Either<Failure, Unit>> saveUserInFireStore(UserModel user);
+  Future<Either<Failure, List<double>>> createVectorWithAI(String prompt);
 }

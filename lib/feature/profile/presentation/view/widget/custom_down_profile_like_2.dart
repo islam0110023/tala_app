@@ -1,16 +1,15 @@
-import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tala_app/core/model/build_user_profile_text.dart';
 import 'package:tala_app/core/services/internet_services.dart';
-import 'package:tala_app/core/utils/app_color.dart';
 import 'package:tala_app/core/utils/app_dimensions.dart';
 import 'package:tala_app/core/utils/constants.dart';
-import 'package:tala_app/core/utils/routes.dart';
 import 'package:tala_app/core/utils/service_locator.dart';
 import 'package:tala_app/core/widget/custom_button.dart';
+import 'package:tala_app/feature/profile/presentation/manager/open_ai_cubit/open_ai_cubit.dart';
 import 'package:tala_app/feature/profile/presentation/manager/save_user_cubit/save_user_cubit.dart';
 import 'package:tala_app/feature/profile/presentation/manager/user_form_cubit/user_form_cubit.dart';
 import 'package:tala_app/feature/profile/presentation/view/widget/custom_fields_profile_like_2.dart';
@@ -23,65 +22,104 @@ class CustomDownProfileLike2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<SaveUserCubit, SaveUserState>(
-      listener: (context, state) {
-        if (state is SaveUserSuccess) {
-          AppConstant.buildShowSnackBar(
-            context,
-            LocaleKeys.profile_completed.tr(),
-            ContentType.success,
-            LocaleKeys.welcome.tr(),
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<OpenAiCubit, OpenAiState>(
+          listener: (context, state) {
+            if (state is OpenAiFailure) {
+              context.pop();
+              AppConstant.buildShowSnackBar(context, state.errMessage);
+            }
+            if (state is OpenAiSuccess) {
+              print('Vector: ${context.read<OpenAiCubit>().vector}');
+            }
+          },
+        ),
+      ],
+      child: BlocConsumer<SaveUserCubit, SaveUserState>(
+        listener: (context, state) {
+          if (state is SaveUserSuccess) {
+            // AppConstant.buildShowSnackBar(
+            //   context,
+            //   LocaleKeys.profile_completed.tr(),
+            //   ContentType.success,
+            //   LocaleKeys.welcome.tr(),
+            // );
+            //
+            // GoRouter.of(context).go(AppRoutes.homeScreen);
+            sendUserToOpenAi(context);
+          }
+          if (state is SaveUserFailure) {
+            context.pop();
+            AppConstant.buildShowSnackBar(context, state.errMessage);
+          }
+        },
+        builder: (context, state) {
+          return Padding(
+            padding: EdgeInsets.symmetric(horizontal: AppDimensions.r25),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                CustomButton(
+                  onTap: () async {
+                    final isConnected = getIt<InternetService>().isConnected;
+                    if (!isConnected) {
+                      AppConstant.buildShowSnackBar(
+                        context,
+                        LocaleKeys.noInternetConnection.tr(),
+                      );
+                      return;
+                    }
+                    saveUser(context);
+                  },
+                  name: LocaleKeys.next.tr(),
+                ),
+                SizedBox(height: AppDimensions.h20),
+              ],
+            ),
           );
-
-          GoRouter.of(context).go(AppRoutes.homeScreen);
-        }
-        if (state is SaveUserFailure) {
-          AppConstant.buildShowSnackBar(context, state.errMessage);
-        }
-      },
-      builder: (context, state) {
-        return Padding(
-          padding: EdgeInsets.symmetric(horizontal: AppDimensions.r25),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              state is SaveUserLoading
-                  ? const CircularProgressIndicator(
-                      color: AppColor.kPrimaryPink,
-                    )
-                  : CustomButton(
-                      onTap: () async {
-                        final isConnected =
-                            getIt<InternetService>().isConnected;
-                        if (!isConnected) {
-                          AppConstant.buildShowSnackBar(
-                            context,
-                            LocaleKeys.noInternetConnection.tr(),
-                          );
-                          return;
-                        }
-                        if (profileFormKey.currentState!.validate()) {
-                          final personality = profileFormKey.currentState!
-                              .setAllValues();
-                          final cubit = BlocProvider.of<UserFormCubit>(context);
-                          cubit.setPersonality(personality);
-                          final uid = FirebaseAuth.instance.currentUser!.uid;
-                          cubit.setUid(uid);
-                          cubit.setComplete();
-                          final userModel = cubit.build();
-                          BlocProvider.of<SaveUserCubit>(
-                            context,
-                          ).saveUser(userModel);
-                          FocusScope.of(context).unfocus();
-                        }
-                      },
-                      name: LocaleKeys.next.tr(),
-                    ),
-              SizedBox(height: AppDimensions.h20),
-            ],
-          ),
-        );
-      },
+        },
+      ),
     );
+  }
+
+  void sendUserToOpenAi(BuildContext context) {
+    final cubit = BlocProvider.of<UserFormCubit>(context);
+    final userModel = cubit.build();
+    final createPrompt = buildUserProfileText(
+      name: userModel.profile!.name,
+      gender: userModel.profile!.gender,
+      age: userModel.profile!.dateOfBirth,
+      location: userModel.profile!.location,
+      musicType: userModel.musicType!.join(', '),
+      passions: userModel.passions!.join(', '),
+      musicEvent: userModel.musicLike!.musicEvent.join(', '),
+      favoriteArtists: userModel.musicLike!.favoriteArtists,
+      concertFrequency: userModel.musicLike!.concertVenue,
+      likesDiscovering: userModel.musicLike!.likesDiscovering,
+      concertVenue: userModel.musicLike!.concertVenue,
+      enjoyTravelling: userModel.personality!.enjoyTravelling.join(', '),
+      kindPerson: userModel.personality!.kindPerson.join(', '),
+      discoveringMusic: userModel.personality!.discoveringMusic.join(', '),
+      farAway: userModel.personality!.farAway.join(', '),
+      attendingWith: userModel.personality!.attendingWith.join(', '),
+    );
+    context.read<OpenAiCubit>().createVectorWithAI(createPrompt);
+  }
+
+  void saveUser(BuildContext context) {
+    if (profileFormKey.currentState!.validate()) {
+      final personality = profileFormKey.currentState!.setAllValues();
+      AppConstant.showLoadingDialog(context);
+      final cubit = BlocProvider.of<UserFormCubit>(context);
+      cubit.setPersonality(personality);
+      final uid = FirebaseAuth.instance.currentUser!.uid;
+      cubit.setUid(uid);
+      cubit.setComplete();
+      final userModel = cubit.build();
+
+      BlocProvider.of<SaveUserCubit>(context).saveUser(userModel);
+      FocusScope.of(context).unfocus();
+    }
   }
 }

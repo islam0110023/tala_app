@@ -2,9 +2,12 @@ import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:tala_app/core/model/genre_model.dart';
+import 'package:tala_app/core/utils/app_color.dart';
+import 'package:tala_app/core/utils/app_dimensions.dart';
 import 'package:tala_app/core/utils/asset_image.dart';
 import 'package:tala_app/core/utils/styling.dart';
 import 'package:tala_app/generated/locale_keys.g.dart';
@@ -14,6 +17,9 @@ abstract class AppConstant {
   static const kFontFamily2 = 'Lato';
   static const kFontFamilyInter = 'Inter';
   static const kDurationSplash = 2;
+  static const apiKeyOpenAi =
+      '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';
+
   static final List<String> kGenderOptions = [
     LocaleKeys.male.tr(),
     LocaleKeys.female.tr(),
@@ -151,6 +157,7 @@ abstract class AppConstant {
       barrierDismissible: false,
     );
   }
+
   static Future<bool> isConnected() async {
     final connectivityResult = await Connectivity().checkConnectivity();
 
@@ -160,6 +167,37 @@ abstract class AppConstant {
 
     return await InternetConnectionChecker.instance.hasConnection;
   }
+
   static final List<int> notifications = List.generate(5, (index) => index);
 
+  static void showLoadingDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) {
+        return Dialog(
+          backgroundColor: Colors.white,
+          insetPadding:  EdgeInsets.symmetric(horizontal: AppDimensions.r140),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(AppDimensions.r15),
+          ),
+          alignment: Alignment.center,
+          child: Padding(
+            padding: EdgeInsets.all(AppDimensions.r24),
+            child: SizedBox(
+              width: AppDimensions.r60,
+              height: AppDimensions.r60,
+              child: Theme.of(context).platform == TargetPlatform.iOS
+                  ? const Center(child: CupertinoActivityIndicator())
+                  : const Center(
+                      child: CircularProgressIndicator(
+                        color: AppColor.kPrimaryPink,
+                      ),
+                    ),
+            ),
+          ),
+        );
+      },
+    );
+  }
 }

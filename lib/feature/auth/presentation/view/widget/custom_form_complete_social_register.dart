@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tala_app/core/services/internet_services.dart';
-import 'package:tala_app/core/utils/app_color.dart';
 import 'package:tala_app/core/utils/app_dimensions.dart';
 import 'package:tala_app/core/utils/constants.dart';
 import 'package:tala_app/core/utils/routes.dart';
@@ -55,12 +54,14 @@ class _CustomFormCompleteSocialRegisterState
       listener: (context, state) {
         if (state is SaveUserAuthSuccess) {
           final cubit = BlocProvider.of<UserFormCubit>(context);
+          context.pop();
 
           GoRouter.of(
             context,
           ).push(AppRoutes.profileSetInfoScreen, extra: cubit);
         }
         if (state is SaveUserAuthFailure) {
+          context.pop();
           AppConstant.buildShowSnackBar(context, state.errMessage);
         }
       },
@@ -77,23 +78,19 @@ class _CustomFormCompleteSocialRegisterState
               ),
               const CheckAgreeTerms(),
               SizedBox(height: AppDimensions.h51),
-              state is SaveUserAuthLoading
-                  ? const CircularProgressIndicator(
-                      color: AppColor.kPrimaryPink,
-                    )
-                  : CustomButton(
-                      onTap: () {
-                        if (formKey.currentState!.validate()) {
-                          formKey.currentState!.save();
-                          autoValidateMode = AutovalidateMode.disabled;
-                          saveUser(context);
-                        } else {
-                          autoValidateMode = AutovalidateMode.always;
-                          setState(() {});
-                        }
-                      },
-                      name: LocaleKeys.next.tr(),
-                    ),
+              CustomButton(
+                onTap: () {
+                  if (formKey.currentState!.validate()) {
+                    formKey.currentState!.save();
+                    autoValidateMode = AutovalidateMode.disabled;
+                    saveUser(context);
+                  } else {
+                    autoValidateMode = AutovalidateMode.always;
+                    setState(() {});
+                  }
+                },
+                name: LocaleKeys.next.tr(),
+              ),
             ],
           ),
         );
@@ -110,6 +107,7 @@ class _CustomFormCompleteSocialRegisterState
       );
       return;
     }
+    AppConstant.showLoadingDialog(context);
     final user = FirebaseAuth.instance.currentUser!;
     context.read<UserFormCubit>().setBasicInfo(
       uid: user.uid,

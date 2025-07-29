@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tala_app/core/services/internet_services.dart';
-import 'package:tala_app/core/utils/app_color.dart';
 import 'package:tala_app/core/utils/app_dimensions.dart';
 import 'package:tala_app/core/utils/constants.dart';
 import 'package:tala_app/core/utils/routes.dart';
@@ -53,6 +52,7 @@ class _CustomFormLoginState extends State<CustomFormLogin> {
         email: emailController.text.trim(),
         password: passwordController.text.trim(),
       );
+      AppConstant.showLoadingDialog(context);
 
       BlocProvider.of<LoginCubit>(context).login(loginParam);
       FocusScope.of(context).unfocus();
@@ -68,12 +68,15 @@ class _CustomFormLoginState extends State<CustomFormLogin> {
     return BlocListener<GetUserCompleteCubit, GetUserCompleteState>(
       listener: (context, state) {
         if (state is GetUserCompleteFailure) {
+          context.pop();
           AppConstant.buildShowSnackBar(context, state.errMessage);
         }
         if (state is GetUserCompleteIsComplete) {
+          context.pop();
           GoRouter.of(context).go(AppRoutes.homeScreen);
         }
         if (state is GetUserCompleteNotComplete) {
+          context.pop();
           final cubit = BlocProvider.of<UserFormCubit>(context);
           GoRouter.of(
             context,
@@ -83,6 +86,7 @@ class _CustomFormLoginState extends State<CustomFormLogin> {
       child: BlocConsumer<LoginCubit, LoginState>(
         listener: (context, state) {
           if (state is LoginFailure) {
+            context.pop();
             AppConstant.buildShowSnackBar(context, state.errMessage);
           } else if (state is LoginSuccess) {
             final uid = context
@@ -116,25 +120,20 @@ class _CustomFormLoginState extends State<CustomFormLogin> {
                       GoRouter.of(context).push(AppRoutes.forgetPasswordScreen),
                 ),
                 SizedBox(height: AppDimensions.h36),
-                state is LoginLoading
-                    ? const CircularProgressIndicator(
-                        color: AppColor.kPrimaryPink,
-                      )
-                    : CustomButton(
-                        onTap: () async {
-                          final isConnected =
-                              getIt<InternetService>().isConnected;
-                          if (!isConnected) {
-                            AppConstant.buildShowSnackBar(
-                              context,
-                              LocaleKeys.noInternetConnection.tr(),
-                            );
-                            return;
-                          }
-                          _submitForm(context);
-                        },
-                        name: LocaleKeys.login.tr(),
-                      ),
+                CustomButton(
+                  onTap: () async {
+                    final isConnected = getIt<InternetService>().isConnected;
+                    if (!isConnected) {
+                      AppConstant.buildShowSnackBar(
+                        context,
+                        LocaleKeys.noInternetConnection.tr(),
+                      );
+                      return;
+                    }
+                    _submitForm(context);
+                  },
+                  name: LocaleKeys.login.tr(),
+                ),
               ],
             ),
           );

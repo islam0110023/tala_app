@@ -16,4 +16,14 @@ class ProfileRepoImpl implements ProfileRepo {
       return left(AppFailure.fromException(e));
     }
   }
+
+  @override
+  Future<Either<Failure, List<double>>> createVectorWithAI(String prompt) async{
+    try {
+      final vector = await profileRemoteDataSource.createVectorWithAI(prompt);
+      return right(vector);
+    } catch (e) {
+      return left(AppFailure.fromException(e));
+    }
+  }
 }
