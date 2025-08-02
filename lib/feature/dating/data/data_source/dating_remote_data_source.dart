@@ -1,17 +1,23 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:tala_app/feature/dating/domain/entity/user_data_entity.dart';
 
 abstract class DatingRemoteDataSource {
-  Future<List<num>> getUserVector(String uid);
+  Future<UserDataEntity> getUserVector(String uid);
 }
 
 class DatingRemoteDataSourceImpl extends DatingRemoteDataSource {
   @override
-  Future<List<num>> getUserVector(String uid) async {
+  Future<UserDataEntity> getUserVector(String uid) async {
     final vector = await FirebaseFirestore.instance
         .collection('users')
         .doc(uid)
         .get()
-        .then((value) => List<num>.from(value.data()!['vector']));
+        .then(
+          (value) => UserDataEntity(
+            vector: List<num>.from(value.data()!['vector']),
+            gender: value.data()!['profile']['gender'],
+          ),
+        );
     return vector;
   }
 }

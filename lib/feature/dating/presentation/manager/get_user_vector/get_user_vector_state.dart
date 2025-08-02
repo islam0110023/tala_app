@@ -8,9 +8,9 @@ final class GetUserVectorInitial extends GetUserVectorState {}
 final class GetUserVectorLoading extends GetUserVectorState {}
 
 final class GetUserVectorSuccess extends GetUserVectorState {
-  GetUserVectorSuccess(this.vector);
+  GetUserVectorSuccess(this.userData);
 
-  final List<num> vector;
+  final UserDataEntity userData;
 }
 
 final class GetUserVectorFailure extends GetUserVectorState {

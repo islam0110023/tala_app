@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
+import 'package:tala_app/feature/dating/domain/entity/user_data_entity.dart';
 import 'package:tala_app/feature/dating/domain/usa_case/get_user_vector_use_case.dart';
 
 part 'get_user_vector_state.dart';
