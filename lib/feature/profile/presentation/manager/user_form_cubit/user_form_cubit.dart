@@ -42,6 +42,9 @@ class UserFormCubit extends Cubit<UserModelBuilder> {
   void setPassions(List<String> passions) {
     emit(state..passions = passions);
   }
+  void setVector(List<double> vector) {
+    emit(state..vector = vector);
+  }
 
   void setMusicType(List<String> musicType) {
     emit(state..musicType = musicType);
@@ -76,6 +79,7 @@ class UserModelBuilder {
   MusicLike? musicLike;
   UserPersonality? personality;
   bool? isComplete;
+  List<double>? vector = [];
 
   UserModel build() {
     if (uid == null ||
@@ -83,6 +87,7 @@ class UserModelBuilder {
         passions == null ||
         musicType == null ||
         musicLike == null ||
+        vector == null ||
         personality == null) {
       throw Exception(LocaleKeys.some_required_fields_missing.tr());
     }
@@ -99,6 +104,7 @@ class UserModelBuilder {
       musicLike: musicLike!,
       personality: personality!,
       isComplete: isComplete!,
+      vector: vector!,
     );
   }
 
