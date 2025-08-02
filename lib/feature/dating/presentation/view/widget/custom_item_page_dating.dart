@@ -11,7 +11,7 @@ class CustomItemPageDating extends StatefulWidget {
   State<CustomItemPageDating> createState() => _CustomItemPageDatingState();
 }
 
-class _CustomItemPageDatingState extends State<CustomItemPageDating> {
+class _CustomItemPageDatingState extends State<CustomItemPageDating> with AutomaticKeepAliveClientMixin {
   bool showHeart = false;
   Offset? tapPosition;
 
@@ -55,4 +55,7 @@ class _CustomItemPageDatingState extends State<CustomItemPageDating> {
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

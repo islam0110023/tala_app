@@ -1,4 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:skeletonizer/skeletonizer.dart';
+import 'package:tala_app/feature/dating/presentation/manager/get_user_vector/get_user_vector_cubit.dart';
 import 'package:tala_app/feature/dating/presentation/view/widget/custom_item_page_dating.dart';
 
 class CustomPageViewDatingScreen extends StatefulWidget {
@@ -17,12 +21,29 @@ class _CustomPageViewDatingScreenState
   bool canScroll = false;
   int dailyScrollLimit = 15;
   int scrollsToday = 0;
+  bool _isFirstTime = true;
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     controller = PageController(initialPage: 0);
     startScrollTimer();
+  }
+
+  @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    super.didChangeDependencies();
+    if (_isFirstTime) {
+      _isFirstTime = false;
+      getUserVector();
+    }
+  }
+
+  void getUserVector() {
+    final cubit = context.read<GetUserVectorCubit>();
+    cubit.getUserVector(FirebaseAuth.instance.currentUser!.uid);
   }
 
   void startScrollTimer() {
@@ -34,7 +55,7 @@ class _CustomPageViewDatingScreenState
   }
 
   void onPageChanged(int index) {
-    if (!canScroll) {
+    if (index > currentIndex && !canScroll) {
       controller.jumpToPage(currentIndex);
       return;
     }
@@ -49,12 +70,22 @@ class _CustomPageViewDatingScreenState
 
   @override
   Widget build(BuildContext context) {
-    return PageView.builder(
-      scrollDirection: Axis.vertical,
-      controller: controller,
-      onPageChanged: onPageChanged,
-      itemBuilder: (context, index) {
-        return const CustomItemPageDating();
+    return BlocConsumer<GetUserVectorCubit, GetUserVectorState>(
+      listener: (context, state) {
+        // TODO: implement listener
+      },
+      builder: (context, state) {
+        return Skeletonizer(
+          enabled: state is GetUserVectorLoading,
+          child: PageView.builder(
+            scrollDirection: Axis.vertical,
+            controller: controller,
+            onPageChanged: onPageChanged,
+            itemBuilder: (context, index) {
+              return const CustomItemPageDating();
+            },
+          ),
+        );
       },
     );
   }

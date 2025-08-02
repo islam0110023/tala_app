@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tala_app/core/utils/service_locator.dart';
@@ -14,6 +15,7 @@ import 'package:tala_app/feature/auth/presentation/view/otp_screen.dart';
 import 'package:tala_app/feature/auth/presentation/view/register_screen.dart';
 import 'package:tala_app/feature/chat/presentation/view/chat_screen.dart';
 import 'package:tala_app/feature/chat/presentation/view/chats_screen.dart';
+import 'package:tala_app/feature/dating/presentation/manager/get_user_vector/get_user_vector_cubit.dart';
 import 'package:tala_app/feature/home/presentation/view/home_screen.dart';
 import 'package:tala_app/feature/notification/presentation/view/notification_screen.dart';
 import 'package:tala_app/feature/onboarding/presentation/view/onboarding_screen.dart';
@@ -195,7 +197,16 @@ class AppRoutes {
       ),
       GoRoute(
         path: homeScreen,
-        builder: (context, state) => const HomeScreen(),
+        builder: (context, state) => MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (context) =>
+                  GetUserVectorCubit(getIt())
+                   ,
+            ),
+          ],
+          child: const HomeScreen(),
+        ),
       ),
       GoRoute(
         path: notificationScreen,
