@@ -14,6 +14,7 @@ import 'package:tala_app/feature/profile/data/repo/profile_repo_impl.dart';
 import 'package:tala_app/feature/profile/domain/repo/profile_repo.dart';
 import 'package:tala_app/feature/profile/domain/usa_case/create_vector_with_a_i_use_case.dart';
 import 'package:tala_app/feature/profile/domain/usa_case/save_user_usa_case.dart';
+import 'package:tala_app/feature/profile/domain/usa_case/store_vector_in_pinecone_use_case.dart';
 
 final getIt = GetIt.instance;
 void setUpServices() {
@@ -38,4 +39,5 @@ void setUpServices() {
   getIt.registerLazySingleton(() => LoginWithGoogleUseCase(getIt()));
   getIt.registerLazySingleton(() => GetUserCompleteUseCase(getIt()));
   getIt.registerLazySingleton(() => CreateVectorWithAIUseCase(getIt()));
+  getIt.registerLazySingleton(() => StoreVectorInPineconeUseCase(getIt()));
 }

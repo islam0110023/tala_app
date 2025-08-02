@@ -21,19 +21,19 @@ class CustomAlternativeSignIn extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<GetUserCompleteCubit, GetUserCompleteState>(
       listener: (context, state) {
-        if (state is GetUserCompleteNotComplete) {
+        if (state is GetUserCompleteNotCompleteWithSocial) {
           if (context.canPop()) {
             context.pop();
           }
           GoRouter.of(context).push(AppRoutes.completeSocialRegisterScreen);
         }
-        if (state is GetUserCompleteIsComplete) {
+        if (state is GetUserCompleteIsCompleteWithSocial) {
           if (context.canPop()) {
             context.pop();
           }
           GoRouter.of(context).push(AppRoutes.homeScreen);
         }
-        if (state is GetUserCompleteFailure) {
+        if (state is GetUserCompleteFailureWithSocial) {
           if (context.canPop()) {
             context.pop();
           }

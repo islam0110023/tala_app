@@ -17,8 +17,10 @@ abstract class AppConstant {
   static const kFontFamily2 = 'Lato';
   static const kFontFamilyInter = 'Inter';
   static const kDurationSplash = 2;
+  static const pineconeApiKey = 'pcsk_BPAiy_BFB9iHbBLspoV4MHyYBkr7NWhhNdDTu7zv5AM4Ew6BFtbmukZw9QVYi1uEvNYmr';
+
   static const apiKeyOpenAi =
-      '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';
+      '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';
 
   static final List<String> kGenderOptions = [
     LocaleKeys.male.tr(),

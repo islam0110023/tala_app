@@ -80,10 +80,11 @@ class _CustomFormLoginState extends State<CustomFormLogin> {
           GoRouter.of(context).go(AppRoutes.homeScreen);
         }
         if (state is GetUserCompleteNotComplete) {
+          final cubit = BlocProvider.of<UserFormCubit>(context);
+
           if (context.canPop()) {
             context.pop();
           }
-          final cubit = BlocProvider.of<UserFormCubit>(context);
           GoRouter.of(
             context,
           ).push(AppRoutes.profileSetInfoScreen, extra: cubit);
@@ -96,7 +97,8 @@ class _CustomFormLoginState extends State<CustomFormLogin> {
               context.pop();
             }
             AppConstant.buildShowSnackBar(context, state.errMessage);
-          } else if (state is LoginSuccess) {
+          }
+          if (state is LoginSuccess) {
             final uid = context
                 .read<LoginCubit>()
                 .loginEntity!

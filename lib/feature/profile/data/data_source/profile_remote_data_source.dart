@@ -4,10 +4,12 @@ import 'package:tala_app/core/model/user_model.dart';
 import 'package:tala_app/core/network/dio_end_piont.dart';
 import 'package:tala_app/core/network/dio_helper.dart';
 import 'package:tala_app/core/utils/constants.dart';
+import 'package:tala_app/feature/profile/domain/params/pinecone_param.dart';
 
 abstract class ProfileRemoteDataSource {
   Future<Unit> saveUserInFireStore(UserModel user);
   Future<List<double>> createVectorWithAI(String prompt);
+  Future<Unit> storeVectorInPinecone(PineconeParam param);
 }
 
 class ProfileRemoteDataSourceImpl extends ProfileRemoteDataSource {
@@ -29,5 +31,24 @@ class ProfileRemoteDataSourceImpl extends ProfileRemoteDataSource {
       token: AppConstant.apiKeyOpenAi,
     );
     return List<double>.from(response.data['data'][0]['embedding']);
+  }
+
+  @override
+  Future<Unit> storeVectorInPinecone(PineconeParam param) async {
+    final data = {
+      'vectors': [
+        {
+          'id': param.user.uid,
+          'values': param.vector,
+          'metadata': param.user.toMapPinecone(),
+        },
+      ],
+    };
+    await DioHelper.postData(
+      url: Endpoints.pineconeIndexUrl,
+      data: data,
+      apiKey: AppConstant.pineconeApiKey,
+    );
+    return unit;
   }
 }

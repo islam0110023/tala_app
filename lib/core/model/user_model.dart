@@ -57,6 +57,7 @@ class UserModel {
   Map<String, dynamic> toMap() {
     return {
       'isComplete': isComplete,
+      'uid': uid,
       'profile': profile!.toMap(),
       'passions': passions,
       'musicType': musicType,
@@ -64,6 +65,32 @@ class UserModel {
       'personality': personality!.toMap(),
     };
   }
+  Map<String, dynamic> toMapPinecone() {
+    return {
+      'isComplete': isComplete,
+      'uid': uid,
+      // Profile
+      'profile_name': profile?.name,
+      'profile_gender': profile?.gender,
+      'profile_dateOfBirth': profile?.dateOfBirth,
+      'profile_location': profile?.location,
+      // Passions & Music
+      'passions': passions,
+      'musicType': musicType,
+      'musicEvent': musicLike?.musicEvent,
+      'concertVenue': musicLike?.concertVenue,
+      'favoriteArtists': musicLike?.favoriteArtists,
+      'liveMusic': musicLike?.liveMusic,
+      'likesDiscovering': musicLike?.likesDiscovering,
+      // Personality
+      'enjoyTravelling': personality?.enjoyTravelling,
+      'kindPerson': personality?.kindPerson,
+      'discoveringMusic': personality?.discoveringMusic,
+      'attendingWith': personality?.attendingWith,
+      'farAway': personality?.farAway,
+    };
+  }
+
 }
 
 class UserProfile {

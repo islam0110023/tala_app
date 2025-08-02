@@ -16,3 +16,15 @@ final class GetUserCompleteFailure extends GetUserCompleteState {
 
   final String errMessage;
 }
+
+final class GetUserCompleteLoadingWithSocial extends GetUserCompleteState {}
+
+final class GetUserCompleteIsCompleteWithSocial extends GetUserCompleteState {}
+
+final class GetUserCompleteNotCompleteWithSocial extends GetUserCompleteState {}
+
+final class GetUserCompleteFailureWithSocial extends GetUserCompleteState {
+  GetUserCompleteFailureWithSocial(this.errMessage);
+
+  final String errMessage;
+}

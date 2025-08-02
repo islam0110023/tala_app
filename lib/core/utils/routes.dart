@@ -22,6 +22,7 @@ import 'package:tala_app/feature/onboarding/presentation/view/onboarding_tags_sc
 import 'package:tala_app/feature/onboarding/presentation/view/onboarding_tala_screen.dart';
 import 'package:tala_app/feature/profile/presentation/manager/open_ai_cubit/open_ai_cubit.dart';
 import 'package:tala_app/feature/profile/presentation/manager/save_user_cubit/save_user_cubit.dart';
+import 'package:tala_app/feature/profile/presentation/manager/store_vector_cubit/store_vector_cubit.dart';
 import 'package:tala_app/feature/profile/presentation/manager/user_form_cubit/user_form_cubit.dart';
 import 'package:tala_app/feature/profile/presentation/view/profile_like_1_screen.dart';
 import 'package:tala_app/feature/profile/presentation/view/profile_like_2_screen.dart';
@@ -52,7 +53,8 @@ class AppRoutes {
   static const forgetPasswordScreen = '/forget_password_screen';
   static const homeScreen = '/home_screen';
   static const notificationScreen = '/notification_screen';
-  static const completeSocialRegisterScreen = '/complete_social_register_screen';
+  static const completeSocialRegisterScreen =
+      '/complete_social_register_screen';
 
   static final route = GoRouter(
     navigatorKey: navigatorKey,
@@ -90,7 +92,6 @@ class AppRoutes {
             BlocProvider(create: (context) => UserFormCubit()),
             BlocProvider(create: (context) => SaveUserAuthCubit(getIt())),
             BlocProvider(create: (context) => GetUserCompleteCubit(getIt())),
-
           ],
           child: const RegisterScreen(),
         ),
@@ -156,6 +157,7 @@ class AppRoutes {
               BlocProvider.value(value: value),
               BlocProvider(create: (context) => SaveUserCubit(getIt())),
               BlocProvider(create: (context) => OpenAiCubit(getIt())),
+              BlocProvider(create: (context) => StoreVectorCubit(getIt())),
             ],
             child: ProfileLike2Screen(),
           );
@@ -201,11 +203,13 @@ class AppRoutes {
       ),
       GoRoute(
         path: completeSocialRegisterScreen,
-        builder: (context, state) => MultiBlocProvider(providers: [
-          BlocProvider(create: (context) => UserFormCubit(),),
-          BlocProvider(create: (context) => SaveUserAuthCubit(getIt())),
-        ],
-        child: const CompleteSocialRegisterScreen()),
+        builder: (context, state) => MultiBlocProvider(
+          providers: [
+            BlocProvider(create: (context) => UserFormCubit()),
+            BlocProvider(create: (context) => SaveUserAuthCubit(getIt())),
+          ],
+          child: const CompleteSocialRegisterScreen(),
+        ),
       ),
     ],
   );

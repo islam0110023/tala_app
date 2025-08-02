@@ -22,6 +22,15 @@ class CustomGenresMusicButtons extends StatefulWidget {
 
 class _CustomGenresMusicButtonsState extends State<CustomGenresMusicButtons> {
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    for (final genre in widget.genres) {
+      genre.isSelected = false;
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Expanded(
       child: GridView.builder(
