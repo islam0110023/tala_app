@@ -16,13 +16,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int selectedIndex = 0;
 
-  final List<Widget> pages = const [
-    HomeScreenBody(),
-    DatingScreen(),
-    ChatsScreen(),
-    ProfileHomePage(),
-  ];
-
   void onTap(int index) {
     setState(() {
       selectedIndex = index;
@@ -33,8 +26,19 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBody: true,
-      body: pages[selectedIndex],
-      backgroundColor: (selectedIndex == 3)? AppColor.kProfileScaffold: Colors.white,
+      body: IndexedStack(
+        index: selectedIndex,
+        children: const [
+          HomeScreenBody(),
+          DatingScreen(),
+          ChatsScreen(),
+          ProfileHomePage(),
+        ],
+        sizing: StackFit.expand,
+      ),
+      backgroundColor: (selectedIndex == 3)
+          ? AppColor.kProfileScaffold
+          : Colors.white,
       bottomNavigationBar: CustomBottomNavBar(
         selectedIndex: selectedIndex,
         onTap: onTap,
