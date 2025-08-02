@@ -125,24 +125,7 @@ class CustomDownProfileLike2 extends StatelessWidget {
       cubit.setUid(uid);
       cubit.setComplete();
       final userModel = cubit.build();
-      final createPrompt = buildUserProfileText(
-        name: userModel.profile!.name,
-        gender: userModel.profile!.gender,
-        age: userModel.profile!.dateOfBirth,
-        location: userModel.profile!.location,
-        musicType: userModel.musicType!.join(', '),
-        passions: userModel.passions!.join(', '),
-        musicEvent: userModel.musicLike!.musicEvent.join(', '),
-        favoriteArtists: userModel.musicLike!.favoriteArtists,
-        concertFrequency: userModel.musicLike!.concertVenue,
-        likesDiscovering: userModel.musicLike!.likesDiscovering,
-        concertVenue: userModel.musicLike!.concertVenue,
-        enjoyTravelling: userModel.personality!.enjoyTravelling.join(', '),
-        kindPerson: userModel.personality!.kindPerson.join(', '),
-        discoveringMusic: userModel.personality!.discoveringMusic.join(', '),
-        farAway: userModel.personality!.farAway.join(', '),
-        attendingWith: userModel.personality!.attendingWith.join(', '),
-      );
+      final createPrompt = buildUserProfileText(userModel);
       context.read<OpenAiCubit>().createVectorWithAI(createPrompt);
       FocusScope.of(context).unfocus();
     }
