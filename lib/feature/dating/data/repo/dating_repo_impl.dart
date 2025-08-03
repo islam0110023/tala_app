@@ -1,7 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:tala_app/core/errors/failure.dart';
 import 'package:tala_app/feature/dating/data/data_source/dating_remote_data_source.dart';
+import 'package:tala_app/feature/dating/domain/entity/match_user_entity.dart';
 import 'package:tala_app/feature/dating/domain/entity/user_data_entity.dart';
+import 'package:tala_app/feature/dating/domain/params/match_user_params.dart';
 import 'package:tala_app/feature/dating/domain/repo/dating_repo.dart';
 
 class DatingRepoImpl extends DatingRepo {
@@ -13,6 +15,18 @@ class DatingRepoImpl extends DatingRepo {
     try {
       final vector = await datingRemoteDataSource.getUserVector(uid);
       return right(vector);
+    } catch (e) {
+      return left(AppFailure.fromException(e));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<MatchUserEntity>>> getMatchesUser(
+    MatchUserParams params,
+  ) async {
+    try {
+      final matches = await datingRemoteDataSource.getMatchesUser(params);
+      return right(matches);
     } catch (e) {
       return left(AppFailure.fromException(e));
     }

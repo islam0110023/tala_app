@@ -2,14 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:tala_app/core/utils/app_color.dart';
 import 'package:tala_app/core/utils/app_dimensions.dart';
 import 'package:tala_app/core/utils/styling.dart';
+import 'package:tala_app/feature/dating/presentation/manager/match_user_provider.dart';
 
 class CustomFirstCardDating extends StatelessWidget {
-  const CustomFirstCardDating({
-    super.key,
-  });
+  const CustomFirstCardDating({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final matchUser = MatchUserProvider.of(context);
+
     return Align(
       alignment: Alignment.bottomCenter,
       child: Container(
@@ -23,7 +24,7 @@ class CustomFirstCardDating extends StatelessWidget {
             colors: [
               AppColor.kLightCloud,
               AppColor.kSoftPinkAura,
-              AppColor.kVibrantRoseGlow
+              AppColor.kVibrantRoseGlow,
             ],
             stops: [0.2, .5, .7],
           ),
@@ -32,9 +33,23 @@ class CustomFirstCardDating extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Elena', style: Styling.textStyle32),
-            Text('23 years,Mönchen', style: Styling.textStyle18),
-            Text('• Hiking', style: Styling.textStyle14),
+            Text(matchUser?.name ?? 'Unknown', style: Styling.textStyle32),
+            Text(
+              '${matchUser?.old} years,${matchUser?.location}',
+              style: Styling.textStyle18,
+            ),
+
+            ListView.builder(
+              shrinkWrap: true,
+              physics:const NeverScrollableScrollPhysics(),
+              itemCount: matchUser?.passions.length ?? 0,
+              itemBuilder: (BuildContext context, int index) {
+                return Text(
+                  '• ${matchUser?.passions[index]}',
+                  style: Styling.textStyle14,
+                );
+              },
+            ),
           ],
         ),
       ),

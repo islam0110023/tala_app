@@ -15,6 +15,7 @@ import 'package:tala_app/feature/auth/presentation/view/otp_screen.dart';
 import 'package:tala_app/feature/auth/presentation/view/register_screen.dart';
 import 'package:tala_app/feature/chat/presentation/view/chat_screen.dart';
 import 'package:tala_app/feature/chat/presentation/view/chats_screen.dart';
+import 'package:tala_app/feature/dating/presentation/manager/get_matches_user/get_matches_user_cubit.dart';
 import 'package:tala_app/feature/dating/presentation/manager/get_user_vector/get_user_vector_cubit.dart';
 import 'package:tala_app/feature/home/presentation/view/home_screen.dart';
 import 'package:tala_app/feature/notification/presentation/view/notification_screen.dart';
@@ -199,11 +200,8 @@ class AppRoutes {
         path: homeScreen,
         builder: (context, state) => MultiBlocProvider(
           providers: [
-            BlocProvider(
-              create: (context) =>
-                  GetUserVectorCubit(getIt())
-                   ,
-            ),
+            BlocProvider(create: (context) => GetUserVectorCubit(getIt())),
+            BlocProvider(create: (context) => GetMatchesUserCubit(getIt())),
           ],
           child: const HomeScreen(),
         ),

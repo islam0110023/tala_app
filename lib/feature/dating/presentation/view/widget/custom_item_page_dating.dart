@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tala_app/core/utils/asset_image.dart';
+import 'package:tala_app/feature/dating/presentation/manager/match_user_provider.dart';
 import 'package:tala_app/feature/dating/presentation/view/widget/custom_image_dating_screen.dart';
 import 'package:tala_app/feature/dating/presentation/view/widget/custom_switcher_card_dating.dart';
 
@@ -11,7 +12,8 @@ class CustomItemPageDating extends StatefulWidget {
   State<CustomItemPageDating> createState() => _CustomItemPageDatingState();
 }
 
-class _CustomItemPageDatingState extends State<CustomItemPageDating> with AutomaticKeepAliveClientMixin {
+class _CustomItemPageDatingState extends State<CustomItemPageDating>
+    with AutomaticKeepAliveClientMixin {
   bool showHeart = false;
   Offset? tapPosition;
 
@@ -30,14 +32,16 @@ class _CustomItemPageDatingState extends State<CustomItemPageDating> with Automa
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
+    final matchUser = MatchUserProvider.of(context);
     return GestureDetector(
       onDoubleTapDown: onDoubleTapDown,
       child: Stack(
         fit: StackFit.expand,
         children: [
-          const CustomImageDatingScreen(
+          CustomImageDatingScreen(
             image:
-                'https://plus.unsplash.com/premium_photo-1690579805307-7ec030c75543?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8cGVyc29uJTIwaWNvbnxlbnwwfHwwfHx8MA%3D%3D',
+                matchUser?.image ??''
           ),
 
           const CustomSwitcherCardDating(),

@@ -92,6 +92,7 @@ class UserModel {
       'discoveringMusic': personality?.discoveringMusic,
       'attendingWith': personality?.attendingWith,
       'farAway': personality?.farAway,
+      'image': ''
     };
   }
 

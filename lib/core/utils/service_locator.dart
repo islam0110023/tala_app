@@ -12,6 +12,7 @@ import 'package:tala_app/feature/auth/domain/usecases/save_user_auth_use_case.da
 import 'package:tala_app/feature/dating/data/data_source/dating_remote_data_source.dart';
 import 'package:tala_app/feature/dating/data/repo/dating_repo_impl.dart';
 import 'package:tala_app/feature/dating/domain/repo/dating_repo.dart';
+import 'package:tala_app/feature/dating/domain/usa_case/get_match_user_use_case.dart';
 import 'package:tala_app/feature/dating/domain/usa_case/get_user_vector_use_case.dart';
 import 'package:tala_app/feature/profile/data/data_source/profile_remote_data_source.dart';
 import 'package:tala_app/feature/profile/data/repo/profile_repo_impl.dart';
@@ -49,4 +50,5 @@ void setUpServices() {
   getIt.registerLazySingleton(() => CreateVectorWithAIUseCase(getIt()));
   getIt.registerLazySingleton(() => StoreVectorInPineconeUseCase(getIt()));
   getIt.registerLazySingleton(() => GetUserVectorUseCase(getIt()));
+  getIt.registerLazySingleton(() => GetMatchUserUseCase(getIt()));
 }

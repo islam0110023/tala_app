@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
@@ -17,7 +19,8 @@ abstract class AppConstant {
   static const kFontFamily2 = 'Lato';
   static const kFontFamilyInter = 'Inter';
   static const kDurationSplash = 2;
-  static const pineconeApiKey = 'pcsk_BPAiy_BFB9iHbBLspoV4MHyYBkr7NWhhNdDTu7zv5AM4Ew6BFtbmukZw9QVYi1uEvNYmr';
+  static const pineconeApiKey =
+      'pcsk_BPAiy_BFB9iHbBLspoV4MHyYBkr7NWhhNdDTu7zv5AM4Ew6BFtbmukZw9QVYi1uEvNYmr';
 
   static const apiKeyOpenAi =
       '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';
@@ -179,7 +182,7 @@ abstract class AppConstant {
       builder: (context) {
         return Dialog(
           backgroundColor: Colors.white,
-          insetPadding:  EdgeInsets.symmetric(horizontal: AppDimensions.r140),
+          insetPadding: EdgeInsets.symmetric(horizontal: AppDimensions.r140),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(AppDimensions.r15),
           ),
@@ -201,5 +204,10 @@ abstract class AppConstant {
         );
       },
     );
+  }
+
+  static List<num> addNoise(List<num> vector, [double noise = 0.01]) {
+    final random = Random();
+    return vector.map((v) => v + (random.nextDouble() * noise)).toList();
   }
 }

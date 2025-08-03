@@ -19,7 +19,9 @@ class CustomImageDatingScreen extends StatelessWidget {
       placeholder: (context, url) => const Center(
         child: CircularProgressIndicator(color: AppColor.kPrimaryPink),
       ),
-      imageUrl:image
+      imageUrl: image.isEmpty
+          ? 'https://static.vecteezy.com/system/resources/thumbnails/020/765/399/small_2x/default-profile-account-unknown-icon-black-silhouette-free-vector.jpg'
+          : image,
     );
   }
 }
