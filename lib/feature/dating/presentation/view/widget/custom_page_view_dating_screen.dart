@@ -10,6 +10,7 @@ import 'package:tala_app/feature/dating/presentation/manager/get_matches_user/ge
 import 'package:tala_app/feature/dating/presentation/manager/get_user_vector/get_user_vector_cubit.dart';
 import 'package:tala_app/feature/dating/presentation/manager/match_user_provider.dart';
 import 'package:tala_app/feature/dating/presentation/view/widget/custom_item_page_dating.dart';
+import 'package:tala_app/feature/dating/presentation/view/widget/custom_item_page_dating_skeletonizer.dart';
 
 class CustomPageViewDatingScreen extends StatefulWidget {
   const CustomPageViewDatingScreen({super.key});
@@ -95,19 +96,9 @@ class _CustomPageViewDatingScreenState
       child: BlocBuilder<GetMatchesUserCubit, GetMatchesUserState>(
         builder: (context, state) {
           if (state is GetMatchesUserLoaded || state is GetMatchesUserInitial) {
-            return Skeletonizer(
+            return const Skeletonizer(
               enabled: true,
-              child: PageView.builder(
-                scrollDirection: Axis.vertical,
-                controller: controller,
-                onPageChanged: onPageChanged,
-                itemBuilder: (context, index) {
-                  return const MatchUserProvider(
-                    matchUser: null,
-                    child: CustomItemPageDating(),
-                  );
-                },
-              ),
+              child: CustomItemPageDatingSkeletonizer(),
             );
           } else if (state is GetMatchesUserSuccess) {
             return Skeletonizer(
@@ -120,7 +111,9 @@ class _CustomPageViewDatingScreenState
                 itemBuilder: (context, index) {
                   return MatchUserProvider(
                     matchUser: state.matches[index],
-                    child: const CustomItemPageDating(),
+                    child: CustomItemPageDating(
+                      key: PageStorageKey(state.matches[index].uid),
+                    ),
                   );
                 },
               ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tala_app/core/utils/app_color.dart';
 import 'package:tala_app/core/utils/app_dimensions.dart';
 import 'package:tala_app/core/utils/styling.dart';
+import 'package:tala_app/feature/dating/domain/entity/match_user_entity.dart';
 import 'package:tala_app/feature/dating/presentation/manager/match_user_provider.dart';
 
 class CustomFirstCardDating extends StatelessWidget {
@@ -9,7 +10,7 @@ class CustomFirstCardDating extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final matchUser = MatchUserProvider.of(context);
+    final MatchUserEntity? matchUser = MatchUserProvider.of(context);
 
     return Align(
       alignment: Alignment.bottomCenter,
@@ -35,7 +36,7 @@ class CustomFirstCardDating extends StatelessWidget {
           children: [
             Text(matchUser?.name ?? 'Unknown', style: Styling.textStyle32),
             Text(
-              '${matchUser?.old} years,${matchUser?.location}',
+              '${matchUser?.old ?? 0} years,${matchUser?.location ?? 'Unknown'}',
               style: Styling.textStyle18,
             ),
 
@@ -45,7 +46,7 @@ class CustomFirstCardDating extends StatelessWidget {
               itemCount: matchUser?.passions.length ?? 0,
               itemBuilder: (BuildContext context, int index) {
                 return Text(
-                  '• ${matchUser?.passions[index]}',
+                  '• ${matchUser?.passions[index] ?? 'Unknown'}',
                   style: Styling.textStyle14,
                 );
               },

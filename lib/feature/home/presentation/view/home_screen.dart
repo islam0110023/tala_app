@@ -15,10 +15,12 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int selectedIndex = 0;
+  List<bool> isPageInitialized = [true, false, false, false];
 
   void onTap(int index) {
     setState(() {
       selectedIndex = index;
+      isPageInitialized[index] = true;
     });
   }
 
@@ -28,11 +30,11 @@ class _HomeScreenState extends State<HomeScreen> {
       extendBody: true,
       body: IndexedStack(
         index: selectedIndex,
-        children: const [
-          HomeScreenBody(),
-          DatingScreen(),
-          ChatsScreen(),
-          ProfileHomePage(),
+        children: [
+          const HomeScreenBody(),
+          isPageInitialized[1] ? const DatingScreen() : const SizedBox(),
+          isPageInitialized[1] ? const ChatsScreen() : const SizedBox(),
+          isPageInitialized[1] ? const ProfileHomePage() : const SizedBox(),
         ],
         sizing: StackFit.expand,
       ),
