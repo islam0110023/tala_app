@@ -39,10 +39,9 @@ class CustomDownProfileLike2 extends StatelessWidget {
             if (state is OpenAiSuccess) {
               final vector = context.read<OpenAiCubit>().vector;
               final cubit = BlocProvider.of<UserFormCubit>(context);
-              cubit.setVector(vector!);
               final user = cubit.build();
               context.read<StoreVectorCubit>().storeVector(
-                PineconeParam(vector: vector, user: user),
+                PineconeParam(vector: vector!, user: user),
               );
             }
           },

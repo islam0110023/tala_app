@@ -13,7 +13,6 @@ class UserModel {
     required this.musicLike,
     required this.personality,
     this.isComplete = false,
-    this.vector = const [],
   });
 
   factory UserModel.fromMap(Map<String, dynamic> map) {
@@ -29,7 +28,6 @@ class UserModel {
       musicLike: MusicLike.fromMap(map['musicLike']),
       personality: UserPersonality.fromMap(map['personality']),
       isComplete: map['isComplete'],
-      vector: map['vector'],
     );
   }
   final String? uid;
@@ -43,7 +41,6 @@ class UserModel {
   final List<String>? musicType;
   final MusicLike? musicLike;
   final UserPersonality? personality;
-  final List<dynamic> vector ;
 
   Map<String, dynamic> toFirstMap() {
     return {
@@ -66,7 +63,6 @@ class UserModel {
       'musicType': musicType,
       'musicLike': musicLike!.toMap(),
       'personality': personality!.toMap(),
-      'vector': vector,
     };
   }
   Map<String, dynamic> toMapPinecone() {

@@ -43,15 +43,20 @@ class DioHelper {
     Map<String, dynamic>? queryParameters,
     ProgressCallback? onReceiveProgress,
     String? token,
+    String? apiKey,
+    Map<String, dynamic>? data,
+
   }) async {
     try {
       dio.options.headers = {
+        'Api-Key': '${apiKey ?? ''}',
         'Authorization': 'Bearer ${token ?? ''}',
       };
       final Response response = await dio.get(
         url,
         queryParameters: queryParameters,
         onReceiveProgress: onReceiveProgress,
+        data: data,
       );
       return response;
     } catch (e) {

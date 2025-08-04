@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:tala_app/core/network/dio_end_piont.dart';
 import 'package:tala_app/core/network/dio_helper.dart';
 import 'package:tala_app/core/utils/constants.dart';
@@ -15,22 +14,27 @@ abstract class DatingRemoteDataSource {
 class DatingRemoteDataSourceImpl extends DatingRemoteDataSource {
   @override
   Future<UserDataEntity> getUserVector(String uid) async {
-    final vector = await FirebaseFirestore.instance
-        .collection('users')
-        .doc(uid)
-        .get()
-        .then(
-          (value) => UserDataEntity(
-            vector: List<num>.from(value.data()!['vector']),
-            gender: value.data()!['profile']['gender'],
-          ),
-        );
+    final data = {
+      'ids': [uid],
+      'includeValues': true,
+      'includeMetadata': true,
+    };
+    final response = await DioHelper.getData(
+      url: Endpoints.pineconeFetchUrl,
+      data: data,
+      apiKey: AppConstant.pineconeApiKey,
+    );
+    final vector = UserDataEntity(
+      vector: List<num>.from(response.data['vectors'][uid]['values']),
+      gender: response.data['vectors'][uid]['metadata']['profile_gender'],
+    );
+
     return vector;
   }
 
   @override
   Future<List<MatchUserEntity>> getMatchesUser(MatchUserParams params) async {
-    final noisyVector = AppConstant.addNoise(params.vector,0.001);
+    final noisyVector = AppConstant.addNoise(params.vector, 0.001);
     final filter = <String, dynamic>{};
     if (params.interestFilter != null) {
       filter['passions'] = {'\$eq': params.interestFilter};

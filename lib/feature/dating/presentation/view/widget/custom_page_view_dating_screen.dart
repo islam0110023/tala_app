@@ -94,7 +94,7 @@ class _CustomPageViewDatingScreenState
       },
       child: BlocBuilder<GetMatchesUserCubit, GetMatchesUserState>(
         builder: (context, state) {
-          if (state is GetMatchesUserLoaded) {
+          if (state is GetMatchesUserLoaded || state is GetMatchesUserInitial) {
             return Skeletonizer(
               enabled: true,
               child: PageView.builder(
