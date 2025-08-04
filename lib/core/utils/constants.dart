@@ -7,6 +7,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:intl/intl.dart';
 import 'package:tala_app/core/model/genre_model.dart';
 import 'package:tala_app/core/utils/app_color.dart';
 import 'package:tala_app/core/utils/app_dimensions.dart';
@@ -209,5 +210,20 @@ abstract class AppConstant {
   static List<num> addNoise(List<num> vector, [double noise = 0.01]) {
     final random = Random();
     return vector.map((v) => v + (random.nextDouble() * noise)).toList();
+  }
+
+  static int calculateAge(String dateOfBirth) {
+    try {
+      final dob = DateFormat('dd/MM/yyyy').parse(dateOfBirth);
+      final today = DateTime.now();
+      int age = today.year - dob.year;
+      if (today.month < dob.month ||
+          (today.month == dob.month && today.day < dob.day)) {
+        age--;
+      }
+      return age;
+    } catch (e) {
+      return 0;
+    }
   }
 }

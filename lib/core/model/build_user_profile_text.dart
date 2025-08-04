@@ -1,30 +1,19 @@
 import 'package:tala_app/core/model/user_model.dart';
+import 'package:tala_app/core/utils/constants.dart';
 
 String buildUserProfileText(UserModel userModel) {
   final profile = userModel.profile!;
   final musicLike = userModel.musicLike!;
   final personality = userModel.personality!;
-
   return '''
-Name: ${profile.name}
-Gender: ${profile.gender}
-Age: ${profile.dateOfBirth}
-Location: ${profile.location}
+  My name is ${profile.name}, I live in ${profile.location}, and I am ${AppConstant.calculateAge(profile.dateOfBirth)} years old.  
+I enjoy listening to ${userModel.musicType!.join(', ')} music and I usually attend events like ${musicLike.musicEvent.join(', ')}.  
+My favorite artists include: ${musicLike.favoriteArtists}. I often go to concerts at ${musicLike.concertVenue},  
+and I ${musicLike.likesDiscovering ? 'love discovering new music' : 'don’t usually explore new music'}.
 
-Music:
-- Genres: ${userModel.musicType!.join(', ')}
-- Live Music Events Never Miss: ${musicLike.musicEvent.join(', ')}
-- Favorite Artists: ${musicLike.favoriteArtists}
-- Frequency of Attending Concerts: ${musicLike.concertVenue}
-- Discovering New Music: ${musicLike.likesDiscovering ? 'Yes' : 'No'}
-- Favorite Events Venue: ${musicLike.concertVenue}
-
-Personality:
-- Passions: ${userModel.passions!.join(', ')}
-- Willingness to Travel: ${personality.enjoyTravelling.join(', ')}
-- Type of Hangout with: ${personality.kindPerson.join(', ')}
-- Discover Music Through: ${personality.discoveringMusic.join(', ')}
-- Distant/Far Travel: ${personality.farAway.join(', ')}
-- Prefer Go With: ${personality.attendingWith.join(', ')}
+When it comes to personality, my passions are: ${userModel.passions!.join(', ')}.  
+I enjoy traveling: ${personality.enjoyTravelling.join(', ')}, and love hanging out with: ${personality.kindPerson.join(', ')}.  
+I usually discover music through: ${personality.discoveringMusic.join(', ')},  
+and I prefer attending distant events with: ${personality.attendingWith.join(', ')}.
 ''';
 }

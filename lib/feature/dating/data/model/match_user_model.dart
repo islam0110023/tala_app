@@ -1,4 +1,4 @@
-import 'package:intl/intl.dart';
+import 'package:tala_app/core/utils/constants.dart';
 import 'package:tala_app/feature/dating/domain/entity/match_user_entity.dart';
 
 class MatchUserModel {
@@ -73,24 +73,11 @@ class MatchUserModel {
       name: profileName,
       location: profileLocation,
       passions: passions,
-      old: calculateAge(profileDateOfBirth).toString(),
+      old:AppConstant.calculateAge(profileDateOfBirth).toString(),
       image: image,
       gender: profileGender,
     );
   }
 
-  int calculateAge(String dateOfBirth) {
-    try {
-      final dob = DateFormat('dd/MM/yyyy').parse(dateOfBirth);
-      final today = DateTime.now();
-      int age = today.year - dob.year;
-      if (today.month < dob.month ||
-          (today.month == dob.month && today.day < dob.day)) {
-        age--;
-      }
-      return age;
-    } catch (e) {
-      return 0;
-    }
-  }
+
 }
