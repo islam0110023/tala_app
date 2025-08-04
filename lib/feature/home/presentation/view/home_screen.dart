@@ -33,8 +33,8 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           const HomeScreenBody(),
           isPageInitialized[1] ? const DatingScreen() : const SizedBox(),
-          isPageInitialized[1] ? const ChatsScreen() : const SizedBox(),
-          isPageInitialized[1] ? const ProfileHomePage() : const SizedBox(),
+          isPageInitialized[2] ? const ChatsScreen() : const SizedBox(),
+          isPageInitialized[3] ? const ProfileHomePage() : const SizedBox(),
         ],
         sizing: StackFit.expand,
       ),
