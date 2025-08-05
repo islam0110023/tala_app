@@ -18,6 +18,7 @@ class DatingRemoteDataSourceImpl extends DatingRemoteDataSource {
       'ids': [uid],
       'includeValues': true,
       'includeMetadata': true,
+      'namespace': AppConstant.kPineconeNameSpaceMatchUser,
     };
     final response = await DioHelper.getData(
       url: Endpoints.pineconeFetchUrl,
@@ -50,6 +51,7 @@ class DatingRemoteDataSourceImpl extends DatingRemoteDataSource {
       'topK': 15,
       'includeMetadata': true,
       'filter': filter,
+      'namespace': AppConstant.kPineconeNameSpaceMatchUser,
     };
     final response = await DioHelper.postData(
       url: Endpoints.pineconeQueryUrl,

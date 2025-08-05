@@ -43,6 +43,7 @@ class ProfileRemoteDataSourceImpl extends ProfileRemoteDataSource {
           'metadata': param.user.toMapPinecone(),
         },
       ],
+      'namespace': AppConstant.kPineconeNameSpaceMatchUser,
     };
     await DioHelper.postData(
       url: Endpoints.pineconeIndexUrl,
