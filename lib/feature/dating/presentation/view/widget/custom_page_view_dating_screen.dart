@@ -106,6 +106,9 @@ class _CustomPageViewDatingScreenState
               child: PageView.builder(
                 scrollDirection: Axis.vertical,
                 controller: controller,
+                physics: canScroll
+                    ? const BouncingScrollPhysics()
+                    : const NeverScrollableScrollPhysics(),
                 onPageChanged: onPageChanged,
                 itemCount: state.matches.length,
                 itemBuilder: (context, index) {
