@@ -9,4 +9,7 @@ abstract class DatingRepo {
   Future<Either<Failure, List<MatchUserEntity>>> getMatchesUser(
     MatchUserParams params,
   );
+  Future<Either<Failure, Unit>> saveScroll(int scrollAmount);
+  Future<Either<Failure, int>> getTodayScrollCount();
+  Future<Either<Failure, Unit>> resetScrollIfNewDay();
 }

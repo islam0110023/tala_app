@@ -26,6 +26,7 @@ abstract class AppConstant {
   static const apiKeyOpenAi =
       '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';
   static const kPineconeNameSpaceMatchUser = 'match_user';
+  static const kKeySaveScroll = 'save_scroll';
 
   static final List<String> kGenderOptions = [
     LocaleKeys.male.tr(),

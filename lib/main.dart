@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:tala_app/core/db/cache_helper/cache_helper.dart';
 import 'package:tala_app/core/network/dio_helper.dart';
 import 'package:tala_app/core/services/internet_services.dart';
 import 'package:tala_app/core/utils/app_color.dart';
@@ -24,6 +25,7 @@ void main() async {
   await Future.wait([
     Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform),
     EasyLocalization.ensureInitialized(),
+    CacheHelper.init(),
     GoogleSignIn.instance.initialize(
       serverClientId:
           '665998326850-4j6p02pe9k0vdiujmio5dqcrbe3sstup.apps.googleusercontent.com',

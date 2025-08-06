@@ -9,11 +9,15 @@ import 'package:tala_app/feature/auth/domain/usecases/login_with_google_use_case
 import 'package:tala_app/feature/auth/domain/usecases/register_use_case.dart';
 import 'package:tala_app/feature/auth/domain/usecases/reset_password_use_case.dart';
 import 'package:tala_app/feature/auth/domain/usecases/save_user_auth_use_case.dart';
+import 'package:tala_app/feature/dating/data/data_source/dating_local_data_source.dart';
 import 'package:tala_app/feature/dating/data/data_source/dating_remote_data_source.dart';
 import 'package:tala_app/feature/dating/data/repo/dating_repo_impl.dart';
 import 'package:tala_app/feature/dating/domain/repo/dating_repo.dart';
 import 'package:tala_app/feature/dating/domain/usa_case/get_match_user_use_case.dart';
+import 'package:tala_app/feature/dating/domain/usa_case/get_today_scroll_count_usa_case.dart';
 import 'package:tala_app/feature/dating/domain/usa_case/get_user_vector_use_case.dart';
+import 'package:tala_app/feature/dating/domain/usa_case/reset_scroll_if_new_day_use_case.dart';
+import 'package:tala_app/feature/dating/domain/usa_case/save_scroll_use_case.dart';
 import 'package:tala_app/feature/profile/data/data_source/profile_remote_data_source.dart';
 import 'package:tala_app/feature/profile/data/repo/profile_repo_impl.dart';
 import 'package:tala_app/feature/profile/domain/repo/profile_repo.dart';
@@ -34,10 +38,14 @@ void setUpServices() {
   getIt.registerLazySingleton<DatingRemoteDataSource>(
     () => DatingRemoteDataSourceImpl(),
   );
-  // Repo
+  getIt.registerLazySingleton<DatingLocalDataSource>(
+    () => DatingLocalDataSourceImpl(),
+  ); // Repo
   getIt.registerLazySingleton<AuthRepo>(() => AuthRepoImpl(getIt()));
   getIt.registerLazySingleton<ProfileRepo>(() => ProfileRepoImpl(getIt()));
-  getIt.registerLazySingleton<DatingRepo>(() => DatingRepoImpl(getIt()));
+  getIt.registerLazySingleton<DatingRepo>(
+    () => DatingRepoImpl(getIt(), getIt()),
+  );
 
   // UseCases
   getIt.registerLazySingleton(() => RegisterUseCase(getIt()));
@@ -51,4 +59,7 @@ void setUpServices() {
   getIt.registerLazySingleton(() => StoreVectorInPineconeUseCase(getIt()));
   getIt.registerLazySingleton(() => GetUserVectorUseCase(getIt()));
   getIt.registerLazySingleton(() => GetMatchUserUseCase(getIt()));
+  getIt.registerLazySingleton(() => SaveScrollUseCase(getIt()));
+  getIt.registerLazySingleton(() => GetTodayScrollCountUsaCase(getIt()));
+  getIt.registerLazySingleton(() => ResetScrollIfNewDayUseCase(getIt()));
 }

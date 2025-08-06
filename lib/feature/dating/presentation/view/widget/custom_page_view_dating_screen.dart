@@ -4,8 +4,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:tala_app/core/utils/app_color.dart';
 import 'package:tala_app/core/utils/constants.dart';
+import 'package:tala_app/core/utils/service_locator.dart';
 import 'package:tala_app/core/utils/styling.dart';
 import 'package:tala_app/feature/dating/domain/params/match_user_params.dart';
+import 'package:tala_app/feature/dating/domain/usa_case/get_today_scroll_count_usa_case.dart';
+import 'package:tala_app/feature/dating/domain/usa_case/reset_scroll_if_new_day_use_case.dart';
+import 'package:tala_app/feature/dating/domain/usa_case/save_scroll_use_case.dart';
 import 'package:tala_app/feature/dating/presentation/manager/get_matches_user/get_matches_user_cubit.dart';
 import 'package:tala_app/feature/dating/presentation/manager/get_user_vector/get_user_vector_cubit.dart';
 import 'package:tala_app/feature/dating/presentation/manager/match_user_provider.dart';
@@ -29,23 +33,44 @@ class _CustomPageViewDatingScreenState
   int dailyScrollLimit = 15;
   int scrollsToday = 0;
   bool _isFirstTime = true;
+  bool hasShownLimitMessage = false;
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     controller = PageController(initialPage: 0);
     startScrollTimer();
+    resetScroll();
+    loadTodayScroll();
   }
 
   @override
   void didChangeDependencies() {
-    // TODO: implement didChangeDependencies
     super.didChangeDependencies();
     if (_isFirstTime) {
       _isFirstTime = false;
       getUserVector();
     }
+  }
+
+  void loadTodayScroll() async {
+    final result = await getIt<GetTodayScrollCountUsaCase>().call();
+    result.fold(
+      (l) => AppConstant.buildShowSnackBar(context, l.errMessage),
+      (r) => setState(() {
+        scrollsToday = r;
+      }),
+    );
+  }
+
+  void resetScroll() async {
+    await getIt<ResetScrollIfNewDayUseCase>().call();
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
   }
 
   void getUserVector() {
@@ -61,11 +86,23 @@ class _CustomPageViewDatingScreenState
     });
   }
 
-  void onPageChanged(int index) {
+  void onPageChanged(int index) async {
     if (index > currentIndex && !canScroll) {
       controller.jumpToPage(currentIndex);
       return;
     }
+    if (scrollsToday >= dailyScrollLimit) {
+      if (!hasShownLimitMessage) {
+        hasShownLimitMessage = true;
+        AppConstant.buildShowSnackBar(context, 'Reached daily limit');
+      }
+      controller.jumpToPage(currentIndex);
+      return;
+    }
+    await getIt<SaveScrollUseCase>().call(1);
+
+    scrollsToday++;
+    hasShownLimitMessage = false;
 
     setState(() {
       currentIndex = index;
