@@ -41,7 +41,7 @@ abstract class AppColor{
   static const  kLightCloud = Color(0x33EFEFEF);
    static const kSoftPinkAura = Color(0x80F79FC6);
    static const kVibrantRoseGlow = Color(0x98FF4F9D);
-
+  static const kBlack54 = Colors.black54;
   static const kBackgroundSoftGray = Color(0xCBEFEFEF);
   static const kGradientBlushPink = Color(0x98F79FC6);
   static const kAccentBerryRose = Color(0xB3FF4F9D);

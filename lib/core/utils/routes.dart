@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tala_app/core/utils/service_locator.dart';
@@ -17,6 +18,7 @@ import 'package:tala_app/feature/chat/presentation/view/chats_screen.dart';
 import 'package:tala_app/feature/dating/presentation/manager/get_matches_user/get_matches_user_cubit.dart';
 import 'package:tala_app/feature/dating/presentation/manager/get_user_vector/get_user_vector_cubit.dart';
 import 'package:tala_app/feature/home/presentation/view/home_screen.dart';
+import 'package:tala_app/feature/home/presentation/view/search_screen.dart';
 import 'package:tala_app/feature/notification/presentation/view/notification_screen.dart';
 import 'package:tala_app/feature/onboarding/presentation/view/onboarding_screen.dart';
 import 'package:tala_app/feature/onboarding/presentation/view/onboarding_slide_screen.dart';
@@ -57,6 +59,7 @@ class AppRoutes {
   static const notificationScreen = '/notification_screen';
   static const completeSocialRegisterScreen =
       '/complete_social_register_screen';
+  static const searchScreen = '/search_screen';
 
   static final route = GoRouter(
     navigatorKey: navigatorKey,
@@ -218,6 +221,29 @@ class AppRoutes {
           ],
           child: const CompleteSocialRegisterScreen(),
         ),
+      ),
+      GoRoute(
+        path: searchScreen,
+        pageBuilder: (context, state) {
+          return CustomTransitionPage(
+            key: state.pageKey,
+            child: const SearchScreen(),
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) {
+                  final offset =
+                      Tween<Offset>(
+                        begin: const Offset(0, 1),
+                        end: Offset.zero,
+                      ).animate(
+                        CurvedAnimation(
+                          parent: animation,
+                          curve: Curves.easeOut,
+                        ),
+                      );
+                  return SlideTransition(position: offset, child: child);
+                },
+          );
+        },
       ),
     ],
   );

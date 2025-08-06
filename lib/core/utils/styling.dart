@@ -255,5 +255,30 @@ abstract class Styling {
     fontFamily: AppConstant.kFontFamily,
     fontWeight: FontWeight.w700,
   );
+  static final textStyle18800Purple = TextStyle(
+    color: AppColor.kColorDatingTitle,
+    fontSize: 18.sp,
+    fontFamily: AppConstant.kFontFamily,
+    fontWeight: FontWeight.w800,
+  );
+  static final textStyleEventTitle = TextStyle(
+    color: AppColor.kWhite,
+    fontWeight: FontWeight.bold,
+    fontFamily: AppConstant.kFontFamily,
+    fontSize: 12.sp,
+    shadows: const [
+      Shadow(
+        color: AppColor.kBlack54,
+        blurRadius: 6,
+      )
+    ],
+  );
+  static final textStyle12900PrimaryPink = TextStyle(
+    color: AppColor.kPrimaryPink,
+    fontSize: 12.sp,
+    fontFamily: AppConstant.kFontFamily,
+    fontWeight: FontWeight.w900,
+    height: 1.50,
+  );
 
 }

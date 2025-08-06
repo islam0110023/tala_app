@@ -6,20 +6,21 @@ import 'package:tala_app/feature/home/presentation/view/widget/custom_rounded_ic
 import 'package:tala_app/feature/home/presentation/view/widget/custom_search_tab_bar.dart';
 
 class CustomHomeHeader extends StatelessWidget {
-  const CustomHomeHeader({
-    super.key,
-  });
+  const CustomHomeHeader({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
-        const CustomHomeSearch(),
-        SizedBox(width: AppDimensions.w5,),
-        const CustomRoundedIcon(icon: Icons.filter_alt_outlined,),
-        CustomRoundedIcon(icon: Icons.notifications,onPressed: (){
-          GoRouter.of(context).push(AppRoutes.notificationScreen);
-        },),
+        const CustomHomeSearch(isHome: true,),
+        SizedBox(width: AppDimensions.w5),
+        const CustomRoundedIcon(icon: Icons.filter_alt_outlined),
+        CustomRoundedIcon(
+          icon: Icons.notifications,
+          onPressed: () {
+            GoRouter.of(context).push(AppRoutes.notificationScreen);
+          },
+        ),
       ],
     );
   }
