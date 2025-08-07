@@ -200,4 +200,9 @@ abstract class  LocaleKeys {
   static const complete_your_account = 'complete_your_account';
   static const recent_view = 'recent_view';
   static const person = 'person';
+  static const e_ticket = 'e_ticket';
+  static const cancelled = 'cancelled';
+  static const review = 'review';
+  static const upcoming = 'upcoming';
+  static const tickets = 'tickets';
 }

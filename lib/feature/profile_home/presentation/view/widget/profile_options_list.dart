@@ -27,7 +27,9 @@ class ProfileOptionsList extends StatelessWidget {
 
           CustomTextClickable(
             title: LocaleKeys.ticket.tr(),
-            onTap: () {},
+            onTap: () {
+              GoRouter.of(context).push(AppRoutes.ticketScreen);
+            },
             icon: const Icon(CupertinoIcons.ticket, color: Colors.white),
           ),
 

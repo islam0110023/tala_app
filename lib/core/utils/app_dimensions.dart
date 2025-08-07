@@ -30,6 +30,7 @@ class AppDimensions {
   static final w40 = 40.h;
   static final h1 = 1.h;
   static final r8 = 8.r;
+  static final r4 = 4.r;
   static final h16 = 16.h;
   static final h11 = 11.h;
   static final w20 = 20.w;

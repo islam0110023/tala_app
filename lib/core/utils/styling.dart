@@ -280,5 +280,21 @@ abstract class Styling {
     fontWeight: FontWeight.w900,
     height: 1.50,
   );
+  static final textStyle8900PrimaryPink= TextStyle(
+    color: AppColor.kPrimaryPink,
+    fontSize: 8.sp,
+    fontFamily: AppConstant.kFontFamily,
+    fontWeight: FontWeight.w900,
+    height: 1.50,
+  );
+  static final textStyle10600Ticket = TextStyle(
+    color: AppColor.kTicketDetails,
+    fontSize: 12.sp,
+    fontFamily: AppConstant.kFontFamily,
+    fontWeight: FontWeight.w600,
+    height: 1.26,
+  );
+  static final textStyle16800Purple = textStyle18800Purple.copyWith(fontSize: 14.sp);
+
 
 }

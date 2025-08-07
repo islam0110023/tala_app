@@ -236,6 +236,11 @@ class CodegenLoader extends AssetLoader {
     "complete_your_account": "Fülle dein Konto aus",
     "recent_view": "Neueste Ansicht",
     "person": "Person",
+    "e_ticket": "E - Ticket",
+    "cancelled": "Abgebrochen",
+    "review" : "Reformular",
+    "upcoming": "Übertragen",
+    "tickets": "Tickets",
   };
   static const Map<String, dynamic> _en = {
     "@@locale": "en",
@@ -457,6 +462,11 @@ class CodegenLoader extends AssetLoader {
     "complete_your_account": "Complete your Account",
     "recent_view": "Recent View",
     "person": "person",
+    "e_ticket": "E - Ticket",
+    "cancelled": "Cancelled",
+    "review" : "Review",
+    "upcoming": "Upcoming",
+    "tickets": "Tickets",
   };
   static const Map<String, Map<String, dynamic>> mapLocales = {
     "de": _de,

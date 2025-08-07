@@ -5,8 +5,9 @@ import 'package:tala_app/core/utils/styling.dart';
 import 'package:tala_app/generated/locale_keys.g.dart';
 
 class PriceTag extends StatelessWidget {
-  const PriceTag({super.key, required this.price});
+  const PriceTag({super.key, required this.price, this.isTicketPage=false});
   final double price;
+  final bool isTicketPage;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +30,7 @@ class PriceTag extends StatelessWidget {
       child: Text(
 
         '${LocaleKeys.person.tr()}\n\$${price.toStringAsFixed(2)}',
-        style: Styling.textStyle12900PrimaryPink
+        style: (isTicketPage)? Styling.textStyle8900PrimaryPink : Styling.textStyle12900PrimaryPink
       ),
     );
   }
