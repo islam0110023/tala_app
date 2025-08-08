@@ -1,10 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:tala_app/core/utils/app_color.dart';
 import 'package:tala_app/core/utils/app_dimensions.dart';
 import 'package:tala_app/core/utils/styling.dart';
-import 'package:tala_app/core/widget/custom_arrow_back.dart';
+import 'package:tala_app/feature/ticket/presentation/view/widget/custom_ticket_header.dart';
 import 'package:tala_app/feature/ticket/presentation/view/widget/ticket_cancelled.dart';
 import 'package:tala_app/feature/ticket/presentation/view/widget/ticket_review.dart';
 import 'package:tala_app/feature/ticket/presentation/view/widget/ticket_upcoming.dart';
@@ -30,14 +29,7 @@ class TicketHome extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        CustomArrowBack(onTap: () => context.pop()),
-                        Text(LocaleKeys.tickets.tr(), style: Styling.textStyle18800Purple),
-                        SizedBox(width: AppDimensions.r30)
-                      ],
-                    ),
+                    CustomTicketHeader(title: LocaleKeys.tickets.tr(),),
                     SizedBox(height: AppDimensions.h42),
                     TabBar(
                       tabs: [

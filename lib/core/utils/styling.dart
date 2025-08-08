@@ -295,6 +295,12 @@ abstract class Styling {
     height: 1.26,
   );
   static final textStyle16800Purple = textStyle18800Purple.copyWith(fontSize: 14.sp);
+  static final textStyle12600ReviewInfo = TextStyle(
+    color: AppColor.kTicketReviewText,
+    fontSize: 12.sp,
+    fontFamily: AppConstant.kFontFamily,
+    fontWeight: FontWeight.w600,
+  );
 
 
 }

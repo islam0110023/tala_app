@@ -205,4 +205,6 @@ abstract class  LocaleKeys {
   static const review = 'review';
   static const upcoming = 'upcoming';
   static const tickets = 'tickets';
+  static const reviewTicketSummary='review_ticket_summary';
+  static const change='Change';
 }

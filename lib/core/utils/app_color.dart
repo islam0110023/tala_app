@@ -48,5 +48,6 @@ abstract class AppColor{
   static const kTicketBorder = Color(0xFF9A5EE7);
   static const kTicketDetails = Color(0xFF650F82);
   static const kTicketSide = Color(0x75FF4F9D);
+  static const kTicketReviewText = Color(0xFF676067);
 
 }

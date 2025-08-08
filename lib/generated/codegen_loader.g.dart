@@ -241,6 +241,8 @@ class CodegenLoader extends AssetLoader {
     "review" : "Reformular",
     "upcoming": "Übertragen",
     "tickets": "Tickets",
+    "review_ticket_summary": "Reformular Ticket Zusammenfassung",
+    "change": "Ändern",
   };
   static const Map<String, dynamic> _en = {
     "@@locale": "en",
@@ -467,6 +469,8 @@ class CodegenLoader extends AssetLoader {
     "review" : "Review",
     "upcoming": "Upcoming",
     "tickets": "Tickets",
+    "review_ticket_summary": "Review Ticket Summary",
+    "change": "Change",
   };
   static const Map<String, Map<String, dynamic>> mapLocales = {
     "de": _de,
