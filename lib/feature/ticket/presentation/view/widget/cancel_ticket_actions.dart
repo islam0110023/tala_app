@@ -56,7 +56,7 @@ class _CancelTicketActionsState extends State<CancelTicketActions> {
             selectedIndex != null
                 ? reasons[selectedIndex!]
                 : otherController.text.trim();
-          },
+          }, hintText: LocaleKeys.cancelBooking.tr(),
         ),
       ],
     );

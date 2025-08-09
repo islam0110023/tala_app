@@ -35,7 +35,9 @@ class ProfileOptionsList extends StatelessWidget {
 
           CustomTextClickable(
             title: LocaleKeys.payment_methods.tr(),
-            onTap: () {},
+            onTap: () {
+              GoRouter.of(context).push(AppRoutes.paymentMethodsScreen);
+            },
             icon: const Icon(Icons.payment, color: Colors.white),
           ),
 

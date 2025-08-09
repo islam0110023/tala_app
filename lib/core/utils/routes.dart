@@ -24,6 +24,7 @@ import 'package:tala_app/feature/onboarding/presentation/view/onboarding_screen.
 import 'package:tala_app/feature/onboarding/presentation/view/onboarding_slide_screen.dart';
 import 'package:tala_app/feature/onboarding/presentation/view/onboarding_tags_screen.dart';
 import 'package:tala_app/feature/onboarding/presentation/view/onboarding_tala_screen.dart';
+import 'package:tala_app/feature/payment/presentation/view/payment_methods_screen.dart';
 import 'package:tala_app/feature/profile/presentation/manager/open_ai_cubit/open_ai_cubit.dart';
 import 'package:tala_app/feature/profile/presentation/manager/save_user_cubit/save_user_cubit.dart';
 import 'package:tala_app/feature/profile/presentation/manager/store_vector_cubit/store_vector_cubit.dart';
@@ -66,6 +67,7 @@ class AppRoutes {
   static const ticketScreen = '/ticket_home';
   static const reviewTicketSummaryScreen = '/review_ticket_summary_screen';
   static const cancelTicketScreen = '/cancel_ticket_screen';
+  static const paymentMethodsScreen = '/payment_methods_screen';
 
   static final route = GoRouter(
     navigatorKey: navigatorKey,
@@ -262,6 +264,10 @@ class AppRoutes {
       GoRoute(
         path: cancelTicketScreen,
         builder: (context, state) => const CancelTicketScreen(),
+      ),
+      GoRoute(
+        path: paymentMethodsScreen,
+        builder: (context, state) => const PaymentMethodsScreen(),
       ),
     ],
   );
