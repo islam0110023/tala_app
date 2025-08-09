@@ -243,6 +243,14 @@ class CodegenLoader extends AssetLoader {
     "tickets": "Tickets",
     "review_ticket_summary": "Reformular Ticket Zusammenfassung",
     "change": "Ändern",
+    "cancel_booking": "Abbrechen des Buchungsvorgangs",
+    "please_select_the_reason_for_cancellation": "Bitte wählen Sie den Grund für die Abbuchung aus",
+    "other": "Andere",
+    "enter_your_reason": "Geben Sie Ihre Grund ein",
+    "unexpected_work": "Unerwartetes Arbeiten",
+    "personal_preferences": "Persönliche Präferenzen",
+    "health_issues": "Gesundheitsprobleme",
+    "change_in_plans": "Änderungen in den Timeline",
   };
   static const Map<String, dynamic> _en = {
     "@@locale": "en",
@@ -471,6 +479,14 @@ class CodegenLoader extends AssetLoader {
     "tickets": "Tickets",
     "review_ticket_summary": "Review Ticket Summary",
     "change": "Change",
+    "cancel_booking": "Cancel Booking",
+    "please_select_the_reason_for_cancellation": "Please select the reason for cancellation",
+    "other": "Other",
+    "enter_your_reason": "Enter your reason",
+    "unexpected_work": "Unexpected Work",
+    "personal_preferences": "Personal Preferences",
+    "health_issues": "Health Issues",
+    "change_in_plans": "Change in Plans",
   };
   static const Map<String, Map<String, dynamic>> mapLocales = {
     "de": _de,

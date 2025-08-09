@@ -207,4 +207,12 @@ abstract class  LocaleKeys {
   static const tickets = 'tickets';
   static const reviewTicketSummary='review_ticket_summary';
   static const change='Change';
+  static const cancelBooking='cancel_booking';
+  static const cancelSelectReason='please_select_the_reason_for_cancellation';
+  static const other = 'other';
+  static const enterYourReason = 'enter_your_reason';
+  static const unexpectedWork = 'unexpected_work';
+  static const personalPreferences = 'personal_preferences';
+  static const healthIssues = 'health_issues';
+  static const changeInPlans = 'change_in_plans';
 }

@@ -227,7 +227,7 @@ abstract class Styling {
     color: AppColor.kPrimaryPink,
     fontSize: 13.sp,
     fontFamily: AppConstant.kFontFamily,
-    fontWeight: FontWeight.w600,
+    fontWeight: FontWeight.w400,
     height: 1.38,
   );
   static final textStyle11400Black = TextStyle(
@@ -301,6 +301,10 @@ abstract class Styling {
     fontFamily: AppConstant.kFontFamily,
     fontWeight: FontWeight.w600,
   );
-
-
+  static final textStyle16600Purple = TextStyle(
+    color: AppColor.kColorOnboarding,
+    fontSize: 16.sp,
+    fontFamily: AppConstant.kFontFamily,
+    fontWeight: FontWeight.w400,
+  );
 }

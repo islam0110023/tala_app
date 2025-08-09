@@ -228,4 +228,12 @@ abstract class AppConstant {
       return 0;
     }
   }
+
+  static List<String> kReasons = [
+    LocaleKeys.changeInPlans.tr(),
+    LocaleKeys.healthIssues.tr(),
+    LocaleKeys.personalPreferences.tr(),
+    LocaleKeys.unexpectedWork.tr(),
+    LocaleKeys.other.tr(),
+  ];
 }

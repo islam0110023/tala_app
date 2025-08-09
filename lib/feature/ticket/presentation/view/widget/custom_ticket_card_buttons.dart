@@ -19,7 +19,9 @@ class CustomTicketCardButtons extends StatelessWidget {
         Expanded(
           child: TicketCardButton(
             isPrimary: false,
-            text: LocaleKeys.cancel.tr(), onPressed: () {},
+            text: LocaleKeys.cancel.tr(), onPressed: () {
+              GoRouter.of(context).push(AppRoutes.cancelTicketScreen);
+          },
           ),
         ),
         SizedBox(width: AppDimensions.w12),

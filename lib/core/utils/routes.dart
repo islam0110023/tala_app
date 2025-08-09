@@ -34,6 +34,7 @@ import 'package:tala_app/feature/profile/presentation/view/profile_music_prefere
 import 'package:tala_app/feature/profile/presentation/view/profile_select_passions_screen.dart';
 import 'package:tala_app/feature/profile/presentation/view/profile_set_info_screen.dart';
 import 'package:tala_app/feature/splash_screen/presentation/view/splash_screen.dart';
+import 'package:tala_app/feature/ticket/presentation/view/cancel_ticket_screen.dart';
 import 'package:tala_app/feature/ticket/presentation/view/review_ticket_summary.dart';
 import 'package:tala_app/feature/ticket/presentation/view/ticket_home.dart';
 import 'package:tala_app/main.dart';
@@ -64,6 +65,7 @@ class AppRoutes {
   static const searchScreen = '/search_screen';
   static const ticketScreen = '/ticket_home';
   static const reviewTicketSummaryScreen = '/review_ticket_summary_screen';
+  static const cancelTicketScreen = '/cancel_ticket_screen';
 
   static final route = GoRouter(
     navigatorKey: navigatorKey,
@@ -256,6 +258,10 @@ class AppRoutes {
       GoRoute(
         path: reviewTicketSummaryScreen,
         builder: (context, state) => const ReviewTicketSummary(),
+      ),
+      GoRoute(
+        path: cancelTicketScreen,
+        builder: (context, state) => const CancelTicketScreen(),
       ),
     ],
   );
