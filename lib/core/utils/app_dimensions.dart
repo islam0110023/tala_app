@@ -145,6 +145,7 @@ class AppDimensions {
   static final h515 = 515.h;
   static final r60 = 60.r;
   static final r140 = 140.r;
+  static final h168 = 168.h;
 
 
 

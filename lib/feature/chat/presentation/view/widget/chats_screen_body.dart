@@ -8,57 +8,30 @@ import 'package:tala_app/feature/chat/presentation/view/widget/custom_upper_chat
 class ChatsScreenBody extends StatelessWidget {
   const ChatsScreenBody({super.key});
 
-  static const List<Widget> _buildList = [
-    CustomPersonChat(
-      img: AssetImage(AppImage.kImageIslam),
-      name: 'Islam Ramadan',
-      message: 'Can you buy me dinner?',
-      time: '12:35',
-      number: 100,
-    ),
-    CustomPersonChat(
-      img: AssetImage(AppImage.kImageIslam),
-      name: 'Sara Sanders',
-      message: 'Can you buy me dinner?',
-      time: '12:35',
-      number: 50,
-    ),
-    CustomPersonChat(
-      img: AssetImage(AppImage.kImageIslam),
-      name: 'Sara Sanders',
-      message: 'Can you buy me dinner?',
-      time: '12:35',
-      number: 0,
-    ),
-    CustomPersonChat(
-      img: AssetImage(AppImage.kImageIslam),
-      name: 'Sara Sanders',
-      message: 'Can you buy me dinner?',
-      time: '12:35',
-      number: 10,
-    ),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: AppDimensions.r25),
-        child: Column(
-          children: [
-            const CustomUpperChat(),
-            Expanded(
-              child: ListView.separated(
-                itemCount: _buildList.length,
-                itemBuilder: (context, index) {
-                  return _buildList[index];
-                },
-                separatorBuilder: (BuildContext context, int index) => Divider(
-                  height: AppDimensions.h6,
-                  thickness: AppDimensions.sp1,
-                  indent: AppDimensions.w68,
-                  color: AppColor.kDividerColor,
-                ),
+        child: CustomScrollView(
+          slivers: [
+            const SliverToBoxAdapter(child: CustomUpperChat()),
+            SliverList.separated(
+              itemCount: 10,
+              itemBuilder: (context, index) {
+                return const CustomPersonChat(
+                  img: AssetImage(AppImage.kImageIslam),
+                  name: 'Islam Ramadan',
+                  message: 'Can you buy me dinner?',
+                  time: '12:35',
+                  number: 100,
+                );
+              },
+              separatorBuilder: (BuildContext context, int index) => Divider(
+                height: AppDimensions.h6,
+                thickness: AppDimensions.sp1,
+                indent: AppDimensions.w68,
+                color: AppColor.kDividerColor,
               ),
             ),
           ],

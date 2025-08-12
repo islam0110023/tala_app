@@ -228,4 +228,10 @@ abstract class AppConstant {
       return 0;
     }
   }
+
+  static String createMexIds(String currentUid, String uid) {
+    final List<String> ids = [currentUid, uid]..sort();
+    final chatId = ids.join('_');
+    return chatId;
+  }
 }

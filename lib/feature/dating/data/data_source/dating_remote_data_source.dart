@@ -1,3 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dartz/dartz.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:tala_app/core/network/dio_end_piont.dart';
 import 'package:tala_app/core/network/dio_helper.dart';
 import 'package:tala_app/core/utils/constants.dart';
@@ -9,6 +12,7 @@ import 'package:tala_app/feature/dating/domain/params/match_user_params.dart';
 abstract class DatingRemoteDataSource {
   Future<UserDataEntity> getUserVector(String uid);
   Future<List<MatchUserEntity>> getMatchesUser(MatchUserParams params);
+  Future<Unit> requestConnection(String uid);
 }
 
 class DatingRemoteDataSourceImpl extends DatingRemoteDataSource {
@@ -66,5 +70,30 @@ class DatingRemoteDataSourceImpl extends DatingRemoteDataSource {
       matchUsers.add(matchUser);
     }
     return matchUsers.map((e) => e.toEntity()).toList();
+  }
+
+  @override
+  Future<Unit> requestConnection(String uid) async {
+    final currentUid = FirebaseAuth.instance.currentUser!.uid;
+    final String chatId = AppConstant.createMexIds(currentUid, uid);
+    final chatRef = FirebaseFirestore.instance.collection('chats').doc(chatId);
+    final docSnapshot = await chatRef.get();
+    if (docSnapshot.exists) {
+      return unit;
+    }
+
+    final data = {
+      'fromUserId': currentUid,
+      'toUserId': uid,
+      'members': [currentUid, uid],
+      'status': 'Pending',
+      'lastMessage': 'Pending Connection',
+      'lastMessageTime': FieldValue.serverTimestamp(),
+      'isConnection': false,
+      'createdAt': FieldValue.serverTimestamp(),
+      'unreadCounts': {'userA': 0, 'userB': 0},
+    };
+    await chatRef.set(data);
+    return unit;
   }
 }

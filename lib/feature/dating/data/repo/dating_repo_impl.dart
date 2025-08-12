@@ -63,4 +63,14 @@ class DatingRepoImpl extends DatingRepo {
       return left(AppFailure.fromException(e));
     }
   }
+
+  @override
+  Future<Either<Failure, Unit>> requestConnection(String uid) async {
+    try {
+      await datingRemoteDataSource.requestConnection(uid);
+      return right(unit);
+    } catch (e) {
+      return left(AppFailure.fromException(e));
+    }
+  }
 }

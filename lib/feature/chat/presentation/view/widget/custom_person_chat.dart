@@ -67,10 +67,7 @@ class CustomPersonChat extends StatelessWidget {
                       style: Styling.messageNumberStyle,
                     ),
                   )
-                : SizedBox(
-                  height: AppDimensions.h10,
-                  width: AppDimensions.r25,
-                ),
+                : SizedBox(height: AppDimensions.h10, width: AppDimensions.r25),
           ],
         ),
       ),

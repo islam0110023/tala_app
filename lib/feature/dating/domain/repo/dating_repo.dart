@@ -12,4 +12,5 @@ abstract class DatingRepo {
   Future<Either<Failure, Unit>> saveScroll(int scrollAmount);
   Future<Either<Failure, int>> getTodayScrollCount();
   Future<Either<Failure, Unit>> resetScrollIfNewDay();
+  Future<Either<Failure, Unit>> requestConnection(String uid);
 }
