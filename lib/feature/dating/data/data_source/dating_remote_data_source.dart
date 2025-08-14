@@ -8,11 +8,12 @@ import 'package:tala_app/feature/dating/data/model/match_user_model.dart';
 import 'package:tala_app/feature/dating/domain/entity/match_user_entity.dart';
 import 'package:tala_app/feature/dating/domain/entity/user_data_entity.dart';
 import 'package:tala_app/feature/dating/domain/params/match_user_params.dart';
+import 'package:tala_app/feature/dating/domain/params/request_params.dart';
 
 abstract class DatingRemoteDataSource {
   Future<UserDataEntity> getUserVector(String uid);
   Future<List<MatchUserEntity>> getMatchesUser(MatchUserParams params);
-  Future<Unit> requestConnection(String uid);
+  Future<Unit> requestConnection(RequestParams params);
 }
 
 class DatingRemoteDataSourceImpl extends DatingRemoteDataSource {
@@ -73,9 +74,15 @@ class DatingRemoteDataSourceImpl extends DatingRemoteDataSource {
   }
 
   @override
-  Future<Unit> requestConnection(String uid) async {
+  Future<Unit> requestConnection(RequestParams params) async {
     final currentUid = FirebaseAuth.instance.currentUser!.uid;
-    final String chatId = AppConstant.createMexIds(currentUid, uid);
+    final String chatId = AppConstant.createMexIds(currentUid, params.uid);
+    final currentUserDoc = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(currentUid)
+        .get();
+    final otherUserData = currentUserDoc.data() as Map<String, dynamic>;
+
     final chatRef = FirebaseFirestore.instance.collection('chats').doc(chatId);
     final docSnapshot = await chatRef.get();
     if (docSnapshot.exists) {
@@ -84,14 +91,16 @@ class DatingRemoteDataSourceImpl extends DatingRemoteDataSource {
 
     final data = {
       'fromUserId': currentUid,
-      'toUserId': uid,
-      'members': [currentUid, uid],
+      'toUserId': params.uid,
+      'names': [otherUserData['profile']['name'], params.name],
+      'photos': [otherUserData['profile']['photoUrl'] ?? '', params.photoUrl],
+      'members': [currentUid, params.uid],
       'status': 'Pending',
       'lastMessage': 'Pending Connection',
-      'lastMessageTime': FieldValue.serverTimestamp(),
+      'updatedAt': FieldValue.serverTimestamp(),
       'isConnection': false,
       'createdAt': FieldValue.serverTimestamp(),
-      'unreadCounts': {'userA': 0, 'userB': 0},
+      'unreadCounts': {currentUid: 0, params.uid: 0},
     };
     await chatRef.set(data);
     return unit;

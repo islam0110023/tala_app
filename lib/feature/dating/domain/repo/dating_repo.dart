@@ -3,6 +3,7 @@ import 'package:tala_app/core/errors/failure.dart';
 import 'package:tala_app/feature/dating/domain/entity/match_user_entity.dart';
 import 'package:tala_app/feature/dating/domain/entity/user_data_entity.dart';
 import 'package:tala_app/feature/dating/domain/params/match_user_params.dart';
+import 'package:tala_app/feature/dating/domain/params/request_params.dart';
 
 abstract class DatingRepo {
   Future<Either<Failure, UserDataEntity>> getUserVector(String uid);
@@ -12,5 +13,5 @@ abstract class DatingRepo {
   Future<Either<Failure, Unit>> saveScroll(int scrollAmount);
   Future<Either<Failure, int>> getTodayScrollCount();
   Future<Either<Failure, Unit>> resetScrollIfNewDay();
-  Future<Either<Failure, Unit>> requestConnection(String uid);
+  Future<Either<Failure, Unit>> requestConnection(RequestParams params);
 }

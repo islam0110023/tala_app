@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tala_app/core/utils/asset_image.dart';
 import 'package:tala_app/feature/dating/domain/entity/match_user_entity.dart';
+import 'package:tala_app/feature/dating/domain/params/request_params.dart';
 import 'package:tala_app/feature/dating/presentation/manager/match_user_provider.dart';
 import 'package:tala_app/feature/dating/presentation/manager/request_connection/request_connection_cubit.dart';
 import 'package:tala_app/feature/dating/presentation/view/widget/custom_image_dating_screen.dart';
@@ -58,9 +59,13 @@ class _CustomItemPageDatingState extends State<CustomItemPageDating>
       tapPosition = details.localPosition;
       showHeart = true;
     });
-    BlocProvider.of<RequestConnectionCubit>(
-      context,
-    ).requestConnection(matchUser!.uid);
+    BlocProvider.of<RequestConnectionCubit>(context).requestConnection(
+      RequestParams(
+        uid: matchUser!.uid,
+        name: matchUser.name,
+        photoUrl: matchUser.image ?? '',
+      ),
+    );
 
     Future.delayed(const Duration(seconds: 1), () {
       setState(() {

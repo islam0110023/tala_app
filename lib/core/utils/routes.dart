@@ -12,6 +12,7 @@ import 'package:tala_app/feature/auth/presentation/view/login_screen.dart';
 import 'package:tala_app/feature/auth/presentation/view/new_password_screen.dart';
 import 'package:tala_app/feature/auth/presentation/view/otp_screen.dart';
 import 'package:tala_app/feature/auth/presentation/view/register_screen.dart';
+import 'package:tala_app/feature/chat/presentation/manager/chats/chats_cubit.dart';
 import 'package:tala_app/feature/chat/presentation/view/chat_screen.dart';
 import 'package:tala_app/feature/chat/presentation/view/chats_screen.dart';
 import 'package:tala_app/feature/dating/presentation/manager/get_matches_user/get_matches_user_cubit.dart';
@@ -51,7 +52,6 @@ class AppRoutes {
   static const profileLike2Screen = '/profile_like_2_screen';
   static const onBoardingTalaScreen = '/onboarding_tala_screen';
   static const otpScreen = '/otp_screen';
-  static const chatsScreen = '/chats_screen';
   static const chatScreen = '/chat_screen';
   static const forgetPasswordScreen = '/forget_password_screen';
   static const homeScreen = '/home_screen';
@@ -189,10 +189,6 @@ class AppRoutes {
         },
       ),
       GoRoute(
-        path: chatsScreen,
-        builder: (context, state) => const ChatsScreen(),
-      ),
-      GoRoute(
         path: chatScreen,
         builder: (context, state) => const ChatScreen(),
       ),
@@ -203,6 +199,7 @@ class AppRoutes {
             BlocProvider(create: (context) => GetUserVectorCubit(getIt())),
             BlocProvider(create: (context) => GetMatchesUserCubit(getIt())),
             BlocProvider(create: (context) => RequestConnectionCubit(getIt())),
+            BlocProvider(create: (context) => ChatsCubit(getIt())),
           ],
           child: const HomeScreen(),
         ),

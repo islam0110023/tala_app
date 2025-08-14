@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:tala_app/core/utils/app_color.dart';
 import 'package:tala_app/core/utils/app_dimensions.dart';
@@ -5,14 +6,16 @@ import 'package:tala_app/core/utils/app_dimensions.dart';
 class CustomChatImageContainer extends StatelessWidget {
   const CustomChatImageContainer({
     super.key,
-    required this.img,
+    this.img,
     required this.radius,
     this.withBorder = false,
+    this.image,
   });
-  final AssetImage img;
+  final AssetImage? img;
   final double radius;
 
   final bool withBorder;
+  final String? image;
 
   @override
   Widget build(BuildContext context) {
@@ -25,8 +28,25 @@ class CustomChatImageContainer extends StatelessWidget {
         border: (withBorder)
             ? Border.all(color: AppColor.kGray, width: AppDimensions.r2)
             : null,
-        image: DecorationImage(image: img, fit: BoxFit.cover),
+        image: (image == null)
+            ? DecorationImage(image: img!, fit: BoxFit.cover)
+            : null,
       ),
+      child: (image != null)
+          ? ClipRRect(
+              borderRadius: BorderRadius.circular(180),
+              child: CachedNetworkImage(
+                imageUrl: image!.isEmpty
+                    ? 'https://media.istockphoto.com/id/2151669184/vector/vector-flat-illustration-in-grayscale-avatar-user-profile-person-icon-gender-neutral.jpg?s=612x612&w=0&k=20&c=UEa7oHoOL30ynvmJzSCIPrwwopJdfqzBs0q69ezQoM8='
+                    : image!,
+                fit: BoxFit.cover,
+                errorWidget: (context, url, error) =>
+                    const Icon(Icons.error, color: Colors.red),
+                placeholder: (context, url) =>
+                    const Center(child: CircularProgressIndicator()),
+              ),
+            )
+          : null,
     );
   }
 }

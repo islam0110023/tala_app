@@ -5,6 +5,7 @@ import 'package:tala_app/feature/dating/data/data_source/dating_remote_data_sour
 import 'package:tala_app/feature/dating/domain/entity/match_user_entity.dart';
 import 'package:tala_app/feature/dating/domain/entity/user_data_entity.dart';
 import 'package:tala_app/feature/dating/domain/params/match_user_params.dart';
+import 'package:tala_app/feature/dating/domain/params/request_params.dart';
 import 'package:tala_app/feature/dating/domain/repo/dating_repo.dart';
 
 class DatingRepoImpl extends DatingRepo {
@@ -65,9 +66,9 @@ class DatingRepoImpl extends DatingRepo {
   }
 
   @override
-  Future<Either<Failure, Unit>> requestConnection(String uid) async {
+  Future<Either<Failure, Unit>> requestConnection(RequestParams params) async {
     try {
-      await datingRemoteDataSource.requestConnection(uid);
+      await datingRemoteDataSource.requestConnection(params);
       return right(unit);
     } catch (e) {
       return left(AppFailure.fromException(e));

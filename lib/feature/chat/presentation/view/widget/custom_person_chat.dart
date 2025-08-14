@@ -4,25 +4,16 @@ import 'package:tala_app/core/utils/app_color.dart';
 import 'package:tala_app/core/utils/app_dimensions.dart';
 import 'package:tala_app/core/utils/routes.dart';
 import 'package:tala_app/core/utils/styling.dart';
+import 'package:tala_app/core/widget/date_time_extention.dart';
+import 'package:tala_app/feature/chat/presentation/manager/chats_provider.dart';
 import 'package:tala_app/feature/chat/presentation/view/widget/custom_chat_image_container.dart';
 
 class CustomPersonChat extends StatelessWidget {
-  const CustomPersonChat({
-    super.key,
-    required this.img,
-    required this.name,
-    required this.message,
-    required this.time,
-    required this.number,
-  });
-  final AssetImage img;
-  final String name;
-  final String message;
-  final String time;
-  final int number;
+  const CustomPersonChat({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final details = ChatDataProvider.of(context) as ChatDataProvider?;
     return ListTile(
       onTap: () {
         GoRouter.of(context).push(AppRoutes.chatScreen);
@@ -30,21 +21,24 @@ class CustomPersonChat extends StatelessWidget {
       contentPadding: EdgeInsets.zero,
 
       leading: CustomChatImageContainer(
-        img: img,
+        image: details?.chat.photoUrl ?? '',
         radius: AppDimensions.r55,
         withBorder: true,
       ),
-      title: Text(name, style: Styling.nameChatStyle),
-      subtitle: Text(message, style: Styling.chatsHintStyle),
+      title: Text(details!.chat.name, style: Styling.nameChatStyle),
+      subtitle: Text(details.chat.lastMessage, style: Styling.chatsHintStyle),
       trailing: FittedBox(
         fit: BoxFit.scaleDown,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(time, style: Styling.timeChatStyle),
+            Text(
+              details.chat.updatedAt.toChatTime(),
+              style: Styling.timeChatStyle,
+            ),
             SizedBox(height: AppDimensions.h6),
-            number != 0
+            details.chat.unreadCount != 0
                 ? Container(
                     padding: EdgeInsets.symmetric(
                       horizontal: AppDimensions.r5,
@@ -63,7 +57,9 @@ class CustomPersonChat extends StatelessWidget {
                       ],
                     ),
                     child: Text(
-                      number > 99 ? '+99' : number.toString(),
+                      details.chat.unreadCount > 99
+                          ? '+99'
+                          : details.chat.unreadCount.toString(),
                       style: Styling.messageNumberStyle,
                     ),
                   )

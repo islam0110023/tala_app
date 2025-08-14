@@ -9,6 +9,10 @@ import 'package:tala_app/feature/auth/domain/usecases/login_with_google_use_case
 import 'package:tala_app/feature/auth/domain/usecases/register_use_case.dart';
 import 'package:tala_app/feature/auth/domain/usecases/reset_password_use_case.dart';
 import 'package:tala_app/feature/auth/domain/usecases/save_user_auth_use_case.dart';
+import 'package:tala_app/feature/chat/data/data_source/chats_remote_data_source.dart';
+import 'package:tala_app/feature/chat/data/repo/chats_repo_impl.dart';
+import 'package:tala_app/feature/chat/domain/repo/chats_repo.dart';
+import 'package:tala_app/feature/chat/domain/usa_case/get_chats_use_case.dart';
 import 'package:tala_app/feature/dating/data/data_source/dating_local_data_source.dart';
 import 'package:tala_app/feature/dating/data/data_source/dating_remote_data_source.dart';
 import 'package:tala_app/feature/dating/data/repo/dating_repo_impl.dart';
@@ -41,12 +45,17 @@ void setUpServices() {
   );
   getIt.registerLazySingleton<DatingLocalDataSource>(
     () => DatingLocalDataSourceImpl(),
-  ); // Repo
+  );
+  getIt.registerLazySingleton<ChatsRemoteDataSource>(
+    () => ChatsRemoteDataSourceImpl(),
+  );
+  // Repo
   getIt.registerLazySingleton<AuthRepo>(() => AuthRepoImpl(getIt()));
   getIt.registerLazySingleton<ProfileRepo>(() => ProfileRepoImpl(getIt()));
   getIt.registerLazySingleton<DatingRepo>(
     () => DatingRepoImpl(getIt(), getIt()),
   );
+  getIt.registerLazySingleton<ChatsRepo>(() => ChatsRepoImpl(getIt()));
 
   // UseCases
   getIt.registerLazySingleton(() => RegisterUseCase(getIt()));
@@ -64,4 +73,5 @@ void setUpServices() {
   getIt.registerLazySingleton(() => GetTodayScrollCountUsaCase(getIt()));
   getIt.registerLazySingleton(() => ResetScrollIfNewDayUseCase(getIt()));
   getIt.registerLazySingleton(() => RequestConnectionUseCase(getIt()));
+  getIt.registerLazySingleton(() => GetChatsUseCase(getIt()));
 }
