@@ -38,6 +38,9 @@ class CustomTextField extends StatelessWidget {
         ],
       ),
       child: TextFormField(
+        onTapOutside: (event) {
+          FocusScope.of(context).unfocus();
+        },
         validator: (value) {
           if (value == null || value.isEmpty) {
             return '${LocaleKeys.please_enter.tr()} $hint';
@@ -53,11 +56,11 @@ class CustomTextField extends StatelessWidget {
         keyboardType: textInputType,
         decoration: InputDecoration(
           suffixIcon: Padding(
-            padding:  EdgeInsets.symmetric(horizontal: AppDimensions.r15),
-            child: Icon(suffixIcon,size: AppDimensions.r24,),
+            padding: EdgeInsets.symmetric(horizontal: AppDimensions.r15),
+            child: Icon(suffixIcon, size: AppDimensions.r24),
           ),
           hintText: hint,
-          
+
           fillColor: AppColor.kTextFieldColor,
           filled: true,
           hintStyle: Styling.textStyle13,

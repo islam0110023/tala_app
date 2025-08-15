@@ -12,9 +12,10 @@ import 'package:tala_app/feature/auth/presentation/view/login_screen.dart';
 import 'package:tala_app/feature/auth/presentation/view/new_password_screen.dart';
 import 'package:tala_app/feature/auth/presentation/view/otp_screen.dart';
 import 'package:tala_app/feature/auth/presentation/view/register_screen.dart';
+import 'package:tala_app/feature/chat/presentation/manager/apply_connection/apply_connection_cubit.dart';
 import 'package:tala_app/feature/chat/presentation/manager/chats/chats_cubit.dart';
+import 'package:tala_app/feature/chat/presentation/manager/check_connection/check_connection_cubit.dart';
 import 'package:tala_app/feature/chat/presentation/view/chat_screen.dart';
-import 'package:tala_app/feature/chat/presentation/view/chats_screen.dart';
 import 'package:tala_app/feature/dating/presentation/manager/get_matches_user/get_matches_user_cubit.dart';
 import 'package:tala_app/feature/dating/presentation/manager/get_user_vector/get_user_vector_cubit.dart';
 import 'package:tala_app/feature/dating/presentation/manager/request_connection/request_connection_cubit.dart';
@@ -190,7 +191,15 @@ class AppRoutes {
       ),
       GoRoute(
         path: chatScreen,
-        builder: (context, state) => const ChatScreen(),
+        builder: (context, state) => MultiBlocProvider(
+          providers: [
+            BlocProvider(create: (context) => CheckConnectionCubit(getIt())),
+            BlocProvider(
+              create: (context) => ApplyConnectionCubit(getIt(), getIt()),
+            ),
+          ],
+          child: const ChatScreen(),
+        ),
       ),
       GoRoute(
         path: homeScreen,

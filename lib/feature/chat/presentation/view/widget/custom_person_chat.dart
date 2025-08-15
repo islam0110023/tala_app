@@ -16,7 +16,7 @@ class CustomPersonChat extends StatelessWidget {
     final details = ChatDataProvider.of(context) as ChatDataProvider?;
     return ListTile(
       onTap: () {
-        GoRouter.of(context).push(AppRoutes.chatScreen);
+        GoRouter.of(context).push(AppRoutes.chatScreen, extra: details.chat);
       },
       contentPadding: EdgeInsets.zero,
 

@@ -12,7 +12,10 @@ import 'package:tala_app/feature/auth/domain/usecases/save_user_auth_use_case.da
 import 'package:tala_app/feature/chat/data/data_source/chats_remote_data_source.dart';
 import 'package:tala_app/feature/chat/data/repo/chats_repo_impl.dart';
 import 'package:tala_app/feature/chat/domain/repo/chats_repo.dart';
+import 'package:tala_app/feature/chat/domain/usa_case/accept_connection_use_case.dart';
+import 'package:tala_app/feature/chat/domain/usa_case/check_connection_use_case.dart';
 import 'package:tala_app/feature/chat/domain/usa_case/get_chats_use_case.dart';
+import 'package:tala_app/feature/chat/domain/usa_case/not_connection_use_case.dart';
 import 'package:tala_app/feature/dating/data/data_source/dating_local_data_source.dart';
 import 'package:tala_app/feature/dating/data/data_source/dating_remote_data_source.dart';
 import 'package:tala_app/feature/dating/data/repo/dating_repo_impl.dart';
@@ -74,4 +77,7 @@ void setUpServices() {
   getIt.registerLazySingleton(() => ResetScrollIfNewDayUseCase(getIt()));
   getIt.registerLazySingleton(() => RequestConnectionUseCase(getIt()));
   getIt.registerLazySingleton(() => GetChatsUseCase(getIt()));
+  getIt.registerLazySingleton(() => CheckConnectionUseCase(getIt()));
+  getIt.registerLazySingleton(() => NotConnectionUseCase(getIt()));
+  getIt.registerLazySingleton(() => AcceptConnectionUseCase(getIt()));
 }
