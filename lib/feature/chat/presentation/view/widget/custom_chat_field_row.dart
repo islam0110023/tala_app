@@ -4,6 +4,7 @@ import 'package:tala_app/core/utils/app_color.dart';
 import 'package:tala_app/core/utils/app_dimensions.dart';
 import 'package:tala_app/core/utils/styling.dart';
 import 'package:tala_app/feature/chat/presentation/view/widget/custom_rounded_chat_icon_button.dart';
+import 'package:tala_app/feature/chat/presentation/view/widget/custom_text_field_chat.dart';
 import 'package:tala_app/generated/locale_keys.g.dart';
 
 class CustomChatFieldRow extends StatelessWidget {
@@ -12,6 +13,7 @@ class CustomChatFieldRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         Expanded(
           child: Container(
@@ -28,42 +30,10 @@ class CustomChatFieldRow extends StatelessWidget {
                 ),
               ],
             ),
-            child: TextField(
-              decoration: InputDecoration(
-                hintText: LocaleKeys.type_a_message.tr(),
-                hintStyle: Styling.chatFieldStyle,
-                suffixIcon: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    IconButton(
-                      icon: Icon(
-                        Icons.attach_file_rounded,
-                        color: AppColor.kPrimaryPink,
-                        size: AppDimensions.r24,
-                      ),
-                      onPressed: () {},
-                    ),
-                    IconButton(
-                      icon: Icon(
-                        Icons.camera_alt_rounded,
-                        color: AppColor.kPrimaryPink,
-                        size: AppDimensions.r24,
-                      ),
-                      onPressed: () {},
-                    ),
-                  ],
-                ),
-                prefixIcon: IconButton(
-                  icon: Icon(
-                    Icons.tag_faces_rounded,
-                    color: AppColor.kPrimaryPink,
-                    size: AppDimensions.r24,
-                  ),
-                  onPressed: () {},
-                ),
-                border: InputBorder.none,
-              ),
+            child: CustomTextFieldChat(
+              controller: TextEditingController(),
+              onPressedFile: () {},
+              onPressedCamera: () {},
             ),
           ),
         ),
