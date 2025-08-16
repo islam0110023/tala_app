@@ -15,6 +15,7 @@ import 'package:tala_app/feature/auth/presentation/view/register_screen.dart';
 import 'package:tala_app/feature/chat/presentation/manager/apply_connection/apply_connection_cubit.dart';
 import 'package:tala_app/feature/chat/presentation/manager/chats/chats_cubit.dart';
 import 'package:tala_app/feature/chat/presentation/manager/check_connection/check_connection_cubit.dart';
+import 'package:tala_app/feature/chat/presentation/manager/message_cubit/message_cubit.dart';
 import 'package:tala_app/feature/chat/presentation/view/chat_screen.dart';
 import 'package:tala_app/feature/dating/presentation/manager/get_matches_user/get_matches_user_cubit.dart';
 import 'package:tala_app/feature/dating/presentation/manager/get_user_vector/get_user_vector_cubit.dart';
@@ -196,6 +197,9 @@ class AppRoutes {
             BlocProvider(create: (context) => CheckConnectionCubit(getIt())),
             BlocProvider(
               create: (context) => ApplyConnectionCubit(getIt(), getIt()),
+            ),
+            BlocProvider(
+              create: (context) => MessageCubit(getIt(), getIt(), getIt()),
             ),
           ],
           child: const ChatScreen(),

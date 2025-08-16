@@ -250,10 +250,15 @@ abstract class Styling {
     fontWeight: FontWeight.w600,
   );
   static final textStyleDating20 = TextStyle(
-    color: AppColor.kColorDatingTitle ,
+    color: AppColor.kColorDatingTitle,
     fontSize: 20.sp,
     fontFamily: AppConstant.kFontFamily,
     fontWeight: FontWeight.w700,
   );
-
+  static final textStyleChat12 = TextStyle(
+    color: AppColor.kPrimaryPink,
+    fontSize: 12.sp,
+    fontFamily: AppConstant.kFontFamily,
+    fontWeight: FontWeight.w700,
+  );
 }

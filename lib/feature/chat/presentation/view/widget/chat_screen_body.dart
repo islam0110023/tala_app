@@ -1,15 +1,17 @@
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
+import 'package:chatview/chatview.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:tala_app/core/utils/app_dimensions.dart';
 import 'package:tala_app/core/utils/constants.dart';
 import 'package:tala_app/core/utils/styling.dart';
 import 'package:tala_app/feature/chat/domain/entities/chats_entity.dart';
 import 'package:tala_app/feature/chat/presentation/manager/apply_connection/apply_connection_cubit.dart';
 import 'package:tala_app/feature/chat/presentation/manager/check_connection/check_connection_cubit.dart';
-import 'package:tala_app/feature/chat/presentation/view/widget/custom_chat_field_row.dart';
-import 'package:tala_app/feature/chat/presentation/view/widget/custom_header_chat_row.dart';
+import 'package:tala_app/feature/chat/presentation/manager/message_cubit/message_cubit.dart';
+import 'package:tala_app/feature/chat/presentation/view/widget/test_chat.dart';
 
 class ChatScreenBody extends StatefulWidget {
   const ChatScreenBody({super.key});
@@ -20,70 +22,107 @@ class ChatScreenBody extends StatefulWidget {
 
 class _ChatScreenBodyState extends State<ChatScreenBody> {
   late final ChatEntity chat;
+  late ChatController chatController;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     chat = GoRouter.of(context).state.extra as ChatEntity;
     context.read<CheckConnectionCubit>().checkConnection(chat.uid);
+    chatController = ChatController(
+      initialMessageList: [],
+      scrollController: ScrollController(),
+      otherUsers: [
+        ChatUser(
+          id: chat.uid,
+          name: chat.name,
+          profilePhoto: chat.photoUrl.isEmpty
+              ? 'https://media.istockphoto.com/id/2151669184/vector/vector-flat-illustration-in-grayscale-avatar-user-profile-person-icon-gender-neutral.jpg?s=612x612&w=0&k=20&c=UEa7oHoOL30ynvmJzSCIPrwwopJdfqzBs0q69ezQoM8='
+              : chat.photoUrl,
+          imageType: ImageType.network,
+          defaultAvatarImage:
+              'https://media.istockphoto.com/id/2151669184/vector/vector-flat-illustration-in-grayscale-avatar-user-profile-person-icon-gender-neutral.jpg?s=612x612&w=0&k=20&c=UEa7oHoOL30ynvmJzSCIPrwwopJdfqzBs0q69ezQoM8=',
+        ),
+      ],
+      currentUser: ChatUser(
+        id: FirebaseAuth.instance.currentUser!.uid,
+        name: chat.currentUName,
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    chatController.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: GestureDetector(
-        onTap: () {
-          FocusScope.of(context).unfocus();
+    return BlocListener<ApplyConnectionCubit, ApplyConnectionState>(
+      listener: (context, state) {
+        if (state is NotConnectionSuccess) {
+          if (context.canPop()) {
+            context.pop();
+          }
+          context.pop();
+        }
+        if (state is AcceptConnectionSuccess) {
+          if (context.canPop()) {
+            context.pop();
+          }
+          AppConstant.buildShowSnackBar(
+            context,
+            'You are now connected with ${chat.name}. Start chatting!',
+            ContentType.success,
+            'congrats',
+          );
+        }
+      },
+      child: BlocConsumer<CheckConnectionCubit, CheckConnectionState>(
+        listener: (context, state) {
+          if (state is CheckConnectionNotConnection) {
+            buildAlertDialog(context, context.read<ApplyConnectionCubit>());
+          }
+          if (state is CheckConnectionNoConnectionFromUser) {
+            buildAlertDialogFromUser(context);
+          }
+          if (state is CheckConnectionIsConnection) {
+            context.read<MessageCubit>().loadMessages(chat.chatId);
+          }
         },
-        child: Padding(
-          padding: EdgeInsetsGeometry.symmetric(horizontal: AppDimensions.r24),
-          child: Column(
-            children: [
-              const CustomHeaderChatRow(),
-              SizedBox(height: AppDimensions.h30),
-              BlocListener<ApplyConnectionCubit, ApplyConnectionState>(
-                listener: (context, state) {
-                  if (state is NotConnectionSuccess) {
-                    if (context.canPop()) {
-                      context.pop();
-                    }
-                    context.pop();
-                  }
-                  if (state is AcceptConnectionSuccess) {
-                    if (context.canPop()) {
-                      context.pop();
-                    }
-                    AppConstant.buildShowSnackBar(
-                      context,
-                      'You are now connected with ${chat.name}. Start chatting!',
-                      ContentType.success,
-                      'congrats',
-                    );
-                  }
+        builder: (context, state) {
+          return BlocBuilder<MessageCubit, MessageState>(
+            builder: (context, state) {
+              chatController.initialMessageList.clear();
+              chatController.initialMessageList.addAll(state.messages);
+              return CustomChatView(
+                chatController: chatController,
+                onSendTap: (message, replyMessage, messageType) {
+                  final newMessage = Message(
+                    id: FirebaseFirestore.instance
+                        .collection('chats')
+                        .doc(chat.chatId)
+                        .collection('messages')
+                        .doc()
+                        .id,
+                    message: message,
+                    createdAt: DateTime.now(),
+                    sentBy: FirebaseAuth.instance.currentUser!.uid,
+                    replyMessage: replyMessage,
+                    messageType: messageType,
+                    status: MessageStatus.pending,
+                  );
+                  context.read<MessageCubit>().sendMessage(
+                    chat.chatId,
+                    newMessage,
+                  );
                 },
-                child: BlocConsumer<CheckConnectionCubit, CheckConnectionState>(
-                  listener: (context, state) {
-                    if (state is CheckConnectionNotConnection) {
-                      buildAlertDialog(
-                        context,
-                        context.read<ApplyConnectionCubit>(),
-                      );
-                    }
-                    if (state is CheckConnectionNoConnectionFromUser) {
-                      buildAlertDialogFromUser(context);
-                    }
-                  },
-                  builder: (context, state) {
-                    return Expanded(child: ListView());
-                  },
-                ),
-              ),
-
-              const CustomChatFieldRow(),
-              SizedBox(height: AppDimensions.h12),
-            ],
-          ),
-        ),
+              );
+            },
+          );
+        },
       ),
     );
   }
