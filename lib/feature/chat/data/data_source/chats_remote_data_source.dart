@@ -107,6 +107,24 @@ class ChatsRemoteDataSourceImpl extends ChatsRemoteDataSource {
       final url = await getUrl(filePath, file);
       param.message = param.message.copyWith(message: url);
     }
+    if (param.message.replyMessage.messageType.isImage) {
+      final File file = File(param.message.replyMessage.message);
+      final String filePath =
+          'chats/images/${param.message.replyMessage.messageId}.jpg';
+      final url = await getUrl(filePath, file);
+      param.message = param.message.copyWith(
+        replyMessage: param.message.replyMessage.copyWith(message: url),
+      );
+    }
+    if (param.message.replyMessage.messageType.isVoice) {
+      final File file = File(param.message.replyMessage.message);
+      final String filePath =
+          'chats/voices/${param.message.replyMessage.messageId}.m4a';
+      final url = await getUrl(filePath, file);
+      param.message = param.message.copyWith(
+        replyMessage: param.message.replyMessage.copyWith(message: url),
+      );
+    }
     await FirebaseFirestore.instance
         .collection('chats')
         .doc(param.chatId)
@@ -221,6 +239,19 @@ class ChatsRemoteDataSourceImpl extends ChatsRemoteDataSource {
                     message.messageType,
                   );
                   message = message.copyWith(message: localUrl);
+                }
+                if (message.replyMessage.messageType.isVoice ||
+                    message.replyMessage.messageType.isImage) {
+                  final localUrl = await downloadFile(
+                    message.replyMessage.message,
+                    message.replyMessage.messageId,
+                    message.replyMessage.messageType,
+                  );
+                  message = message.copyWith(
+                    replyMessage: message.replyMessage.copyWith(
+                      message: localUrl,
+                    ),
+                  );
                 }
                 return message;
               }),
