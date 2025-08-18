@@ -20,7 +20,6 @@ class MessageCubit extends Cubit<MessageState> {
   final SendMessageUseCase sendMessageUseCase;
   final GetMessagesUseCase getMessagesUseCase;
   final UpdateMessageStatusUseCase updateMessageStatusUseCase;
-  Map<String,String> localFilePaths = {};
   StreamSubscription? messagesSub;
   void loadMessages(String chatId) {
     emit(state.copyWith(isLoading: true));
@@ -40,9 +39,7 @@ class MessageCubit extends Cubit<MessageState> {
   }
 
   void sendMessage(String chatId, Message message) {
-    if (message.messageType.isVoice || message.messageType.isImage) {
-      localFilePaths[message.id] = message.message;
-    }
+
     final tempList = List<Message>.from(state.messages)..add(message);
     emit(state.copyWith(messages: tempList));
 

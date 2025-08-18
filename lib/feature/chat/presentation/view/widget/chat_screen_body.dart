@@ -95,47 +95,72 @@ class _ChatScreenBodyState extends State<ChatScreenBody> {
         builder: (context, state) {
           return BlocBuilder<MessageCubit, MessageState>(
             builder: (context, state) {
-              // chatController.initialMessageList.clear();
-              // chatController.initialMessageList.addAll(state.messages);
-              for (final msg in state.messages) {
-                if (!chatController.initialMessageList.any(
-                  (m) => m.id == msg.id,
-                )) {
-                  chatController.addMessage(msg);
-                } else {
-                  final index = chatController.initialMessageList.indexWhere(
+              if (state.messages.isNotEmpty) {
+                for (final msg in state.messages) {
+                  if (!chatController.initialMessageList.any(
                     (m) => m.id == msg.id,
-                  );
-                  if (index != -1 &&
-                      chatController.initialMessageList[index] != msg) {
-                    chatController.initialMessageList[index] = msg;
-                    // chatController.notifyListeners();
+                  )) {
+                    chatController.addMessage(msg);
+                  } else {
+                    final index = chatController.initialMessageList.indexWhere(
+                      (m) => m.id == msg.id,
+                    );
+                    if (index != -1 &&
+                        chatController.initialMessageList[index] != msg) {
+                      chatController.initialMessageList[index] = msg;
+                      // chatController.notifyListeners();
+                    }
                   }
                 }
+                return CustomChatView(
+                  chatController: chatController,
+                  chatViewState: ChatViewState.hasMessages,
+                  onSendTap: (message, replyMessage, messageType) {
+                    final newMessage = Message(
+                      id: FirebaseFirestore.instance
+                          .collection('chats')
+                          .doc(chat.chatId)
+                          .collection('messages')
+                          .doc()
+                          .id,
+                      message: message,
+                      createdAt: DateTime.now(),
+                      sentBy: FirebaseAuth.instance.currentUser!.uid,
+                      replyMessage: replyMessage,
+                      messageType: messageType,
+                      status: MessageStatus.pending,
+                    );
+                    context.read<MessageCubit>().sendMessage(
+                      chat.chatId,
+                      newMessage,
+                    );
+                  },
+                );
               }
+              if (state.isLoading) {
+                return CustomChatView(
+                  chatViewState: ChatViewState.loading,
+                  chatController: chatController,
+                );
+              }
+              if (state.errMessage?.isNotEmpty ??false) {
+                return CustomChatView(
+                  chatViewState: ChatViewState.error,
+                  chatController: chatController,
+                );
+              }
+              else{
+                if (state.isLoading && state.messages.isEmpty) {
+                  return CustomChatView(
+                    chatViewState: ChatViewState.loading,
+                    chatController: chatController,
+                  );
+                }
               return CustomChatView(
+                chatViewState: ChatViewState.noData,
                 chatController: chatController,
-                onSendTap: (message, replyMessage, messageType) {
-                  final newMessage = Message(
-                    id: FirebaseFirestore.instance
-                        .collection('chats')
-                        .doc(chat.chatId)
-                        .collection('messages')
-                        .doc()
-                        .id,
-                    message: message,
-                    createdAt: DateTime.now(),
-                    sentBy: FirebaseAuth.instance.currentUser!.uid,
-                    replyMessage: replyMessage,
-                    messageType: messageType,
-                    status: MessageStatus.pending,
-                  );
-                  context.read<MessageCubit>().sendMessage(
-                    chat.chatId,
-                    newMessage,
-                  );
-                },
               );
+              }
             },
           );
         },

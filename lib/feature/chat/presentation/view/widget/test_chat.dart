@@ -15,7 +15,7 @@ class CustomChatView extends StatelessWidget {
     this.chatController,
     this.onTypeWriterStatus,
     this.status,
-    this.onReactionTap,
+    this.onReactionTap, this.chatViewState,
   });
   final void Function(
     String message,
@@ -28,6 +28,7 @@ class CustomChatView extends StatelessWidget {
   final void Function(TypeWriterStatus typeWriterStatus)? onTypeWriterStatus;
   final String? status;
   final void Function(Message message, String emoje)? onReactionTap;
+  final ChatViewState? chatViewState;
 
   @override
   Widget build(BuildContext context) {
@@ -41,9 +42,11 @@ class CustomChatView extends StatelessWidget {
           enableOtherUserProfileAvatar: false,
           enableOtherUserName: false,
           lastSeenAgoBuilderVisibility: false,
-          receiptsBuilderVisibility: true,
+          enablePagination: true,
+          enableScrollToBottomButton: true
+
         ),
-        chatViewState: ChatViewState.hasMessages,
+        chatViewState: chatViewState!,
         appBar: ChatViewAppBar(
           profilePicture: chatController!.otherUsers[0].profilePhoto,
           chatTitle: chatController!.otherUsers[0].name,
