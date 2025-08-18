@@ -95,8 +95,24 @@ class _ChatScreenBodyState extends State<ChatScreenBody> {
         builder: (context, state) {
           return BlocBuilder<MessageCubit, MessageState>(
             builder: (context, state) {
-              chatController.initialMessageList.clear();
-              chatController.initialMessageList.addAll(state.messages);
+              // chatController.initialMessageList.clear();
+              // chatController.initialMessageList.addAll(state.messages);
+              for (final msg in state.messages) {
+                if (!chatController.initialMessageList.any(
+                  (m) => m.id == msg.id,
+                )) {
+                  chatController.addMessage(msg);
+                } else {
+                  final index = chatController.initialMessageList.indexWhere(
+                    (m) => m.id == msg.id,
+                  );
+                  if (index != -1 &&
+                      chatController.initialMessageList[index] != msg) {
+                    chatController.initialMessageList[index] = msg;
+                    // chatController.notifyListeners();
+                  }
+                }
+              }
               return CustomChatView(
                 chatController: chatController,
                 onSendTap: (message, replyMessage, messageType) {

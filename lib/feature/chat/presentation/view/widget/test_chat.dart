@@ -15,6 +15,7 @@ class CustomChatView extends StatelessWidget {
     this.chatController,
     this.onTypeWriterStatus,
     this.status,
+    this.onReactionTap,
   });
   final void Function(
     String message,
@@ -26,11 +27,13 @@ class CustomChatView extends StatelessWidget {
   final ChatController? chatController;
   final void Function(TypeWriterStatus typeWriterStatus)? onTypeWriterStatus;
   final String? status;
+  final void Function(Message message, String emoje)? onReactionTap;
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: ChatView(
+        isLastPage: true,
         chatController: chatController!,
         onSendTap: onSendTap,
         loadMoreData: loadMoreData,
@@ -176,6 +179,7 @@ class CustomChatView extends StatelessWidget {
         ),
         reactionPopupConfig: ReactionPopupConfiguration(
           backgroundColor: Colors.white,
+          userReactionCallback: onReactionTap,
           shadow: BoxShadow(color: Colors.grey.withAlpha(64), blurRadius: 10),
         ),
 

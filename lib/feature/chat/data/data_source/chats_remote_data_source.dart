@@ -1,7 +1,13 @@
+import 'dart:async';
+import 'dart:io';
+
 import 'package:chatview/chatview.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:tala_app/core/utils/constants.dart';
 import 'package:tala_app/feature/chat/domain/entities/chats_entity.dart';
 import 'package:tala_app/feature/chat/domain/entities/check_entity.dart';
@@ -89,6 +95,18 @@ class ChatsRemoteDataSourceImpl extends ChatsRemoteDataSource {
 
   @override
   Future<Unit> sendMessage(SendMessageParam param) async {
+    if (param.message.messageType.isVoice) {
+      final File file = File(param.message.message);
+      final String filePath = 'chats/voices/${param.message.id}.m4a';
+      final url = await getUrl(filePath, file);
+      param.message = param.message.copyWith(message: url);
+    }
+    if (param.message.messageType.isImage) {
+      final File file = File(param.message.message);
+      final String filePath = 'chats/images/${param.message.id}.jpg';
+      final url = await getUrl(filePath, file);
+      param.message = param.message.copyWith(message: url);
+    }
     await FirebaseFirestore.instance
         .collection('chats')
         .doc(param.chatId)
@@ -99,18 +117,183 @@ class ChatsRemoteDataSourceImpl extends ChatsRemoteDataSource {
     return unit;
   }
 
+  Future<String> getUrl(String filePath, File file) async {
+    final ref = FirebaseStorage.instance.ref().child(filePath);
+    await ref.putFile(file);
+    final getUrl = await ref.getDownloadURL();
+    return getUrl;
+  }
+
+  // @override
+  // Stream<List<Message>> getMessages(String chatId) {
+  //   return FirebaseFirestore.instance
+  //       .collection('chats')
+  //       .doc(chatId)
+  //       .collection('messages')
+  //       .orderBy('createdAt')
+  //       .snapshots()
+  //       .asyncMap(
+  //         (snapshot) => snapshot.docs.map((doc) {
+  //           var message = Message.fromJson(doc.data());
+  //           if (message.messageType.isVoice) {
+  //             final localUrl = downloadVoiceFile(message.message, message.id);
+  //             message = message.copyWith(message: await localUrl);
+  //           }
+  //
+  //           return message;
+  //         }).toList(),
+  //       );
+  // }
+
+  // @override
+  // Stream<List<Message>> getMessages(String chatId) {
+  //   return FirebaseFirestore.instance
+  //       .collection('chats')
+  //       .doc(chatId)
+  //       .collection('messages')
+  //       .orderBy('createdAt')
+  //       .snapshots()
+  //       .asyncMap((snapshot) async {
+  //         final messages = await Future.wait(
+  //           snapshot.docs.map((doc) async {
+  //             var message = Message.fromJson(doc.data());
+  //             if (message.messageType.isVoice) {
+  //               final localUrl = await downloadVoiceFile(
+  //                 message.message,
+  //                 message.id,
+  //               );
+  //               message = message.copyWith(message: localUrl);
+  //             }
+  //             return message;
+  //           }),
+  //         );
+  //
+  //         return messages;
+  //       });
+  // }
+  // مثال توضيحي لكيفية عمل الكود
+  // Stream<List<Message>> getMessages(String chatId) {
+  //   final messageStreamController = StreamController<List<Message>>();
+  //   FirebaseFirestore.instance
+  //       .collection('chats')
+  //       .doc(chatId)
+  //       .collection('messages')
+  //       .orderBy('createdAt')
+  //       .snapshots()
+  //       .listen((snapshot) async {
+  //         final messages = <Message>[];
+  //         for (final doc in snapshot.docs) {
+  //           var message = Message.fromJson(doc.data());
+  //           if (message.messageType.isVoice) {
+  //             final localUrl = await downloadVoiceFile(
+  //               message.message,
+  //               message.id,
+  //             );
+  //             message = message.copyWith(message: localUrl);
+  //           }
+  //           messages.add(message);
+  //         }
+  //         messageStreamController.add(messages);
+  //       });
+  //   return messageStreamController.stream;
+  // }
   @override
   Stream<List<Message>> getMessages(String chatId) {
-    return FirebaseFirestore.instance
+    final messageController = StreamController<List<Message>>();
+    final messages = <Message>[];
+
+    FirebaseFirestore.instance
         .collection('chats')
         .doc(chatId)
         .collection('messages')
         .orderBy('createdAt')
         .snapshots()
-        .map(
-          (snapshot) =>
-              snapshot.docs.map((doc) => Message.fromJson(doc.data())).toList(),
-        );
+        .listen((snapshot) async {
+          if (messages.isEmpty) {
+            final loadedMessages = await Future.wait(
+              snapshot.docs.map((doc) async {
+                var message = Message.fromJson(doc.data());
+                if (message.messageType.isVoice ||
+                    message.messageType.isImage) {
+                  final localUrl = await downloadFile(
+                    message.message,
+                    message.id,
+                    message.messageType,
+                  );
+                  message = message.copyWith(message: localUrl);
+                }
+                return message;
+              }),
+            );
+            messages.addAll(loadedMessages);
+            messageController.add(messages);
+          } else {
+            final newMessages = snapshot.docChanges
+                .where((change) => change.type == DocumentChangeType.modified)
+                .map((change) async {
+                  var message = Message.fromJson(
+                    change.doc.data() as Map<String, dynamic>,
+                  );
+                  if (message.messageType.isVoice ||
+                      message.messageType.isImage) {
+                    final localUrl = await downloadFile(
+                      message.message,
+                      message.id,
+                      message.messageType,
+                    );
+                    message = message.copyWith(message: localUrl);
+                  }
+                  return message;
+                });
+
+            final newLoadedMessages = await Future.wait(newMessages);
+            messages.addAll(newLoadedMessages);
+            messageController.add(messages);
+          }
+        });
+
+    return messageController.stream;
+  }
+
+  Future<String> downloadFile(
+    String url,
+    String fileName,
+    MessageType type,
+  ) async {
+    final dir = await getTemporaryDirectory();
+    final extension = type.isVoice ? 'm4a' : 'jpg';
+    final filePath = '${dir.path}/$fileName.$extension';
+    final file = File(filePath);
+
+    if (await file.exists()) {
+      return file.path;
+    }
+
+    await Dio().download(
+      url,
+      filePath,
+      options: Options(responseType: ResponseType.bytes),
+    );
+
+    return file.path;
+  }
+
+  Future<String> downloadVoiceFile(String url, String fileName) async {
+    final dir = await getTemporaryDirectory();
+    final filePath = '${dir.path}/$fileName.m4a';
+    final file = File(filePath);
+
+    if (await file.exists()) {
+      return file.path;
+    }
+
+    await Dio().download(
+      url,
+      filePath,
+      options: Options(responseType: ResponseType.bytes),
+    );
+
+    return file.path;
   }
 
   @override
