@@ -23,6 +23,7 @@ class ChatScreenBody extends StatefulWidget {
 class _ChatScreenBodyState extends State<ChatScreenBody> {
   late final ChatEntity chat;
   late ChatController chatController;
+  bool isLoaded = false;
   @override
   void initState() {
     // TODO: implement initState
@@ -136,16 +137,26 @@ class _ChatScreenBodyState extends State<ChatScreenBody> {
           );
         },
         buildWhen: (previous, current) =>
-            previous.isLoading != current.isLoading ||
-            previous.errMessage != current.errMessage,
+            !isLoaded &&
+            (previous.isLoading != current.isLoading ||
+                previous.messages != current.messages ||
+                previous.errMessage != current.errMessage),
         builder: (context, state) {
+          if (state.messages.isNotEmpty) {
+            isLoaded = true;
+          }
+          if (state.messages.isEmpty) {
+            isLoaded = false;
+          }
+
           return CustomChatView(
             chatController: chatController,
             chatViewState: state.isLoading || state.isConnection
                 ? ChatViewState.loading
                 : state.errMessage?.isNotEmpty ?? false
                 ? ChatViewState.error
-                : state.messages.isEmpty
+                : (state.messages.isEmpty &&
+                      chatController.initialMessageList.isEmpty)
                 ? ChatViewState.noData
                 : ChatViewState.hasMessages,
             onSendTap: (message, replyMessage, messageType) {
