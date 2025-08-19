@@ -60,107 +60,96 @@ class _ChatScreenBodyState extends State<ChatScreenBody> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<ApplyConnectionCubit, ApplyConnectionState>(
-      listener: (context, state) {
-        if (state is NotConnectionSuccess) {
-          if (context.canPop()) {
-            context.pop();
-          }
-          context.pop();
-        }
-        if (state is AcceptConnectionSuccess) {
-          if (context.canPop()) {
-            context.pop();
-          }
-          AppConstant.buildShowSnackBar(
-            context,
-            'You are now connected with ${chat.name}. Start chatting!',
-            ContentType.success,
-            'congrats',
-          );
-        }
-      },
-      child: BlocConsumer<CheckConnectionCubit, CheckConnectionState>(
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<ApplyConnectionCubit, ApplyConnectionState>(
+          listener: (context, state) {
+            if (state is NotConnectionSuccess) {
+              if (context.canPop()) {
+                context.pop();
+              }
+              context.pop();
+            }
+            if (state is AcceptConnectionSuccess) {
+              if (context.canPop()) {
+                context.pop();
+              }
+              AppConstant.buildShowSnackBar(
+                context,
+                'You are now connected with ${chat.name}. Start chatting!',
+                ContentType.success,
+                'congrats',
+              );
+            }
+          },
+        ),
+        BlocListener<CheckConnectionCubit, CheckConnectionState>(
+          listener: (context, state) {
+            if (state is CheckConnectionNotConnection) {
+              buildAlertDialog(context, context.read<ApplyConnectionCubit>());
+            }
+            if (state is CheckConnectionNoConnectionFromUser) {
+              buildAlertDialogFromUser(context);
+            }
+            if (state is CheckConnectionIsConnection) {
+              context.read<MessageCubit>().loadMessages(chat.chatId);
+              context.read<MessageCubit>().isConnection();
+            }
+          },
+        ),
+      ],
+      child: BlocConsumer<MessageCubit, MessageState>(
+        listenWhen: (previous, current) =>
+            previous.messages != current.messages ||
+            previous.isLoading != current.isLoading ||
+            previous.errMessage != current.errMessage,
         listener: (context, state) {
-          if (state is CheckConnectionNotConnection) {
-            buildAlertDialog(context, context.read<ApplyConnectionCubit>());
-          }
-          if (state is CheckConnectionNoConnectionFromUser) {
-            buildAlertDialogFromUser(context);
-          }
-          if (state is CheckConnectionIsConnection) {
-            context.read<MessageCubit>().loadMessages(chat.chatId);
+          for (final msg in state.messages) {
+            if (!chatController.initialMessageList.any((m) => m.id == msg.id)) {
+              chatController.addMessage(msg);
+            } else {
+              final index = chatController.initialMessageList.indexWhere(
+                (m) => m.id == msg.id,
+              );
+              if (index != -1 &&
+                  chatController.initialMessageList[index] != msg) {
+                chatController.initialMessageList[index].setStatus = msg.status;
+
+                chatController.initialMessageList[index].statusNotifier;
+              }
+            }
           }
         },
+        buildWhen: (previous, current) =>
+            previous.isLoading != current.isLoading ||
+            previous.errMessage != current.errMessage,
         builder: (context, state) {
-          return BlocBuilder<MessageCubit, MessageState>(
-            builder: (context, state) {
-              if (state.messages.isNotEmpty) {
-                for (final msg in state.messages) {
-                  if (!chatController.initialMessageList.any(
-                    (m) => m.id == msg.id,
-                  )) {
-                    chatController.addMessage(msg);
-                  } else {
-                    final index = chatController.initialMessageList.indexWhere(
-                      (m) => m.id == msg.id,
-                    );
-                    if (index != -1 &&
-                        chatController.initialMessageList[index] != msg) {
-                      chatController.initialMessageList[index] = msg;
-                      // chatController.notifyListeners();
-                    }
-                  }
-                }
-                return CustomChatView(
-                  chatController: chatController,
-                  chatViewState: ChatViewState.hasMessages,
-                  onSendTap: (message, replyMessage, messageType) {
-                    final newMessage = Message(
-                      id: FirebaseFirestore.instance
-                          .collection('chats')
-                          .doc(chat.chatId)
-                          .collection('messages')
-                          .doc()
-                          .id,
-                      message: message,
-                      createdAt: DateTime.now(),
-                      sentBy: FirebaseAuth.instance.currentUser!.uid,
-                      replyMessage: replyMessage,
-                      messageType: messageType,
-                      status: MessageStatus.pending,
-                    );
-                    context.read<MessageCubit>().sendMessage(
-                      chat.chatId,
-                      newMessage,
-                    );
-                  },
-                );
-              }
-              if (state.isLoading) {
-                return CustomChatView(
-                  chatViewState: ChatViewState.loading,
-                  chatController: chatController,
-                );
-              }
-              if (state.errMessage?.isNotEmpty ??false) {
-                return CustomChatView(
-                  chatViewState: ChatViewState.error,
-                  chatController: chatController,
-                );
-              }
-              else{
-                if (state.isLoading && state.messages.isEmpty) {
-                  return CustomChatView(
-                    chatViewState: ChatViewState.loading,
-                    chatController: chatController,
-                  );
-                }
-              return CustomChatView(
-                chatViewState: ChatViewState.noData,
-                chatController: chatController,
+          return CustomChatView(
+            chatController: chatController,
+            chatViewState: state.isLoading || state.isConnection
+                ? ChatViewState.loading
+                : state.errMessage?.isNotEmpty ?? false
+                ? ChatViewState.error
+                : state.messages.isEmpty
+                ? ChatViewState.noData
+                : ChatViewState.hasMessages,
+            onSendTap: (message, replyMessage, messageType) {
+              final newMessage = Message(
+                id: FirebaseFirestore.instance
+                    .collection('chats')
+                    .doc(chat.chatId)
+                    .collection('messages')
+                    .doc()
+                    .id,
+                message: message,
+                createdAt: DateTime.now(),
+                sentBy: FirebaseAuth.instance.currentUser!.uid,
+                replyMessage: replyMessage,
+                messageType: messageType,
+                status: MessageStatus.pending,
               );
-              }
+              context.read<MessageCubit>().sendMessage(chat.chatId, newMessage);
+              chatController.scrollToLastMessage();
             },
           );
         },

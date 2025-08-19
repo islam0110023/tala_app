@@ -1,4 +1,5 @@
 import 'package:chatview/chatview.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tala_app/core/utils/app_color.dart';
@@ -15,7 +16,8 @@ class CustomChatView extends StatelessWidget {
     this.chatController,
     this.onTypeWriterStatus,
     this.status,
-    this.onReactionTap, this.chatViewState,
+    this.onReactionTap,
+    this.chatViewState,
   });
   final void Function(
     String message,
@@ -43,8 +45,7 @@ class CustomChatView extends StatelessWidget {
           enableOtherUserName: false,
           lastSeenAgoBuilderVisibility: false,
           enablePagination: true,
-          enableScrollToBottomButton: true
-
+          enableScrollToBottomButton: true,
         ),
         chatViewState: chatViewState!,
         appBar: ChatViewAppBar(
@@ -74,7 +75,6 @@ class CustomChatView extends StatelessWidget {
           backgroundColor: AppColor.kWhite1,
           padding: EdgeInsets.symmetric(horizontal: AppDimensions.r20),
         ),
-
         sendMessageConfig: SendMessageConfiguration(
           allowRecordingVoice: true,
           enableCameraImagePicker: true,
@@ -97,12 +97,19 @@ class CustomChatView extends StatelessWidget {
               waveCap: StrokeCap.round,
             ),
             backgroundColor: Colors.white,
+            recorderIconColor: AppColor.kPrimaryPink,
           ),
           imagePickerIconsConfig: const ImagePickerIconsConfiguration(
-            cameraIconColor: Color(0xffEE5366),
-            galleryIconColor: Color(0xffEE5366),
+            galleryImagePickerIcon: Icon(
+              CupertinoIcons.paperclip,
+              color: AppColor.kPrimaryPink,
+            ),
+            cameraImagePickerIcon: Icon(
+              CupertinoIcons.camera_fill,
+              color: AppColor.kPrimaryPink,
+            ),
           ),
-          textFieldBackgroundColor: Colors.grey[100],
+          textFieldBackgroundColor: const Color(0xD8EFEFEF),
           textFieldConfig: TextFieldConfiguration(
             hintText: 'Type a message',
             hintStyle: const TextStyle(color: Colors.grey),
@@ -110,8 +117,10 @@ class CustomChatView extends StatelessWidget {
             borderRadius: BorderRadius.circular(AppDimensions.r20),
             onMessageTyping: onTypeWriterStatus,
           ),
+          imageBorderRadius: AppDimensions.r25,
+          shouldSendImageWithText: true,
           replyMessageColor: Colors.grey,
-          defaultSendButtonColor: const Color(0xffEE5366),
+          defaultSendButtonColor: AppColor.kPrimaryPink,
         ),
         chatBubbleConfig: ChatBubbleConfiguration(
           outgoingChatBubbleConfig: ChatBubble(

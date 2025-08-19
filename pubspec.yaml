@@ -64,6 +64,7 @@ dependencies:
   chatview: ^2.5.0
   firebase_storage: ^12.4.10
   path_provider: ^2.1.5
+  equatable: ^2.0.7
 
 dev_dependencies:
   flutter_test:

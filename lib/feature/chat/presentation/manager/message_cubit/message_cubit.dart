@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:chatview/chatview.dart';
+import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:tala_app/feature/chat/domain/params/send_message_param.dart';
@@ -16,7 +17,7 @@ class MessageCubit extends Cubit<MessageState> {
     this.sendMessageUseCase,
     this.getMessagesUseCase,
     this.updateMessageStatusUseCase,
-  ) : super(MessageState(messages: []));
+  ) : super(MessageState(messages: const []));
   final SendMessageUseCase sendMessageUseCase;
   final GetMessagesUseCase getMessagesUseCase;
   final UpdateMessageStatusUseCase updateMessageStatusUseCase;
@@ -32,14 +33,19 @@ class MessageCubit extends Cubit<MessageState> {
           );
         },
         (messages) {
-          emit(state.copyWith(messages: messages, isLoading: false));
+          //emit(state.copyWith(messages: messages, isLoading: false));
+          final updatedMessages = mergeMessages(state.messages, messages);
+          emit(state.copyWith(messages: updatedMessages, isLoading: false));
         },
       );
     });
   }
 
-  void sendMessage(String chatId, Message message) {
+  void isConnection() {
+    emit(state.copyWith(isConnection: false));
+  }
 
+  void sendMessage(String chatId, Message message) {
     final tempList = List<Message>.from(state.messages)..add(message);
     emit(state.copyWith(messages: tempList));
 
@@ -73,13 +79,31 @@ class MessageCubit extends Cubit<MessageState> {
 
   void _updateMessageStatus(String messageId, MessageStatus newStatus) {
     final updatedList = state.messages.map((msg) {
-      if (msg.id == messageId) {
+      if (msg.id == messageId && msg.status != newStatus) {
         return msg.copyWith(status: newStatus);
       }
       return msg;
     }).toList();
 
     emit(state.copyWith(messages: updatedList));
+  }
+
+  List<Message> mergeMessages(
+    List<Message> oldMessages,
+    List<Message> newMessages,
+  ) {
+    final updated = List<Message>.from(oldMessages);
+
+    for (final newMsg in newMessages) {
+      final index = updated.indexWhere((m) => m.id == newMsg.id);
+      if (index == -1) {
+        updated.add(newMsg);
+      } else if (updated[index] != newMsg) {
+        updated[index] = newMsg;
+      }
+    }
+
+    return updated;
   }
 
   @override
