@@ -255,9 +255,9 @@ abstract class Styling {
     fontFamily: AppConstant.kFontFamily,
     fontWeight: FontWeight.w700,
   );
-  static final textStyleChat12 = TextStyle(
+  static final textStyleChat14 = TextStyle(
     color: AppColor.kPrimaryPink,
-    fontSize: 12.sp,
+    fontSize: 14.sp,
     fontFamily: AppConstant.kFontFamily,
     fontWeight: FontWeight.w700,
   );

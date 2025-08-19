@@ -1,9 +1,10 @@
-import 'package:chatview_utils/src/models/data_models/message.dart';
+import 'package:chatview/chatview.dart';
 import 'package:dartz/dartz.dart';
 import 'package:tala_app/core/errors/failure.dart';
 import 'package:tala_app/feature/chat/data/data_source/chats_remote_data_source.dart';
 import 'package:tala_app/feature/chat/domain/entities/chats_entity.dart';
 import 'package:tala_app/feature/chat/domain/entities/check_entity.dart';
+import 'package:tala_app/feature/chat/domain/params/mark_as_params.dart';
 import 'package:tala_app/feature/chat/domain/params/send_message_param.dart';
 import 'package:tala_app/feature/chat/domain/params/update_message_status_params.dart';
 import 'package:tala_app/feature/chat/domain/repo/chats_repo.dart';
@@ -77,6 +78,16 @@ class ChatsRepoImpl extends ChatsRepo {
   ) async {
     try {
       await chatsRemoteDataSource.updateMessageStatus(param);
+      return right(unit);
+    } catch (e) {
+      return left(AppFailure.fromException(e));
+    }
+  }
+
+  @override
+  Future<Either<Failure, Unit>> markMessagesAsRead(MarkAsParams param) async {
+    try {
+      await chatsRemoteDataSource.markMessagesAsRead(param);
       return right(unit);
     } catch (e) {
       return left(AppFailure.fromException(e));

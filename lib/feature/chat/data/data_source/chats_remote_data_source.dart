@@ -11,6 +11,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:tala_app/core/utils/constants.dart';
 import 'package:tala_app/feature/chat/domain/entities/chats_entity.dart';
 import 'package:tala_app/feature/chat/domain/entities/check_entity.dart';
+import 'package:tala_app/feature/chat/domain/params/mark_as_params.dart';
 import 'package:tala_app/feature/chat/domain/params/send_message_param.dart';
 import 'package:tala_app/feature/chat/domain/params/update_message_status_params.dart';
 
@@ -22,6 +23,7 @@ abstract class ChatsRemoteDataSource {
   Future<Unit> sendMessage(SendMessageParam param);
   Stream<List<Message>> getMessages(String chatId);
   Future<Unit> updateMessageStatus(UpdateMessageStatusParams param);
+  Future<Unit> markMessagesAsRead(MarkAsParams param);
 }
 
 class ChatsRemoteDataSourceImpl extends ChatsRemoteDataSource {
@@ -133,148 +135,6 @@ class ChatsRemoteDataSourceImpl extends ChatsRemoteDataSource {
     return getUrl;
   }
 
-  // @override
-  // Stream<List<Message>> getMessages(String chatId) {
-  //   return FirebaseFirestore.instance
-  //       .collection('chats')
-  //       .doc(chatId)
-  //       .collection('messages')
-  //       .orderBy('createdAt')
-  //       .snapshots()
-  //       .asyncMap(
-  //         (snapshot) => snapshot.docs.map((doc) {
-  //           var message = Message.fromJson(doc.data());
-  //           if (message.messageType.isVoice) {
-  //             final localUrl = downloadVoiceFile(message.message, message.id);
-  //             message = message.copyWith(message: await localUrl);
-  //           }
-  //
-  //           return message;
-  //         }).toList(),
-  //       );
-  // }
-
-  // @override
-  // Stream<List<Message>> getMessages(String chatId) {
-  //   return FirebaseFirestore.instance
-  //       .collection('chats')
-  //       .doc(chatId)
-  //       .collection('messages')
-  //       .orderBy('createdAt')
-  //       .snapshots()
-  //       .asyncMap((snapshot) async {
-  //         final messages = await Future.wait(
-  //           snapshot.docs.map((doc) async {
-  //             var message = Message.fromJson(doc.data());
-  //             if (message.messageType.isVoice) {
-  //               final localUrl = await downloadVoiceFile(
-  //                 message.message,
-  //                 message.id,
-  //               );
-  //               message = message.copyWith(message: localUrl);
-  //             }
-  //             return message;
-  //           }),
-  //         );
-  //
-  //         return messages;
-  //       });
-  // }
-  // مثال توضيحي لكيفية عمل الكود
-  // Stream<List<Message>> getMessages(String chatId) {
-  //   final messageStreamController = StreamController<List<Message>>();
-  //   FirebaseFirestore.instance
-  //       .collection('chats')
-  //       .doc(chatId)
-  //       .collection('messages')
-  //       .orderBy('createdAt')
-  //       .snapshots()
-  //       .listen((snapshot) async {
-  //         final messages = <Message>[];
-  //         for (final doc in snapshot.docs) {
-  //           var message = Message.fromJson(doc.data());
-  //           if (message.messageType.isVoice) {
-  //             final localUrl = await downloadVoiceFile(
-  //               message.message,
-  //               message.id,
-  //             );
-  //             message = message.copyWith(message: localUrl);
-  //           }
-  //           messages.add(message);
-  //         }
-  //         messageStreamController.add(messages);
-  //       });
-  //   return messageStreamController.stream;
-  // }
-  // @override
-  // Stream<List<Message>> getMessages(String chatId) {
-  //   final messageController = StreamController<List<Message>>();
-  //   final messages = <Message>[];
-  //
-  //   FirebaseFirestore.instance
-  //       .collection('chats')
-  //       .doc(chatId)
-  //       .collection('messages')
-  //       .orderBy('createdAt')
-  //       .snapshots()
-  //       .listen((snapshot) async {
-  //         if (messages.isEmpty) {
-  //           final loadedMessages = await Future.wait(
-  //             snapshot.docs.map((doc) async {
-  //               var message = Message.fromJson(doc.data());
-  //               if (message.messageType.isVoice) {
-  //                 final localUrl = await downloadFile(
-  //                   message.message,
-  //                   message.id,
-  //                   message.messageType,
-  //                 );
-  //                 message = message.copyWith(message: localUrl);
-  //               }
-  //               if (message.replyMessage.messageType.isVoice) {
-  //                 final localUrl = await downloadFile(
-  //                   message.replyMessage.message,
-  //                   message.replyMessage.messageId,
-  //                   message.replyMessage.messageType,
-  //                 );
-  //                 message = message.copyWith(
-  //                   replyMessage: message.replyMessage.copyWith(
-  //                     message: localUrl,
-  //                   ),
-  //                 );
-  //               }
-  //               return message;
-  //             }),
-  //           );
-  //           messages.addAll(loadedMessages);
-  //           messageController.add(messages);
-  //         } else {
-  //           final newMessages = snapshot.docChanges
-  //               .where((change) => change.type == DocumentChangeType.modified)
-  //               .map((change) async {
-  //                 var message = Message.fromJson(
-  //                   change.doc.data() as Map<String, dynamic>,
-  //                 );
-  //                 if (message.messageType.isVoice ||
-  //                     message.messageType.isImage) {
-  //                   final localUrl = await downloadFile(
-  //                     message.message,
-  //                     message.id,
-  //                     message.messageType,
-  //                   );
-  //                   message = message.copyWith(message: localUrl);
-  //                 }
-  //                 return message;
-  //               });
-  //
-  //           final newLoadedMessages = await Future.wait(newMessages);
-  //           messages.addAll(newLoadedMessages);
-  //           messageController.add(messages);
-  //         }
-  //       });
-  //
-  //   return messageController.stream;
-  // }
-
   @override
   Stream<List<Message>> getMessages(String chatId) {
     return FirebaseFirestore.instance
@@ -361,4 +221,168 @@ class ChatsRemoteDataSourceImpl extends ChatsRemoteDataSource {
         .update({'status': param.newStatus.name});
     return unit;
   }
+
+  @override
+  Future<Unit> markMessagesAsRead(MarkAsParams param) async {
+    final query = await FirebaseFirestore.instance
+        .collection('chats')
+        .doc(param.chatId)
+        .collection('messages')
+        .where('sentBy', isNotEqualTo: param.uid)
+        .get();
+
+    final batch = FirebaseFirestore.instance.batch();
+
+    for (final doc in query.docs) {
+      if (doc['status'] != MessageStatus.read.name) {
+        batch.update(doc.reference, {'status': MessageStatus.read.name});
+      }
+    }
+
+    await batch.commit();
+    return unit;
+
+    return unit;
+  }
 }
+// @override
+// Stream<List<Message>> getMessages(String chatId) {
+//   return FirebaseFirestore.instance
+//       .collection('chats')
+//       .doc(chatId)
+//       .collection('messages')
+//       .orderBy('createdAt')
+//       .snapshots()
+//       .asyncMap(
+//         (snapshot) => snapshot.docs.map((doc) {
+//           var message = Message.fromJson(doc.data());
+//           if (message.messageType.isVoice) {
+//             final localUrl = downloadVoiceFile(message.message, message.id);
+//             message = message.copyWith(message: await localUrl);
+//           }
+//
+//           return message;
+//         }).toList(),
+//       );
+// }
+
+// @override
+// Stream<List<Message>> getMessages(String chatId) {
+//   return FirebaseFirestore.instance
+//       .collection('chats')
+//       .doc(chatId)
+//       .collection('messages')
+//       .orderBy('createdAt')
+//       .snapshots()
+//       .asyncMap((snapshot) async {
+//         final messages = await Future.wait(
+//           snapshot.docs.map((doc) async {
+//             var message = Message.fromJson(doc.data());
+//             if (message.messageType.isVoice) {
+//               final localUrl = await downloadVoiceFile(
+//                 message.message,
+//                 message.id,
+//               );
+//               message = message.copyWith(message: localUrl);
+//             }
+//             return message;
+//           }),
+//         );
+//
+//         return messages;
+//       });
+// }
+// مثال توضيحي لكيفية عمل الكود
+// Stream<List<Message>> getMessages(String chatId) {
+//   final messageStreamController = StreamController<List<Message>>();
+//   FirebaseFirestore.instance
+//       .collection('chats')
+//       .doc(chatId)
+//       .collection('messages')
+//       .orderBy('createdAt')
+//       .snapshots()
+//       .listen((snapshot) async {
+//         final messages = <Message>[];
+//         for (final doc in snapshot.docs) {
+//           var message = Message.fromJson(doc.data());
+//           if (message.messageType.isVoice) {
+//             final localUrl = await downloadVoiceFile(
+//               message.message,
+//               message.id,
+//             );
+//             message = message.copyWith(message: localUrl);
+//           }
+//           messages.add(message);
+//         }
+//         messageStreamController.add(messages);
+//       });
+//   return messageStreamController.stream;
+// }
+// @override
+// Stream<List<Message>> getMessages(String chatId) {
+//   final messageController = StreamController<List<Message>>();
+//   final messages = <Message>[];
+//
+//   FirebaseFirestore.instance
+//       .collection('chats')
+//       .doc(chatId)
+//       .collection('messages')
+//       .orderBy('createdAt')
+//       .snapshots()
+//       .listen((snapshot) async {
+//         if (messages.isEmpty) {
+//           final loadedMessages = await Future.wait(
+//             snapshot.docs.map((doc) async {
+//               var message = Message.fromJson(doc.data());
+//               if (message.messageType.isVoice) {
+//                 final localUrl = await downloadFile(
+//                   message.message,
+//                   message.id,
+//                   message.messageType,
+//                 );
+//                 message = message.copyWith(message: localUrl);
+//               }
+//               if (message.replyMessage.messageType.isVoice) {
+//                 final localUrl = await downloadFile(
+//                   message.replyMessage.message,
+//                   message.replyMessage.messageId,
+//                   message.replyMessage.messageType,
+//                 );
+//                 message = message.copyWith(
+//                   replyMessage: message.replyMessage.copyWith(
+//                     message: localUrl,
+//                   ),
+//                 );
+//               }
+//               return message;
+//             }),
+//           );
+//           messages.addAll(loadedMessages);
+//           messageController.add(messages);
+//         } else {
+//           final newMessages = snapshot.docChanges
+//               .where((change) => change.type == DocumentChangeType.modified)
+//               .map((change) async {
+//                 var message = Message.fromJson(
+//                   change.doc.data() as Map<String, dynamic>,
+//                 );
+//                 if (message.messageType.isVoice ||
+//                     message.messageType.isImage) {
+//                   final localUrl = await downloadFile(
+//                     message.message,
+//                     message.id,
+//                     message.messageType,
+//                   );
+//                   message = message.copyWith(message: localUrl);
+//                 }
+//                 return message;
+//               });
+//
+//           final newLoadedMessages = await Future.wait(newMessages);
+//           messages.addAll(newLoadedMessages);
+//           messageController.add(messages);
+//         }
+//       });
+//
+//   return messageController.stream;
+// }

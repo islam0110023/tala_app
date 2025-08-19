@@ -94,6 +94,10 @@ class _ChatScreenBodyState extends State<ChatScreenBody> {
             if (state is CheckConnectionIsConnection) {
               context.read<MessageCubit>().loadMessages(chat.chatId);
               context.read<MessageCubit>().isConnection();
+              context.read<MessageCubit>().markMessagesAsRead(
+                chat.chatId,
+                FirebaseAuth.instance.currentUser!.uid,
+              );
             }
           },
         ),
@@ -119,6 +123,10 @@ class _ChatScreenBodyState extends State<ChatScreenBody> {
               }
             }
           }
+          context.read<MessageCubit>().markMessagesAsRead(
+            chat.chatId,
+            FirebaseAuth.instance.currentUser!.uid,
+          );
         },
         buildWhen: (previous, current) =>
             previous.isLoading != current.isLoading ||

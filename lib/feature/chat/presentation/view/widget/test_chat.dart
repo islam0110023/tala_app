@@ -125,7 +125,7 @@ class CustomChatView extends StatelessWidget {
         chatBubbleConfig: ChatBubbleConfiguration(
           outgoingChatBubbleConfig: ChatBubble(
             color: AppColor.kPrimaryPink,
-            textStyle: Styling.textStyleChat12.copyWith(color: Colors.white),
+            textStyle: Styling.textStyleChat14.copyWith(color: Colors.white),
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(AppDimensions.r10),
               topRight: Radius.circular(AppDimensions.r10),
@@ -173,7 +173,7 @@ class CustomChatView extends StatelessWidget {
           ),
           inComingChatBubbleConfig: ChatBubble(
             color: const Color(0x82D9D9D9),
-            textStyle: Styling.textStyleChat12,
+            textStyle: Styling.textStyleChat14,
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(AppDimensions.r10),
               topRight: Radius.circular(AppDimensions.r10),
