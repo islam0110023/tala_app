@@ -19,6 +19,7 @@ import 'package:tala_app/feature/chat/domain/usa_case/get_messages_use_case.dart
 import 'package:tala_app/feature/chat/domain/usa_case/mark_messages_as_read_use_case.dart';
 import 'package:tala_app/feature/chat/domain/usa_case/not_connection_use_case.dart';
 import 'package:tala_app/feature/chat/domain/usa_case/send_message_use_case.dart';
+import 'package:tala_app/feature/chat/domain/usa_case/send_reaction_use_case.dart';
 import 'package:tala_app/feature/chat/domain/usa_case/update_message_status_use_case.dart';
 import 'package:tala_app/feature/dating/data/data_source/dating_local_data_source.dart';
 import 'package:tala_app/feature/dating/data/data_source/dating_remote_data_source.dart';
@@ -88,4 +89,5 @@ void setUpServices() {
   getIt.registerLazySingleton(() => GetMessagesUseCase(getIt()));
   getIt.registerLazySingleton(() => UpdateMessageStatusUseCase(getIt()));
   getIt.registerLazySingleton(() => MarkMessagesAsReadUseCase(getIt()));
+  getIt.registerLazySingleton(() => SendReactionUseCase(getIt()));
 }

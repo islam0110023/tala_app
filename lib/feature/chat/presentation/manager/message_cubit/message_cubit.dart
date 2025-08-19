@@ -10,6 +10,7 @@ import 'package:tala_app/feature/chat/domain/params/update_message_status_params
 import 'package:tala_app/feature/chat/domain/usa_case/get_messages_use_case.dart';
 import 'package:tala_app/feature/chat/domain/usa_case/mark_messages_as_read_use_case.dart';
 import 'package:tala_app/feature/chat/domain/usa_case/send_message_use_case.dart';
+import 'package:tala_app/feature/chat/domain/usa_case/send_reaction_use_case.dart';
 import 'package:tala_app/feature/chat/domain/usa_case/update_message_status_use_case.dart';
 
 part 'message_state.dart';
@@ -20,11 +21,13 @@ class MessageCubit extends Cubit<MessageState> {
     this.getMessagesUseCase,
     this.updateMessageStatusUseCase,
     this.markMessagesAsReadUseCase,
+    this.sendReactionUseCase,
   ) : super(MessageState(messages: const []));
   final SendMessageUseCase sendMessageUseCase;
   final GetMessagesUseCase getMessagesUseCase;
   final UpdateMessageStatusUseCase updateMessageStatusUseCase;
   final MarkMessagesAsReadUseCase markMessagesAsReadUseCase;
+  final SendReactionUseCase sendReactionUseCase;
   StreamSubscription? messagesSub;
   void loadMessages(String chatId) {
     emit(state.copyWith(isLoading: true));
@@ -112,6 +115,12 @@ class MessageCubit extends Cubit<MessageState> {
 
   Future<void> markMessagesAsRead(String chatId, String uid) async {
     await markMessagesAsReadUseCase(MarkAsParams(chatId: chatId, uid: uid));
+  }
+
+  Future<void> sendReaction(String chatId, Message message, String uid) async {
+    await sendReactionUseCase(
+      SendMessageParam(chatId: chatId, uid: uid, message: message),
+    );
   }
 
   @override

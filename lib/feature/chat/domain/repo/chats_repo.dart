@@ -18,4 +18,5 @@ abstract class ChatsRepo {
     UpdateMessageStatusParams param,
   );
   Future<Either<Failure, Unit>> markMessagesAsRead(MarkAsParams param);
+  Future<Either<Failure, Unit>> sendReaction(SendMessageParam param);
 }

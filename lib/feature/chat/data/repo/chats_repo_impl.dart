@@ -93,4 +93,14 @@ class ChatsRepoImpl extends ChatsRepo {
       return left(AppFailure.fromException(e));
     }
   }
+
+  @override
+  Future<Either<Failure, Unit>> sendReaction(SendMessageParam param) async {
+    try {
+      await chatsRemoteDataSource.sendReaction(param);
+      return right(unit);
+    } catch (e) {
+      return left(AppFailure.fromException(e));
+    }
+  }
 }

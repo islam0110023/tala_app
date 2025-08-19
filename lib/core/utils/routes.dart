@@ -200,7 +200,7 @@ class AppRoutes {
             ),
             BlocProvider(
               create: (context) =>
-                  MessageCubit(getIt(), getIt(), getIt(), getIt()),
+                  MessageCubit(getIt(), getIt(), getIt(), getIt(), getIt()),
             ),
           ],
           child: const ChatScreen(),

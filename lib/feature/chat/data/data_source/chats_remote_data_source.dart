@@ -24,6 +24,7 @@ abstract class ChatsRemoteDataSource {
   Stream<List<Message>> getMessages(String chatId);
   Future<Unit> updateMessageStatus(UpdateMessageStatusParams param);
   Future<Unit> markMessagesAsRead(MarkAsParams param);
+  Future<Unit> sendReaction(SendMessageParam param);
 }
 
 class ChatsRemoteDataSourceImpl extends ChatsRemoteDataSource {
@@ -264,6 +265,17 @@ class ChatsRemoteDataSourceImpl extends ChatsRemoteDataSource {
     batch.update(chatDoc, {'unreadCounts.${param.uid}': 0});
 
     await batch.commit();
+    return unit;
+  }
+
+  @override
+  Future<Unit> sendReaction(SendMessageParam param) async {
+    await FirebaseFirestore.instance
+        .collection('chats')
+        .doc(param.chatId)
+        .collection('messages')
+        .doc(param.message.id)
+        .update({'reaction': param.message.reaction.toJson()});
     return unit;
   }
 }
