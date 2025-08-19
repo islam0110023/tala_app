@@ -96,7 +96,7 @@ class CustomChatView extends StatelessWidget {
               showTop: true,
               waveCap: StrokeCap.round,
             ),
-            backgroundColor: Colors.white,
+            backgroundColor: Colors.black,
             recorderIconColor: AppColor.kPrimaryPink,
           ),
           imagePickerIconsConfig: const ImagePickerIconsConfiguration(
@@ -118,7 +118,7 @@ class CustomChatView extends StatelessWidget {
             onMessageTyping: onTypeWriterStatus,
           ),
           imageBorderRadius: AppDimensions.r25,
-          shouldSendImageWithText: true,
+
           replyMessageColor: Colors.grey,
           defaultSendButtonColor: AppColor.kPrimaryPink,
         ),
@@ -199,6 +199,15 @@ class CustomChatView extends StatelessWidget {
           messageReactionConfig: MessageReactionConfiguration(
             borderRadius: BorderRadius.circular(AppDimensions.r12),
           ),
+          voiceMessageConfig: VoiceMessageConfiguration(
+            playerWaveStyle: PlayerWaveStyle(
+              waveCap: StrokeCap.square,
+              fixedWaveColor: AppColor.kWhite,
+              liveWaveColor: AppColor.kBlack,
+            ),
+            playIcon: Icon(Icons.play_arrow, color: AppColor.kBlack),
+            pauseIcon: Icon(Icons.stop, color: AppColor.kBlack),
+          ),
           imageMessageConfig: ImageMessageConfiguration(
             height: AppDimensions.r200,
             width: AppDimensions.r200,
@@ -214,45 +223,3 @@ class CustomChatView extends StatelessWidget {
     );
   }
 }
-
-// void initState() {
-//   super.initState();
-//   chatController = ChatController(
-//     initialMessageList: [],
-//     scrollController: ScrollController(),
-//     currentUser: const ChatUser(id: '1', name: 'Bruce'),
-//     otherUsers: const [
-//       ChatUser(
-//         id: '2',
-//         name: 'Doris Diaz',
-//         profilePhoto:
-//             'https://media.craiyon.com/2025-08-08/8AU1VGWBTAGr9NvVVPmeNQ.webp',
-//       ),
-//     ],
-//   );
-// }
-// @override
-// void dispose() {
-//   chatController.dispose();
-//   super.dispose();
-// }
-// void _onSendTap(
-//   String message,
-//   ReplyMessage replyMessage,
-//   MessageType messageType,
-// ) {
-//   final newMessage = Message(
-//     id: DateTime.now().millisecondsSinceEpoch.toString(),
-//     message: message,
-//     createdAt: DateTime.now(),
-//     sentBy: '1',
-//     replyMessage: replyMessage,
-//     messageType: messageType,
-//     status: MessageStatus.read,
-//   );
-//
-//   chatController.addMessage(newMessage);
-//   Future.delayed(const Duration(seconds: 2), () {
-//     chatController.setTypingIndicator = false;
-//   });
-// }
