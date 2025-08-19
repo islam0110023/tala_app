@@ -118,10 +118,18 @@ class _ChatScreenBodyState extends State<ChatScreenBody> {
               if (index != -1 &&
                   chatController.initialMessageList[index] != msg) {
                 chatController.initialMessageList[index].setStatus = msg.status;
+                // chatController.setReaction(
+                //   emoji: msg.reaction.reactions[0],
+                //   messageId: msg.id,
+                //   userId: msg.reaction.reactedUserIds[0],
+                // );
+                // chatController.initialMessageList[index].statusNotifier;
+
                 chatController.initialMessageList[index].statusNotifier;
               }
             }
           }
+
           context.read<MessageCubit>().markMessagesAsRead(
             chat.chatId,
             FirebaseAuth.instance.currentUser!.uid,

@@ -46,6 +46,10 @@ class CustomChatView extends StatelessWidget {
           lastSeenAgoBuilderVisibility: false,
           enablePagination: true,
           enableScrollToBottomButton: true,
+          enableReactionPopup: false,
+          enableDoubleTapToLike: false,
+          enableChatSeparator: false,
+          enableReplySnackBar: false,
         ),
         chatViewState: chatViewState!,
         appBar: ChatViewAppBar(
