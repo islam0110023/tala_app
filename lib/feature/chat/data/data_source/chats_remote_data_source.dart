@@ -121,12 +121,14 @@ class ChatsRemoteDataSourceImpl extends ChatsRemoteDataSource {
         replyMessage: param.message.replyMessage.copyWith(message: url),
       );
     }
+    final Map<String, dynamic> data = param.message.toJson();
+    data['createdAt'] = FieldValue.serverTimestamp();
     final chatRef = FirebaseFirestore.instance
         .collection('chats')
         .doc(param.chatId);
     final messageRef = chatRef.collection('messages').doc(param.message.id);
     await FirebaseFirestore.instance.runTransaction((transaction) async {
-      transaction.set(messageRef, param.message.toJson());
+      transaction.set(messageRef, data);
       transaction.update(chatRef, {
         'lastMessage': lastMessage,
         'updatedAt': FieldValue.serverTimestamp(),
@@ -161,7 +163,9 @@ class ChatsRemoteDataSourceImpl extends ChatsRemoteDataSource {
         .snapshots()
         .asyncMap((snapshot) async {
           final futures = snapshot.docs.map((doc) async {
-            var message = Message.fromJson(doc.data());
+            final Map<String, dynamic> data = doc.data();
+            data['createdAt'] = (data['createdAt'] as Timestamp).toDate();
+            var message = Message.fromJson(data);
             if (message.messageType.isVoice) {
               final localUrl = await downloadFile(
                 message.message,
