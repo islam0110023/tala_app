@@ -156,7 +156,11 @@ class _ChatScreenBodyState extends State<ChatScreenBody> {
                 messageType: messageType,
                 status: MessageStatus.pending,
               );
-              context.read<MessageCubit>().sendMessage(chat.chatId, newMessage);
+              context.read<MessageCubit>().sendMessage(
+                chat.chatId,
+                newMessage,
+                chat.uid,
+              );
               chatController.scrollToLastMessage();
             },
           );

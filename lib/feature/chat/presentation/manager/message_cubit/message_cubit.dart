@@ -49,36 +49,36 @@ class MessageCubit extends Cubit<MessageState> {
     emit(state.copyWith(isConnection: false));
   }
 
-  void sendMessage(String chatId, Message message) {
+  void sendMessage(String chatId, Message message, String uid) {
     final tempList = List<Message>.from(state.messages)..add(message);
     emit(state.copyWith(messages: tempList));
 
-    sendMessageUseCase(SendMessageParam(chatId: chatId, message: message)).then(
-      (either) {
-        either.fold(
-          (failure) {
-            _updateMessageStatus(message.id, MessageStatus.undelivered);
-            updateMessageStatusUseCase(
-              UpdateMessageStatusParams(
-                chatId: chatId,
-                messageId: message.id,
-                newStatus: MessageStatus.undelivered,
-              ),
-            );
-          },
-          (_) {
-            _updateMessageStatus(message.id, MessageStatus.delivered);
-            updateMessageStatusUseCase(
-              UpdateMessageStatusParams(
-                chatId: chatId,
-                messageId: message.id,
-                newStatus: MessageStatus.delivered,
-              ),
-            );
-          },
-        );
-      },
-    );
+    sendMessageUseCase(
+      SendMessageParam(uid: uid, chatId: chatId, message: message),
+    ).then((either) {
+      either.fold(
+        (failure) {
+          _updateMessageStatus(message.id, MessageStatus.undelivered);
+          updateMessageStatusUseCase(
+            UpdateMessageStatusParams(
+              chatId: chatId,
+              messageId: message.id,
+              newStatus: MessageStatus.undelivered,
+            ),
+          );
+        },
+        (_) {
+          _updateMessageStatus(message.id, MessageStatus.delivered);
+          updateMessageStatusUseCase(
+            UpdateMessageStatusParams(
+              chatId: chatId,
+              messageId: message.id,
+              newStatus: MessageStatus.delivered,
+            ),
+          );
+        },
+      );
+    });
   }
 
   void _updateMessageStatus(String messageId, MessageStatus newStatus) {

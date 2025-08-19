@@ -97,17 +97,20 @@ class ChatsRemoteDataSourceImpl extends ChatsRemoteDataSource {
 
   @override
   Future<Unit> sendMessage(SendMessageParam param) async {
+    String lastMessage = param.message.message;
     if (param.message.messageType.isVoice) {
       final File file = File(param.message.message);
       final String filePath = 'chats/voices/${param.message.id}.m4a';
       final url = await getUrl(filePath, file);
       param.message = param.message.copyWith(message: url);
+      lastMessage = 'Voice Message';
     }
     if (param.message.messageType.isImage) {
       final File file = File(param.message.message);
       final String filePath = 'chats/images/${param.message.id}.jpg';
       final url = await getUrl(filePath, file);
       param.message = param.message.copyWith(message: url);
+      lastMessage = 'Image Message';
     }
     if (param.message.replyMessage.messageType.isVoice) {
       final File file = File(param.message.replyMessage.message);
@@ -118,12 +121,25 @@ class ChatsRemoteDataSourceImpl extends ChatsRemoteDataSource {
         replyMessage: param.message.replyMessage.copyWith(message: url),
       );
     }
-    await FirebaseFirestore.instance
+    final chatRef = FirebaseFirestore.instance
         .collection('chats')
-        .doc(param.chatId)
-        .collection('messages')
-        .doc(param.message.id)
-        .set(param.message.toJson());
+        .doc(param.chatId);
+    final messageRef = chatRef.collection('messages').doc(param.message.id);
+    await FirebaseFirestore.instance.runTransaction((transaction) async {
+      transaction.set(messageRef, param.message.toJson());
+      transaction.update(chatRef, {
+        'lastMessage': lastMessage,
+        'updatedAt': FieldValue.serverTimestamp(),
+        'unreadCounts.${param.message.sentBy}': 0,
+        'unreadCounts.${param.uid}': FieldValue.increment(1),
+      });
+    });
+    // await FirebaseFirestore.instance
+    //     .collection('chats')
+    //     .doc(param.chatId)
+    //     .collection('messages')
+    //     .doc(param.message.id)
+    //     .set(param.message.toJson());
 
     return unit;
   }
@@ -238,10 +254,12 @@ class ChatsRemoteDataSourceImpl extends ChatsRemoteDataSource {
         batch.update(doc.reference, {'status': MessageStatus.read.name});
       }
     }
+    final chatDoc = FirebaseFirestore.instance
+        .collection('chats')
+        .doc(param.chatId);
+    batch.update(chatDoc, {'unreadCount.${param.uid}': 0});
 
     await batch.commit();
-    return unit;
-
     return unit;
   }
 }
