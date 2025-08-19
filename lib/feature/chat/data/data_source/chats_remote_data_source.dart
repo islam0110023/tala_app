@@ -257,7 +257,7 @@ class ChatsRemoteDataSourceImpl extends ChatsRemoteDataSource {
     final chatDoc = FirebaseFirestore.instance
         .collection('chats')
         .doc(param.chatId);
-    batch.update(chatDoc, {'unreadCount.${param.uid}': 0});
+    batch.update(chatDoc, {'unreadCounts.${param.uid}': 0});
 
     await batch.commit();
     return unit;
