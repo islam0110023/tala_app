@@ -56,7 +56,9 @@ class _ChatsScreenBodyState extends State<ChatsScreenBody> {
                     itemBuilder: (context, index) {
                       return ChatDataProvider(
                         chat: state.chats[index],
-                        child: const CustomPersonChat(),
+                        child: CustomPersonChat(
+                          key: PageStorageKey(state.chats[index].chatId),
+                        ),
                       );
                     },
                     separatorBuilder: (BuildContext context, int index) =>

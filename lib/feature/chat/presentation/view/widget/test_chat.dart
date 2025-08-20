@@ -65,6 +65,7 @@ class CustomChatView extends StatelessWidget {
             padding: EdgeInsets.only(right: AppDimensions.r13),
             child: CustomArrowBack(
               onTap: () {
+                FocusScope.of(context).unfocus();
                 context.pop();
               },
             ),
