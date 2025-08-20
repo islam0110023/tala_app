@@ -119,16 +119,13 @@ class _ChatScreenBodyState extends State<ChatScreenBody> {
               if (index != -1 &&
                   chatController.initialMessageList[index] != msg) {
                 chatController.initialMessageList[index].setStatus = msg.status;
-                if (msg.reaction.reactions.isNotEmpty) {
-                  context.read<MessageCubit>().loadMessages(chat.chatId);
-                }
-
                 chatController.initialMessageList[index].statusNotifier;
               }
             }
           }
-          if (state.messages.isEmpty) {
+          if (state.messages.isEmpty && isLoaded) {
             chatController.initialMessageList.clear();
+            isLoaded = false;
             context.read<MessageCubit>().loadMessages(chat.chatId);
           }
 
@@ -157,8 +154,7 @@ class _ChatScreenBodyState extends State<ChatScreenBody> {
                 ? ChatViewState.loading
                 : state.errMessage?.isNotEmpty ?? false
                 ? ChatViewState.error
-                : (state.messages.isEmpty &&
-                      chatController.initialMessageList.isEmpty)
+                : (state.messages.isEmpty)
                 ? ChatViewState.noData
                 : ChatViewState.hasMessages,
             onSendTap: (message, replyMessage, messageType) {
@@ -184,16 +180,11 @@ class _ChatScreenBodyState extends State<ChatScreenBody> {
               chatController.scrollToLastMessage();
             },
             onReactionTap: (message, emoje) {
-              context
-                  .read<MessageCubit>()
-                  .sendReaction(
-                    chat.chatId,
-                    message,
-                    FirebaseAuth.instance.currentUser!.uid,
-                  )
-                  .then((value) {
-                    // context.read<MessageCubit>().loadMessages(chat.chatId);
-                  });
+              // context.read<MessageCubit>().sendReaction(
+              //   chat.chatId,
+              //   message,
+              //   FirebaseAuth.instance.currentUser!.uid,
+              // );
             },
           );
         },
