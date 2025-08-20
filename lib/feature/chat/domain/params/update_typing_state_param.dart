@@ -1,7 +1,11 @@
 class UpdateTypingStateParam {
-  UpdateTypingStateParam( {required this.uid, required this.chatId,this.isTyping=false,});
+  UpdateTypingStateParam({
+    required this.uid,
+    required this.chatId,
+    required this.isTyping,
+  });
 
   final String chatId;
   final String uid;
-  final bool isTyping;
+  bool isTyping;
 }

@@ -106,7 +106,9 @@ class ChatsRepoImpl extends ChatsRepo {
   }
 
   @override
-  Future<Either<Failure, Unit>> updateTypingStatus(UpdateTypingStateParam param) async {
+  Future<Either<Failure, Unit>> updateTypingStatus(
+    UpdateTypingStateParam param,
+  ) async {
     try {
       await chatsRemoteDataSource.updateTypingStatus(param);
       return right(unit);
@@ -115,4 +117,13 @@ class ChatsRepoImpl extends ChatsRepo {
     }
   }
 
+  @override
+  Stream<Either<Failure, bool>> getTypingStatus(UpdateTypingStateParam param) {
+    try {
+      final typingStatus = chatsRemoteDataSource.getTypingStatus(param);
+      return typingStatus.map((typingStatus) => right(typingStatus));
+    } catch (e) {
+      return Stream.value(left(AppFailure.fromException(e)));
+    }
+  }
 }

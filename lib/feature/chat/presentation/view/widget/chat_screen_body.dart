@@ -8,8 +8,10 @@ import 'package:go_router/go_router.dart';
 import 'package:tala_app/core/utils/constants.dart';
 import 'package:tala_app/core/utils/styling.dart';
 import 'package:tala_app/feature/chat/domain/entities/chats_entity.dart';
+import 'package:tala_app/feature/chat/domain/params/update_typing_state_param.dart';
 import 'package:tala_app/feature/chat/presentation/manager/apply_connection/apply_connection_cubit.dart';
 import 'package:tala_app/feature/chat/presentation/manager/check_connection/check_connection_cubit.dart';
+import 'package:tala_app/feature/chat/presentation/manager/get_typing/get_typing_cubit.dart';
 import 'package:tala_app/feature/chat/presentation/manager/message_cubit/message_cubit.dart';
 import 'package:tala_app/feature/chat/presentation/view/widget/test_chat.dart';
 
@@ -95,10 +97,24 @@ class _ChatScreenBodyState extends State<ChatScreenBody> {
             if (state is CheckConnectionIsConnection) {
               context.read<MessageCubit>().loadMessages(chat.chatId);
               context.read<MessageCubit>().isConnection();
+              context.read<GetTypingCubit>().getTypingStatus(
+                UpdateTypingStateParam(
+                  uid: chat.uid,
+                  chatId: chat.chatId,
+                  isTyping: false,
+                ),
+              );
               context.read<MessageCubit>().markMessagesAsRead(
                 chat.chatId,
                 FirebaseAuth.instance.currentUser!.uid,
               );
+            }
+          },
+        ),
+        BlocListener<GetTypingCubit, GetTypingState>(
+          listener: (context, state) {
+            if (state is GetTypingSuccess) {
+              chatController.setTypingIndicator = state.isTyping;
             }
           },
         ),
@@ -191,14 +207,13 @@ class _ChatScreenBodyState extends State<ChatScreenBody> {
                 context.read<MessageCubit>().updateTypingStatus(
                   chat.chatId,
                   FirebaseAuth.instance.currentUser!.uid,
-                  typeWriterStatus.isTyping,
+                  true,
                 );
-              }
-              else{
+              } else {
                 context.read<MessageCubit>().updateTypingStatus(
                   chat.chatId,
                   FirebaseAuth.instance.currentUser!.uid,
-                  typeWriterStatus.isTyped,
+                  false,
                 );
               }
             },

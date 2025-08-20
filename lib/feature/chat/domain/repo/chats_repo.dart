@@ -20,5 +20,8 @@ abstract class ChatsRepo {
   );
   Future<Either<Failure, Unit>> markMessagesAsRead(MarkAsParams param);
   Future<Either<Failure, Unit>> sendReaction(SendMessageParam param);
-  Future<Either<Failure, Unit>> updateTypingStatus(UpdateTypingStateParam param);
+  Future<Either<Failure, Unit>> updateTypingStatus(
+    UpdateTypingStateParam param,
+  );
+  Stream<Either<Failure, bool>> getTypingStatus(UpdateTypingStateParam param);
 }

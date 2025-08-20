@@ -27,6 +27,7 @@ abstract class ChatsRemoteDataSource {
   Future<Unit> markMessagesAsRead(MarkAsParams param);
   Future<Unit> sendReaction(SendMessageParam param);
   Future<Unit> updateTypingStatus(UpdateTypingStateParam param);
+  Stream<bool> getTypingStatus(UpdateTypingStateParam param);
 }
 
 class ChatsRemoteDataSourceImpl extends ChatsRemoteDataSource {
@@ -283,13 +284,22 @@ class ChatsRemoteDataSourceImpl extends ChatsRemoteDataSource {
 
   @override
   Future<Unit> updateTypingStatus(UpdateTypingStateParam param) async {
-    await FirebaseFirestore.instance
+    await FirebaseFirestore.instance.collection('chats').doc(param.chatId).set({
+      'isTyping': {param.uid: param.isTyping},
+    }, SetOptions(merge: true));
+    return unit;
+  }
+
+  @override
+  Stream<bool> getTypingStatus(UpdateTypingStateParam param) {
+    return FirebaseFirestore.instance
         .collection('chats')
         .doc(param.chatId)
-        .update({
-          'isTyping': {param.uid: param.isTyping},
+        .snapshots()
+        .asyncMap((event) {
+          final data = event.data();
+          return data!['isTyping'][param.uid] as bool;
         });
-    return unit;
   }
 }
 // @override
