@@ -7,6 +7,7 @@ import 'package:tala_app/feature/chat/domain/entities/check_entity.dart';
 import 'package:tala_app/feature/chat/domain/params/mark_as_params.dart';
 import 'package:tala_app/feature/chat/domain/params/send_message_param.dart';
 import 'package:tala_app/feature/chat/domain/params/update_message_status_params.dart';
+import 'package:tala_app/feature/chat/domain/params/update_typing_state_param.dart';
 import 'package:tala_app/feature/chat/domain/repo/chats_repo.dart';
 
 class ChatsRepoImpl extends ChatsRepo {
@@ -103,4 +104,15 @@ class ChatsRepoImpl extends ChatsRepo {
       return left(AppFailure.fromException(e));
     }
   }
+
+  @override
+  Future<Either<Failure, Unit>> updateTypingStatus(UpdateTypingStateParam param) async {
+    try {
+      await chatsRemoteDataSource.updateTypingStatus(param);
+      return right(unit);
+    } catch (e) {
+      return left(AppFailure.fromException(e));
+    }
+  }
+
 }

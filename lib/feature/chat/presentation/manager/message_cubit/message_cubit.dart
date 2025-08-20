@@ -7,11 +7,13 @@ import 'package:meta/meta.dart';
 import 'package:tala_app/feature/chat/domain/params/mark_as_params.dart';
 import 'package:tala_app/feature/chat/domain/params/send_message_param.dart';
 import 'package:tala_app/feature/chat/domain/params/update_message_status_params.dart';
+import 'package:tala_app/feature/chat/domain/params/update_typing_state_param.dart';
 import 'package:tala_app/feature/chat/domain/usa_case/get_messages_use_case.dart';
 import 'package:tala_app/feature/chat/domain/usa_case/mark_messages_as_read_use_case.dart';
 import 'package:tala_app/feature/chat/domain/usa_case/send_message_use_case.dart';
 import 'package:tala_app/feature/chat/domain/usa_case/send_reaction_use_case.dart';
 import 'package:tala_app/feature/chat/domain/usa_case/update_message_status_use_case.dart';
+import 'package:tala_app/feature/chat/domain/usa_case/update_typing_state_use_case.dart';
 
 part 'message_state.dart';
 
@@ -22,12 +24,14 @@ class MessageCubit extends Cubit<MessageState> {
     this.updateMessageStatusUseCase,
     this.markMessagesAsReadUseCase,
     this.sendReactionUseCase,
+    this.updateTypingStatusUseCase,
   ) : super(MessageState(messages: const []));
   final SendMessageUseCase sendMessageUseCase;
   final GetMessagesUseCase getMessagesUseCase;
   final UpdateMessageStatusUseCase updateMessageStatusUseCase;
   final MarkMessagesAsReadUseCase markMessagesAsReadUseCase;
   final SendReactionUseCase sendReactionUseCase;
+  final UpdateTypingStateUseCase updateTypingStatusUseCase;
   StreamSubscription? messagesSub;
   void loadMessages(String chatId) {
     emit(state.copyWith(isLoading: true));
@@ -122,6 +126,16 @@ class MessageCubit extends Cubit<MessageState> {
   Future<void> sendReaction(String chatId, Message message, String uid) async {
     await sendReactionUseCase(
       SendMessageParam(chatId: chatId, uid: uid, message: message),
+    );
+  }
+
+  Future<void> updateTypingStatus(
+    String chatId,
+    String uid,
+    bool isTyping,
+  ) async {
+    await updateTypingStatusUseCase(
+      UpdateTypingStateParam(chatId: chatId, uid: uid, isTyping: isTyping),
     );
   }
 

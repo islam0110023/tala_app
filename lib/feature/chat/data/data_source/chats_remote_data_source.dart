@@ -14,6 +14,7 @@ import 'package:tala_app/feature/chat/domain/entities/check_entity.dart';
 import 'package:tala_app/feature/chat/domain/params/mark_as_params.dart';
 import 'package:tala_app/feature/chat/domain/params/send_message_param.dart';
 import 'package:tala_app/feature/chat/domain/params/update_message_status_params.dart';
+import 'package:tala_app/feature/chat/domain/params/update_typing_state_param.dart';
 
 abstract class ChatsRemoteDataSource {
   Stream<List<ChatEntity>> getChats(String uid);
@@ -25,6 +26,7 @@ abstract class ChatsRemoteDataSource {
   Future<Unit> updateMessageStatus(UpdateMessageStatusParams param);
   Future<Unit> markMessagesAsRead(MarkAsParams param);
   Future<Unit> sendReaction(SendMessageParam param);
+  Future<Unit> updateTypingStatus(UpdateTypingStateParam param);
 }
 
 class ChatsRemoteDataSourceImpl extends ChatsRemoteDataSource {
@@ -276,6 +278,17 @@ class ChatsRemoteDataSourceImpl extends ChatsRemoteDataSource {
         .collection('messages')
         .doc(param.message.id)
         .update({'reaction': param.message.reaction.toJson()});
+    return unit;
+  }
+
+  @override
+  Future<Unit> updateTypingStatus(UpdateTypingStateParam param) async {
+    await FirebaseFirestore.instance
+        .collection('chats')
+        .doc(param.chatId)
+        .update({
+          'isTyping': {param.uid: param.isTyping},
+        });
     return unit;
   }
 }

@@ -6,6 +6,7 @@ import 'package:tala_app/feature/chat/domain/entities/check_entity.dart';
 import 'package:tala_app/feature/chat/domain/params/mark_as_params.dart';
 import 'package:tala_app/feature/chat/domain/params/send_message_param.dart';
 import 'package:tala_app/feature/chat/domain/params/update_message_status_params.dart';
+import 'package:tala_app/feature/chat/domain/params/update_typing_state_param.dart';
 
 abstract class ChatsRepo {
   Stream<Either<Failure, List<ChatEntity>>> getChats(String uid);
@@ -19,4 +20,5 @@ abstract class ChatsRepo {
   );
   Future<Either<Failure, Unit>> markMessagesAsRead(MarkAsParams param);
   Future<Either<Failure, Unit>> sendReaction(SendMessageParam param);
+  Future<Either<Failure, Unit>> updateTypingStatus(UpdateTypingStateParam param);
 }

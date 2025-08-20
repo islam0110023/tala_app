@@ -186,6 +186,22 @@ class _ChatScreenBodyState extends State<ChatScreenBody> {
               //   FirebaseAuth.instance.currentUser!.uid,
               // );
             },
+            onTypeWriterStatus: (typeWriterStatus) {
+              if (typeWriterStatus.isTyping) {
+                context.read<MessageCubit>().updateTypingStatus(
+                  chat.chatId,
+                  FirebaseAuth.instance.currentUser!.uid,
+                  typeWriterStatus.isTyping,
+                );
+              }
+              else{
+                context.read<MessageCubit>().updateTypingStatus(
+                  chat.chatId,
+                  FirebaseAuth.instance.currentUser!.uid,
+                  typeWriterStatus.isTyped,
+                );
+              }
+            },
           );
         },
       ),
