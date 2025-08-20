@@ -84,6 +84,19 @@ class _ChatScreenBodyState extends State<ChatScreenBody> {
                 ContentType.success,
                 'congrats',
               );
+              context.read<MessageCubit>().loadMessages(chat.chatId);
+              context.read<MessageCubit>().isConnection();
+              context.read<GetTypingCubit>().getTypingStatus(
+                UpdateTypingStateParam(
+                  uid: chat.uid,
+                  chatId: chat.chatId,
+                  isTyping: false,
+                ),
+              );
+              context.read<MessageCubit>().markMessagesAsRead(
+                chat.chatId,
+                FirebaseAuth.instance.currentUser!.uid,
+              );
             }
           },
         ),
@@ -152,11 +165,10 @@ class _ChatScreenBodyState extends State<ChatScreenBody> {
           );
         },
         buildWhen: (previous, current) =>
-            previous.messages.length > current.messages.length ||
             (!isLoaded &&
-                (previous.isLoading != current.isLoading ||
-                    previous.messages != current.messages ||
-                    previous.errMessage != current.errMessage)),
+            (previous.isLoading != current.isLoading ||
+                previous.messages != current.messages ||
+                previous.errMessage != current.errMessage)),
         builder: (context, state) {
           if (state.messages.isNotEmpty) {
             isLoaded = true;
@@ -171,7 +183,8 @@ class _ChatScreenBodyState extends State<ChatScreenBody> {
                 ? ChatViewState.loading
                 : state.errMessage?.isNotEmpty ?? false
                 ? ChatViewState.error
-                : (state.messages.isEmpty)
+                : (state.messages.isEmpty ||
+                      chatController.initialMessageList.isEmpty)
                 ? ChatViewState.noData
                 : ChatViewState.hasMessages,
             onSendTap: (message, replyMessage, messageType) {

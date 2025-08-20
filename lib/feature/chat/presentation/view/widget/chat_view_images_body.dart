@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:chatview/chatview.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -10,7 +12,10 @@ class ChatViewImagesBody extends StatelessWidget {
   Widget build(BuildContext context) {
     final extra = GoRouter.of(context).state.extra as Map<String, dynamic>;
     final message = extra['message'] as Message;
+    final isNetwork = message.message.startsWith('http')
+        ? NetworkImage(message.message)
+        : FileImage(File(message.message)) as ImageProvider;
 
-    return PhotoView(imageProvider: NetworkImage(message.message),);
+    return PhotoView(imageProvider: isNetwork);
   }
 }

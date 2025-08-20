@@ -101,6 +101,7 @@ class DatingRemoteDataSourceImpl extends DatingRemoteDataSource {
       'isConnection': false,
       'createdAt': FieldValue.serverTimestamp(),
       'unreadCounts': {currentUid: 0, params.uid: 0},
+      'isTyping': {currentUid: false, params.uid: false},
     };
     await chatRef.set(data);
     return unit;
