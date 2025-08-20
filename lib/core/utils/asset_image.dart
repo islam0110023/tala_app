@@ -29,4 +29,7 @@ class AppImage {
   static const kTalaLogoNav = 'assets/images/tala_button.png';
   static const kTalaLogoNavHover = 'assets/images/tala_button_hover.png';
   static const kHeartIcon = 'assets/images/heart_icon.svg';
+  static const kConcert = 'assets/images/concert.jpg';
+  static const kPaypalIcon = 'assets/images/paypal_icon.svg';
+  static const kCardIcon = 'assets/images/card_icon.svg';
 }

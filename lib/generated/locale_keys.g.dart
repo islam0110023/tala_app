@@ -198,4 +198,21 @@ abstract class  LocaleKeys {
   static const notification = 'notification';
   static const mark_all_as_read = 'mark_all_as_read';
   static const complete_your_account = 'complete_your_account';
+  static const recent_view = 'recent_view';
+  static const person = 'person';
+  static const e_ticket = 'e_ticket';
+  static const cancelled = 'cancelled';
+  static const review = 'review';
+  static const upcoming = 'upcoming';
+  static const tickets = 'tickets';
+  static const reviewTicketSummary='review_ticket_summary';
+  static const change='Change';
+  static const cancelBooking='cancel_booking';
+  static const cancelSelectReason='please_select_the_reason_for_cancellation';
+  static const other = 'other';
+  static const enterYourReason = 'enter_your_reason';
+  static const unexpectedWork = 'unexpected_work';
+  static const personalPreferences = 'personal_preferences';
+  static const healthIssues = 'health_issues';
+  static const changeInPlans = 'change_in_plans';
 }

@@ -227,7 +227,7 @@ abstract class Styling {
     color: AppColor.kPrimaryPink,
     fontSize: 13.sp,
     fontFamily: AppConstant.kFontFamily,
-    fontWeight: FontWeight.w600,
+    fontWeight: FontWeight.w400,
     height: 1.38,
   );
   static final textStyle11400Black = TextStyle(
@@ -260,5 +260,57 @@ abstract class Styling {
     fontSize: 14.sp,
     fontFamily: AppConstant.kFontFamily,
     fontWeight: FontWeight.w700,
+  );
+  static final textStyle18800Purple = TextStyle(
+    color: AppColor.kColorDatingTitle,
+    fontSize: 18.sp,
+    fontFamily: AppConstant.kFontFamily,
+    fontWeight: FontWeight.w800,
+  );
+  static final textStyleEventTitle = TextStyle(
+    color: AppColor.kWhite,
+    fontWeight: FontWeight.bold,
+    fontFamily: AppConstant.kFontFamily,
+    fontSize: 12.sp,
+    shadows: const [
+      Shadow(
+        color: AppColor.kBlack54,
+        blurRadius: 6,
+      )
+    ],
+  );
+  static final textStyle12900PrimaryPink = TextStyle(
+    color: AppColor.kPrimaryPink,
+    fontSize: 12.sp,
+    fontFamily: AppConstant.kFontFamily,
+    fontWeight: FontWeight.w900,
+    height: 1.50,
+  );
+  static final textStyle8900PrimaryPink= TextStyle(
+    color: AppColor.kPrimaryPink,
+    fontSize: 8.sp,
+    fontFamily: AppConstant.kFontFamily,
+    fontWeight: FontWeight.w900,
+    height: 1.50,
+  );
+  static final textStyle10600Ticket = TextStyle(
+    color: AppColor.kTicketDetails,
+    fontSize: 12.sp,
+    fontFamily: AppConstant.kFontFamily,
+    fontWeight: FontWeight.w600,
+    height: 1.26,
+  );
+  static final textStyle16800Purple = textStyle18800Purple.copyWith(fontSize: 14.sp);
+  static final textStyle12600ReviewInfo = TextStyle(
+    color: AppColor.kTicketReviewText,
+    fontSize: 12.sp,
+    fontFamily: AppConstant.kFontFamily,
+    fontWeight: FontWeight.w600,
+  );
+  static final textStyle16600Purple = TextStyle(
+    color: AppColor.kColorOnboarding,
+    fontSize: 16.sp,
+    fontFamily: AppConstant.kFontFamily,
+    fontWeight: FontWeight.w400,
   );
 }

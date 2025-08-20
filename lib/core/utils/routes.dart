@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tala_app/core/utils/service_locator.dart';
@@ -23,11 +24,13 @@ import 'package:tala_app/feature/dating/presentation/manager/get_matches_user/ge
 import 'package:tala_app/feature/dating/presentation/manager/get_user_vector/get_user_vector_cubit.dart';
 import 'package:tala_app/feature/dating/presentation/manager/request_connection/request_connection_cubit.dart';
 import 'package:tala_app/feature/home/presentation/view/home_screen.dart';
+import 'package:tala_app/feature/home/presentation/view/search_screen.dart';
 import 'package:tala_app/feature/notification/presentation/view/notification_screen.dart';
 import 'package:tala_app/feature/onboarding/presentation/view/onboarding_screen.dart';
 import 'package:tala_app/feature/onboarding/presentation/view/onboarding_slide_screen.dart';
 import 'package:tala_app/feature/onboarding/presentation/view/onboarding_tags_screen.dart';
 import 'package:tala_app/feature/onboarding/presentation/view/onboarding_tala_screen.dart';
+import 'package:tala_app/feature/payment/presentation/view/payment_methods_screen.dart';
 import 'package:tala_app/feature/profile/presentation/manager/open_ai_cubit/open_ai_cubit.dart';
 import 'package:tala_app/feature/profile/presentation/manager/save_user_cubit/save_user_cubit.dart';
 import 'package:tala_app/feature/profile/presentation/manager/store_vector_cubit/store_vector_cubit.dart';
@@ -38,6 +41,9 @@ import 'package:tala_app/feature/profile/presentation/view/profile_music_prefere
 import 'package:tala_app/feature/profile/presentation/view/profile_select_passions_screen.dart';
 import 'package:tala_app/feature/profile/presentation/view/profile_set_info_screen.dart';
 import 'package:tala_app/feature/splash_screen/presentation/view/splash_screen.dart';
+import 'package:tala_app/feature/ticket/presentation/view/cancel_ticket_screen.dart';
+import 'package:tala_app/feature/ticket/presentation/view/review_ticket_summary.dart';
+import 'package:tala_app/feature/ticket/presentation/view/ticket_home.dart';
 import 'package:tala_app/main.dart';
 
 class AppRoutes {
@@ -63,6 +69,11 @@ class AppRoutes {
   static const completeSocialRegisterScreen =
       '/complete_social_register_screen';
   static const chatViewImagesScreen = '/chat_view_images_screen';
+  static const searchScreen = '/search_screen';
+  static const ticketScreen = '/ticket_home';
+  static const reviewTicketSummaryScreen = '/review_ticket_summary_screen';
+  static const cancelTicketScreen = '/cancel_ticket_screen';
+  static const paymentMethodsScreen = '/payment_methods_screen';
 
   static final route = GoRouter(
     navigatorKey: navigatorKey,
@@ -241,6 +252,45 @@ class AppRoutes {
           ],
           child: const CompleteSocialRegisterScreen(),
         ),
+      ),
+      GoRoute(
+        path: searchScreen,
+        pageBuilder: (context, state) {
+          return CustomTransitionPage(
+            key: state.pageKey,
+            child: const SearchScreen(),
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) {
+                  final offset =
+                      Tween<Offset>(
+                        begin: const Offset(0, 1),
+                        end: Offset.zero,
+                      ).animate(
+                        CurvedAnimation(
+                          parent: animation,
+                          curve: Curves.easeOut,
+                        ),
+                      );
+                  return SlideTransition(position: offset, child: child);
+                },
+          );
+        },
+      ),
+      GoRoute(
+        path: ticketScreen,
+        builder: (context, state) => const TicketHome(),
+      ),
+      GoRoute(
+        path: reviewTicketSummaryScreen,
+        builder: (context, state) => const ReviewTicketSummary(),
+      ),
+      GoRoute(
+        path: cancelTicketScreen,
+        builder: (context, state) => const CancelTicketScreen(),
+      ),
+      GoRoute(
+        path: paymentMethodsScreen,
+        builder: (context, state) => const PaymentMethodsScreen(),
       ),
       GoRoute(
         path: chatViewImagesScreen,

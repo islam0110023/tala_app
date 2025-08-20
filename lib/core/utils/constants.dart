@@ -229,6 +229,14 @@ abstract class AppConstant {
     }
   }
 
+  static List<String> kReasons = [
+    LocaleKeys.changeInPlans.tr(),
+    LocaleKeys.healthIssues.tr(),
+    LocaleKeys.personalPreferences.tr(),
+    LocaleKeys.unexpectedWork.tr(),
+    LocaleKeys.other.tr(),
+  ];
+
   static String createMexIds(String currentUid, String uid) {
     final List<String> ids = [currentUid, uid]..sort();
     final chatId = ids.join('_');

@@ -27,13 +27,17 @@ class ProfileOptionsList extends StatelessWidget {
 
           CustomTextClickable(
             title: LocaleKeys.ticket.tr(),
-            onTap: () {},
+            onTap: () {
+              GoRouter.of(context).push(AppRoutes.ticketScreen);
+            },
             icon: const Icon(CupertinoIcons.ticket, color: Colors.white),
           ),
 
           CustomTextClickable(
             title: LocaleKeys.payment_methods.tr(),
-            onTap: () {},
+            onTap: () {
+              GoRouter.of(context).push(AppRoutes.paymentMethodsScreen);
+            },
             icon: const Icon(Icons.payment, color: Colors.white),
           ),
 
