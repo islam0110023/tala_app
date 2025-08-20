@@ -1,3 +1,4 @@
+import 'package:chatview/chatview.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
@@ -67,6 +68,30 @@ class TalaApp extends StatelessWidget {
         supportedLocales: context.supportedLocales,
         builder: (context, child) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
+            PackageStrings.addLocaleObject(
+              'de',
+              const ChatViewLocale(
+                today: 'Heute',
+                yesterday: 'Gestern',
+                repliedToYou: 'hat dir geantwortet',
+                repliedBy: 'Antwort von',
+                more: 'Mehr',
+                unsend: 'Löschen',
+                reply: 'Antworten',
+                replyTo: 'Antwort an',
+                message: 'Nachricht',
+                reactionPopupTitle: 'Reaktionen',
+                photo: 'Foto',
+                send: 'Senden',
+                you: 'Du',
+                report: 'Melden',
+                noMessage: 'Keine Nachrichten',
+                somethingWentWrong: 'Etwas ist schief gelaufen',
+                reload: 'Neu laden',
+              ),
+            );
+
+            PackageStrings.setLocale(context.locale.languageCode);
             AppConstant.precacheAppImages(context);
             getIt<InternetService>().onStatusChanged.listen((connected) {
               if (!connected) {

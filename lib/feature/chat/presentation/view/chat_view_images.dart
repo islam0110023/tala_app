@@ -1,3 +1,4 @@
+import 'package:chatview/chatview.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tala_app/core/utils/app_color.dart';
@@ -14,6 +15,7 @@ class ChatViewImages extends StatelessWidget {
   Widget build(BuildContext context) {
     final extra = GoRouter.of(context).state.extra as Map<String, dynamic>;
     final detailsChat = extra['detailsChat'] as ChatEntity;
+    final message = extra['message'] as Message;
     return Scaffold(
       appBar: AppBar(
         leading: Padding(
@@ -25,7 +27,10 @@ class ChatViewImages extends StatelessWidget {
           ),
         ),
         backgroundColor: AppColor.kWhite1.withAlpha(80),
-        title: Text(detailsChat.name, style: Styling.chatNumberStyle),
+        title: Text(
+          message.sentBy == detailsChat.uid ? detailsChat.name : 'You',
+          style: Styling.chatNumberStyle,
+        ),
         elevation: 0,
       ),
       body: const ChatViewImagesBody(),
