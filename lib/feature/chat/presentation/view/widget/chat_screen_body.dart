@@ -119,16 +119,17 @@ class _ChatScreenBodyState extends State<ChatScreenBody> {
               if (index != -1 &&
                   chatController.initialMessageList[index] != msg) {
                 chatController.initialMessageList[index].setStatus = msg.status;
-                // chatController.setReaction(
-                //   emoji: msg.reaction.reactions[0],
-                //   messageId: msg.id,
-                //   userId: msg.reaction.reactedUserIds[0],
-                // );
-                // chatController.initialMessageList[index].statusNotifier;
+                if (msg.reaction.reactions.isNotEmpty) {
+                  context.read<MessageCubit>().loadMessages(chat.chatId);
+                }
 
                 chatController.initialMessageList[index].statusNotifier;
               }
             }
+          }
+          if (state.messages.isEmpty) {
+            chatController.initialMessageList.clear();
+            context.read<MessageCubit>().loadMessages(chat.chatId);
           }
 
           context.read<MessageCubit>().markMessagesAsRead(
@@ -137,10 +138,11 @@ class _ChatScreenBodyState extends State<ChatScreenBody> {
           );
         },
         buildWhen: (previous, current) =>
-            !isLoaded &&
-            (previous.isLoading != current.isLoading ||
-                previous.messages != current.messages ||
-                previous.errMessage != current.errMessage),
+            previous.messages.length > current.messages.length ||
+            (!isLoaded &&
+                (previous.isLoading != current.isLoading ||
+                    previous.messages != current.messages ||
+                    previous.errMessage != current.errMessage)),
         builder: (context, state) {
           if (state.messages.isNotEmpty) {
             isLoaded = true;
@@ -182,11 +184,16 @@ class _ChatScreenBodyState extends State<ChatScreenBody> {
               chatController.scrollToLastMessage();
             },
             onReactionTap: (message, emoje) {
-              context.read<MessageCubit>().sendReaction(
-                chat.chatId,
-                message,
-                FirebaseAuth.instance.currentUser!.uid,
-              );
+              context
+                  .read<MessageCubit>()
+                  .sendReaction(
+                    chat.chatId,
+                    message,
+                    FirebaseAuth.instance.currentUser!.uid,
+                  )
+                  .then((value) {
+                    // context.read<MessageCubit>().loadMessages(chat.chatId);
+                  });
             },
           );
         },

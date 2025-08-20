@@ -99,14 +99,16 @@ class MessageCubit extends Cubit<MessageState> {
     List<Message> oldMessages,
     List<Message> newMessages,
   ) {
-    final updated = List<Message>.from(oldMessages);
+    final updated = <Message>[];
 
     for (final newMsg in newMessages) {
-      final index = updated.indexWhere((m) => m.id == newMsg.id);
+      final index = oldMessages.indexWhere((m) => m.id == newMsg.id);
       if (index == -1) {
         updated.add(newMsg);
-      } else if (updated[index] != newMsg) {
-        updated[index] = newMsg;
+      } else if (oldMessages[index] != newMsg) {
+        updated.add(newMsg);
+      } else {
+        updated.add(oldMessages[index]);
       }
     }
 
