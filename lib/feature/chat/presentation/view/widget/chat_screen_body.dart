@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tala_app/core/utils/constants.dart';
+import 'package:tala_app/core/utils/routes.dart';
 import 'package:tala_app/core/utils/styling.dart';
 import 'package:tala_app/feature/chat/domain/entities/chats_entity.dart';
 import 'package:tala_app/feature/chat/domain/params/update_typing_state_param.dart';
@@ -216,6 +217,12 @@ class _ChatScreenBodyState extends State<ChatScreenBody> {
                   false,
                 );
               }
+            },
+            onMessageTap: (message) {
+              context.push(
+                AppRoutes.chatViewImagesScreen,
+                extra: {'message': message, 'detailsChat': chat},
+              );
             },
           );
         },

@@ -18,6 +18,7 @@ import 'package:tala_app/feature/chat/presentation/manager/check_connection/chec
 import 'package:tala_app/feature/chat/presentation/manager/get_typing/get_typing_cubit.dart';
 import 'package:tala_app/feature/chat/presentation/manager/message_cubit/message_cubit.dart';
 import 'package:tala_app/feature/chat/presentation/view/chat_screen.dart';
+import 'package:tala_app/feature/chat/presentation/view/chat_view_images.dart';
 import 'package:tala_app/feature/dating/presentation/manager/get_matches_user/get_matches_user_cubit.dart';
 import 'package:tala_app/feature/dating/presentation/manager/get_user_vector/get_user_vector_cubit.dart';
 import 'package:tala_app/feature/dating/presentation/manager/request_connection/request_connection_cubit.dart';
@@ -61,6 +62,7 @@ class AppRoutes {
   static const notificationScreen = '/notification_screen';
   static const completeSocialRegisterScreen =
       '/complete_social_register_screen';
+  static const chatViewImagesScreen = '/chat_view_images_screen';
 
   static final route = GoRouter(
     navigatorKey: navigatorKey,
@@ -239,6 +241,10 @@ class AppRoutes {
           ],
           child: const CompleteSocialRegisterScreen(),
         ),
+      ),
+      GoRoute(
+        path: chatViewImagesScreen,
+        builder: (context, state) => const ChatViewImages(),
       ),
     ],
   );

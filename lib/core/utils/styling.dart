@@ -140,7 +140,7 @@ abstract class Styling {
   );
   static final chatNumberStyle = TextStyle(
     color: Colors.black,
-    fontSize: 14.sp,
+    fontSize: 18.sp,
     fontFamily: AppConstant.kFontFamily,
     fontWeight: FontWeight.w700,
   );

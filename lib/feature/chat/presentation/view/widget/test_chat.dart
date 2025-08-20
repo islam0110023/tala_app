@@ -18,6 +18,7 @@ class CustomChatView extends StatelessWidget {
     this.status,
     this.onReactionTap,
     this.chatViewState,
+    this.onMessageTap,
   });
   final void Function(
     String message,
@@ -31,6 +32,7 @@ class CustomChatView extends StatelessWidget {
   final String? status;
   final void Function(Message message, String emoje)? onReactionTap;
   final ChatViewState? chatViewState;
+  final void Function(Message message)? onMessageTap;
 
   @override
   Widget build(BuildContext context) {
@@ -216,6 +218,7 @@ class CustomChatView extends StatelessWidget {
             height: AppDimensions.r200,
             width: AppDimensions.r200,
             hideShareIcon: true,
+            onTap: onMessageTap,
           ),
         ),
         typeIndicatorConfig: const TypeIndicatorConfiguration(
