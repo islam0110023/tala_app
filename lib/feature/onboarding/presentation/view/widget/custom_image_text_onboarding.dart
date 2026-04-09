@@ -5,7 +5,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tala_app/core/utils/asset_image.dart';
 
 class TextImageShader extends StatelessWidget {
-  const TextImageShader({super.key, required this.width, required this.name, required this.textStyle});
+  const TextImageShader({
+    super.key,
+    required this.width,
+    required this.name,
+    required this.textStyle,
+  });
   final double width;
   final String name;
   final TextStyle textStyle;
@@ -28,16 +33,12 @@ class TextImageShader extends StatelessWidget {
 
         final image = snapshot.data!;
 
-
         final shader = ImageShader(
           image,
           TileMode.repeated,
           TileMode.repeated,
-          Matrix4.identity()
-              .scaled(0.2.w, 0.18.h)
-              .storage,
+          Matrix4.identity().scaled(0.2.w, 0.18.h).storage,
         );
-
 
         return SizedBox(
           width: width,
@@ -45,9 +46,7 @@ class TextImageShader extends StatelessWidget {
             fit: BoxFit.scaleDown,
             child: Text(
               name,
-              style: textStyle.copyWith(
-                foreground: Paint()..shader = shader,
-              ),
+              style: textStyle.copyWith(foreground: Paint()..shader = shader),
             ),
           ),
         );

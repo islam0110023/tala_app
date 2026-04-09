@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tala_app/core/services/notification_service/push_notification_service.dart';
 import 'package:tala_app/core/utils/constants.dart';
 import 'package:tala_app/core/utils/routes.dart';
 import 'package:tala_app/core/utils/styling.dart';
@@ -12,8 +13,10 @@ import 'package:tala_app/feature/chat/domain/entities/chats_entity.dart';
 import 'package:tala_app/feature/chat/domain/params/update_typing_state_param.dart';
 import 'package:tala_app/feature/chat/presentation/manager/apply_connection/apply_connection_cubit.dart';
 import 'package:tala_app/feature/chat/presentation/manager/check_connection/check_connection_cubit.dart';
+import 'package:tala_app/feature/chat/presentation/manager/get_status/get_status_cubit.dart';
 import 'package:tala_app/feature/chat/presentation/manager/get_typing/get_typing_cubit.dart';
 import 'package:tala_app/feature/chat/presentation/manager/message_cubit/message_cubit.dart';
+import 'package:tala_app/feature/chat/presentation/view/widget/subscription_dialog.dart';
 import 'package:tala_app/feature/chat/presentation/view/widget/test_chat.dart';
 
 class ChatScreenBody extends StatefulWidget {
@@ -27,6 +30,7 @@ class _ChatScreenBodyState extends State<ChatScreenBody> {
   late final ChatEntity chat;
   late ChatController chatController;
   bool isLoaded = false;
+  bool isAccept = false;
   @override
   void initState() {
     // TODO: implement initState
@@ -60,10 +64,12 @@ class _ChatScreenBodyState extends State<ChatScreenBody> {
     // TODO: implement dispose
     super.dispose();
     chatController.dispose();
+    PushNotificationsServices.pendingChatId = null;
   }
 
   @override
   Widget build(BuildContext context) {
+    final cubit = context.watch<GetStatusCubit>();
     return MultiBlocListener(
       listeners: [
         BlocListener<ApplyConnectionCubit, ApplyConnectionState>(
@@ -84,6 +90,8 @@ class _ChatScreenBodyState extends State<ChatScreenBody> {
                 ContentType.success,
                 'congrats',
               );
+              context.read<CheckConnectionCubit>().checkConnection(chat.uid);
+              chatController.loadMoreData([]);
             }
           },
         ),
@@ -109,6 +117,7 @@ class _ChatScreenBodyState extends State<ChatScreenBody> {
                 chat.chatId,
                 FirebaseAuth.instance.currentUser!.uid,
               );
+              context.read<MessageCubit>().markNotificationAsRead(chat.chatId);
             }
           },
         ),
@@ -124,7 +133,8 @@ class _ChatScreenBodyState extends State<ChatScreenBody> {
         listenWhen: (previous, current) =>
             previous.messages != current.messages ||
             previous.isLoading != current.isLoading ||
-            previous.errMessage != current.errMessage,
+            previous.errMessage != current.errMessage &&
+                current.errMessage != null,
         listener: (context, state) {
           for (final msg in state.messages) {
             if (!chatController.initialMessageList.any((m) => m.id == msg.id)) {
@@ -145,11 +155,25 @@ class _ChatScreenBodyState extends State<ChatScreenBody> {
             isLoaded = false;
             context.read<MessageCubit>().loadMessages(chat.chatId);
           }
+          if (state.errMessage != null) {
+            showDialog(
+              context: context,
+              useSafeArea: false,
+              animationStyle: const AnimationStyle(
+                duration: Duration(milliseconds: 500),
+                curve: Curves.easeInOut,
+              ),
+              builder: (context) {
+                return SubscriptionDialog(message: state.errMessage!);
+              },
+            );
+          }
 
           context.read<MessageCubit>().markMessagesAsRead(
             chat.chatId,
             FirebaseAuth.instance.currentUser!.uid,
           );
+          context.read<MessageCubit>().markNotificationAsRead(chat.chatId);
         },
         buildWhen: (previous, current) =>
             previous.messages.length > current.messages.length ||
@@ -167,6 +191,11 @@ class _ChatScreenBodyState extends State<ChatScreenBody> {
 
           return CustomChatView(
             chatController: chatController,
+            status: cubit.chatStatus.isOnline
+                ? 'Online'
+                : cubit.chatStatus.lastSeen != null
+                ? 'Last seen: ${AppConstant.timeAgo(cubit.chatStatus.lastSeen!)}'
+                : 'Offline',
             chatViewState: state.isLoading || state.isConnection
                 ? ChatViewState.loading
                 : state.errMessage?.isNotEmpty ?? false

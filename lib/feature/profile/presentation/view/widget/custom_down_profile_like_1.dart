@@ -25,11 +25,13 @@ class CustomDownProfileLike1 extends StatelessWidget {
               if (profileFormKey.currentState!.validate()) {
                 final musicLike = profileFormKey.currentState!
                     .getAllSelectedValues();
-                final cubit=BlocProvider.of<UserFormCubit>(context);
+                final cubit = BlocProvider.of<UserFormCubit>(context);
                 cubit.setMusicLike(musicLike);
                 FocusScope.of(context).unfocus();
 
-                GoRouter.of(context).push(AppRoutes.profileLike2Screen,extra: cubit);
+                GoRouter.of(
+                  context,
+                ).push(AppRoutes.profileLike2Screen, extra: cubit);
               }
             },
             name: LocaleKeys.next.tr(),

@@ -9,6 +9,8 @@ final class LoginLoading extends LoginState {}
 
 final class LoginSuccess extends LoginState {}
 
+final class LoginEmailVerified extends LoginState {}
+
 final class LoginFailure extends LoginState {
   LoginFailure(this.errMessage);
   final String errMessage;

@@ -6,8 +6,6 @@ class ProfileSelectPassionsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: ProfileSelectPassionsBody(),
-    );
+    return const Scaffold(body: ProfileSelectPassionsBody());
   }
 }

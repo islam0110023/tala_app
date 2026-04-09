@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tala_app/core/utils/app_color.dart';
 import 'package:tala_app/core/utils/app_dimensions.dart';
 import 'package:tala_app/core/utils/styling.dart';
+import 'package:tala_app/feature/dating/domain/entity/match_user_entity.dart';
+import 'package:tala_app/feature/dating/presentation/manager/match_user_provider.dart';
 import 'package:tala_app/feature/dating/presentation/view/widget/custom_images_second_card_dating_screen.dart';
 
 class CustomSecondCardDating extends StatelessWidget {
@@ -9,6 +12,8 @@ class CustomSecondCardDating extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final MatchUserEntity? matchUser = MatchUserProvider.of(context);
+
     return Align(
       alignment: Alignment.bottomCenter,
       child: Container(
@@ -36,18 +41,21 @@ class CustomSecondCardDating extends StatelessWidget {
             ),
           ),
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const CustomImagesSecondCardDatingScreen(),
-            SizedBox(height: AppDimensions.h9),
-            Text('Bio:', style: Styling.textStyleDating20),
-            SizedBox(height: AppDimensions.h5),
-            Text(
-              "I'm Elena, a 26-year-old adventurer who loves exploring new places and trying new things.\nWhether it's hiking up a mountain or diving into a good book, I'm always up for an adventure.\nMusic is a big part of my life.   ",
-              style: Styling.textStyle16.copyWith(color: AppColor.kWhite1),
-            ),
-          ],
+        child: SingleChildScrollView(
+          padding: REdgeInsets.only(bottom: 55),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+             // const CustomImagesSecondCardDatingScreen(),
+              SizedBox(height: AppDimensions.h9),
+              Text('Bio:', style: Styling.textStyleDating20),
+              SizedBox(height: AppDimensions.h5),
+              Text(
+                matchUser?.bio ?? '',
+                style: Styling.textStyle16.copyWith(color: AppColor.kWhite1),
+              ),
+            ],
+          ),
         ),
       ),
     );

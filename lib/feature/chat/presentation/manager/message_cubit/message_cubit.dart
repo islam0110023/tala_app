@@ -10,6 +10,7 @@ import 'package:tala_app/feature/chat/domain/params/update_message_status_params
 import 'package:tala_app/feature/chat/domain/params/update_typing_state_param.dart';
 import 'package:tala_app/feature/chat/domain/usa_case/get_messages_use_case.dart';
 import 'package:tala_app/feature/chat/domain/usa_case/mark_messages_as_read_use_case.dart';
+import 'package:tala_app/feature/chat/domain/usa_case/mark_notification_as_read_use_case.dart';
 import 'package:tala_app/feature/chat/domain/usa_case/send_message_use_case.dart';
 import 'package:tala_app/feature/chat/domain/usa_case/send_reaction_use_case.dart';
 import 'package:tala_app/feature/chat/domain/usa_case/update_message_status_use_case.dart';
@@ -25,6 +26,7 @@ class MessageCubit extends Cubit<MessageState> {
     this.markMessagesAsReadUseCase,
     this.sendReactionUseCase,
     this.updateTypingStatusUseCase,
+    this.markNotificationAsReadUseCase,
   ) : super(MessageState(messages: const []));
   final SendMessageUseCase sendMessageUseCase;
   final GetMessagesUseCase getMessagesUseCase;
@@ -32,6 +34,8 @@ class MessageCubit extends Cubit<MessageState> {
   final MarkMessagesAsReadUseCase markMessagesAsReadUseCase;
   final SendReactionUseCase sendReactionUseCase;
   final UpdateTypingStateUseCase updateTypingStatusUseCase;
+  final MarkNotificationAsReadUseCase markNotificationAsReadUseCase;
+
   StreamSubscription? messagesSub;
   void loadMessages(String chatId) {
     emit(state.copyWith(isLoading: true));
@@ -56,36 +60,30 @@ class MessageCubit extends Cubit<MessageState> {
     emit(state.copyWith(isConnection: false));
   }
 
-  void sendMessage(String chatId, Message message, String uid) {
+  void sendMessage(String chatId, Message message, String uid) async {
     final tempList = List<Message>.from(state.messages)..add(message);
     emit(state.copyWith(messages: tempList));
 
-    sendMessageUseCase(
+    final either = await sendMessageUseCase(
       SendMessageParam(uid: uid, chatId: chatId, message: message),
-    ).then((either) {
-      either.fold(
-        (failure) {
-          _updateMessageStatus(message.id, MessageStatus.undelivered);
-          updateMessageStatusUseCase(
-            UpdateMessageStatusParams(
-              chatId: chatId,
-              messageId: message.id,
-              newStatus: MessageStatus.undelivered,
-            ),
-          );
-        },
-        (_) {
-          _updateMessageStatus(message.id, MessageStatus.delivered);
-          updateMessageStatusUseCase(
-            UpdateMessageStatusParams(
-              chatId: chatId,
-              messageId: message.id,
-              newStatus: MessageStatus.delivered,
-            ),
-          );
-        },
-      );
-    });
+    );
+    either.fold(
+      (failure) {
+        _updateMessageStatus(message.id, MessageStatus.undelivered);
+        emit(state.copyWith(errMessage: failure.errMessage));
+        emit(state.copyWith(errMessage: null));
+      },
+      (_) {
+        _updateMessageStatus(message.id, MessageStatus.delivered);
+        updateMessageStatusUseCase(
+          UpdateMessageStatusParams(
+            chatId: chatId,
+            messageId: message.id,
+            newStatus: MessageStatus.delivered,
+          ),
+        );
+      },
+    );
   }
 
   void _updateMessageStatus(String messageId, MessageStatus newStatus) {
@@ -121,6 +119,10 @@ class MessageCubit extends Cubit<MessageState> {
 
   Future<void> markMessagesAsRead(String chatId, String uid) async {
     await markMessagesAsReadUseCase(MarkAsParams(chatId: chatId, uid: uid));
+  }
+
+  Future<void> markNotificationAsRead(String chatId) async {
+    await markNotificationAsReadUseCase(chatId);
   }
 
   Future<void> sendReaction(String chatId, Message message, String uid) async {

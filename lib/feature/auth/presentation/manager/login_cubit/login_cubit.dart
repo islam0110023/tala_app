@@ -23,7 +23,11 @@ class LoginCubit extends Cubit<LoginState> {
       },
       (r) {
         loginEntity = r;
-        emit(LoginSuccess());
+        if (!loginEntity!.credential.user!.emailVerified) {
+          emit(LoginEmailVerified());
+        } else {
+          emit(LoginSuccess());
+        }
       },
     );
   }

@@ -50,7 +50,7 @@ class NewPasswordScreenBody extends StatelessWidget {
                     const CustomFieldsNewPassword(),
                     SizedBox(height: AppDimensions.h51),
                     CustomButton(
-                      onTap: () async{
+                      onTap: () async {
                         final isConnected =
                             getIt<InternetService>().isConnected;
                         if (!isConnected) {

@@ -66,6 +66,12 @@ dependencies:
   path_provider: ^2.1.5
   equatable: ^2.0.7
   photo_view: ^0.15.0
+  firebase_messaging: ^15.2.10
+  flutter_local_notifications: ^19.5.0
+  firebase_database: ^11.3.10
+  cloud_functions: ^5.6.2
+  lottie: ^3.3.1
+  image_picker: ^1.2.1
 
 dev_dependencies:
   flutter_test:
@@ -105,6 +111,7 @@ flutter:
   assets:
     - assets/images/
     - assets/translate/
+    - assets/lotties/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

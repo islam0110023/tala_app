@@ -2,6 +2,7 @@ import 'package:chatview/chatview.dart';
 import 'package:dartz/dartz.dart';
 import 'package:tala_app/core/errors/failure.dart';
 import 'package:tala_app/feature/chat/data/data_source/chats_remote_data_source.dart';
+import 'package:tala_app/feature/chat/domain/entities/chat_status_entity.dart';
 import 'package:tala_app/feature/chat/domain/entities/chats_entity.dart';
 import 'package:tala_app/feature/chat/domain/entities/check_entity.dart';
 import 'package:tala_app/feature/chat/domain/params/mark_as_params.dart';
@@ -56,6 +57,7 @@ class ChatsRepoImpl extends ChatsRepo {
   @override
   Future<Either<Failure, Unit>> sendMessage(SendMessageParam param) async {
     try {
+      await chatsRemoteDataSource.checkAndConsumeMessage();
       await chatsRemoteDataSource.sendMessage(param);
       return right(unit);
     } catch (e) {
@@ -122,6 +124,26 @@ class ChatsRepoImpl extends ChatsRepo {
     try {
       final typingStatus = chatsRemoteDataSource.getTypingStatus(param);
       return typingStatus.map((typingStatus) => right(typingStatus));
+    } catch (e) {
+      return Stream.value(left(AppFailure.fromException(e)));
+    }
+  }
+
+  @override
+  Future<Either<Failure, Unit>> markNotificationAsRead(String chatId) async {
+    try {
+      await chatsRemoteDataSource.markNotificationAsRead(chatId);
+      return right(unit);
+    } catch (e) {
+      return left(AppFailure.fromException(e));
+    }
+  }
+
+  @override
+  Stream<Either<Failure, ChatStatusEntity>> getChatStatus(String uid) {
+    try {
+      final chatStatus = chatsRemoteDataSource.getChatStatus(uid);
+      return chatStatus.map((chatStatus) => right(chatStatus));
     } catch (e) {
       return Stream.value(left(AppFailure.fromException(e)));
     }

@@ -17,13 +17,12 @@ class OnboardingTalaScreenBody extends StatelessWidget {
         const CustomOvalDashesTalaOnBoarding(),
         const CustomImagesTalaOnBoarding(),
         const CustomImagesShader(),
-        CustomNavTalaOnBoarding(onTap: () {
-          GoRouter.of(context).push(AppRoutes.loginScreen);
-        }),
+        CustomNavTalaOnBoarding(
+          onTap: () {
+            GoRouter.of(context).push(AppRoutes.loginScreen);
+          },
+        ),
       ],
     );
   }
 }
-
-
-

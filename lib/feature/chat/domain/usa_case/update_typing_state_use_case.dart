@@ -9,7 +9,6 @@ class UpdateTypingStateUseCase extends UseCase<Unit, UpdateTypingStateParam> {
 
   final ChatsRepo chatsRepo;
   @override
-
   Future<Either<Failure, Unit>> call([UpdateTypingStateParam? param]) {
     return chatsRepo.updateTypingStatus(param!);
   }

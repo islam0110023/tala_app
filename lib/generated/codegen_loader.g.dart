@@ -46,11 +46,11 @@ class CodegenLoader extends AssetLoader {
     "termsAndConditions": "AGB",
     "signUp": "Registrieren",
     "pleaseEnterCode":
-        "Bitte gib den Code ein, den wir dir gerade per E-Mail gesendet haben",
-    "verifyCode": "Code bestätigen",
+        "Bitte klicken Sie auf den Link, um zu bestätigen, dass wir Ihnen soeben eine E-Mail gesendet haben.",
+    "verifyCode": "E-Mail Bestätigen",
     "orToNumber": "oder an deine Nummer",
-    "didntReceiveOtp": "OTP nicht erhalten?",
-    "resendCode": "Code erneut senden",
+    "didntReceiveOtp": "Link nicht erhalten?",
+    "resendCode": "Link erneut senden",
     "verify": "Bestätigen",
     "shareYourWorld": "Teile ein Stück deiner Welt",
     "name": "Name",
@@ -179,13 +179,17 @@ class CodegenLoader extends AssetLoader {
     "search": "Suche",
     "join_now": "Jetzt beitreten",
     "sign_out": "Abmelden",
-    "are_you_sure_you_want_to_sign_out?":"Sind Sie sicher, dass Sie abmelden möchten?",
-    "please_select_interests_passions_up_to_five": "Bitte wählen Sie Interests und Passions bis zu fünf aus",
+    "are_you_sure_you_want_to_sign_out?":
+        "Sind Sie sicher, dass Sie abmelden möchten?",
+    "please_select_interests_passions_up_to_five":
+        "Bitte wählen Sie Interests und Passions bis zu fünf aus",
     "welcome!": "Willkommen!",
-    "profile_completed!_discover_people_who_vibe_like_you":"Profil abgeschlossen! Finde Menschen, die auf deiner Wellenlänge sind",
+    "profile_completed!_discover_people_who_vibe_like_you":
+        "Profil abgeschlossen! Finde Menschen, die auf deiner Wellenlänge sind",
     "please_select_all_fields": "Bitte wählen Sie alle Felder aus",
     "please_fill_all_fields": "Bitte füllen Sie alle Felder aus",
-    "please_select_interests_music_up_to_five": "Bitte wählen Sie Interests und Musik bis zu fünf aus",
+    "please_select_interests_music_up_to_five":
+        "Bitte wählen Sie Interests und Musik bis zu fünf aus",
     "some_required_fields_are_missing.": "Notwendige Felder fehlen.",
     "for_you": "Für dich",
     "trending": "Im Trend",
@@ -197,17 +201,20 @@ class CodegenLoader extends AssetLoader {
     "check_your_email": "Überprüfe deine E-Mail",
     "success": "Erfolgreich",
     "delete": "Löschen",
-    "if_you_go_back_now,_your_account_will_be_deleted.": "Wenn Sie jetzt zurückgehen, wird Ihr Konto gelöscht.",
+    "if_you_go_back_now,_your_account_will_be_deleted.":
+        "Wenn Sie jetzt zurückgehen, wird Ihr Konto gelöscht.",
     "please_enter_your": "Bitte geben Sie Ihre",
 
-
-    "connection_timeout": "Zeitüberschreitung bei der Verbindung. Bitte versuche es erneut.",
-    "send_timeout": "Zeitüberschreitung beim Senden der Anfrage. Bitte überprüfe deine Internetverbindung.",
+    "connection_timeout":
+        "Zeitüberschreitung bei der Verbindung. Bitte versuche es erneut.",
+    "send_timeout":
+        "Zeitüberschreitung beim Senden der Anfrage. Bitte überprüfe deine Internetverbindung.",
     "receive_timeout": "Server hat zu lange zum Antworten gebraucht.",
     "cancel": "Abbrechen.",
     "connection_error": "Keine Internetverbindung.",
     "bad_response": "Serverfehler ({statusCode}): {message}",
-    "unexpected_error": "Ein unerwarteter Fehler ist aufgetreten. Bitte versuche es erneut.",
+    "unexpected_error":
+        "Ein unerwarteter Fehler ist aufgetreten. Bitte versuche es erneut.",
 
     "invalid_email": "Die E-Mail-Adresse ist ungültig.",
     "user_disabled": "Dieses Konto wurde deaktiviert.",
@@ -218,22 +225,33 @@ class CodegenLoader extends AssetLoader {
     "too_many_requests": "Zu viele Anfragen. Bitte später erneut versuchen.",
     "invalid_otp": "Ungültiger OTP-Code.",
     "invalid_phone": "Ungültiges Telefonnummernformat.",
-    "session_expired": "Verifizierungssitzung abgelaufen. Bitte erneut versuchen.",
+    "session_expired":
+        "Verifizierungssitzung abgelaufen. Bitte erneut versuchen.",
     "missing_otp": "Verifizierungscode fehlt.",
     "invalid_credential": "E-Mail oder Passwort ist falsch. Bitte überprüfen.",
-    "password_rule": "Das Passwort muss einen Kleinbuchstaben und eine Zahl enthalten.",
+    "password_rule":
+        "Das Passwort muss einen Kleinbuchstaben und eine Zahl enthalten.",
     "auth_failed": "Authentifizierung fehlgeschlagen.",
 
     "firebase_error": "Firebase-Fehler ist aufgetreten.",
-    "recaptcha_error": "reCAPTCHA-Verifizierung fehlgeschlagen. Bitte erneut versuchen.",
+    "recaptcha_error":
+        "reCAPTCHA-Verifizierung fehlgeschlagen. Bitte erneut versuchen.",
     "platform_error": "Plattformfehler aufgetreten.",
-    "fallback_recaptcha": "reCAPTCHA-Verifizierung fehlgeschlagen. Firebase-Einstellungen überprüfen.",
+    "fallback_recaptcha":
+        "reCAPTCHA-Verifizierung fehlgeschlagen. Firebase-Einstellungen überprüfen.",
     "socket_error": "Keine Internetverbindung.",
     "timeout": "Zeitüberschreitung bei der Anfrage. Bitte erneut versuchen.",
     "no_internet_connection": "Keine Internetverbindung.",
     "notification": "Benachrichtigung",
     "mark_all_as_read": "Alle als gelesen markieren",
     "complete_your_account": "Fülle dein Konto aus",
+    'daily_message_limit_reached':
+        'Du hast dein tägliches Nachrichtenlimit erreicht',
+    'login_required': 'Du musst dich zuerst anmelden',
+    'no_free_plan_available':
+        'Derzeit ist kein kostenloser Abonnementplan verfügbar',
+    'server_error':
+        'Es ist ein Serverfehler aufgetreten. Bitte versuche es später erneut',
   };
   static const Map<String, dynamic> _en = {
     "@@locale": "en",
@@ -267,11 +285,12 @@ class CodegenLoader extends AssetLoader {
     "agreeTerms": "Agree with",
     "termsAndConditions": "Terms & Condition",
     "signUp": "Sign up",
-    "pleaseEnterCode": "Please enter the code we just sent to your email",
-    "verifyCode": "Verify Code",
+    "pleaseEnterCode":
+        "Please click the link to verify we just sent to your email",
+    "verifyCode": "Verify Email",
     "orToNumber": "or to your number",
-    "didntReceiveOtp": "Didn’t receive OTP?",
-    "resendCode": "Resend Code",
+    "didntReceiveOtp": "Didn’t receive Link?",
+    "resendCode": "Resend Link",
     "verify": "Verify",
     "shareYourWorld": "Share Piece of Your World",
     "name": "Name",
@@ -398,13 +417,16 @@ class CodegenLoader extends AssetLoader {
     "search": "Search",
     "join_now": "Join Now",
     "sign_out": "Sign Out",
-    "are_you_sure_you_want_to_sign_out?":"Are you sure you want to sign out?",
-    "please_select_interests_passions_up_to_five": "Please select interests passions up to five",
+    "are_you_sure_you_want_to_sign_out?": "Are you sure you want to sign out?",
+    "please_select_interests_passions_up_to_five":
+        "Please select interests passions up to five",
     "welcome!": "Welcome!",
-    "profile_completed!_discover_people_who_vibe_like_you": "Profile completed! Discover people who vibe like you 🔥",
+    "profile_completed!_discover_people_who_vibe_like_you":
+        "Profile completed! Discover people who vibe like you 🔥",
     "please_select_all_fields": "Please select all fields",
     "please_fill_all_fields": "Please fill all fields",
-    "please_select_interests_music_up_to_five": "Please select interests music up to five",
+    "please_select_interests_music_up_to_five":
+        "Please select interests music up to five",
     "some_required_fields_are_missing.": "Some required fields are missing.",
     "for_you": "For you",
     "trending": "Trending",
@@ -416,12 +438,13 @@ class CodegenLoader extends AssetLoader {
     "check_your_email": "Check your email",
     "success": "Success",
     "delete": "Delete",
-    "if_you_go_back_now,_your_account_will_be_deleted.": "If you go back now, your account will be deleted.",
+    "if_you_go_back_now,_your_account_will_be_deleted.":
+        "If you go back now, your account will be deleted.",
     "please_enter_your": "Please enter your",
 
-
     "connection_timeout": "Connection timed out. Please try again.",
-    "send_timeout": "Send request timed out. Please check your internet connection.",
+    "send_timeout":
+        "Send request timed out. Please check your internet connection.",
     "receive_timeout": "Server took too long to respond.",
     "cancel": "Cancel.",
     "connection_error": "No internet connection.",
@@ -439,20 +462,28 @@ class CodegenLoader extends AssetLoader {
     "invalid_phone": "Invalid phone number format.",
     "session_expired": "Verification session expired. Please try again.",
     "missing_otp": "Verification code is missing.",
-    "invalid_credential": "The email or password is incorrect. Please check and try again.",
-    "password_rule": "Password must contain a lower case character and numeric character",
+    "invalid_credential":
+        "The email or password is incorrect. Please check and try again.",
+    "password_rule":
+        "Password must contain a lower case character and numeric character",
     "auth_failed": "Authentication failed.",
 
     "firebase_error": "Firebase error occurred.",
     "recaptcha_error": "reCAPTCHA verification failed. Try again.",
     "platform_error": "Platform error occurred.",
-    "fallback_recaptcha": "reCAPTCHA verification failed. Make sure your Firebase settings are correct.",
+    "fallback_recaptcha":
+        "reCAPTCHA verification failed. Make sure your Firebase settings are correct.",
     "socket_error": "No internet connection.",
     "timeout": "Request timed out. Please try again.",
     "no_internet_connection": "No internet connection.",
     "notification": "Notification",
     "mark_all_as_read": "Mark all as read",
     "complete_your_account": "Complete your Account",
+    'daily_message_limit_reached': 'You have reached your daily message limit',
+    'login_required': 'You need to log in first',
+    'no_free_plan_available':
+        'No free subscription plan is currently available',
+    'server_error': 'A server error occurred. Please try again later',
   };
   static const Map<String, Map<String, dynamic>> mapLocales = {
     "de": _de,

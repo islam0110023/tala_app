@@ -8,7 +8,7 @@ part 'save_user_auth_state.dart';
 class SaveUserAuthCubit extends Cubit<SaveUserAuthState> {
   SaveUserAuthCubit(this.saveUserAuthUsaCase) : super(SaveUserAuthInitial());
   final SaveUserAuthUseCase saveUserAuthUsaCase;
-  Future<void> saveUser(UserModel user)async{
+  Future<void> saveUser(UserModel user) async {
     emit(SaveUserAuthLoading());
     final result = await saveUserAuthUsaCase.call(user);
     result.fold(
@@ -20,5 +20,4 @@ class SaveUserAuthCubit extends Cubit<SaveUserAuthState> {
       },
     );
   }
-
 }

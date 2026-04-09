@@ -14,4 +14,3 @@ class RegisterUseCase extends UseCase<SignUpEntity, RegisterParam> {
     return authRepo.register(param!);
   }
 }
-

@@ -3,9 +3,7 @@ import 'package:tala_app/core/utils/app_color.dart';
 import 'package:tala_app/core/utils/app_dimensions.dart';
 
 class CustomNotificationRoundedContainer extends StatelessWidget {
-  const CustomNotificationRoundedContainer({
-    super.key,
-  });
+  const CustomNotificationRoundedContainer({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +14,7 @@ class CustomNotificationRoundedContainer extends StatelessWidget {
         color: AppColor.kPrimaryPink,
         shape: BoxShape.circle,
       ),
-      child: Icon(CupertinoIcons.heart_fill,color: AppColor.kWhite,),
+      child: Icon(CupertinoIcons.heart_fill, color: AppColor.kWhite),
     );
   }
 }

@@ -9,4 +9,3 @@ class ProfileHomePage extends StatelessWidget {
     return const ProfileHomePageBody();
   }
 }
-

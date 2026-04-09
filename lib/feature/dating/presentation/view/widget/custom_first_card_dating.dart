@@ -42,7 +42,7 @@ class CustomFirstCardDating extends StatelessWidget {
 
             ListView.builder(
               shrinkWrap: true,
-              physics:const NeverScrollableScrollPhysics(),
+              physics: const NeverScrollableScrollPhysics(),
               itemCount: matchUser?.passions.length ?? 0,
               itemBuilder: (BuildContext context, int index) {
                 return Text(

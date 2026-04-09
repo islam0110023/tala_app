@@ -1,4 +1,6 @@
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -98,6 +100,20 @@ class _CustomFormLoginState extends State<CustomFormLogin> {
             }
             AppConstant.buildShowSnackBar(context, state.errMessage);
           }
+          if (state is LoginEmailVerified) {
+            if (context.canPop()) {
+              context.pop();
+            }
+            AppConstant.buildShowSnackBar(
+              context,
+              'Please verify your email first',
+            );
+            final cubit = BlocProvider.of<UserFormCubit>(context);
+            GoRouter.of(context).push(
+              AppRoutes.otpScreen,
+              extra: {'isNewPassword': false, 'cubit': cubit},
+            );
+          }
           if (state is LoginSuccess) {
             final uid = context
                 .read<LoginCubit>()
@@ -105,6 +121,7 @@ class _CustomFormLoginState extends State<CustomFormLogin> {
                 .credential
                 .user!
                 .uid;
+
             context.read<GetUserCompleteCubit>().getUserComplete(uid);
           }
         },

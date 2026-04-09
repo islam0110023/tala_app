@@ -5,10 +5,8 @@ import 'package:tala_app/core/utils/app_color.dart';
 import 'package:tala_app/core/utils/app_dimensions.dart';
 
 class CustomNavTalaOnBoarding extends StatelessWidget {
-  const CustomNavTalaOnBoarding({
-    super.key, required this.onTap,
-  });
-final VoidCallback onTap;
+  const CustomNavTalaOnBoarding({super.key, required this.onTap});
+  final VoidCallback onTap;
   @override
   Widget build(BuildContext context) {
     return Positioned(

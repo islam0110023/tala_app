@@ -6,8 +6,6 @@ class CompleteSocialRegisterScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: CompleteSocialRegisterScreenBody(),
-    );
+    return const Scaffold(body: CompleteSocialRegisterScreenBody());
   }
 }

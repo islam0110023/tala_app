@@ -3,7 +3,7 @@ import 'package:tala_app/core/errors/failure.dart';
 import 'package:tala_app/core/usecase/usecase.dart';
 import 'package:tala_app/feature/dating/domain/repo/dating_repo.dart';
 
-class SaveScrollUseCase extends UseCase<Unit,int> {
+class SaveScrollUseCase extends UseCase<Unit, int> {
   SaveScrollUseCase(this.repo);
 
   final DatingRepo repo;

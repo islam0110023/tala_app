@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_functions/cloud_functions.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:tala_app/core/network/dio_end_piont.dart';
@@ -14,6 +15,7 @@ abstract class DatingRemoteDataSource {
   Future<UserDataEntity> getUserVector(String uid);
   Future<List<MatchUserEntity>> getMatchesUser(MatchUserParams params);
   Future<Unit> requestConnection(RequestParams params);
+  Future<void> checkAndConsumeScroll();
 }
 
 class DatingRemoteDataSourceImpl extends DatingRemoteDataSource {
@@ -104,5 +106,22 @@ class DatingRemoteDataSourceImpl extends DatingRemoteDataSource {
     };
     await chatRef.set(data);
     return unit;
+  }
+
+  Future<void> checkAndConsumeScroll() async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user == null) {
+      throw FirebaseFunctionsException(
+        code: 'unauthenticated',
+        message: 'Login required',
+      );
+    }
+
+    await user.getIdToken(true);
+
+    final functions = FirebaseFunctions.instanceFor(region: 'us-central1');
+    final callable = functions.httpsCallable('checkAndConsumeScroll');
+
+    await callable.call();
   }
 }

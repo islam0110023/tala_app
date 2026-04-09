@@ -14,7 +14,7 @@ class DioHelper {
         headers: {
           'Content-Type': 'application/json',
           'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS'
+          'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
         },
       ),
     );
@@ -45,7 +45,6 @@ class DioHelper {
     String? token,
     String? apiKey,
     Map<String, dynamic>? data,
-
   }) async {
     try {
       dio.options.headers = {
@@ -187,10 +186,7 @@ class DioHelper {
         'Authorization': 'Bearer $token',
         'Content-Type': 'application/json',
       };
-      final Response response = await dio.patch(
-        url,
-        data: data,
-      );
+      final Response response = await dio.patch(url, data: data);
       return response;
     } catch (e) {
       rethrow;
@@ -211,13 +207,8 @@ class DioHelper {
     required String token,
   }) async {
     try {
-      dio.options.headers = {
-        'Authorization': 'Bearer $token',
-      };
-      final Response response = await dio.delete(
-        url,
-        data: data,
-      );
+      dio.options.headers = {'Authorization': 'Bearer $token'};
+      final Response response = await dio.delete(url, data: data);
       return response;
     } catch (e) {
       rethrow;

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:tala_app/core/services/notification_service/push_notification_service.dart';
 
 class UserModel {
   UserModel({
@@ -12,7 +13,10 @@ class UserModel {
     required this.musicType,
     required this.musicLike,
     required this.personality,
+    this.fcmToken,
     this.isComplete = false,
+    required this.image,
+    required this.bio,
   });
 
   factory UserModel.fromMap(Map<String, dynamic> map) {
@@ -28,19 +32,25 @@ class UserModel {
       musicLike: MusicLike.fromMap(map['musicLike']),
       personality: UserPersonality.fromMap(map['personality']),
       isComplete: map['isComplete'],
+      fcmToken: map['fcmToken'],
+      image: map['image'],
+      bio: map['bio'],
     );
   }
   final String? uid;
   final String? email;
   final String? phone;
+  final String? fcmToken;
   final String? firstName;
   final String? lastName;
   final bool? isComplete;
+  final String? image;
   final UserProfile? profile;
   final List<String>? passions;
   final List<String>? musicType;
   final MusicLike? musicLike;
   final UserPersonality? personality;
+  final String? bio;
 
   Map<String, dynamic> toFirstMap() {
     return {
@@ -50,11 +60,12 @@ class UserModel {
       'firstName': firstName,
       'lastName': lastName,
       'isComplete': isComplete,
-      'createdAt': FieldValue.serverTimestamp()
+      'disabled': false,
+      'createdAt': FieldValue.serverTimestamp(),
     };
   }
 
-  Map<String, dynamic> toMap() {
+  Future<Map<String, dynamic>> toMap() async {
     return {
       'isComplete': isComplete,
       'uid': uid,
@@ -63,8 +74,20 @@ class UserModel {
       'musicType': musicType,
       'musicLike': musicLike!.toMap(),
       'personality': personality!.toMap(),
+      'subscriptionId': null,
+      'usage': {
+        'date': FieldValue.serverTimestamp(),
+        'messagesUsed': 0,
+        'scrollsUsed': 0,
+      },
+      'image': image,
+      'bio': bio,
+      'fcmTokens': FieldValue.arrayUnion([
+        await PushNotificationsServices.getToken(),
+      ]),
     };
   }
+
   Map<String, dynamic> toMapPinecone() {
     return {
       'isComplete': isComplete,
@@ -88,10 +111,10 @@ class UserModel {
       'discoveringMusic': personality?.discoveringMusic,
       'attendingWith': personality?.attendingWith,
       'farAway': personality?.farAway,
-      'image': ''
+      'image': image,
+      'bio': bio,
     };
   }
-
 }
 
 class UserProfile {

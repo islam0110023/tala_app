@@ -5,18 +5,13 @@ import 'package:tala_app/core/widget/custom_text_field.dart';
 import 'package:tala_app/generated/locale_keys.g.dart';
 
 class CustomFieldsNewPassword extends StatelessWidget {
-  const CustomFieldsNewPassword({
-    super.key,
-  });
+  const CustomFieldsNewPassword({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        CustomTextField(
-          hint: LocaleKeys.password.tr(),
-          password_flag: true,
-        ),
+        CustomTextField(hint: LocaleKeys.password.tr(), password_flag: true),
         SizedBox(height: AppDimensions.h18),
         CustomTextField(
           hint: LocaleKeys.confirmPassword.tr(),

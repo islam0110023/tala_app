@@ -21,8 +21,8 @@ class CustomTabWidget extends StatelessWidget {
       ),
       decoration: (!isSelected)
           ? BoxDecoration(
-              border:  GradientBoxBorder(
-                gradient:const LinearGradient(
+              border: GradientBoxBorder(
+                gradient: const LinearGradient(
                   colors: [AppColor.kPrimaryPink, AppColor.kPurple],
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,

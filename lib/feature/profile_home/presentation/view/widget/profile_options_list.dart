@@ -1,9 +1,12 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tala_app/core/services/notification_service/push_notification_service.dart';
+import 'package:tala_app/core/services/presence_service.dart';
 import 'package:tala_app/core/utils/app_dimensions.dart';
 import 'package:tala_app/core/utils/constants.dart';
 import 'package:tala_app/core/utils/routes.dart';
@@ -64,9 +67,41 @@ class ProfileOptionsList extends StatelessWidget {
                 LocaleKeys.are_you_sure_sign_out.tr(),
               );
               if (result == OkCancelResult.ok) {
-                await FirebaseAuth.instance.signOut();
+                final result = await showTextInputDialog(
+                  context: context,
+                  title: 'Confirm Password',
+                  message: 'Enter your password to continue',
+                  textFields: [
+                    const DialogTextField(
+                      hintText: 'Password',
+                      obscureText: true,
+                    ),
+                  ],
+                );
+                if (result != null && result.isNotEmpty) {
+                  final password = result.first;
 
-                GoRouter.of(context).go(AppRoutes.loginScreen);
+                  try {
+                    final user = FirebaseAuth.instance.currentUser!;
+
+                    final credential = EmailAuthProvider.credential(
+                      email: user.email!,
+                      password: password,
+                    );
+
+                    await user.reauthenticateWithCredential(credential);
+                    await PresenceService.instance.stop();
+                    await removeFcmTokenOnLogout();
+                    await FirebaseAuth.instance.signOut();
+
+                    GoRouter.of(context).go(AppRoutes.loginScreen);
+                  } catch (e) {
+                    AppConstant.buildShowSnackBar(
+                      context,
+                      'Wrong password or error occurred',
+                    );
+                  }
+                }
               }
             },
             icon: const Icon(Icons.logout, color: Colors.white),
@@ -74,5 +109,16 @@ class ProfileOptionsList extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Future<void> removeFcmTokenOnLogout() async {
+    final uid = FirebaseAuth.instance.currentUser!.uid;
+    final token = await PushNotificationsServices.getToken();
+
+    if (token == null) return;
+
+    await FirebaseFirestore.instance.collection('users').doc(uid).update({
+      'fcmTokens': FieldValue.arrayRemove([token]),
+    });
   }
 }

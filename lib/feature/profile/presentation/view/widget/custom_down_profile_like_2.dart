@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -11,6 +13,7 @@ import 'package:tala_app/core/utils/constants.dart';
 import 'package:tala_app/core/utils/routes.dart';
 import 'package:tala_app/core/utils/service_locator.dart';
 import 'package:tala_app/core/widget/custom_button.dart';
+import 'package:tala_app/feature/chat/data/data_source/chats_remote_data_source.dart';
 import 'package:tala_app/feature/profile/domain/params/pinecone_param.dart';
 import 'package:tala_app/feature/profile/presentation/manager/open_ai_cubit/open_ai_cubit.dart';
 import 'package:tala_app/feature/profile/presentation/manager/save_user_cubit/save_user_cubit.dart';
@@ -29,7 +32,7 @@ class CustomDownProfileLike2 extends StatelessWidget {
     return MultiBlocListener(
       listeners: [
         BlocListener<OpenAiCubit, OpenAiState>(
-          listener: (context, state) {
+          listener: (context, state) async {
             if (state is OpenAiFailure) {
               if (context.canPop()) {
                 context.pop();
@@ -39,6 +42,12 @@ class CustomDownProfileLike2 extends StatelessWidget {
             if (state is OpenAiSuccess) {
               final vector = context.read<OpenAiCubit>().vector;
               final cubit = BlocProvider.of<UserFormCubit>(context);
+
+              final imageUrl = await ChatsRemoteDataSourceImpl().getUrl(
+                'profiles/images/${cubit.state.uid}.jpg',
+                File(cubit.state.image!),
+              );
+              cubit.setImage(imageUrl);
               final user = cubit.build();
               context.read<StoreVectorCubit>().storeVector(
                 PineconeParam(vector: vector!, user: user),
@@ -126,6 +135,7 @@ class CustomDownProfileLike2 extends StatelessWidget {
       cubit.setComplete();
       final userModel = cubit.build();
       final createPrompt = buildUserProfileText(userModel);
+      cubit.setBio(createPrompt);
       context.read<OpenAiCubit>().createVectorWithAI(createPrompt);
       FocusScope.of(context).unfocus();
     }

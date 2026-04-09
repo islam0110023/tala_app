@@ -4,7 +4,6 @@ import 'package:tala_app/core/utils/styling.dart';
 import 'package:tala_app/generated/locale_keys.g.dart';
 
 class CustomTimeWithMarkReadRow extends StatelessWidget {
-
   const CustomTimeWithMarkReadRow({
     super.key,
     required this.time,
@@ -31,4 +30,3 @@ class CustomTimeWithMarkReadRow extends StatelessWidget {
     );
   }
 }
-

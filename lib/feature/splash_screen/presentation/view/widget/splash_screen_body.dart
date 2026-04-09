@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tala_app/core/services/internet_services.dart';
+import 'package:tala_app/core/services/notification_service/push_notification_service.dart';
 import 'package:tala_app/core/utils/app_color.dart';
 import 'package:tala_app/core/utils/constants.dart';
 import 'package:tala_app/core/utils/routes.dart';
@@ -56,9 +57,17 @@ class _SplashScreenBodyState extends State<SplashScreenBody> {
     return BlocListener<GetUserCompleteCubit, GetUserCompleteState>(
       listener: (context, state) {
         if (state is GetUserCompleteIsComplete) {
-          GoRouter.of(context).go(AppRoutes.homeScreen);
+          if (PushNotificationsServices.pendingChatId != null) {
+            final chat = PushNotificationsServices.pendingChatId!;
+            PushNotificationsServices.pendingChatId = null;
+
+            AppRoutes.route.push(AppRoutes.chatScreen, extra: chat);
+          } else {
+            GoRouter.of(context).go(AppRoutes.homeScreen);
+          }
         }
-        if (state is GetUserCompleteNotComplete) {
+        if (state is GetUserCompleteNotComplete ||
+            state is GetUserCompleteFailure) {
           GoRouter.of(context).go(AppRoutes.onBoardingScreen);
         }
       },

@@ -22,6 +22,7 @@ class MatchUserModel {
     required this.attendingWith,
     required this.enjoyTravelling,
     required this.image,
+    required this.bio,
   });
 
   factory MatchUserModel.fromJson(Map<String, dynamic> json) {
@@ -45,6 +46,7 @@ class MatchUserModel {
       attendingWith: List<String>.from(json['attendingWith'] ?? []),
       enjoyTravelling: List<String>.from(json['enjoyTravelling'] ?? []),
       image: json['image'] ?? '',
+      bio: json['bio'] ?? '',
     );
   }
   final String uid;
@@ -66,6 +68,7 @@ class MatchUserModel {
   final List<String> attendingWith;
   final List<String> enjoyTravelling;
   final String? image;
+  final String? bio;
 
   MatchUserEntity toEntity() {
     return MatchUserEntity(
@@ -73,11 +76,12 @@ class MatchUserModel {
       name: profileName,
       location: profileLocation,
       passions: passions,
-      old:AppConstant.calculateAge(profileDateOfBirth).toString(),
+      old: profileDateOfBirth.isNotEmpty
+          ? AppConstant.calculateAge(profileDateOfBirth).toString()
+          : 'Unknown',
       image: image,
       gender: profileGender,
+      bio: bio ?? '',
     );
   }
-
-
 }

@@ -1,32 +1,32 @@
 import 'package:flutter/material.dart';
 
-abstract class AppColor{
-  static const kPrimaryPink= Color(0xffDB0165);
-  static const kPurple= Color(0x478B00B7);
-  static const kDarkPurple= Color(0xbf8b00b7);
-  static const kLightPurple= Color(0x4D8B00B7);
-  static const kLightPink= Color(0xffff4f9d);
-  static const kBlack25= Color(0x3F000000);
-  static final kBlack= Colors.black;
-  static const kBlack1= Colors.black;
-  static final kWhite= Colors.white;
-  static const kWhite1= Colors.white;
-  static const kMediumPurple=  Color(0xFFB147C7);
-  static const kLightGray=  Color(0xad808080);
-  static const kGray=  Color(0xff808080);
-  static const kLilac= Color(0xFF7F538D);
-  static const kTextFieldColor= Color(0xFFFFE9F3);
-  static const kTitleColor= Color(0xFF692A7E);
-  static const kDotIndicator= Color(0xffFFA7CE);
-  static const kTagsColor= Color(0xff84508C);
+abstract class AppColor {
+  static const kPrimaryPink = Color(0xffDB0165);
+  static const kPurple = Color(0x478B00B7);
+  static const kDarkPurple = Color(0xbf8b00b7);
+  static const kLightPurple = Color(0x4D8B00B7);
+  static const kLightPink = Color(0xffff4f9d);
+  static const kBlack25 = Color(0x3F000000);
+  static final kBlack = Colors.black;
+  static const kBlack1 = Colors.black;
+  static final kWhite = Colors.white;
+  static const kWhite1 = Colors.white;
+  static const kMediumPurple = Color(0xFFB147C7);
+  static const kLightGray = Color(0xad808080);
+  static const kGray = Color(0xff808080);
+  static const kLilac = Color(0xFF7F538D);
+  static const kTextFieldColor = Color(0xFFFFE9F3);
+  static const kTitleColor = Color(0xFF692A7E);
+  static const kDotIndicator = Color(0xffFFA7CE);
+  static const kTagsColor = Color(0xff84508C);
   static const kPurpleColor = Color(0xCC8B00B7);
   static const kSugarWhite = Color(0xFFEFEFEF);
   static const kColorProgress = Color(0xFFA9A9A9);
   static const kColorOnboarding = Color(0xFF530B6B);
-  static const kColorBorderOtp =  Color(0xFFB653CB);
-  static const kDividerColor =  Color(0x7F808080);
-  static const kNumberMessageColor =Color(0x26000000);
-  static const kBorderChatColor=Color(0xFFE3E9ED);
+  static const kColorBorderOtp = Color(0xFFB653CB);
+  static const kDividerColor = Color(0x7F808080);
+  static const kNumberMessageColor = Color(0x26000000);
+  static const kBorderChatColor = Color(0xFFE3E9ED);
   static const kBorderShadowColor = Color(0x285B0E6D);
   static const kChatFieldColor = Color(0xD8EFEFEF);
   static const kBoxShadowColor = Color(0x23000000);
@@ -38,12 +38,11 @@ abstract class AppColor{
   static const kContainerGradient2 = Color(0x7F701774);
   static const dismissibleBackground = Color(0xFFFF4F9D);
   static const kColorDatingTitle = Color(0xFF530A6A);
-  static const  kLightCloud = Color(0x33EFEFEF);
-   static const kSoftPinkAura = Color(0x80F79FC6);
-   static const kVibrantRoseGlow = Color(0x98FF4F9D);
+  static const kLightCloud = Color(0x33EFEFEF);
+  static const kSoftPinkAura = Color(0x80F79FC6);
+  static const kVibrantRoseGlow = Color(0x98FF4F9D);
 
   static const kBackgroundSoftGray = Color(0xCBEFEFEF);
   static const kGradientBlushPink = Color(0x98F79FC6);
   static const kAccentBerryRose = Color(0xB3FF4F9D);
-
 }

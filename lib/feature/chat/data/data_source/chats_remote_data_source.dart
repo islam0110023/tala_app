@@ -3,12 +3,15 @@ import 'dart:io';
 
 import 'package:chatview/chatview.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_functions/cloud_functions.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:tala_app/core/utils/constants.dart';
+import 'package:tala_app/feature/chat/domain/entities/chat_status_entity.dart';
 import 'package:tala_app/feature/chat/domain/entities/chats_entity.dart';
 import 'package:tala_app/feature/chat/domain/entities/check_entity.dart';
 import 'package:tala_app/feature/chat/domain/params/mark_as_params.dart';
@@ -28,6 +31,9 @@ abstract class ChatsRemoteDataSource {
   Future<Unit> sendReaction(SendMessageParam param);
   Future<Unit> updateTypingStatus(UpdateTypingStateParam param);
   Stream<bool> getTypingStatus(UpdateTypingStateParam param);
+  Future<Unit> markNotificationAsRead(String chatId);
+  Stream<ChatStatusEntity> getChatStatus(String uid);
+  Future<void> checkAndConsumeMessage();
 }
 
 class ChatsRemoteDataSourceImpl extends ChatsRemoteDataSource {
@@ -194,6 +200,33 @@ class ChatsRemoteDataSourceImpl extends ChatsRemoteDataSource {
         });
   }
 
+  Future<void> checkAndConsumeMessage() async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user == null) {
+      throw FirebaseFunctionsException(
+        code: 'unauthenticated',
+        message: 'Login required',
+      );
+    }
+
+    // Force refresh token
+    await user.getIdToken(true);
+    final functions = FirebaseFunctions.instanceFor(region: 'us-central1');
+
+    final callable = functions.httpsCallable('checkAndConsumeMessage');
+
+    await callable.call();
+    // final app = Firebase.app();
+    //
+    // final functions = FirebaseFunctions.instanceFor(
+    //   app: app,
+    //   region: 'us-central1',
+    // );
+    //
+    // final callable = functions.httpsCallable('checkAndConsumeMessage');
+    // await callable.call();
+  }
+
   Future<String> downloadFile(
     String url,
     String fileName,
@@ -296,10 +329,44 @@ class ChatsRemoteDataSourceImpl extends ChatsRemoteDataSource {
         .collection('chats')
         .doc(param.chatId)
         .snapshots()
-        .asyncMap((event) {
-          final data = event.data();
-          return data!['isTyping'][param.uid] as bool;
-        });
+        .map(
+          (event) => (event.data()?['isTyping']?[param.uid] ?? false) as bool,
+        );
+  }
+
+  @override
+  Future<Unit> markNotificationAsRead(String chatId) async {
+    final uid = FirebaseAuth.instance.currentUser!.uid;
+    final snap = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(uid)
+        .collection('notifications')
+        .where('type', isEqualTo: 'chat')
+        .where('chatId', isEqualTo: chatId)
+        .get();
+    for (final doc in snap.docs) {
+      await doc.reference.delete();
+    }
+    return unit;
+  }
+
+  @override
+  Stream<ChatStatusEntity> getChatStatus(String uid) {
+    final ref = FirebaseDatabase.instance.ref('status/$uid');
+
+    return ref.onValue.map((event) {
+      final data = event.snapshot.value as Map?;
+
+      final state = (data?['state'] ?? 'offline').toString();
+      final lastChanged = data?['lastChanged'];
+
+      DateTime? lastSeen;
+      if (lastChanged is int) {
+        lastSeen = DateTime.fromMillisecondsSinceEpoch(lastChanged);
+      }
+
+      return ChatStatusEntity(isOnline: state == 'online', lastSeen: lastSeen);
+    });
   }
 }
 // @override

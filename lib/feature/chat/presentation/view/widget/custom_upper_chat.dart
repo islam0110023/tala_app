@@ -4,19 +4,17 @@ import 'package:tala_app/feature/chat/presentation/view/widget/custom_chats_scre
 import 'package:tala_app/feature/chat/presentation/view/widget/custom_search_field.dart';
 
 class CustomUpperChat extends StatelessWidget {
-  const CustomUpperChat({
-    super.key,
-  });
+  const CustomUpperChat({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(height:AppDimensions.h12,),
+        SizedBox(height: AppDimensions.h12),
         const CustomChatsScreenHeader(),
-        SizedBox(height: AppDimensions.h17,),
+        SizedBox(height: AppDimensions.h17),
         const CustomSearchField(),
-        SizedBox(height: AppDimensions.h36,),
+        SizedBox(height: AppDimensions.h36),
       ],
     );
   }

@@ -2,7 +2,7 @@
 
 // ignore_for_file: constant_identifier_names
 
-abstract class  LocaleKeys {
+abstract class LocaleKeys {
   static const embraceFuture = 'embraceFuture';
   static const revolutionizePlanning = 'revolutionizePlanning';
   static const startExperience = 'startExperience';
@@ -144,13 +144,17 @@ abstract class  LocaleKeys {
   static const join_now = 'join_now';
   static const sign_out = 'sign_out';
   static const are_you_sure_sign_out = 'are_you_sure_you_want_to_sign_out?';
-  static const please_select_up_five = 'please_select_interests_passions_up_to_five';
+  static const please_select_up_five =
+      'please_select_interests_passions_up_to_five';
   static const welcome = 'welcome!';
-  static const profile_completed = 'profile_completed!_discover_people_who_vibe_like_you';
+  static const profile_completed =
+      'profile_completed!_discover_people_who_vibe_like_you';
   static const please_select_all_fields = 'please_select_all_fields';
   static const please_fill_all_fields = 'please_fill_all_fields';
-  static const please_select_music_up_five = 'please_select_interests_music_up_to_five';
-  static const some_required_fields_missing = 'some_required_fields_are_missing.';
+  static const please_select_music_up_five =
+      'please_select_interests_music_up_to_five';
+  static const some_required_fields_missing =
+      'some_required_fields_are_missing.';
   static const for_you = 'for_you';
   static const trending = 'trending';
   static const popular = 'popular';
@@ -161,7 +165,8 @@ abstract class  LocaleKeys {
   static const check_email = 'check_your_email';
   static const success = 'success';
   static const delete = 'delete';
-  static const if_you_go_back_now = 'if_you_go_back_now,_your_account_will_be_deleted.';
+  static const if_you_go_back_now =
+      'if_you_go_back_now,_your_account_will_be_deleted.';
   static const please_enter = 'please_enter_your';
 
   /////////////////
@@ -198,4 +203,8 @@ abstract class  LocaleKeys {
   static const notification = 'notification';
   static const mark_all_as_read = 'mark_all_as_read';
   static const complete_your_account = 'complete_your_account';
+  static const dailyMessageLimitReached = 'daily_message_limit_reached';
+  static const loginRequired = 'login_required';
+  static const noFreePlanAvailable = 'no_free_plan_available';
+  static const serverError = 'server_error';
 }

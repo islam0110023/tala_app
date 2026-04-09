@@ -6,16 +6,14 @@ import 'package:tala_app/core/utils/styling.dart';
 import 'package:tala_app/generated/locale_keys.g.dart';
 
 class CustomButtonOnboarding extends StatelessWidget {
-  const CustomButtonOnboarding({
-    super.key, required this.onPressed,
-  });
+  const CustomButtonOnboarding({super.key, required this.onPressed});
   final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: AppDimensions.w328,
-        height: AppDimensions.h61,
+      height: AppDimensions.h61,
       decoration: BoxDecoration(
         boxShadow: const [
           BoxShadow(
@@ -30,7 +28,7 @@ class CustomButtonOnboarding extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-          fixedSize:const Size(double.infinity, double.nan),
+          fixedSize: const Size(double.infinity, double.nan),
           backgroundColor: AppColor.kPrimaryPink,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(AppDimensions.r30),
@@ -43,7 +41,7 @@ class CustomButtonOnboarding extends StatelessWidget {
         child: FittedBox(
           fit: BoxFit.scaleDown,
           child: Text(
-            LocaleKeys.startExperience.tr() ,
+            LocaleKeys.startExperience.tr(),
             style: Styling.textStyleB20,
             textAlign: TextAlign.center,
           ),

@@ -3,9 +3,7 @@ import 'package:tala_app/core/utils/app_dimensions.dart';
 import 'package:tala_app/feature/profile/presentation/view/widget/profile_progress_bar.dart';
 
 class CustomUpperPassions extends StatelessWidget {
-  const CustomUpperPassions({
-    super.key,
-  });
+  const CustomUpperPassions({super.key});
 
   @override
   Widget build(BuildContext context) {

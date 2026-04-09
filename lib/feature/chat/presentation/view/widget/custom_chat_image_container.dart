@@ -10,12 +10,14 @@ class CustomChatImageContainer extends StatelessWidget {
     required this.radius,
     this.withBorder = false,
     this.image,
+    this.iconSize,
   });
   final AssetImage? img;
   final double radius;
 
   final bool withBorder;
   final String? image;
+  final double? iconSize;
 
   @override
   Widget build(BuildContext context) {
@@ -24,13 +26,14 @@ class CustomChatImageContainer extends StatelessWidget {
       height: radius,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
+        color: Colors.white,
 
         border: (withBorder)
             ? Border.all(color: AppColor.kGray, width: AppDimensions.r2)
             : null,
-        image: (image == null)
-            ? DecorationImage(image: img!, fit: BoxFit.cover)
-            : null,
+        // image: (image == null)
+        //     ? DecorationImage(image: img!, fit: BoxFit.cover,)
+        //     : null,
       ),
       child: (image != null)
           ? ClipRRect(
@@ -42,11 +45,14 @@ class CustomChatImageContainer extends StatelessWidget {
                 fit: BoxFit.cover,
                 errorWidget: (context, url, error) =>
                     const Icon(Icons.error, color: Colors.red),
-                placeholder: (context, url) =>
-                    const Center(child: CircularProgressIndicator()),
+                placeholder: (context, url) => const Center(
+                  child: CircularProgressIndicator(
+                    color: AppColor.kPrimaryPink,
+                  ),
+                ),
               ),
             )
-          : null,
+          : Icon(Icons.person_2_outlined, size: iconSize ?? 100),
     );
   }
 }

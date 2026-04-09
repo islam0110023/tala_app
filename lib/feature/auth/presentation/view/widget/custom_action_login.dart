@@ -9,9 +9,7 @@ import 'package:tala_app/feature/auth/presentation/view/widget/custome_alternati
 import 'package:tala_app/generated/locale_keys.g.dart';
 
 class CustomActionLogin extends StatelessWidget {
-  const CustomActionLogin({
-    super.key,
-  });
+  const CustomActionLogin({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -23,8 +21,8 @@ class CustomActionLogin extends StatelessWidget {
         const CustomAlternativeSignIn(),
         SizedBox(height: AppDimensions.h31),
         CustomAlreadySignIn(
-          name2:LocaleKeys.signUpNow.tr(),
-          name1:LocaleKeys.newToScene.tr(),
+          name2: LocaleKeys.signUpNow.tr(),
+          name1: LocaleKeys.newToScene.tr(),
           onTap: () {
             GoRouter.of(context).push(AppRoutes.registerScreen);
           },

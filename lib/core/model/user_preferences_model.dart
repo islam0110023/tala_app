@@ -1,5 +1,4 @@
 class UserPreferencesModel {
-
   UserPreferencesModel({
     required this.selectedMusicGenres,
     required this.selectedPassions,

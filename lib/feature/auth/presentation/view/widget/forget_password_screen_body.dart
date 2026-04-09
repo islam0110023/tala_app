@@ -56,4 +56,3 @@ class ForgetPasswordScreenBody extends StatelessWidget {
     );
   }
 }
-

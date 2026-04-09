@@ -6,7 +6,8 @@ class CustomLayoutSplashMobile extends StatefulWidget {
   const CustomLayoutSplashMobile({super.key});
 
   @override
-  State<CustomLayoutSplashMobile> createState() => _CustomLayoutSplashMobileState();
+  State<CustomLayoutSplashMobile> createState() =>
+      _CustomLayoutSplashMobileState();
 }
 
 class _CustomLayoutSplashMobileState extends State<CustomLayoutSplashMobile>
@@ -26,19 +27,22 @@ class _CustomLayoutSplashMobileState extends State<CustomLayoutSplashMobile>
     );
 
     // Bounce effect for logo (y-axis translation)
-    _bounceLogoY = Tween<double>(begin: -80, end: 0).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.bounceOut),
-    );
+    _bounceLogoY = Tween<double>(
+      begin: -80,
+      end: 0,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.bounceOut));
 
     // Fade effect with delay
-    _fadeLogo = Tween<double>(begin: 0, end: 1).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeIn),
-    );
+    _fadeLogo = Tween<double>(
+      begin: 0,
+      end: 1,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeIn));
 
     // Slide Tala text from bottom
-    _slideTala = Tween<Offset>(begin: const Offset(0, 1), end: Offset.zero).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeOutBack),
-    );
+    _slideTala = Tween<Offset>(
+      begin: const Offset(0, 1),
+      end: Offset.zero,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOutBack));
 
     _controller.forward();
   }

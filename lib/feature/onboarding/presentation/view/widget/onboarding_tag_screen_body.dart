@@ -11,7 +11,7 @@ class OnboardingTagScreenBody extends StatelessWidget {
     return Container(
       width: double.infinity,
       height: double.infinity,
-      decoration:const BoxDecoration(
+      decoration: const BoxDecoration(
         image: DecorationImage(
           image: AssetImage(AppImage.kOnboarding2),
           fit: BoxFit.cover,
@@ -21,7 +21,7 @@ class OnboardingTagScreenBody extends StatelessWidget {
         children: [
           const Spacer(),
           const CustomAnimateContainer(),
-          SizedBox(height: AppDimensions.h106,)
+          SizedBox(height: AppDimensions.h106),
         ],
       ),
     );

@@ -9,11 +9,13 @@ class ProfileLike1ScreenBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  CustomScreenHandling(
+    return CustomScreenHandling(
       child: CustomScrollView(
         slivers: [
           const SliverToBoxAdapter(child: CustomUpperProfileLike1()),
-          SliverToBoxAdapter(child: CustomFieldsProfileLike1(key: profileFormKey,)),
+          SliverToBoxAdapter(
+            child: CustomFieldsProfileLike1(key: profileFormKey),
+          ),
         ],
       ),
     );

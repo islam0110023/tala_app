@@ -10,30 +10,28 @@ import 'package:tala_app/core/widget/custom_title.dart';
 import 'package:tala_app/generated/locale_keys.g.dart';
 
 class CustomUpperCompleteRegister extends StatelessWidget {
-  const CustomUpperCompleteRegister({
-    super.key,
-  });
+  const CustomUpperCompleteRegister({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         SizedBox(height: AppDimensions.h47),
-        CustomArrowBack(onTap: () async{
-          final result = await AppConstant.showSignOutConfirmationDialog(
-            context,
-            LocaleKeys.delete.tr(),
-            LocaleKeys.if_you_go_back_now.tr(),
-          );
-          if (result == OkCancelResult.ok) {
-            await FirebaseAuth.instance.currentUser!.delete();
-            GoRouter.of(context).pop();
-          }
-        }),
-        SizedBox(height: AppDimensions.h33),
-        CustomTitle(
-          title: LocaleKeys.complete_your_account.tr(),
+        CustomArrowBack(
+          onTap: () async {
+            final result = await AppConstant.showSignOutConfirmationDialog(
+              context,
+              LocaleKeys.delete.tr(),
+              LocaleKeys.if_you_go_back_now.tr(),
+            );
+            if (result == OkCancelResult.ok) {
+              await FirebaseAuth.instance.currentUser!.delete();
+              GoRouter.of(context).pop();
+            }
+          },
         ),
+        SizedBox(height: AppDimensions.h33),
+        CustomTitle(title: LocaleKeys.complete_your_account.tr()),
         SizedBox(height: AppDimensions.h49),
       ],
     );

@@ -25,17 +25,20 @@ class _CustomLayoutSplashIpadState extends State<CustomLayoutSplashIpad>
       vsync: this,
     );
 
-    _bounceLogoY = Tween<double>(begin: -100, end: 0).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.bounceOut),
-    );
+    _bounceLogoY = Tween<double>(
+      begin: -100,
+      end: 0,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.bounceOut));
 
-    _fadeLogo = Tween<double>(begin: 0, end: 1).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeIn),
-    );
+    _fadeLogo = Tween<double>(
+      begin: 0,
+      end: 1,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeIn));
 
-    _slideTala = Tween<Offset>(begin: const Offset(0, 1), end: Offset.zero).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeOutBack),
-    );
+    _slideTala = Tween<Offset>(
+      begin: const Offset(0, 1),
+      end: Offset.zero,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOutBack));
 
     _controller.forward();
   }

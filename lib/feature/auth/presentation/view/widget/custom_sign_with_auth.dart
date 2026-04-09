@@ -6,9 +6,7 @@ import 'package:tala_app/core/utils/styling.dart';
 import 'package:tala_app/generated/locale_keys.g.dart';
 
 class CustomSignWithAuth extends StatelessWidget {
-  const CustomSignWithAuth({
-    super.key,
-  });
+  const CustomSignWithAuth({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -40,7 +40,10 @@ class CustomHomeEventContainer extends StatelessWidget {
                     alignment: Alignment.centerLeft,
                     child: CustomTextContainerContent(),
                   ),
-                  CustomHomeButton(onTap: () {}, text: LocaleKeys.join_now.tr()),
+                  CustomHomeButton(
+                    onTap: () {},
+                    text: LocaleKeys.join_now.tr(),
+                  ),
                   SizedBox(height: AppDimensions.h10),
                 ],
               ),

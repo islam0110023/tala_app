@@ -8,7 +8,8 @@ class CustomDownOnboarding extends StatelessWidget {
   const CustomDownOnboarding({
     super.key,
     required this.pageController,
-    required this.index, required this.onTap,
+    required this.index,
+    required this.onTap,
   });
 
   final PageController pageController;

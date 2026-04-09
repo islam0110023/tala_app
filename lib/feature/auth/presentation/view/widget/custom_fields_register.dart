@@ -5,7 +5,14 @@ import 'package:tala_app/core/widget/custom_text_field.dart';
 import 'package:tala_app/generated/locale_keys.g.dart';
 
 class CustomFieldsRegister extends StatelessWidget {
-  const CustomFieldsRegister({super.key, required this.firstName, required this.lastName, required this.email, required this.phone, required this.password});
+  const CustomFieldsRegister({
+    super.key,
+    required this.firstName,
+    required this.lastName,
+    required this.email,
+    required this.phone,
+    required this.password,
+  });
   final TextEditingController firstName;
   final TextEditingController lastName;
   final TextEditingController email;

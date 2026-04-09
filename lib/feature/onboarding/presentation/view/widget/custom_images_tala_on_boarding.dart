@@ -4,9 +4,7 @@ import 'package:tala_app/core/utils/asset_image.dart';
 import 'package:tala_app/feature/onboarding/presentation/view/widget/custom_image_tala_onboarding.dart';
 
 class CustomImagesTalaOnBoarding extends StatelessWidget {
-  const CustomImagesTalaOnBoarding({
-    super.key,
-  });
+  const CustomImagesTalaOnBoarding({super.key});
 
   @override
   Widget build(BuildContext context) {

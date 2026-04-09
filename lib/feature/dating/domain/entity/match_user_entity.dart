@@ -7,6 +7,7 @@ class MatchUserEntity {
     required this.old,
     required this.image,
     required this.gender,
+    required this.bio,
   });
 
   final String uid;
@@ -16,4 +17,5 @@ class MatchUserEntity {
   final String old;
   final String? image;
   final String gender;
+  final String bio;
 }

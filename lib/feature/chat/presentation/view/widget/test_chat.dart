@@ -6,7 +6,6 @@ import 'package:tala_app/core/utils/app_color.dart';
 import 'package:tala_app/core/utils/app_dimensions.dart';
 import 'package:tala_app/core/utils/styling.dart';
 import 'package:tala_app/core/widget/custom_arrow_back.dart';
-import 'package:tala_app/feature/chat/presentation/view/widget/custom_rounded_chat_icon_button.dart';
 
 class CustomChatView extends StatelessWidget {
   const CustomChatView({
@@ -19,6 +18,7 @@ class CustomChatView extends StatelessWidget {
     this.onReactionTap,
     this.chatViewState,
     this.onMessageTap,
+    this.onReloadButtonTap,
   });
   final void Function(
     String message,
@@ -33,6 +33,7 @@ class CustomChatView extends StatelessWidget {
   final void Function(Message message, String emoje)? onReactionTap;
   final ChatViewState? chatViewState;
   final void Function(Message message)? onMessageTap;
+  final void Function()? onReloadButtonTap;
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +43,9 @@ class CustomChatView extends StatelessWidget {
         chatController: chatController!,
         onSendTap: onSendTap,
         loadMoreData: loadMoreData,
+        chatViewStateConfig: ChatViewStateConfiguration(
+          onReloadButtonTap: onReloadButtonTap,
+        ),
         featureActiveConfig: const FeatureActiveConfig(
           enableOtherUserProfileAvatar: false,
           enableOtherUserName: false,
@@ -69,13 +73,6 @@ class CustomChatView extends StatelessWidget {
               },
             ),
           ),
-          actions: [
-            CustomRoundedChatButton(
-              icon: Icons.call,
-              onPressed: () {},
-              radius: AppDimensions.r50,
-            ),
-          ],
         ),
         chatBackgroundConfig: ChatBackgroundConfiguration(
           backgroundColor: AppColor.kWhite1,

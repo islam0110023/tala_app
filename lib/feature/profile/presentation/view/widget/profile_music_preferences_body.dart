@@ -58,11 +58,10 @@ class ProfileMusicPreferencesBody extends StatelessWidget {
   }
 
   void passDataToForm(BuildContext context) {
-    final selectedGenres =
-        CustomGenresMusicButtons.getSelectedGenres(
-          AppConstant.kGenres,
-        );
-    if (selectedGenres.length<=5 && selectedGenres.isNotEmpty) {
+    final selectedGenres = CustomGenresMusicButtons.getSelectedGenres(
+      AppConstant.kGenres,
+    );
+    if (selectedGenres.length <= 5 && selectedGenres.isNotEmpty) {
       final cubit = BlocProvider.of<UserFormCubit>(context);
       cubit.setMusicType(selectedGenres);
       FocusScope.of(context).unfocus();

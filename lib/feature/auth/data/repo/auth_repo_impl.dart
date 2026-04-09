@@ -71,7 +71,7 @@ class AuthRepoImpl extends AuthRepo {
     try {
       final isComplete = await authRemoteDataSource.getUserComplete(uid);
       return right(isComplete);
-    }  catch (e) {
+    } catch (e) {
       return left(AppFailure.fromException(e));
     }
   }

@@ -1,5 +1,20 @@
 class ChatEntity {
-  const ChatEntity( {
+  factory ChatEntity.fromJson(Map<String, dynamic> data) {
+    return ChatEntity(
+      chatId: data['chatId'] ?? '',
+      uid: data['uid'] ?? '',
+      name: data['name'] ?? '',
+      currentUName: data['currentUName'] ?? '',
+      photoUrl: data['photoUrl'] ?? '',
+      lastMessage: data['lastMessage'] ?? '',
+      status: data['status'] ?? '',
+      unreadCount: int.tryParse('${data['unreadCount'] ?? 0}') ?? 0,
+      updatedAt: DateTime.fromMillisecondsSinceEpoch(
+        int.tryParse('${data['updatedAt'] ?? 0}') ?? 0,
+      ),
+    );
+  }
+  const ChatEntity({
     required this.chatId,
     required this.name,
     required this.photoUrl,

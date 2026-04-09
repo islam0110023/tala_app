@@ -1,9 +1,7 @@
-class ScrollDataModel { // yyyy-MM-dd
+class ScrollDataModel {
+  // yyyy-MM-dd
 
-  ScrollDataModel({
-    required this.scrollCount,
-    required this.date,
-  });
+  ScrollDataModel({required this.scrollCount, required this.date});
 
   factory ScrollDataModel.fromJson(Map<String, dynamic> json) {
     return ScrollDataModel(
@@ -14,8 +12,5 @@ class ScrollDataModel { // yyyy-MM-dd
   final int scrollCount;
   final String date;
 
-  Map<String, dynamic> toJson() => {
-    'scrollCount': scrollCount,
-    'date': date,
-  };
+  Map<String, dynamic> toJson() => {'scrollCount': scrollCount, 'date': date};
 }

@@ -6,8 +6,6 @@ class OnboardingSlideScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: OnboardingSlideScreenBody(),
-    );
+    return const Scaffold(body: OnboardingSlideScreenBody());
   }
 }

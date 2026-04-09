@@ -44,8 +44,8 @@ class AppDimensions {
   static final r40 = 40.r;
   static final w0_6 = 0.6.w;
   static final r24 = 24.r;
-  static final h58=58.h;
-  static final h20=20.h;
+  static final h58 = 58.h;
+  static final h20 = 20.h;
   static final h47 = 47.h;
   static final h41 = 41.h;
   static final h10 = 10.h;
@@ -54,14 +54,14 @@ class AppDimensions {
   static final r2 = 2.r;
   static final sp2 = 2.sp;
   static final sp1 = 1.sp;
-  static final h7=7.h;
-  static final h18=18.h;
-  static final h51=51.h;
-  static final h5=5.h;
-  static final h42=42.h;
-  static final h145= 145.h;
-  static final h15= 15.h;
-  static final h14= 14.h;
+  static final h7 = 7.h;
+  static final h18 = 18.h;
+  static final h51 = 51.h;
+  static final h5 = 5.h;
+  static final h42 = 42.h;
+  static final h145 = 145.h;
+  static final h15 = 15.h;
+  static final h14 = 14.h;
   static final h38 = 38.h;
   static final h48 = 48.h;
   static final w150 = 150.w;
@@ -95,19 +95,19 @@ class AppDimensions {
   static final h800 = 800.h;
   static final h30 = 30.h;
   static final h_250 = -250.0.h;
-  static final r3 =3.r;
-  static final r13 =13.r;
-  static final w667 =667.w;
-  static final w600 =600.w;
-  static final w_80 =-80.0.w;
-  static final w824 =824.w;
-  static final h900 =900.h;
-  static final w125 =125.w;
-  static final w100 =100.w;
-  static final h740 =740.h;
-  static final h590 =590.h;
-  static final h470 =470.h;
-  static final r110 =110.r;
+  static final r3 = 3.r;
+  static final r13 = 13.r;
+  static final w667 = 667.w;
+  static final w600 = 600.w;
+  static final w_80 = -80.0.w;
+  static final w824 = 824.w;
+  static final h900 = 900.h;
+  static final w125 = 125.w;
+  static final w100 = 100.w;
+  static final h740 = 740.h;
+  static final h590 = 590.h;
+  static final h470 = 470.h;
+  static final r110 = 110.r;
   static final h90 = 90.h;
   static final h160 = 160.h;
   static final h24 = 24.h;
@@ -147,8 +147,4 @@ class AppDimensions {
   static final r140 = 140.r;
   static final h168 = 168.h;
   static final r200 = 200.r;
-
-
-
-
 }

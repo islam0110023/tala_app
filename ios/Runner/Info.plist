@@ -61,5 +61,13 @@
     </array>
     <key>NSMicrophoneUsageDescription</key>
     <string>This app needs to record audio for voice messages.</string>
+    <key>NSCameraUsageDescription</key>
+    <string>This app needs access to the camera.</string>
+
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>This app needs access to your photo library.</string>
+    <key>NSPushNotifications</key>
+    <true/>
+
 </dict>
 </plist>

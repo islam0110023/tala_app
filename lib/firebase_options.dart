@@ -65,5 +65,4 @@ class DefaultFirebaseOptions {
     storageBucket: 'tala-app-1.firebasestorage.app',
     iosBundleId: 'com.example.talaApp',
   );
-
 }

@@ -30,7 +30,3 @@ class ProfileSelectPassionsBody extends StatelessWidget {
     );
   }
 }
-
-
-
-

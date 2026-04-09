@@ -10,7 +10,7 @@ class HomeScreenBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal:AppDimensions.r16),
+        padding: EdgeInsets.symmetric(horizontal: AppDimensions.r16),
         child: Column(
           children: [
             SizedBox(height: AppDimensions.h18),

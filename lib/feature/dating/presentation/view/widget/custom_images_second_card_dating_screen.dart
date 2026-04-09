@@ -14,7 +14,7 @@ class CustomImagesSecondCardDatingScreen extends StatelessWidget {
           return SizedBox(width: AppDimensions.w16);
         },
         scrollDirection: Axis.horizontal,
-        itemCount: 5,
+        itemCount: 1,
         itemBuilder: (context, index) {
           return ClipRRect(
             borderRadius: BorderRadius.circular(AppDimensions.r18),

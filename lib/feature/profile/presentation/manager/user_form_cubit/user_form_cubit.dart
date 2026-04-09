@@ -27,8 +27,16 @@ class UserFormCubit extends Cubit<UserModelBuilder> {
     emit(state..isComplete = true);
   }
 
+  void setBio(String bio) {
+    emit(state..bio = bio);
+  }
+
   void setIncomplete() {
     emit(state..isComplete = false);
+  }
+
+  void setImage(String? image) {
+    emit(state.copyWith(image: image));
   }
 
   void setUid(String uid) {
@@ -42,7 +50,6 @@ class UserFormCubit extends Cubit<UserModelBuilder> {
   void setPassions(List<String> passions) {
     emit(state..passions = passions);
   }
-
 
   void setMusicType(List<String> musicType) {
     emit(state..musicType = musicType);
@@ -66,6 +73,24 @@ class UserFormCubit extends Cubit<UserModelBuilder> {
 }
 
 class UserModelBuilder {
+  UserModelBuilder({this.image});
+  UserModelBuilder copyWith({String? image}) {
+    return UserModelBuilder(image: image ?? this.image)
+      ..uid = uid
+      ..email = email
+      ..phone = phone
+      ..firstName = firstName
+      ..lastName = lastName
+      ..profile = profile
+      ..passions = passions
+      ..musicType = musicType
+      ..musicLike = musicLike
+      ..personality = personality
+      ..isComplete = isComplete
+      ..bio = bio
+      ..fcmToken = fcmToken;
+  }
+
   String? uid;
   String? email;
   String? phone;
@@ -77,6 +102,9 @@ class UserModelBuilder {
   MusicLike? musicLike;
   UserPersonality? personality;
   bool? isComplete;
+  String? fcmToken;
+  String? image;
+  String? bio;
 
   UserModel build() {
     if (uid == null ||
@@ -84,7 +112,8 @@ class UserModelBuilder {
         passions == null ||
         musicType == null ||
         musicLike == null ||
-        personality == null) {
+        personality == null ||
+        image == null) {
       throw Exception(LocaleKeys.some_required_fields_missing.tr());
     }
 
@@ -100,6 +129,8 @@ class UserModelBuilder {
       musicLike: musicLike!,
       personality: personality!,
       isComplete: isComplete!,
+      image: image!,
+      bio: bio,
     );
   }
 
@@ -123,6 +154,8 @@ class UserModelBuilder {
       musicType: musicType,
       musicLike: musicLike,
       personality: personality,
+      image: image,
+      bio: bio,
     );
   }
 }

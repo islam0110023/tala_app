@@ -22,8 +22,11 @@ class CustomRoundedChatButton extends StatelessWidget {
       height: radius,
       decoration: ShapeDecoration(
         color: (isPrimary) ? AppColor.kWhite : AppColor.kPrimaryPink,
-        shape:  OvalBorder(
-          side: BorderSide(width: AppDimensions.r2, color: AppColor.kBorderChatColor),
+        shape: OvalBorder(
+          side: BorderSide(
+            width: AppDimensions.r2,
+            color: AppColor.kBorderChatColor,
+          ),
         ),
         shadows: (isPrimary)
             ? const [

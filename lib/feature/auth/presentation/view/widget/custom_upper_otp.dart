@@ -24,9 +24,41 @@ class CustomUpperOtp extends StatelessWidget {
               LocaleKeys.if_you_go_back_now.tr(),
             );
             if (result == OkCancelResult.ok) {
-              await FirebaseAuth.instance.currentUser!.delete();
-              if (context.canPop()) {
-                context.pop();
+              final result = await showTextInputDialog(
+                context: context,
+                title: 'Confirm Password',
+                message: 'Enter your password to continue',
+                textFields: [
+                  const DialogTextField(
+                    hintText: 'Password',
+                    obscureText: true,
+                  ),
+                ],
+              );
+              if (result != null && result.isNotEmpty) {
+                final password = result.first;
+
+                try {
+                  final user = FirebaseAuth.instance.currentUser!;
+
+                  final credential = EmailAuthProvider.credential(
+                    email: user.email!,
+                    password: password,
+                  );
+
+                  await user.reauthenticateWithCredential(credential);
+
+                  await user.delete();
+
+                  if (context.canPop()) {
+                    context.pop();
+                  }
+                } catch (e) {
+                  AppConstant.buildShowSnackBar(
+                    context,
+                    'Wrong password or error occurred',
+                  );
+                }
               }
             }
 

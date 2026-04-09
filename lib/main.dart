@@ -8,7 +8,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:tala_app/core/db/cache_helper/cache_helper.dart';
 import 'package:tala_app/core/network/dio_helper.dart';
-import 'package:tala_app/core/services/internet_services.dart';
+import 'package:tala_app/core/services/notification_service/local_notification_service.dart';
+import 'package:tala_app/core/services/notification_service/push_notification_service.dart';
 import 'package:tala_app/core/utils/app_color.dart';
 import 'package:tala_app/core/utils/constants.dart';
 import 'package:tala_app/core/utils/routes.dart';
@@ -27,14 +28,19 @@ void main() async {
     Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform),
     EasyLocalization.ensureInitialized(),
     CacheHelper.init(),
+
     GoogleSignIn.instance.initialize(
       serverClientId:
           '665998326850-4j6p02pe9k0vdiujmio5dqcrbe3sstup.apps.googleusercontent.com',
     ),
   ]);
   setUpServices();
-  Bloc.observer = MyBlocObserver();
+  Bloc.observer = AppBlocObserver();
 
+  await Future.wait([
+    LocalNotificationServices.init(),
+    PushNotificationsServices.init(),
+  ]);
   runApp(
     EasyLocalization(
       supportedLocales: const [Locale('en'), Locale('de')],
@@ -91,19 +97,8 @@ class TalaApp extends StatelessWidget {
               ),
             );
 
-            PackageStrings.setLocale(context.locale.languageCode);
+            PackageStrings.setLocale(_detectDeviceLocaleString());
             AppConstant.precacheAppImages(context);
-            getIt<InternetService>().onStatusChanged.listen((connected) {
-              if (!connected) {
-                final context = navigatorKey.currentContext;
-                if (context != null) {
-                  AppConstant.buildShowSnackBar(
-                    context,
-                    'No internet connection',
-                  );
-                }
-              }
-            });
           });
           final double scale = MediaQuery.of(
             context,
@@ -116,7 +111,7 @@ class TalaApp extends StatelessWidget {
             child: child!,
           );
         },
-        theme: ThemeData(scaffoldBackgroundColor: AppColor.kWhite1),
+        theme: ThemeData(scaffoldBackgroundColor: AppColor.kWhite1,),
         routerConfig: AppRoutes.route,
         debugShowCheckedModeBanner: false,
       ),
@@ -130,4 +125,10 @@ Locale _detectDeviceLocale() {
   return deviceLocale.languageCode == 'de'
       ? const Locale('de')
       : const Locale('en');
+}
+
+String _detectDeviceLocaleString() {
+  final deviceLocale = PlatformDispatcher.instance.locale;
+
+  return deviceLocale.languageCode == 'de' ? 'de' : 'en';
 }

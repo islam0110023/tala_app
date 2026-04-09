@@ -17,7 +17,7 @@ class GradientRectangleBlur extends StatelessWidget {
         height: AppDimensions.h800,
         decoration: BoxDecoration(
           gradient: RadialGradient(
-            radius:MediaQuery.of(context).size.width<600? .6:.55,
+            radius: MediaQuery.of(context).size.width < 600 ? .6 : .55,
             center: Alignment.center,
             colors: [AppColor.kPrimaryPink.withAlpha(192), AppColor.kWhite],
             stops: const [0.3, 1],

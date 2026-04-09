@@ -1,10 +1,12 @@
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tala_app/core/services/internet_services.dart';
+import 'package:tala_app/core/services/notification_service/push_notification_service.dart';
 import 'package:tala_app/core/utils/app_dimensions.dart';
 import 'package:tala_app/core/utils/constants.dart';
 import 'package:tala_app/core/utils/routes.dart';
@@ -58,11 +60,20 @@ class _CustomFormRegisterState extends State<CustomFormRegister> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<SaveUserAuthCubit, SaveUserAuthState>(
-      listener: (context, state) {
+      listener: (context, state) async {
         if (state is SaveUserAuthSuccess) {
           final cubit = BlocProvider.of<UserFormCubit>(context);
           if (context.canPop()) {
             context.pop();
+          }
+          final token = await PushNotificationsServices.getToken();
+          if (token != null) {
+            await FirebaseFirestore.instance
+                .collection('users')
+                .doc(FirebaseAuth.instance.currentUser!.uid)
+                .update({
+                  'fcmTokens': FieldValue.arrayUnion([token]),
+                });
           }
 
           GoRouter.of(context).push(
@@ -94,7 +105,7 @@ class _CustomFormRegisterState extends State<CustomFormRegister> {
             );
             final user1 = cubit.firstBuild();
             BlocProvider.of<SaveUserAuthCubit>(context).saveUser(user1);
-            //verifyEmail(user);
+            verifyEmail(user);
             //context.read<RegisterCubit>().reset();
           }
           if (state is SignUpFailure) {
@@ -164,7 +175,7 @@ class _CustomFormRegisterState extends State<CustomFormRegister> {
   }
 
   Future<void> verifyEmail(User? user) async {
-    // final user = FirebaseAuth.instance.currentUser;
+    //final user = FirebaseAuth.instance.currentUser;
     if (user != null && !user.emailVerified) {
       await user.sendEmailVerification();
       AppConstant.buildShowSnackBar(

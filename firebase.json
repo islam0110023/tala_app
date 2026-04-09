@@ -1,1 +1,36 @@
-{"flutter":{"platforms":{"android":{"default":{"projectId":"tala-app-1","appId":"1:665998326850:android:07957b4c804a99037201db","fileOutput":"android/app/google-services.json"}},"dart":{"lib/firebase_options.dart":{"projectId":"tala-app-1","configurations":{"android":"1:665998326850:android:07957b4c804a99037201db","ios":"1:665998326850:ios:aa75c9fb535f1b2f7201db"}}}}}}
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "tala-app-1",
+          "appId": "1:665998326850:android:07957b4c804a99037201db",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "tala-app-1",
+          "configurations": {
+            "android": "1:665998326850:android:07957b4c804a99037201db",
+            "ios": "1:665998326850:ios:aa75c9fb535f1b2f7201db"
+          }
+        }
+      }
+    }
+  },
+  "functions": [
+    {
+      "source": "functions",
+      "codebase": "default",
+      "disallowLegacyRuntimeConfig": true,
+      "ignore": [
+        "node_modules",
+        ".git",
+        "firebase-debug.log",
+        "firebase-debug.*.log",
+        "*.local"
+      ]
+    }
+  ]
+}

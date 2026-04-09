@@ -1,5 +1,5 @@
 class GenreModel {
-  GenreModel( {this.imgUrl=null, required this.name, this.isSelected = false});
+  GenreModel({this.imgUrl = null, required this.name, this.isSelected = false});
 
   final String name;
   bool isSelected;

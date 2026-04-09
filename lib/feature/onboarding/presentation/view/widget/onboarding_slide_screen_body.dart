@@ -37,9 +37,8 @@ class _OnboardingSlideScreenBodyState extends State<OnboardingSlideScreenBody> {
   @override
   void initState() {
     super.initState();
-
-
   }
+
   @override
   void dispose() {
     // TODO: implement dispose
@@ -82,9 +81,7 @@ class _OnboardingSlideScreenBodyState extends State<OnboardingSlideScreenBody> {
                                 )
                                 .then((value) {
                                   index--;
-                                  setState(() {
-
-                                  });
+                                  setState(() {});
                                 });
                           }
                         } else {

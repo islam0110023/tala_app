@@ -7,22 +7,20 @@ import 'package:tala_app/core/widget/custom_title.dart';
 import 'package:tala_app/generated/locale_keys.g.dart';
 
 class CustomUpperLogin extends StatelessWidget {
-  const CustomUpperLogin({
-    super.key,
-  });
+  const CustomUpperLogin({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         SizedBox(height: AppDimensions.h47),
-        CustomArrowBack(onTap: () {
-          GoRouter.of(context).pop();
-        }),
-        SizedBox(height: AppDimensions.h33),
-        CustomTitle(
-          title: LocaleKeys.readyToMakeMemories.tr(),
+        CustomArrowBack(
+          onTap: () {
+            GoRouter.of(context).pop();
+          },
         ),
+        SizedBox(height: AppDimensions.h33),
+        CustomTitle(title: LocaleKeys.readyToMakeMemories.tr()),
         SizedBox(height: AppDimensions.h49),
       ],
     );

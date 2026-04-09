@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:lottie/lottie.dart';
 import 'package:tala_app/core/utils/asset_image.dart';
 import 'package:tala_app/feature/dating/domain/entity/match_user_entity.dart';
 import 'package:tala_app/feature/dating/domain/params/request_params.dart';
@@ -39,10 +39,10 @@ class _CustomItemPageDatingState extends State<CustomItemPageDating>
             Positioned(
               left: tapPosition!.dx - 40,
               top: tapPosition!.dy - 40,
-              child: AnimatedOpacity(
-                duration: const Duration(milliseconds: 500),
-                opacity: showHeart ? 1 : 0,
-                child: SvgPicture.asset(AppImage.kHeartIcon),
+              child: Lottie.asset(
+                AppImage.kHeartLottie,
+                repeat: false,
+                animate: true,
               ),
             ),
         ],
@@ -67,9 +67,10 @@ class _CustomItemPageDatingState extends State<CustomItemPageDating>
       ),
     );
 
-    Future.delayed(const Duration(seconds: 1), () {
+    Future.delayed(const Duration(milliseconds: 600), () {
       setState(() {
         showHeart = false;
+        tapPosition = null;
       });
     });
   }

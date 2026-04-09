@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:cloud_functions/cloud_functions.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
@@ -35,6 +36,27 @@ class AppFailure extends Failure {
           return const AppFailure('ui unavailable');
         default:
           return const AppFailure('unknown error');
+      }
+    }
+    if (error is FirebaseFunctionsException) {
+      switch (error.code) {
+        case 'permission-denied':
+          return AppFailure(LocaleKeys.dailyMessageLimitReached.tr());
+
+        case 'unauthenticated':
+          return AppFailure(LocaleKeys.loginRequired.tr());
+
+        case 'not-found':
+          return AppFailure(LocaleKeys.userNotFound.tr());
+
+        case 'failed-precondition':
+          return AppFailure(LocaleKeys.noFreePlanAvailable.tr());
+
+        case 'internal':
+          return AppFailure(LocaleKeys.serverError.tr());
+
+        default:
+          return AppFailure(error.message ?? LocaleKeys.unexpected.tr());
       }
     }
 

@@ -12,7 +12,7 @@ class CustomOvalDashOverFlow extends StatelessWidget {
     return Transform.translate(
       offset: MediaQuery.of(context).size.width < 600
           ? Offset(x, y)
-          : Offset(x*0.8, y*1.1),
+          : Offset(x * 0.8, y * 1.1),
       child: OverflowBox(
         maxWidth: double.infinity,
         child: DottedBorder(

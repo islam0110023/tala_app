@@ -20,7 +20,7 @@ class CustomItemDropDownProfile extends StatelessWidget {
       dense: true,
       leading: Icon(
         isSelected ? Icons.check_box_outlined : Icons.check_box_outline_blank,
-        color: isSelected?AppColor.kPrimaryPink: AppColor.kBlack25,
+        color: isSelected ? AppColor.kPrimaryPink : AppColor.kBlack25,
       ),
       title: Text(name, style: Styling.textStyle13),
     );

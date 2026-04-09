@@ -3,5 +3,4 @@ class OnboardingModel {
 
   final String image;
   final String text;
-
 }

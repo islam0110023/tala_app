@@ -75,7 +75,7 @@ class CustomTextFieldProfile extends StatelessWidget {
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(AppDimensions.r11),
-                borderSide:BorderSide.none,
+                borderSide: BorderSide.none,
               ),
               disabledBorder: OutlineInputBorder(
                 borderSide: BorderSide.none,

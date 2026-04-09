@@ -16,9 +16,7 @@ class CustomHomeButton extends StatelessWidget {
       child: Container(
         width: AppDimensions.w212,
         alignment: Alignment.center,
-        padding: EdgeInsets.symmetric(
-          vertical: AppDimensions.r11,
-        ),
+        padding: EdgeInsets.symmetric(vertical: AppDimensions.r11),
         decoration: BoxDecoration(
           color: AppColor.kWhite1,
           border: Border.all(

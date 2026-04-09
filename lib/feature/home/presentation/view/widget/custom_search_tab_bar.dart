@@ -41,9 +41,13 @@ class CustomHomeSearch extends StatelessWidget {
                 width: AppDimensions.r2,
               ),
             ),
-            prefixIcon:  Padding(
-              padding:  EdgeInsets.symmetric(horizontal: AppDimensions.r11),
-              child: Icon(Icons.search, color: AppColor.kGray,size: AppDimensions.r24,),
+            prefixIcon: Padding(
+              padding: EdgeInsets.symmetric(horizontal: AppDimensions.r11),
+              child: Icon(
+                Icons.search,
+                color: AppColor.kGray,
+                size: AppDimensions.r24,
+              ),
             ),
             hintText: '${LocaleKeys.search}...',
             hintStyle: Styling.searchHomeHintStyle,

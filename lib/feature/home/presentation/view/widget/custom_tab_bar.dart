@@ -20,7 +20,12 @@ class CustomTabBar extends StatelessWidget {
       indicatorColor: Colors.transparent,
       tabs: List.generate(4, (index) {
         return CustomTabWidget(
-          text: [LocaleKeys.for_you.tr(), LocaleKeys.trending.tr(), LocaleKeys.popular.tr(), LocaleKeys.nearby.tr()][index],
+          text: [
+            LocaleKeys.for_you.tr(),
+            LocaleKeys.trending.tr(),
+            LocaleKeys.popular.tr(),
+            LocaleKeys.nearby.tr(),
+          ][index],
           isSelected: _tabController.index == index,
         );
       }),

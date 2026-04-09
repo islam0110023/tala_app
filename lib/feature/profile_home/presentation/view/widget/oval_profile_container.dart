@@ -3,9 +3,7 @@ import 'package:tala_app/core/utils/app_color.dart';
 import 'package:tala_app/core/utils/app_dimensions.dart';
 
 class OvalProfileContainer extends StatelessWidget {
-  const OvalProfileContainer({
-    super.key,
-  });
+  const OvalProfileContainer({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +17,10 @@ class OvalProfileContainer extends StatelessWidget {
           gradient: LinearGradient(
             begin: Alignment(0.50, 0.00),
             end: Alignment(1.62, 0.97),
-            colors: [AppColor.kContainerGradient1, AppColor.kContainerGradient2],
+            colors: [
+              AppColor.kContainerGradient1,
+              AppColor.kContainerGradient2,
+            ],
           ),
           shape: OvalBorder(),
           shadows: [

@@ -21,9 +21,7 @@ class DescriptionSizeBoxWidget extends StatelessWidget {
             ),
             TextSpan(
               text: LocaleKeys.revolutionizePlanning.tr(),
-              style: Styling.textStyle20.copyWith(
-                color: AppColor.kPrimaryPink,
-              ),
+              style: Styling.textStyle20.copyWith(color: AppColor.kPrimaryPink),
             ),
           ],
         ),

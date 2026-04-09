@@ -7,7 +7,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
-import 'package:intl/intl.dart';
 import 'package:tala_app/core/model/genre_model.dart';
 import 'package:tala_app/core/utils/app_color.dart';
 import 'package:tala_app/core/utils/app_dimensions.dart';
@@ -24,7 +23,7 @@ abstract class AppConstant {
       'pcsk_BPAiy_BFB9iHbBLspoV4MHyYBkr7NWhhNdDTu7zv5AM4Ew6BFtbmukZw9QVYi1uEvNYmr';
 
   static const apiKeyOpenAi =
-      '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';
+      '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';
   static const kPineconeNameSpaceMatchUser = 'match_user';
   static const kKeySaveScroll = 'save_scroll';
 
@@ -176,7 +175,66 @@ abstract class AppConstant {
     return await InternetConnectionChecker.instance.hasConnection;
   }
 
-  static final List<int> notifications = List.generate(5, (index) => index);
+  static String timeAgoShort(DateTime date) {
+    final now = DateTime.now();
+    final diff = now.difference(date);
+
+    if (diff.inSeconds < 60) return 'now';
+    if (diff.inMinutes < 60) return '${diff.inMinutes}m';
+    if (diff.inHours < 24) return '${diff.inHours}h';
+    if (diff.inDays == 1) return 'Yesterday';
+    if (diff.inDays < 7) return '${diff.inDays}d';
+
+    final weeks = (diff.inDays / 7).floor();
+    if (weeks < 4) return '${weeks}w';
+
+    final months = (diff.inDays / 30).floor();
+    if (months < 12) return '${months}mo';
+
+    final years = (diff.inDays / 365).floor();
+    return '${years}y';
+  }
+
+  static String timeAgo(DateTime date) {
+    final now = DateTime.now();
+    final diff = now.difference(date);
+
+    if (diff.inSeconds < 60) {
+      return 'Just now';
+    }
+
+    if (diff.inMinutes < 60) {
+      final m = diff.inMinutes;
+      return m == 1 ? '1 minute ago' : '$m minutes ago';
+    }
+
+    if (diff.inHours < 24) {
+      final h = diff.inHours;
+      return h == 1 ? '1 hour ago' : '$h hours ago';
+    }
+
+    if (diff.inDays == 1) {
+      return 'Yesterday';
+    }
+
+    if (diff.inDays < 7) {
+      final d = diff.inDays;
+      return d == 1 ? '1 day ago' : '$d days ago';
+    }
+
+    final weeks = (diff.inDays / 7).floor();
+    if (weeks < 4) {
+      return weeks == 1 ? '1 week ago' : '$weeks weeks ago';
+    }
+
+    final months = (diff.inDays / 30).floor();
+    if (months < 12) {
+      return months == 1 ? '1 month ago' : '$months months ago';
+    }
+
+    final years = (diff.inDays / 365).floor();
+    return years == 1 ? '1 year ago' : '$years years ago';
+  }
 
   static void showLoadingDialog(BuildContext context) {
     showDialog(
@@ -214,17 +272,26 @@ abstract class AppConstant {
     return vector.map((v) => v + (random.nextDouble() * noise)).toList();
   }
 
-  static int calculateAge(String dateOfBirth) {
+  static int calculateAge(String? dateOfBirth) {
     try {
-      final dob = DateFormat('dd/MM/yyyy').parse(dateOfBirth);
+      if (dateOfBirth == null || dateOfBirth.isEmpty) return 0;
+
+      final dob = DateFormat(
+        'dd/MM/yyyy',
+        'en',
+      ).parseStrict(dateOfBirth.trim());
       final today = DateTime.now();
+
       int age = today.year - dob.year;
+
       if (today.month < dob.month ||
           (today.month == dob.month && today.day < dob.day)) {
         age--;
       }
+
       return age;
     } catch (e) {
+      print('AGE ERROR: $e | value: $dateOfBirth');
       return 0;
     }
   }

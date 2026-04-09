@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tala_app/core/services/notification_service/push_notification_service.dart';
 import 'package:tala_app/core/utils/service_locator.dart';
 import 'package:tala_app/feature/auth/presentation/manager/get_user_complete_cubit/get_user_complete_cubit.dart';
 import 'package:tala_app/feature/auth/presentation/manager/login_cubit/login_cubit.dart';
@@ -12,9 +13,11 @@ import 'package:tala_app/feature/auth/presentation/view/login_screen.dart';
 import 'package:tala_app/feature/auth/presentation/view/new_password_screen.dart';
 import 'package:tala_app/feature/auth/presentation/view/otp_screen.dart';
 import 'package:tala_app/feature/auth/presentation/view/register_screen.dart';
+import 'package:tala_app/feature/chat/domain/entities/chats_entity.dart';
 import 'package:tala_app/feature/chat/presentation/manager/apply_connection/apply_connection_cubit.dart';
 import 'package:tala_app/feature/chat/presentation/manager/chats/chats_cubit.dart';
 import 'package:tala_app/feature/chat/presentation/manager/check_connection/check_connection_cubit.dart';
+import 'package:tala_app/feature/chat/presentation/manager/get_status/get_status_cubit.dart';
 import 'package:tala_app/feature/chat/presentation/manager/get_typing/get_typing_cubit.dart';
 import 'package:tala_app/feature/chat/presentation/manager/message_cubit/message_cubit.dart';
 import 'package:tala_app/feature/chat/presentation/view/chat_screen.dart';
@@ -22,7 +25,9 @@ import 'package:tala_app/feature/chat/presentation/view/chat_view_images.dart';
 import 'package:tala_app/feature/dating/presentation/manager/get_matches_user/get_matches_user_cubit.dart';
 import 'package:tala_app/feature/dating/presentation/manager/get_user_vector/get_user_vector_cubit.dart';
 import 'package:tala_app/feature/dating/presentation/manager/request_connection/request_connection_cubit.dart';
+import 'package:tala_app/feature/home/presentation/manager/home_cubit/home_cubit.dart';
 import 'package:tala_app/feature/home/presentation/view/home_screen.dart';
+import 'package:tala_app/feature/notification/presentation/manager/notification/notification_cubit.dart';
 import 'package:tala_app/feature/notification/presentation/view/notification_screen.dart';
 import 'package:tala_app/feature/onboarding/presentation/view/onboarding_screen.dart';
 import 'package:tala_app/feature/onboarding/presentation/view/onboarding_slide_screen.dart';
@@ -195,26 +200,36 @@ class AppRoutes {
       ),
       GoRoute(
         path: chatScreen,
-        builder: (context, state) => MultiBlocProvider(
-          providers: [
-            BlocProvider(create: (context) => CheckConnectionCubit(getIt())),
-            BlocProvider(
-              create: (context) => ApplyConnectionCubit(getIt(), getIt()),
-            ),
-            BlocProvider(
-              create: (context) => MessageCubit(
-                getIt(),
-                getIt(),
-                getIt(),
-                getIt(),
-                getIt(),
-                getIt(),
+        builder: (context, state) {
+          final extra = state.extra as ChatEntity;
+          PushNotificationsServices.pendingChatId = extra;
+
+          return MultiBlocProvider(
+            providers: [
+              BlocProvider(create: (context) => CheckConnectionCubit(getIt())),
+              BlocProvider(
+                create: (context) => ApplyConnectionCubit(getIt(), getIt()),
               ),
-            ),
-            BlocProvider(create: (context) => GetTypingCubit(getIt())),
-          ],
-          child: const ChatScreen(),
-        ),
+              BlocProvider(
+                create: (context) => MessageCubit(
+                  getIt(),
+                  getIt(),
+                  getIt(),
+                  getIt(),
+                  getIt(),
+                  getIt(),
+                  getIt(),
+                ),
+              ),
+              BlocProvider(create: (context) => GetTypingCubit(getIt())),
+              BlocProvider(
+                create: (context) =>
+                    GetStatusCubit(getIt())..getChatStatus(extra.uid),
+              ),
+            ],
+            child: const ChatScreen(),
+          );
+        },
       ),
       GoRoute(
         path: homeScreen,
@@ -224,13 +239,17 @@ class AppRoutes {
             BlocProvider(create: (context) => GetMatchesUserCubit(getIt())),
             BlocProvider(create: (context) => RequestConnectionCubit(getIt())),
             BlocProvider(create: (context) => ChatsCubit(getIt())),
+            BlocProvider(create: (context) => HomeCubit(getIt())),
           ],
           child: const HomeScreen(),
         ),
       ),
       GoRoute(
         path: notificationScreen,
-        builder: (context, state) => const NotificationScreen(),
+        builder: (context, state) => BlocProvider(
+          create: (context) => NotificationCubit(getIt(), getIt()),
+          child: const NotificationScreen(),
+        ),
       ),
       GoRoute(
         path: completeSocialRegisterScreen,

@@ -89,6 +89,13 @@ class _CustomFormProfileSetInfoState extends State<CustomFormProfileSetInfo> {
               if (formKey.currentState!.validate()) {
                 formKey.currentState!.save();
                 final cubit = BlocProvider.of<UserFormCubit>(context);
+                if (cubit.state.image == null) {
+                  AppConstant.buildShowSnackBar(
+                    context,
+                    'Please upload your profile picture',
+                  );
+                  return;
+                }
                 final UserProfile userProfileModel = UserProfile(
                   name: name.text,
                   gender: gender,

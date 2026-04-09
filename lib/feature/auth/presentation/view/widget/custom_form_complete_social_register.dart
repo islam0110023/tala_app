@@ -113,6 +113,7 @@ class _CustomFormCompleteSocialRegisterState
     }
     AppConstant.showLoadingDialog(context);
     final user = FirebaseAuth.instance.currentUser!;
+
     context.read<UserFormCubit>().setBasicInfo(
       uid: user.uid,
       email: user.email!,
