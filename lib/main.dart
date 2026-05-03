@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:tala_app/core/db/cache_helper/cache_helper.dart';
 import 'package:tala_app/core/network/dio_helper.dart';
 import 'package:tala_app/core/services/notification_service/local_notification_service.dart';
@@ -23,11 +24,11 @@ final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   DioHelper.init();
-
   await Future.wait([
     Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform),
     EasyLocalization.ensureInitialized(),
     CacheHelper.init(),
+    Hive.initFlutter(),
 
     GoogleSignIn.instance.initialize(
       serverClientId:
@@ -40,6 +41,9 @@ void main() async {
   await Future.wait([
     LocalNotificationServices.init(),
     PushNotificationsServices.init(),
+    Hive.openBox('messagesBox'),
+    Hive.openBox('chatsBox'),
+    Hive.openBox('favoriteEventBox'),
   ]);
   runApp(
     EasyLocalization(
@@ -94,6 +98,22 @@ class TalaApp extends StatelessWidget {
                 noMessage: 'Keine Nachrichten',
                 somethingWentWrong: 'Etwas ist schief gelaufen',
                 reload: 'Neu laden',
+                search: '',
+                now: '',
+                minAgo: '',
+                voice: '',
+                typing: '',
+                isVerb: '',
+                areVerb: '',
+                other: '',
+                others: '',
+                mute: '',
+                unmute: '',
+                pin: '',
+                unpin: '',
+                deleteChat: '',
+                noChats: '',
+                noSearchResults: '',
               ),
             );
 
@@ -111,7 +131,7 @@ class TalaApp extends StatelessWidget {
             child: child!,
           );
         },
-        theme: ThemeData(scaffoldBackgroundColor: AppColor.kWhite1,),
+        theme: ThemeData(scaffoldBackgroundColor: AppColor.kWhite1),
         routerConfig: AppRoutes.route,
         debugShowCheckedModeBanner: false,
       ),

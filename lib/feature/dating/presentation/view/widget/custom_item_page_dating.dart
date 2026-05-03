@@ -10,7 +10,9 @@ import 'package:tala_app/feature/dating/presentation/view/widget/custom_image_da
 import 'package:tala_app/feature/dating/presentation/view/widget/custom_switcher_card_dating.dart';
 
 class CustomItemPageDating extends StatefulWidget {
-  const CustomItemPageDating({super.key});
+  const CustomItemPageDating({
+    super.key,
+  });
 
   @override
   State<CustomItemPageDating> createState() => _CustomItemPageDatingState();
@@ -34,7 +36,7 @@ class _CustomItemPageDatingState extends State<CustomItemPageDating>
         children: [
           CustomImageDatingScreen(image: matchUser?.image ?? ''),
 
-          const CustomSwitcherCardDating(),
+         const CustomSwitcherCardDating(),
           if (tapPosition != null)
             Positioned(
               left: tapPosition!.dx - 40,

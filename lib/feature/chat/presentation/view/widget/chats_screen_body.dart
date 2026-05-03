@@ -68,7 +68,7 @@ class _ChatsScreenBodyState extends State<ChatsScreenBody> {
                         ),
                   );
                 } else {
-                  return const SliverToBoxAdapter(
+                  return const SliverFillRemaining(
                     child: Center(
                       child: Text(
                         'Something went wrong,Try again later',

@@ -25,6 +25,8 @@ import 'package:tala_app/feature/chat/presentation/view/chat_view_images.dart';
 import 'package:tala_app/feature/dating/presentation/manager/get_matches_user/get_matches_user_cubit.dart';
 import 'package:tala_app/feature/dating/presentation/manager/get_user_vector/get_user_vector_cubit.dart';
 import 'package:tala_app/feature/dating/presentation/manager/request_connection/request_connection_cubit.dart';
+import 'package:tala_app/feature/event_details/presentation/view/event_details_screen.dart';
+import 'package:tala_app/feature/home/presentation/manager/event_cubit/event_cubit.dart';
 import 'package:tala_app/feature/home/presentation/manager/home_cubit/home_cubit.dart';
 import 'package:tala_app/feature/home/presentation/view/home_screen.dart';
 import 'package:tala_app/feature/notification/presentation/manager/notification/notification_cubit.dart';
@@ -42,6 +44,14 @@ import 'package:tala_app/feature/profile/presentation/view/profile_like_2_screen
 import 'package:tala_app/feature/profile/presentation/view/profile_music_preferences_screen.dart';
 import 'package:tala_app/feature/profile/presentation/view/profile_select_passions_screen.dart';
 import 'package:tala_app/feature/profile/presentation/view/profile_set_info_screen.dart';
+import 'package:tala_app/feature/profile_home/presentation/manager/event_favorite/event_favorite_cubit.dart';
+import 'package:tala_app/feature/profile_home/presentation/manager/privacy_policy/privacy_policy_cubit.dart';
+import 'package:tala_app/feature/profile_home/presentation/manager/terms_conditions/terms_conditions_cubit.dart';
+import 'package:tala_app/feature/profile_home/presentation/manager/update_profile/update_profile_cubit.dart';
+import 'package:tala_app/feature/profile_home/presentation/view/favorite_event_screen.dart';
+import 'package:tala_app/feature/profile_home/presentation/view/privacy_policy_screen.dart';
+import 'package:tala_app/feature/profile_home/presentation/view/terms_conditions_screen.dart';
+import 'package:tala_app/feature/profile_home/presentation/view/updata_profile_screen.dart';
 import 'package:tala_app/feature/splash_screen/presentation/view/splash_screen.dart';
 import 'package:tala_app/main.dart';
 
@@ -68,6 +78,11 @@ class AppRoutes {
   static const completeSocialRegisterScreen =
       '/complete_social_register_screen';
   static const chatViewImagesScreen = '/chat_view_images_screen';
+  static const privacyPolicyScreen = '/privacy_policy_screen';
+  static const termsConditionsScreen = '/terms_conditions_screen';
+  static const updateProfileScreen = '/update_profile_screen';
+  static final eventDetails = '/event_details';
+  static final favoriteEventScreen = '/favorite_event_screen';
 
   static final route = GoRouter(
     navigatorKey: navigatorKey,
@@ -193,7 +208,10 @@ class AppRoutes {
           final extra = state.extra as Map<String, dynamic>;
           final value = extra['cubit'] as UserFormCubit;
           return MultiBlocProvider(
-            providers: [BlocProvider.value(value: value)],
+            providers: [
+              BlocProvider.value(value: value),
+              BlocProvider(create: (context) => SaveUserAuthCubit(getIt())),
+            ],
             child: const OtpScreen(),
           );
         },
@@ -212,6 +230,8 @@ class AppRoutes {
               ),
               BlocProvider(
                 create: (context) => MessageCubit(
+                  getIt(),
+                  getIt(),
                   getIt(),
                   getIt(),
                   getIt(),
@@ -240,6 +260,7 @@ class AppRoutes {
             BlocProvider(create: (context) => RequestConnectionCubit(getIt())),
             BlocProvider(create: (context) => ChatsCubit(getIt())),
             BlocProvider(create: (context) => HomeCubit(getIt())),
+            BlocProvider(create: (context) => EventCubit(getIt())),
           ],
           child: const HomeScreen(),
         ),
@@ -264,6 +285,38 @@ class AppRoutes {
       GoRoute(
         path: chatViewImagesScreen,
         builder: (context, state) => const ChatViewImages(),
+      ),
+      GoRoute(
+        path: privacyPolicyScreen,
+        builder: (context, state) => BlocProvider(
+          create: (context) => PrivacyPolicyCubit(getIt()),
+          child: const PrivacyPolicyScreen(),
+        ),
+      ),
+      GoRoute(
+        path: termsConditionsScreen,
+        builder: (context, state) => BlocProvider(
+          create: (context) => TermsConditionsCubit(getIt()),
+          child: const TermsConditionsScreen(),
+        ),
+      ),
+      GoRoute(
+        path: updateProfileScreen,
+        builder: (context, state) => BlocProvider(
+          create: (context) => UpdateProfileCubit(getIt()),
+          child: const UpdateProfileScreen(),
+        ),
+      ),
+      GoRoute(
+        path: eventDetails,
+        builder: (context, state) => const EventDetailsScreen(),
+      ),
+      GoRoute(
+        path: favoriteEventScreen,
+        builder: (context, state) => BlocProvider(
+          create: (context) => EventFavoriteCubit(),
+          child: const FavoriteEventScreen(),
+        ),
       ),
     ],
   );

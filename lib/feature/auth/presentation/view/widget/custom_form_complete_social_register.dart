@@ -103,14 +103,14 @@ class _CustomFormCompleteSocialRegisterState
   }
 
   void saveUser(BuildContext context) {
-    final isConnected = getIt<InternetService>().isConnected;
-    if (!isConnected) {
-      AppConstant.buildShowSnackBar(
-        context,
-        LocaleKeys.noInternetConnection.tr(),
-      );
-      return;
-    }
+    // final isConnected = getIt<InternetService>().isConnected;
+    // if (!isConnected) {
+    //   AppConstant.buildShowSnackBar(
+    //     context,
+    //     LocaleKeys.noInternetConnection.tr(),
+    //   );
+    //   return;
+    // }
     AppConstant.showLoadingDialog(context);
     final user = FirebaseAuth.instance.currentUser!;
 

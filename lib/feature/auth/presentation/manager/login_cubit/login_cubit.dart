@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:tala_app/feature/auth/domain/entities/log_in_entity.dart';
@@ -21,9 +23,16 @@ class LoginCubit extends Cubit<LoginState> {
       (l) {
         emit(LoginFailure(l.errMessage));
       },
-      (r) {
+      (r) async {
         loginEntity = r;
-        if (!loginEntity!.credential.user!.emailVerified) {
+        final userDoc = await FirebaseFirestore.instance
+            .collection('users')
+            .doc(r.credential.user!.uid)
+            .get();
+        if (!userDoc.exists) {
+          await FirebaseAuth.instance.signOut();
+          emit(LoginFailure('user not found'));
+        } else if (!loginEntity!.credential.user!.emailVerified) {
           emit(LoginEmailVerified());
         } else {
           emit(LoginSuccess());
@@ -39,8 +48,9 @@ class LoginCubit extends Cubit<LoginState> {
       (l) {
         emit(LoginWithGoogleFailure(l.errMessage));
       },
-      (r) {
+      (r) async {
         loginEntity = r;
+
         emit(LoginWithGoogleSuccess());
       },
     );

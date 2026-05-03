@@ -1,20 +1,15 @@
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:tala_app/core/services/internet_services.dart';
-import 'package:tala_app/core/services/notification_service/push_notification_service.dart';
 import 'package:tala_app/core/utils/app_dimensions.dart';
 import 'package:tala_app/core/utils/constants.dart';
 import 'package:tala_app/core/utils/routes.dart';
-import 'package:tala_app/core/utils/service_locator.dart';
 import 'package:tala_app/core/widget/custom_button.dart';
 import 'package:tala_app/feature/auth/domain/params/register_param.dart';
 import 'package:tala_app/feature/auth/presentation/manager/register_cubit/register_cubit.dart';
-import 'package:tala_app/feature/auth/presentation/manager/save_user_auth_cubit/save_user_auth_cubit.dart';
 import 'package:tala_app/feature/auth/presentation/view/widget/check_agree_terms.dart';
 import 'package:tala_app/feature/auth/presentation/view/widget/custom_fields_register.dart';
 import 'package:tala_app/feature/profile/presentation/manager/user_form_cubit/user_form_cubit.dart';
@@ -34,8 +29,9 @@ class _CustomFormRegisterState extends State<CustomFormRegister> {
   late TextEditingController firstName;
   late TextEditingController lastName;
   late TextEditingController email;
-  late TextEditingController phone;
   late TextEditingController password;
+  String? phoneNumber;
+  bool isChecked = false;
 
   @override
   void initState() {
@@ -43,7 +39,6 @@ class _CustomFormRegisterState extends State<CustomFormRegister> {
     firstName = TextEditingController();
     lastName = TextEditingController();
     email = TextEditingController();
-    phone = TextEditingController();
     password = TextEditingController();
   }
 
@@ -53,122 +48,115 @@ class _CustomFormRegisterState extends State<CustomFormRegister> {
     firstName.dispose();
     lastName.dispose();
     email.dispose();
-    phone.dispose();
     password.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<SaveUserAuthCubit, SaveUserAuthState>(
-      listener: (context, state) async {
-        if (state is SaveUserAuthSuccess) {
-          final cubit = BlocProvider.of<UserFormCubit>(context);
+    return BlocConsumer<RegisterCubit, RegisterState>(
+      listener: (context, state) {
+        if (state is SignUpSuccess) {
           if (context.canPop()) {
             context.pop();
           }
-          final token = await PushNotificationsServices.getToken();
-          if (token != null) {
-            await FirebaseFirestore.instance
-                .collection('users')
-                .doc(FirebaseAuth.instance.currentUser!.uid)
-                .update({
-                  'fcmTokens': FieldValue.arrayUnion([token]),
-                });
-          }
-
+          final user = BlocProvider.of<RegisterCubit>(
+            context,
+          ).signUpEntity!.credential.user;
+          final uid = user!.uid;
+          final cubit = BlocProvider.of<UserFormCubit>(context);
+          cubit.setBasicInfo(
+            uid: uid,
+            email: email.text,
+            phone: phoneNumber!,
+            firstName: firstName.text,
+            lastName: lastName.text,
+          );
+          // final user1 = cubit.firstBuild();
+          // BlocProvider.of<SaveUserAuthCubit>(context).saveUser(user1);
+          verifyEmail(user);
           GoRouter.of(context).push(
             AppRoutes.otpScreen,
             extra: {'isNewPassword': false, 'cubit': cubit},
           );
+          //context.read<RegisterCubit>().reset();
         }
-        if (state is SaveUserAuthFailure) {
+        if (state is SignUpFailure) {
           if (context.canPop()) {
             context.pop();
           }
           AppConstant.buildShowSnackBar(context, state.errMessage);
         }
       },
-      child: BlocConsumer<RegisterCubit, RegisterState>(
-        listener: (context, state) {
-          if (state is SignUpSuccess) {
-            final user = BlocProvider.of<RegisterCubit>(
-              context,
-            ).signUpEntity!.credential.user;
-            final uid = user!.uid;
-            final cubit = BlocProvider.of<UserFormCubit>(context);
-            cubit.setBasicInfo(
-              uid: uid,
-              email: email.text,
-              phone: phone.text,
-              firstName: firstName.text,
-              lastName: lastName.text,
-            );
-            final user1 = cubit.firstBuild();
-            BlocProvider.of<SaveUserAuthCubit>(context).saveUser(user1);
-            verifyEmail(user);
-            //context.read<RegisterCubit>().reset();
-          }
-          if (state is SignUpFailure) {
-            if (context.canPop()) {
-              context.pop();
-            }
-            AppConstant.buildShowSnackBar(context, state.errMessage);
-          }
-        },
-        builder: (context, state) {
-          return Form(
-            key: form,
-            autovalidateMode: autoValidateMode,
+      builder: (context, state) {
+        return Form(
+          key: form,
+          autovalidateMode: autoValidateMode,
 
-            child: Column(
-              children: [
-                CustomFieldsRegister(
-                  firstName: firstName,
-                  email: email,
-                  lastName: lastName,
-                  phone: phone,
-                  password: password,
-                ),
-                const CheckAgreeTerms(),
-                SizedBox(height: AppDimensions.h41),
-                CustomButton(
-                  onTap: () async {
-                    final isConnected = getIt<InternetService>().isConnected;
-                    if (!isConnected) {
-                      AppConstant.buildShowSnackBar(
-                        context,
-                        LocaleKeys.noInternetConnection.tr(),
-                      );
-                      return;
-                    }
-                    signUp(context);
-                  },
-                  name: LocaleKeys.signUp.tr(),
-                ),
-              ],
-            ),
-          );
-        },
-      ),
+          child: Column(
+            children: [
+              CustomFieldsRegister(
+                firstName: firstName,
+                email: email,
+                lastName: lastName,
+                password: password,
+                onChanged: (phone) {
+                  setState(() {
+                    phoneNumber = phone.completeNumber;
+                  });
+                },
+              ),
+              CheckAgreeTerms(
+                isChecked: isChecked,
+                onChanged: (value) {
+                  setState(() {
+                    isChecked = value!;
+                  });
+                },
+              ),
+              SizedBox(height: AppDimensions.h41),
+              CustomButton(
+                onTap: () async {
+                  // final isConnected = getIt<InternetService>().isConnected;
+                  // if (!isConnected) {
+                  //   AppConstant.buildShowSnackBar(
+                  //     context,
+                  //     LocaleKeys.noInternetConnection.tr(),
+                  //   );
+                  //   return;
+                  // }
+                  signUp(context);
+                },
+                name: LocaleKeys.signUp.tr(),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 
   void signUp(BuildContext context) {
-    if (form.currentState!.validate()) {
+    if (form.currentState!.validate() && isChecked&&phoneNumber!=null) {
       form.currentState!.save();
       autoValidateMode = AutovalidateMode.disabled;
       final RegisterParam param = RegisterParam(
         firstName: firstName.text,
         lastName: lastName.text,
         email: email.text,
-        phoneNum: phone.text,
+        phoneNum: phoneNumber!,
         password: password.text,
-        isAgree: true,
+        isAgree: isChecked,
       );
       AppConstant.showLoadingDialog(context);
       BlocProvider.of<RegisterCubit>(context).register(param);
       FocusScope.of(context).unfocus();
     } else {
+      if (isChecked==false) {
+        AppConstant.buildShowSnackBar(
+          context,
+          'Please agree to the terms and conditions',
+        );
+      }
       autoValidateMode = AutovalidateMode.always;
       setState(() {});
     }

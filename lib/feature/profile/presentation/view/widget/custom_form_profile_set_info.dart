@@ -78,14 +78,14 @@ class _CustomFormProfileSetInfoState extends State<CustomFormProfileSetInfo> {
           SizedBox(height: AppDimensions.h42),
           CustomButton(
             onTap: () async {
-              final isConnected = getIt<InternetService>().isConnected;
-              if (!isConnected) {
-                AppConstant.buildShowSnackBar(
-                  context,
-                  LocaleKeys.noInternetConnection.tr(),
-                );
-                return;
-              }
+              // final isConnected = getIt<InternetService>().isConnected;
+              // if (!isConnected) {
+              //   AppConstant.buildShowSnackBar(
+              //     context,
+              //     LocaleKeys.noInternetConnection.tr(),
+              //   );
+              //   return;
+              // }
               if (formKey.currentState!.validate()) {
                 formKey.currentState!.save();
                 final cubit = BlocProvider.of<UserFormCubit>(context);

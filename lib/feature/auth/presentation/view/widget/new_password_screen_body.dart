@@ -51,15 +51,15 @@ class NewPasswordScreenBody extends StatelessWidget {
                     SizedBox(height: AppDimensions.h51),
                     CustomButton(
                       onTap: () async {
-                        final isConnected =
-                            getIt<InternetService>().isConnected;
-                        if (!isConnected) {
-                          AppConstant.buildShowSnackBar(
-                            context,
-                            LocaleKeys.noInternetConnection.tr(),
-                          );
-                          return;
-                        }
+                        // final isConnected =
+                        //     getIt<InternetService>().isConnected;
+                        // if (!isConnected) {
+                        //   AppConstant.buildShowSnackBar(
+                        //     context,
+                        //     LocaleKeys.noInternetConnection.tr(),
+                        //   );
+                        //   return;
+                        // }
                       },
                       name: LocaleKeys.createNewPassword.tr(),
                     ),

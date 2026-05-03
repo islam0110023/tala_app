@@ -1,4 +1,5 @@
 import 'package:chatview/chatview.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:tala_app/core/errors/failure.dart';
 import 'package:tala_app/feature/chat/data/data_source/chats_remote_data_source.dart';
@@ -144,6 +145,35 @@ class ChatsRepoImpl extends ChatsRepo {
     try {
       final chatStatus = chatsRemoteDataSource.getChatStatus(uid);
       return chatStatus.map((chatStatus) => right(chatStatus));
+    } catch (e) {
+      return Stream.value(left(AppFailure.fromException(e)));
+    }
+  }
+
+  @override
+  Future<Either<Failure, (List<Message>, DocumentSnapshot<Object?>?)>>
+  getMessagesPage({
+    required String chatId,
+    DocumentSnapshot<Object?>? lastDoc,
+    int? limit,
+  }) async {
+    try {
+      final messages = await chatsRemoteDataSource.getMessagesPage(
+        chatId: chatId,
+        lastDoc: lastDoc,
+        limit: limit??20,
+      );
+      return right(messages);
+    } catch (e) {
+      return left(AppFailure.fromException(e));
+    }
+  }
+
+  @override
+  Stream<Either<Failure, List<Message>>> listenToNewMessages(String chatId) {
+    try {
+      final messages = chatsRemoteDataSource.listenToNewMessages(chatId);
+      return messages.map((messages) => right(messages));
     } catch (e) {
       return Stream.value(left(AppFailure.fromException(e)));
     }

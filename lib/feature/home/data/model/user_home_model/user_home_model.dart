@@ -66,16 +66,12 @@ class UserHomeModel {
         : Personality.fromJson(json['personality']),
 
     phone: json['phone'] as String?,
-    profile: json['profile'] == null
-        ? null
-        : Profile.fromJson(json['profile']),
+    profile: json['profile'] == null ? null : Profile.fromJson(json['profile']),
 
     subscriptionId: json['subscriptionId'],
     uid: json['uid'] as String?,
 
-    usage: json['usage'] == null
-        ? null
-        : Usage.fromJson(json['usage']),
+    usage: json['usage'] == null ? null : Usage.fromJson(json['usage']),
   );
   String? bio;
   DateTime? createdAt;
@@ -133,6 +129,7 @@ class UserHomeModel {
       favoriteArtist: musicLike?.favoriteArtists ?? '',
       bio: bio ?? '',
       phoneNumber: phone ?? '',
+      data: profile?.dateOfBirth ?? '',
     );
   }
 }

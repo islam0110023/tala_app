@@ -16,6 +16,7 @@ import 'package:tala_app/feature/dating/presentation/manager/get_user_vector/get
 import 'package:tala_app/feature/dating/presentation/manager/match_user_provider.dart';
 import 'package:tala_app/feature/dating/presentation/view/widget/custom_item_page_dating.dart';
 import 'package:tala_app/feature/dating/presentation/view/widget/custom_item_page_dating_skeletonizer.dart';
+import 'package:tala_app/feature/dating/presentation/view/widget/tutorial_overlay.dart';
 import 'package:tala_app/generated/locale_keys.g.dart';
 
 class CustomPageViewDatingScreen extends StatefulWidget {
@@ -36,11 +37,13 @@ class _CustomPageViewDatingScreenState
   bool isLimitReached = false;
   bool _isConsumingScroll = false;
   bool hasShownLimitMessage = false;
+  bool showTutorial = false;
 
   @override
   void initState() {
     super.initState();
     controller = PageController(initialPage: 0);
+    _checkTutorial();
     startScrollTimer();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       checkLimitOnEnter();
@@ -62,6 +65,16 @@ class _CustomPageViewDatingScreenState
   void dispose() {
     controller.dispose();
     super.dispose();
+  }
+
+  Future<void> _checkTutorial() async {
+    final seen = await TutorialService.isSeen();
+
+    if (!seen) {
+      setState(() {
+        showTutorial = true;
+      });
+    }
   }
 
   void getUserVector() {
@@ -228,25 +241,50 @@ class _CustomPageViewDatingScreenState
               child: CustomItemPageDatingSkeletonizer(),
             );
           } else if (state is GetMatchesUserSuccess) {
-            return Skeletonizer(
-              enabled: false,
-              child: PageView.builder(
-                scrollDirection: Axis.vertical,
-                controller: controller,
-                physics: canScroll
-                    ? const BouncingScrollPhysics()
-                    : const NeverScrollableScrollPhysics(),
-                onPageChanged: onPageChanged,
-                itemCount: state.matches.length,
-                itemBuilder: (context, index) {
-                  return MatchUserProvider(
-                    matchUser: state.matches[index],
-                    child: CustomItemPageDating(
-                      key: PageStorageKey(state.matches[index].uid),
-                    ),
-                  );
-                },
-              ),
+            return Stack(
+              children: [
+                Skeletonizer(
+                  enabled: false,
+                  child: PageView.builder(
+                    scrollDirection: Axis.vertical,
+                    controller: controller,
+                    physics: canScroll
+                        ? const BouncingScrollPhysics()
+                        : const NeverScrollableScrollPhysics(),
+                    onPageChanged: onPageChanged,
+                    itemCount: state.matches.length,
+                    itemBuilder: (context, index) {
+                      return MatchUserProvider(
+                        matchUser: state.matches[index],
+                        child: CustomItemPageDating(
+                          key: PageStorageKey(state.matches[index].uid),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                if (showTutorial)
+                AnimatedSwitcher(
+                  duration: const Duration(milliseconds: 500),
+                  transitionBuilder: (child, animation) {
+                    return FadeTransition(opacity: animation, child: child);
+                  },
+                  child: TutorialOverlay(
+                    steps: [
+                      TutorialStepModel(
+                        text: 'Swipe up or down to discover new matches 👆',
+                      ),
+                      TutorialStepModel(
+                        text:
+                            'Double tap anywhere to like and start matching ❤️',
+                      ),
+                      TutorialStepModel(
+                        text: 'Swipe left to see something new 👈',
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             );
           } else {
             return Center(

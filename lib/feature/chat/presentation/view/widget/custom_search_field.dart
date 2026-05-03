@@ -1,8 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tala_app/core/utils/app_color.dart';
 import 'package:tala_app/core/utils/app_dimensions.dart';
 import 'package:tala_app/core/utils/styling.dart';
+import 'package:tala_app/feature/chat/presentation/manager/chats/chats_cubit.dart';
 import 'package:tala_app/generated/locale_keys.g.dart';
 
 class CustomSearchField extends StatelessWidget {
@@ -25,6 +27,9 @@ class CustomSearchField extends StatelessWidget {
       ),
       child: TextField(
         style: Styling.searchHintStyle,
+        onChanged: (value) {
+          context.read<ChatsCubit>().searchChats(value);
+        },
         decoration: InputDecoration(
           hintText: LocaleKeys.search.tr(),
           hintStyle: Styling.searchHintStyle,

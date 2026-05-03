@@ -16,8 +16,10 @@ import 'package:tala_app/feature/chat/domain/usa_case/accept_connection_use_case
 import 'package:tala_app/feature/chat/domain/usa_case/check_connection_use_case.dart';
 import 'package:tala_app/feature/chat/domain/usa_case/get_chat_status_use_case.dart';
 import 'package:tala_app/feature/chat/domain/usa_case/get_chats_use_case.dart';
+import 'package:tala_app/feature/chat/domain/usa_case/get_messages_page_use_case.dart';
 import 'package:tala_app/feature/chat/domain/usa_case/get_messages_use_case.dart';
 import 'package:tala_app/feature/chat/domain/usa_case/get_typing_status_use_case.dart';
+import 'package:tala_app/feature/chat/domain/usa_case/listen_to_new_messages_use_case.dart';
 import 'package:tala_app/feature/chat/domain/usa_case/mark_messages_as_read_use_case.dart';
 import 'package:tala_app/feature/chat/domain/usa_case/mark_notification_as_read_use_case.dart';
 import 'package:tala_app/feature/chat/domain/usa_case/not_connection_use_case.dart';
@@ -38,6 +40,7 @@ import 'package:tala_app/feature/dating/domain/usa_case/save_scroll_use_case.dar
 import 'package:tala_app/feature/home/data/data_source/home_remote_data_source.dart';
 import 'package:tala_app/feature/home/data/repo/home_repo_impl.dart';
 import 'package:tala_app/feature/home/domain/repo/home_repo.dart';
+import 'package:tala_app/feature/home/domain/use_case/get_events_use_case.dart';
 import 'package:tala_app/feature/home/domain/use_case/get_user_use_case.dart';
 import 'package:tala_app/feature/notification/data/data_source/notification_remote_data_source.dart';
 import 'package:tala_app/feature/notification/data/repo/notification_repo_impl.dart';
@@ -50,6 +53,12 @@ import 'package:tala_app/feature/profile/domain/repo/profile_repo.dart';
 import 'package:tala_app/feature/profile/domain/usa_case/create_vector_with_a_i_use_case.dart';
 import 'package:tala_app/feature/profile/domain/usa_case/save_user_usa_case.dart';
 import 'package:tala_app/feature/profile/domain/usa_case/store_vector_in_pinecone_use_case.dart';
+import 'package:tala_app/feature/profile_home/data/data_source/profile_home_remote_data_source.dart';
+import 'package:tala_app/feature/profile_home/data/repo/profile_home_repo_impl.dart';
+import 'package:tala_app/feature/profile_home/domain/repo/profile_home_repo.dart';
+import 'package:tala_app/feature/profile_home/domain/use_case/get_privacy_policy_use_case.dart';
+import 'package:tala_app/feature/profile_home/domain/use_case/get_terms_conditions_use_case.dart';
+import 'package:tala_app/feature/profile_home/domain/use_case/update_profile_use_case.dart';
 
 final getIt = GetIt.instance;
 void setUpServices() {
@@ -76,6 +85,9 @@ void setUpServices() {
   getIt.registerLazySingleton<HomeRemoteDataSource>(
     () => HomeRemoteDataSourceImpl(),
   );
+  getIt.registerLazySingleton<ProfileHomeRemoteDataSource>(
+    () => ProfileHomeRemoteDataSourceImpl(),
+  );
 
   // Repo
   getIt.registerLazySingleton<AuthRepo>(() => AuthRepoImpl(getIt()));
@@ -88,7 +100,9 @@ void setUpServices() {
     () => NotificationRepoImpl(getIt()),
   );
   getIt.registerLazySingleton<HomeRepo>(() => HomeRepoImpl(getIt()));
-
+  getIt.registerLazySingleton<ProfileHomeRepo>(
+    () => ProfileHomeRepoImpl(getIt()),
+  );
 
   // UseCases
   getIt.registerLazySingleton(() => RegisterUseCase(getIt()));
@@ -122,5 +136,10 @@ void setUpServices() {
   getIt.registerLazySingleton(() => RemoveNotificationUseCase(getIt()));
   getIt.registerLazySingleton(() => GetChatStatusUseCase(getIt()));
   getIt.registerLazySingleton(() => GetUserUseCase(getIt()));
-
+  getIt.registerLazySingleton(() => GetPrivacyPolicyUseCase(getIt()));
+  getIt.registerLazySingleton(() => GetMessagesPageUseCase(getIt()));
+  getIt.registerLazySingleton(() => ListenToNewMessagesUseCase(getIt()));
+  getIt.registerLazySingleton(() => GetTermsConditionsUseCase(getIt()));
+  getIt.registerLazySingleton(() => UpdateProfileUseCase(getIt()));
+  getIt.registerLazySingleton(() => GetEventsUseCase(getIt()));
 }

@@ -39,7 +39,15 @@ class _ChatScreenBodyState extends State<ChatScreenBody> {
     context.read<CheckConnectionCubit>().checkConnection(chat.uid);
     chatController = ChatController(
       initialMessageList: [],
-      scrollController: ScrollController(),
+      scrollController: ScrollController()
+        ..addListener(() {
+          final controller = chatController.scrollController;
+
+          if (controller.position.pixels <=
+              controller.position.minScrollExtent + 100) {
+            context.read<MessageCubit>().loadMoreMessages(chat.chatId);
+          }
+        }),
       otherUsers: [
         ChatUser(
           id: chat.uid,
@@ -104,7 +112,7 @@ class _ChatScreenBodyState extends State<ChatScreenBody> {
               buildAlertDialogFromUser(context);
             }
             if (state is CheckConnectionIsConnection) {
-              context.read<MessageCubit>().loadMessages(chat.chatId);
+              context.read<MessageCubit>().loadInitialMessages(chat.chatId);
               context.read<MessageCubit>().isConnection();
               context.read<GetTypingCubit>().getTypingStatus(
                 UpdateTypingStateParam(
@@ -153,7 +161,7 @@ class _ChatScreenBodyState extends State<ChatScreenBody> {
           if (state.messages.isEmpty && isLoaded) {
             chatController.initialMessageList.clear();
             isLoaded = false;
-            context.read<MessageCubit>().loadMessages(chat.chatId);
+            context.read<MessageCubit>().loadInitialMessages(chat.chatId);
           }
           if (state.errMessage != null) {
             showDialog(
@@ -177,17 +185,17 @@ class _ChatScreenBodyState extends State<ChatScreenBody> {
         },
         buildWhen: (previous, current) =>
             previous.messages.length > current.messages.length ||
-            (!isLoaded &&
+            (
                 (previous.isLoading != current.isLoading ||
                     previous.messages != current.messages ||
                     previous.errMessage != current.errMessage)),
         builder: (context, state) {
-          if (state.messages.isNotEmpty) {
-            isLoaded = true;
-          }
-          if (state.messages.isEmpty) {
-            isLoaded = false;
-          }
+          // if (state.messages.isNotEmpty) {
+          //   isLoaded = true;
+          // }
+          // if (state.messages.isEmpty) {
+          //   isLoaded = false;
+          // }
 
           return CustomChatView(
             chatController: chatController,

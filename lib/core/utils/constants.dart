@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:math';
 
 import 'package:adaptive_dialog/adaptive_dialog.dart';
@@ -5,7 +6,9 @@ import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:tala_app/core/model/genre_model.dart';
 import 'package:tala_app/core/utils/app_color.dart';
@@ -26,6 +29,7 @@ abstract class AppConstant {
       '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';
   static const kPineconeNameSpaceMatchUser = 'match_user';
   static const kKeySaveScroll = 'save_scroll';
+  static const kUserIsComplete = 'user_is_complete';
 
   static final List<String> kGenderOptions = [
     LocaleKeys.male.tr(),
@@ -291,7 +295,9 @@ abstract class AppConstant {
 
       return age;
     } catch (e) {
-      print('AGE ERROR: $e | value: $dateOfBirth');
+      if (kDebugMode) {
+        print('AGE ERROR: $e | value: $dateOfBirth');
+      }
       return 0;
     }
   }
@@ -300,5 +306,19 @@ abstract class AppConstant {
     final List<String> ids = [currentUid, uid]..sort();
     final chatId = ids.join('_');
     return chatId;
+  }
+
+  static Future<File?> compressProfile(File file) async {
+    final result = await FlutterImageCompress.compressAndGetFile(
+      file.absolute.path,
+      '${file.path}_profile.webp',
+      quality: 60,
+      minWidth: 700,
+      minHeight: 1080,
+      format: CompressFormat.webp,
+    );
+    if (result == null) return null;
+
+    return File(result.path);
   }
 }

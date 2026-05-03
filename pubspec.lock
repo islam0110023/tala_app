@@ -69,10 +69,10 @@ packages:
     dependency: transitive
     description:
       name: audio_waveforms
-      sha256: "658fef41bbab299184b65ba2fd749e8ec658c1f7d54a21f7cf97fa96b173b4ce"
+      sha256: "03b3430ecf430a2e90185518a228c02be3d26653c62dd931e50d671213a6dbc8"
       url: "https://pub.dev"
     source: hosted
-    version: "1.3.0"
+    version: "2.0.2"
   awesome_snackbar_content:
     dependency: "direct main"
     description:
@@ -133,18 +133,18 @@ packages:
     dependency: "direct main"
     description:
       name: chatview
-      sha256: "438f9c966b1d053daf276fff93e3fc06fad6ea6e5b29d75ff6a03fe40588f95d"
+      sha256: "4503f1673339c414dd2455bd551dee992748cbf76eeca2e8ba6224ff1ad31eee"
       url: "https://pub.dev"
     source: hosted
-    version: "2.5.0"
+    version: "3.0.0"
   chatview_utils:
     dependency: transitive
     description:
       name: chatview_utils
-      sha256: "4836af7f00f2cfb3e7038e8b580891ec30907cf95386f7dce13b45a9703c4b50"
+      sha256: b872e70d4f17902868f31aed49356eac3bb186bb79557e4fbcf42c6053dbcf63
       url: "https://pub.dev"
     source: hosted
-    version: "0.0.1"
+    version: "3.0.0"
   checked_yaml:
     dependency: transitive
     description:
@@ -574,6 +574,54 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.4.1"
+  flutter_image_compress:
+    dependency: "direct main"
+    description:
+      name: flutter_image_compress
+      sha256: "51d23be39efc2185e72e290042a0da41aed70b14ef97db362a6b5368d0523b27"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.4.0"
+  flutter_image_compress_common:
+    dependency: transitive
+    description:
+      name: flutter_image_compress_common
+      sha256: c5c5d50c15e97dd7dc72ff96bd7077b9f791932f2076c5c5b6c43f2c88607bfb
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.6"
+  flutter_image_compress_macos:
+    dependency: transitive
+    description:
+      name: flutter_image_compress_macos
+      sha256: "20019719b71b743aba0ef874ed29c50747461e5e8438980dfa5c2031898f7337"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.3"
+  flutter_image_compress_ohos:
+    dependency: transitive
+    description:
+      name: flutter_image_compress_ohos
+      sha256: e76b92bbc830ee08f5b05962fc78a532011fcd2041f620b5400a593e96da3f51
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.3"
+  flutter_image_compress_platform_interface:
+    dependency: transitive
+    description:
+      name: flutter_image_compress_platform_interface
+      sha256: "579cb3947fd4309103afe6442a01ca01e1e6f93dc53bb4cbd090e8ce34a41889"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.5"
+  flutter_image_compress_web:
+    dependency: transitive
+    description:
+      name: flutter_image_compress_web
+      sha256: b9b141ac7c686a2ce7bb9a98176321e1182c9074650e47bb140741a44b6f5a96
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.5"
   flutter_launcher_icons:
     dependency: "direct dev"
     description:
@@ -733,6 +781,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.1"
+  hive:
+    dependency: "direct main"
+    description:
+      name: hive
+      sha256: "8dcf6db979d7933da8217edcec84e9df1bdb4e4edc7fc77dbd5aa74356d6d941"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.2.3"
+  hive_flutter:
+    dependency: "direct main"
+    description:
+      name: hive_flutter
+      sha256: dca1da446b1d808a51689fb5d0c6c9510c0a2ba01e22805d492c73b68e33eecc
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.0"
   html:
     dependency: transitive
     description:
@@ -853,6 +917,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.20.2"
+  intl_phone_field:
+    dependency: "direct main"
+    description:
+      name: intl_phone_field
+      sha256: "73819d3dfcb68d2c85663606f6842597c3ddf6688ac777f051b17814fe767bbf"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.2.0"
   json_annotation:
     dependency: transitive
     description:
@@ -1165,6 +1237,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.4.1"
+  shimmer:
+    dependency: "direct main"
+    description:
+      name: shimmer
+      sha256: "5f88c883a22e9f9f299e5ba0e4f7e6054857224976a5d9f839d4ebdc94a14ac9"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.0"
   skeletonizer:
     dependency: "direct main"
     description:

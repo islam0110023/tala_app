@@ -19,9 +19,9 @@ class _HomeScreenState extends State<HomeScreen> {
   List<bool> isPageInitialized = [true, false, false, false];
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
+
 
   void onTap(int index) {
     setState(() {

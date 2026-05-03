@@ -54,9 +54,11 @@ class AppFailure extends Failure {
 
         case 'internal':
           return AppFailure(LocaleKeys.serverError.tr());
-
+        case 'unknown':
+          return AppFailure(LocaleKeys.unexpected.tr());
         default:
-          return AppFailure(error.message ?? LocaleKeys.unexpected.tr());
+          return AppFailure(LocaleKeys.unexpected.tr());
+
       }
     }
 
@@ -127,6 +129,9 @@ class AppFailure extends Failure {
             return AppFailure(LocaleKeys.passwordRule.tr());
           }
           return AppFailure(error.message ?? LocaleKeys.authFailed.tr());
+        case 'network-request-failed':
+          return AppFailure(LocaleKeys.connectionError.tr());
+
         default:
           return AppFailure(error.message ?? LocaleKeys.authFailed.tr());
       }

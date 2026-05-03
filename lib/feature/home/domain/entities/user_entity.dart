@@ -12,6 +12,7 @@ class UserEntity {
     required this.favoriteArtist,
     required this.bio,
     required this.phoneNumber,
+    required this.data,
   });
   final String uid;
   final String name;
@@ -24,5 +25,6 @@ class UserEntity {
   final String favoriteArtist;
   final String bio;
   final String phoneNumber;
+  final String data;
 
 }

@@ -31,4 +31,10 @@ class AppImage {
   static const kHeartIcon = 'assets/images/heart_icon.svg';
   static const kHeartLottie = 'assets/lotties/like.json';
   static const kClockLottie = 'assets/lotties/clock.json';
+  static const kSwipeUpLottie = 'assets/lotties/Swipe Gesture Up.json';
+  static const kDoubleTapLottie = 'assets/lotties/Double Tap Touch Gesture.json';
+  static const kSwipeLeftLottie = 'assets/lotties/Black Swipe Left.json';
+
+
+
 }

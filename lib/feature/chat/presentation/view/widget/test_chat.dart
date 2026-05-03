@@ -39,10 +39,10 @@ class CustomChatView extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: ChatView(
-        isLastPage: true,
+        //  isLastPage: true,
         chatController: chatController!,
         onSendTap: onSendTap,
-        loadMoreData: loadMoreData,
+        //  loadMoreData: loadMoreData,
         chatViewStateConfig: ChatViewStateConfiguration(
           onReloadButtonTap: onReloadButtonTap,
         ),
@@ -56,6 +56,7 @@ class CustomChatView extends StatelessWidget {
           enableDoubleTapToLike: false,
           enableChatSeparator: true,
           enableReplySnackBar: false,
+          enableTextSelection: true,
         ),
         chatViewState: chatViewState!,
         appBar: ChatViewAppBar(
@@ -80,15 +81,18 @@ class CustomChatView extends StatelessWidget {
         ),
         sendMessageConfig: SendMessageConfiguration(
           allowRecordingVoice: true,
-          enableCameraImagePicker: true,
-          enableGalleryImagePicker: true,
+          // enableCameraImagePicker: true,
+          // enableGalleryImagePicker: true,
           cancelRecordConfiguration: const CancelRecordConfiguration(),
           voiceRecordingConfiguration: const VoiceRecordingConfiguration(
-            androidEncoder: AndroidEncoder.aac,
-            androidOutputFormat: AndroidOutputFormat.mpeg4,
-            bitRate: 256000,
-            sampleRate: 44100,
-            iosEncoder: IosEncoder.kAudioFormatMPEG4AAC,
+            // androidEncoder: AndroidEncoder.aac,
+            // androidOutputFormat: AndroidOutputFormat.mpeg4,
+            // bitRate: 256000,
+            // sampleRate: 44100,
+            // iosEncoder: IosEncoder.kAudioFormatMPEG4AAC,
+            recorderSettings: RecorderSettings(
+              androidEncoderSettings: AndroidEncoderSettings(),
+            ),
             waveStyle: WaveStyle(
               waveColor: Color(0xffEE5366),
               showBottom: true,
@@ -203,13 +207,29 @@ class CustomChatView extends StatelessWidget {
             borderRadius: BorderRadius.circular(AppDimensions.r12),
           ),
           voiceMessageConfig: VoiceMessageConfiguration(
-            playerWaveStyle: PlayerWaveStyle(
+            // playerWaveStyle: PlayerWaveStyle(
+            //   waveCap: StrokeCap.square,
+            //   fixedWaveColor: AppColor.kWhite,
+            //   liveWaveColor: AppColor.kBlack,
+            // ),
+            playIcon: (isMessageBySender) {
+              return Icon(Icons.play_arrow, color: AppColor.kBlack);
+            },
+            pauseIcon: (isMessageBySender) {
+              return Icon(Icons.stop, color: AppColor.kBlack);
+            },
+            outgoingPlayerWaveStyle: PlayerWaveStyle(
               waveCap: StrokeCap.square,
               fixedWaveColor: AppColor.kWhite,
               liveWaveColor: AppColor.kBlack,
             ),
-            playIcon: Icon(Icons.play_arrow, color: AppColor.kBlack),
-            pauseIcon: Icon(Icons.stop, color: AppColor.kBlack),
+            inComingPlayerWaveStyle: PlayerWaveStyle(
+              waveCap: StrokeCap.square,
+              fixedWaveColor: AppColor.kWhite,
+              liveWaveColor: AppColor.kBlack,
+            ),
+            // playIcon: Icon(Icons.play_arrow, color: AppColor.kBlack),
+            // pauseIcon: Icon(Icons.stop, color: AppColor.kBlack),
           ),
           imageMessageConfig: ImageMessageConfiguration(
             height: AppDimensions.r200,

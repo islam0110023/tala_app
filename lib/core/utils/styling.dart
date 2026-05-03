@@ -10,6 +10,20 @@ abstract class Styling {
     fontFamily: AppConstant.kFontFamily,
     fontWeight: FontWeight.w800,
   );
+  static final textStyle24 = TextStyle(
+    color: const Color(0xFF650F82),
+    fontSize: 24.sp,
+    fontFamily: AppConstant.kFontFamily,
+    fontWeight: FontWeight.w700,
+    height: 0.52,
+  );
+  static final textStyle161 = TextStyle(
+    color: const Color(0xFF650F82),
+    fontSize: 16.sp,
+    fontFamily: AppConstant.kFontFamily,
+    fontWeight: FontWeight.w700,
+    height: 0.52,
+  );
   static final textStyle10 = TextStyle(
     color: AppColor.kWhite1,
     fontSize: 10.sp,
@@ -49,6 +63,12 @@ abstract class Styling {
     fontSize: 15.sp,
     fontFamily: AppConstant.kFontFamily,
     fontWeight: FontWeight.w600,
+  );
+  static final textStyle12 = TextStyle(
+    color: const Color(0xFF444444),
+    fontSize: 12.sp,
+    fontFamily: AppConstant.kFontFamily,
+    fontWeight: FontWeight.w400,
   );
   static final textStyle13 = TextStyle(
     color: AppColor.kBlack.withAlpha(128),

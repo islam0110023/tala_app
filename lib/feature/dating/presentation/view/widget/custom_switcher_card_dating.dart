@@ -5,6 +5,7 @@ import 'package:tala_app/feature/dating/presentation/view/widget/custom_second_c
 class CustomSwitcherCardDating extends StatefulWidget {
   const CustomSwitcherCardDating({super.key});
 
+
   @override
   State<CustomSwitcherCardDating> createState() =>
       _CustomSwitcherCardDatingState();

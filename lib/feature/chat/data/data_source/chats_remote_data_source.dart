@@ -7,7 +7,7 @@ import 'package:cloud_functions/cloud_functions.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_database/firebase_database.dart' hide Query;
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:tala_app/core/utils/constants.dart';
@@ -34,6 +34,12 @@ abstract class ChatsRemoteDataSource {
   Future<Unit> markNotificationAsRead(String chatId);
   Stream<ChatStatusEntity> getChatStatus(String uid);
   Future<void> checkAndConsumeMessage();
+  Future<(List<Message>, DocumentSnapshot?)> getMessagesPage({
+    required String chatId,
+    DocumentSnapshot? lastDoc,
+    int limit,
+  });
+  Stream<List<Message>> listenToNewMessages(String chatId);
 }
 
 class ChatsRemoteDataSourceImpl extends ChatsRemoteDataSource {
@@ -111,14 +117,14 @@ class ChatsRemoteDataSourceImpl extends ChatsRemoteDataSource {
     if (param.message.messageType.isVoice) {
       final File file = File(param.message.message);
       final String filePath = 'chats/voices/${param.message.id}.m4a';
-      final url = await getUrl(filePath, file);
+      final url = await getUrlVoice(filePath, file);
       param.message = param.message.copyWith(message: url);
       lastMessage = 'Voice Message';
     }
     if (param.message.messageType.isImage) {
       final File file = File(param.message.message);
-      final String filePath = 'chats/images/${param.message.id}.jpg';
-      final url = await getUrl(filePath, file);
+      final String filePath = 'chats/images';
+      final url = await uploadImage(file: file, folder: filePath);
       param.message = param.message.copyWith(message: url);
       lastMessage = 'Image Message';
     }
@@ -126,7 +132,7 @@ class ChatsRemoteDataSourceImpl extends ChatsRemoteDataSource {
       final File file = File(param.message.replyMessage.message);
       final String filePath =
           'chats/voices/${param.message.replyMessage.messageId}.m4a';
-      final url = await getUrl(filePath, file);
+      final url = await getUrlVoice(filePath, file);
       param.message = param.message.copyWith(
         replyMessage: param.message.replyMessage.copyWith(message: url),
       );
@@ -156,11 +162,35 @@ class ChatsRemoteDataSourceImpl extends ChatsRemoteDataSource {
     return unit;
   }
 
-  Future<String> getUrl(String filePath, File file) async {
+  Future<String> getUrlVoice(String filePath, File file) async {
     final ref = FirebaseStorage.instance.ref().child(filePath);
     await ref.putFile(file);
     final getUrl = await ref.getDownloadURL();
     return getUrl;
+  }
+
+  Future<String> uploadImage({
+    required String folder,
+    required File file,
+  }) async {
+    try {
+      final compressed = await AppConstant.compressProfile(file);
+
+      final uploadFile = compressed ?? file;
+
+      final fileName = DateTime.now().millisecondsSinceEpoch.toString();
+      final ref = FirebaseStorage.instance.ref().child(
+        '$folder/$fileName.webp',
+      );
+
+      final metadata = SettableMetadata(contentType: 'image/webp');
+      final uploadTask = await ref.putFile(uploadFile, metadata);
+      final url = await uploadTask.ref.getDownloadURL();
+
+      return url;
+    } catch (e) {
+      throw Exception('Upload failed: $e');
+    }
   }
 
   @override
@@ -174,6 +204,97 @@ class ChatsRemoteDataSourceImpl extends ChatsRemoteDataSource {
         .asyncMap((snapshot) async {
           final futures = snapshot.docs.map((doc) async {
             final Map<String, dynamic> data = doc.data();
+            data['createdAt'] = (data['createdAt'] as Timestamp).toDate();
+            var message = Message.fromJson(data);
+            if (message.messageType.isVoice) {
+              final localUrl = await downloadFile(
+                message.message,
+                message.id,
+                message.messageType,
+              );
+              message = message.copyWith(message: localUrl);
+            }
+            if (message.replyMessage.messageType.isVoice) {
+              final localUrl = await downloadFile(
+                message.replyMessage.message,
+                message.replyMessage.messageId,
+                message.replyMessage.messageType,
+              );
+              message = message.copyWith(
+                replyMessage: message.replyMessage.copyWith(message: localUrl),
+              );
+            }
+            return message;
+          });
+          return await Future.wait(futures);
+        });
+  }
+
+  ////////////////////////
+  @override
+  Future<(List<Message>, DocumentSnapshot?)> getMessagesPage({
+    required String chatId,
+    DocumentSnapshot? lastDoc,
+    int limit = 20,
+  }) async {
+    Query query = FirebaseFirestore.instance
+        .collection('chats')
+        .doc(chatId)
+        .collection('messages')
+        .orderBy('createdAt')
+        .limit(limit);
+
+    if (lastDoc != null) {
+      query = query.startAfterDocument(lastDoc);
+    }
+
+    final snapshot = await query.get();
+
+    final messages = await Future.wait(
+      snapshot.docs.map((doc) async {
+        final data = doc.data() as Map<String, dynamic>;
+        data['createdAt'] = (data['createdAt'] as Timestamp).toDate();
+        var message = Message.fromJson(data);
+        if (message.messageType.isVoice) {
+          final localUrl = await downloadFile(
+            message.message,
+            message.id,
+            message.messageType,
+          );
+          message = message.copyWith(message: localUrl);
+        }
+        if (message.replyMessage.messageType.isVoice) {
+          final localUrl = await downloadFile(
+            message.replyMessage.message,
+            message.replyMessage.messageId,
+            message.replyMessage.messageType,
+          );
+          message = message.copyWith(
+            replyMessage: message.replyMessage.copyWith(message: localUrl),
+          );
+        }
+
+        return message;
+      }),
+    );
+
+    final lastVisible = snapshot.docs.isNotEmpty ? snapshot.docs.last : null;
+
+    return (messages, lastVisible);
+  }
+
+  Stream<List<Message>> listenToNewMessages(String chatId) {
+    return FirebaseFirestore.instance
+        .collection('chats')
+        .doc(chatId)
+        .collection('messages')
+        .orderBy('createdAt')
+       // .where('createdAt', isGreaterThan: lastM)
+       // .limit(10)
+        .snapshots()
+        .asyncMap((snapshot) async{
+          final futures= snapshot.docs.map((doc) async{
+            final data = doc.data();
             data['createdAt'] = (data['createdAt'] as Timestamp).toDate();
             var message = Message.fromJson(data);
             if (message.messageType.isVoice) {

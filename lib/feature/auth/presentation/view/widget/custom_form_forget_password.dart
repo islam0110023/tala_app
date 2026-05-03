@@ -71,14 +71,14 @@ class _CustomFormForgetPasswordState extends State<CustomFormForgetPassword> {
             SizedBox(height: AppDimensions.h51),
             CustomButton(
               onTap: () async {
-                final isConnected = getIt<InternetService>().isConnected;
-                if (!isConnected) {
-                  AppConstant.buildShowSnackBar(
-                    context,
-                    LocaleKeys.noInternetConnection.tr(),
-                  );
-                  return;
-                }
+                // final isConnected = getIt<InternetService>().isConnected;
+                // if (!isConnected) {
+                //   AppConstant.buildShowSnackBar(
+                //     context,
+                //     LocaleKeys.noInternetConnection.tr(),
+                //   );
+                //   return;
+                // }
                 AppConstant.showLoadingDialog(context);
                 context.read<ResetPasswordCubit>().resetPassword(
                   emailController.text,

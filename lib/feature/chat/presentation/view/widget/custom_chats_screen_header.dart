@@ -22,10 +22,10 @@ class CustomChatsScreenHeader extends StatelessWidget {
           image: user?.image,
         ),
         const Spacer(),
-        IconButton(
-          onPressed: () {},
-          icon: Icon(CupertinoIcons.plus, size: AppDimensions.r24),
-        ),
+        // IconButton(
+        //   onPressed: () {},
+        //   icon: Icon(CupertinoIcons.plus, size: AppDimensions.r24),
+        // ),
       ],
     );
   }

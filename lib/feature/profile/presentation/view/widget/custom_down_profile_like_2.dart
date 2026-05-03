@@ -6,12 +6,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tala_app/core/db/cache_helper/cache_helper.dart';
 import 'package:tala_app/core/model/build_user_profile_text.dart';
-import 'package:tala_app/core/services/internet_services.dart';
 import 'package:tala_app/core/utils/app_dimensions.dart';
 import 'package:tala_app/core/utils/constants.dart';
 import 'package:tala_app/core/utils/routes.dart';
-import 'package:tala_app/core/utils/service_locator.dart';
 import 'package:tala_app/core/widget/custom_button.dart';
 import 'package:tala_app/feature/chat/data/data_source/chats_remote_data_source.dart';
 import 'package:tala_app/feature/profile/domain/params/pinecone_param.dart';
@@ -43,9 +42,9 @@ class CustomDownProfileLike2 extends StatelessWidget {
               final vector = context.read<OpenAiCubit>().vector;
               final cubit = BlocProvider.of<UserFormCubit>(context);
 
-              final imageUrl = await ChatsRemoteDataSourceImpl().getUrl(
-                'profiles/images/${cubit.state.uid}.jpg',
-                File(cubit.state.image!),
+              final imageUrl = await ChatsRemoteDataSourceImpl().uploadImage(
+                folder: 'profiles/images',
+                file: File(cubit.state.image!),
               );
               cubit.setImage(imageUrl);
               final user = cubit.build();
@@ -69,8 +68,12 @@ class CustomDownProfileLike2 extends StatelessWidget {
           },
         ),
         BlocListener<SaveUserCubit, SaveUserState>(
-          listener: (context, state) {
+          listener: (context, state) async {
             if (state is SaveUserSuccess) {
+              await CacheHelper.saveData(
+                key: AppConstant.kUserIsComplete,
+                value: true,
+              );
               if (context.canPop()) {
                 context.pop();
               }
@@ -99,14 +102,14 @@ class CustomDownProfileLike2 extends StatelessWidget {
           children: [
             CustomButton(
               onTap: () async {
-                final isConnected = getIt<InternetService>().isConnected;
-                if (!isConnected) {
-                  AppConstant.buildShowSnackBar(
-                    context,
-                    LocaleKeys.noInternetConnection.tr(),
-                  );
-                  return;
-                }
+                // final isConnected = getIt<InternetService>().isConnected;
+                // if (!isConnected) {
+                //   AppConstant.buildShowSnackBar(
+                //     context,
+                //     LocaleKeys.noInternetConnection.tr(),
+                //   );
+                //   return;
+                // }
                 sendUserToOpenAi(context);
               },
               name: LocaleKeys.next.tr(),

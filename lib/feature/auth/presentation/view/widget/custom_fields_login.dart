@@ -1,14 +1,11 @@
-import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:tala_app/core/services/internet_services.dart';
+import 'package:tala_app/core/db/cache_helper/cache_helper.dart';
 import 'package:tala_app/core/utils/app_dimensions.dart';
 import 'package:tala_app/core/utils/constants.dart';
 import 'package:tala_app/core/utils/routes.dart';
-import 'package:tala_app/core/utils/service_locator.dart';
 import 'package:tala_app/core/widget/custom_button.dart';
 import 'package:tala_app/core/widget/custom_text_field.dart';
 import 'package:tala_app/feature/auth/domain/params/login_param.dart';
@@ -68,7 +65,7 @@ class _CustomFormLoginState extends State<CustomFormLogin> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<GetUserCompleteCubit, GetUserCompleteState>(
-      listener: (context, state) {
+      listener: (context, state) async {
         if (state is GetUserCompleteFailure) {
           if (context.canPop()) {
             context.pop();
@@ -76,9 +73,14 @@ class _CustomFormLoginState extends State<CustomFormLogin> {
           AppConstant.buildShowSnackBar(context, state.errMessage);
         }
         if (state is GetUserCompleteIsComplete) {
+          await CacheHelper.saveData(
+            key: AppConstant.kUserIsComplete,
+            value: true,
+          );
           if (context.canPop()) {
             context.pop();
           }
+
           GoRouter.of(context).go(AppRoutes.homeScreen);
         }
         if (state is GetUserCompleteNotComplete) {
@@ -149,14 +151,14 @@ class _CustomFormLoginState extends State<CustomFormLogin> {
                 SizedBox(height: AppDimensions.h36),
                 CustomButton(
                   onTap: () async {
-                    final isConnected = getIt<InternetService>().isConnected;
-                    if (!isConnected) {
-                      AppConstant.buildShowSnackBar(
-                        context,
-                        LocaleKeys.noInternetConnection.tr(),
-                      );
-                      return;
-                    }
+                    // final isConnected = getIt<InternetService>().isConnected;
+                    // if (!isConnected) {
+                    //   AppConstant.buildShowSnackBar(
+                    //     context,
+                    //     LocaleKeys.noInternetConnection.tr(),
+                    //   );
+                    //   return;
+                    // }
                     _submitForm(context);
                   },
                   name: LocaleKeys.login.tr(),

@@ -34,4 +34,17 @@ class ChatEntity {
   final String lastMessage;
   final DateTime updatedAt;
   final int unreadCount;
+  Map<String, dynamic> toJson() {
+    return {
+      'status': status,
+      'uid': uid,
+      'chatId': chatId,
+      'name': name,
+      'currentUName': currentUName,
+      'photoUrl': photoUrl,
+      'lastMessage': lastMessage,
+      'updatedAt': updatedAt.toIso8601String(),
+      'unreadCount': unreadCount,
+    };
+  }
 }
